@@ -21,6 +21,7 @@ if [ $# -gt 0 ]; then
     DIR=$1;
 fi
 
+
 declare -A namespace
 namespace=(
   [air-interface]=air-interface
@@ -35,6 +36,7 @@ namespace=(
   [tdm-container]=tdm-container
   [wire-interface]=wire-interface
   [wred-profile]=wred-profile
+  
 );
 
 declare -A layer
@@ -56,6 +58,15 @@ profile=(
   [qos-profile]=PROFILE_NAME_TYPE_QOS_PROFILE
   [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
 );
+
+
+#/home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang
+echo "copying ietf yang" 
+cd $DIR
+cp ../../ietf-yang-types@2013-07-15.yang $DIR
+#cd /home/wasimsattar/workspace/5G-xHaul/models/tools/ 
+#cp "ietf-yang-types@2013-07-15.yang" $DIR
+
 
 for yang in $DIR/*.yang
 do
@@ -109,8 +120,15 @@ do
   identity="identity ${profile[$index]} {\n base core-model:PROFILE_NAME_TYPE; \n description \"none\"; \n}\n";
   when="when \"derived-from-or-self(.\/core-model:profile-name, '${namespace[$index]}:${profile[$index]}')\";"
   replace=" $identity \n $find \n $when";
-
   sed -i -e "s/$find/$replace/g" $yang;
+
+
+## prefix yang
+ find="prefix ietf-yang-types";
+ replace="prefix yang";
+ sed -i -e "s/$find/$replace/g" $yang;
+
+
 
   # format
   pyang -f yang -p $DIR -o $yang $yang
