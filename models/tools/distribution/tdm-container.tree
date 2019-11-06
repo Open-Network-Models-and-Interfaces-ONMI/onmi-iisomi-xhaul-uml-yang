@@ -1,0 +1,744 @@
+module: core-model
+  +--rw control-construct!
+     +--rw top-level-equipment*         -> /control-construct/equipment/uuid
+     +--rw equipment* [uuid]
+     |  +--rw connector* [local-id]
+     |  |  +--rw connector?                string
+     |  |  +--rw orientation?              connector-and-pin-orientation
+     |  |  +--rw pin-layout?               string
+     |  |  +--rw connector-type?           string
+     |  |  +--rw role?                     string
+     |  |  +--rw local-id                  string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?        operational-state
+     |  |  +--rw administrative-control?   administrative-control
+     |  |  +--ro administrative-state?     administrative-state
+     |  |  +--rw lifecycle-state?          lifecycle-state
+     |  |  +--rw address*                  dt-address
+     |  +--rw contained-holder* [local-id]
+     |  |  +--rw occupying-fru?              -> /control-construct/equipment/uuid
+     |  |  +--rw holder-location?            dt-address
+     |  |  +--rw supported-equipment-type*   string
+     |  |  +--rw expected-holder
+     |  |  |  +--rw spatial-properties-of-type
+     |  |  |  |  +--rw height?   string
+     |  |  |  |  +--rw width?    string
+     |  |  |  |  +--rw length?   string
+     |  |  |  +--rw environmental-rating
+     |  |  |  |  +--rw thermal-rating
+     |  |  |  |  |  +--rw thermal-rating-name?   string
+     |  |  |  |  |  +--rw maximum-temperature?   decimal64
+     |  |  |  |  |  +--rw minimum-temperature?   decimal64
+     |  |  |  |  +--rw power-rating
+     |  |  |  |  |  +--rw power-rating-name?    string
+     |  |  |  |  |  +--rw power-rating-value?   string
+     |  |  |  |  +--rw humidity-rating?   string
+     |  |  |  +--rw position
+     |  |  |  |  +--rw relative-position?   string
+     |  |  |  +--rw holder-structure
+     |  |  |  |  +--rw holder-category?      holder-category
+     |  |  |  |  +--rw is-captive?           boolean
+     |  |  |  |  +--rw is-guided?            boolean
+     |  |  |  |  +--rw is-quantised-space?   boolean
+     |  |  |  +--rw local-id?                     string
+     |  |  |  +--rw name* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw label* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw extension* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--ro operational-state?            operational-state
+     |  |  |  +--rw administrative-control?       administrative-control
+     |  |  |  +--ro administrative-state?         administrative-state
+     |  |  |  +--rw lifecycle-state?              lifecycle-state
+     |  |  |  +--rw address*                      dt-address
+     |  |  +--rw actual-holder
+     |  |  |  +--rw spatial-properties-of-type
+     |  |  |  |  +--rw height?   string
+     |  |  |  |  +--rw width?    string
+     |  |  |  |  +--rw length?   string
+     |  |  |  +--rw environmental-rating
+     |  |  |  |  +--rw thermal-rating
+     |  |  |  |  |  +--rw thermal-rating-name?   string
+     |  |  |  |  |  +--rw maximum-temperature?   decimal64
+     |  |  |  |  |  +--rw minimum-temperature?   decimal64
+     |  |  |  |  +--rw power-rating
+     |  |  |  |  |  +--rw power-rating-name?    string
+     |  |  |  |  |  +--rw power-rating-value?   string
+     |  |  |  |  +--rw humidity-rating?   string
+     |  |  |  +--rw position
+     |  |  |  |  +--rw relative-position?   string
+     |  |  |  +--rw holder-structure
+     |  |  |  |  +--rw holder-category?      holder-category
+     |  |  |  |  +--rw is-captive?           boolean
+     |  |  |  |  +--rw is-guided?            boolean
+     |  |  |  |  +--rw is-quantised-space?   boolean
+     |  |  |  +--rw local-id?                     string
+     |  |  |  +--rw name* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw label* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw extension* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--ro operational-state?            operational-state
+     |  |  |  +--rw administrative-control?       administrative-control
+     |  |  |  +--ro administrative-state?         administrative-state
+     |  |  |  +--rw lifecycle-state?              lifecycle-state
+     |  |  |  +--rw address*                      dt-address
+     |  |  +--rw local-id                    string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?          operational-state
+     |  |  +--rw administrative-control?     administrative-control
+     |  |  +--ro administrative-state?       administrative-state
+     |  |  +--rw lifecycle-state?            lifecycle-state
+     |  |  +--rw address*                    dt-address
+     |  +--ro is-field-replaceable?            boolean
+     |  +--rw function-block*                  string
+     |  +--rw expected-equipment* [local-id]
+     |  |  +--rw location
+     |  |  |  +--rw equipment-location?      dt-address
+     |  |  |  +--rw geographical-location?   dt-address
+     |  |  +--rw structure
+     |  |  |  +--rw category?   equipment-category
+     |  |  +--rw swappability
+     |  |  |  +--rw is-hot-swappable?   boolean
+     |  |  +--rw physical-properties
+     |  |  |  +--rw temperature?   string
+     |  |  +--rw function-enablers
+     |  |  |  +--rw power-state?   string
+     |  |  +--rw mechanical-functions
+     |  |  |  +--rw rotation-speed?   string
+     |  |  +--rw physical-characteristics
+     |  |  |  +--rw weight-characeristics?   string
+     |  |  |  +--rw fire-characteristics?    string
+     |  |  |  +--rw materials?               string
+     |  |  +--rw mechanical-features
+     |  |  +--rw spatial-properties-of-type
+     |  |  |  +--rw height?   string
+     |  |  |  +--rw width?    string
+     |  |  |  +--rw length?   string
+     |  |  +--rw environmental-rating
+     |  |  |  +--rw thermal-rating
+     |  |  |  |  +--rw thermal-rating-name?   string
+     |  |  |  |  +--rw maximum-temperature?   decimal64
+     |  |  |  |  +--rw minimum-temperature?   decimal64
+     |  |  |  +--rw power-rating
+     |  |  |  |  +--rw power-rating-name?    string
+     |  |  |  |  +--rw power-rating-value?   string
+     |  |  |  +--rw humidity-rating?   string
+     |  |  +--rw manufactured-thing
+     |  |  |  +--rw manufacturer-properties
+     |  |  |  |  +--rw manufacturer-identifier?   string
+     |  |  |  |  +--rw manufacturer-name?         string
+     |  |  |  +--rw equipment-type
+     |  |  |  |  +--rw description?            string
+     |  |  |  |  +--rw model-identifier?       string
+     |  |  |  |  +--rw part-type-identifier?   string
+     |  |  |  |  +--rw type-name?              string
+     |  |  |  |  +--rw version?                string
+     |  |  |  +--rw equipment-instance
+     |  |  |  |  +--rw manufacture-date?            string
+     |  |  |  |  +--rw serial-number?               string
+     |  |  |  |  +--rw asset-instance-identifier?   string
+     |  |  |  +--rw operator-augmented-equipment-type
+     |  |  |  |  +--rw asset-type-identifier?   string
+     |  |  |  +--rw operator-augmented-equipment-instance
+     |  |  |     +--rw asset-instance-identifier?   string
+     |  |  +--rw local-id                      string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?            operational-state
+     |  |  +--rw administrative-control?       administrative-control
+     |  |  +--ro administrative-state?         administrative-state
+     |  |  +--rw lifecycle-state?              lifecycle-state
+     |  |  +--rw address*                      dt-address
+     |  +--rw actual-equipment
+     |  |  +--rw location
+     |  |  |  +--rw equipment-location?      dt-address
+     |  |  |  +--rw geographical-location?   dt-address
+     |  |  +--rw structure
+     |  |  |  +--rw category?   equipment-category
+     |  |  +--rw swappability
+     |  |  |  +--rw is-hot-swappable?   boolean
+     |  |  +--rw physical-properties
+     |  |  |  +--rw temperature?   string
+     |  |  +--rw function-enablers
+     |  |  |  +--rw power-state?   string
+     |  |  +--rw mechanical-functions
+     |  |  |  +--rw rotation-speed?   string
+     |  |  +--rw physical-characteristics
+     |  |  |  +--rw weight-characeristics?   string
+     |  |  |  +--rw fire-characteristics?    string
+     |  |  |  +--rw materials?               string
+     |  |  +--rw mechanical-features
+     |  |  +--rw spatial-properties-of-type
+     |  |  |  +--rw height?   string
+     |  |  |  +--rw width?    string
+     |  |  |  +--rw length?   string
+     |  |  +--rw environmental-rating
+     |  |  |  +--rw thermal-rating
+     |  |  |  |  +--rw thermal-rating-name?   string
+     |  |  |  |  +--rw maximum-temperature?   decimal64
+     |  |  |  |  +--rw minimum-temperature?   decimal64
+     |  |  |  +--rw power-rating
+     |  |  |  |  +--rw power-rating-name?    string
+     |  |  |  |  +--rw power-rating-value?   string
+     |  |  |  +--rw humidity-rating?   string
+     |  |  +--rw manufactured-thing
+     |  |  |  +--rw manufacturer-properties
+     |  |  |  |  +--rw manufacturer-identifier?   string
+     |  |  |  |  +--rw manufacturer-name?         string
+     |  |  |  +--rw equipment-type
+     |  |  |  |  +--rw description?            string
+     |  |  |  |  +--rw model-identifier?       string
+     |  |  |  |  +--rw part-type-identifier?   string
+     |  |  |  |  +--rw type-name?              string
+     |  |  |  |  +--rw version?                string
+     |  |  |  +--rw equipment-instance
+     |  |  |  |  +--rw manufacture-date?            string
+     |  |  |  |  +--rw serial-number?               string
+     |  |  |  |  +--rw asset-instance-identifier?   string
+     |  |  |  +--rw operator-augmented-equipment-type
+     |  |  |  |  +--rw asset-type-identifier?   string
+     |  |  |  +--rw operator-augmented-equipment-instance
+     |  |  |     +--rw asset-instance-identifier?   string
+     |  |  +--rw local-id?                     string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?            operational-state
+     |  |  +--rw administrative-control?       administrative-control
+     |  |  +--ro administrative-state?         administrative-state
+     |  |  +--rw lifecycle-state?              lifecycle-state
+     |  |  +--rw address*                      dt-address
+     |  +--rw equipment-functional-boundary?   string
+     |  +--rw external-managed-id
+     |  |  +--rw manager-identifier?      string
+     |  |  +--rw external-managed-uuid?   string
+     |  +--rw local-id?                        string
+     |  +--rw uuid                             universal-id
+     |  +--rw name* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw label* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw extension* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--ro operational-state?               operational-state
+     |  +--rw administrative-control?          administrative-control
+     |  +--ro administrative-state?            administrative-state
+     |  +--rw lifecycle-state?                 lifecycle-state
+     |  +--rw address*                         dt-address
+     +--rw logical-termination-point* [uuid]
+     |  +--rw server-ltp*                -> /control-construct/logical-termination-point/uuid
+     |  +--rw client-ltp*                -> /control-construct/logical-termination-point/uuid
+     |  +--rw layer-protocol* [local-id]
+     |  |  +--rw layer-protocol-name?                layer-protocol-name-type
+     |  |  +--rw configured-client-capacity?         string
+     |  |  +--rw lp-direction?                       termination-direction
+     |  |  +--rw termination-state?                  termination-state
+     |  |  +--rw configuration-and-switch-control*   string
+     |  |  +--rw is-protection-lock-out?             boolean
+     |  |  +--rw fc-blocks-signal-to-lp?             string
+     |  |  +--rw local-id                            string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?                  operational-state
+     |  |  +--rw administrative-control?             administrative-control
+     |  |  +--ro administrative-state?               administrative-state
+     |  |  +--rw lifecycle-state?                    lifecycle-state
+     |  |  +--rw address*                            dt-address
+     |  |  +--ro tdm-container:tdm-container-pac
+     |  |     +--ro tdm-container:tdm-container-capability
+     |  |     |  +--ro tdm-container:supported-tdm-container-kind-list* [tdm-container-name]
+     |  |     |  |  +--ro tdm-container:tdm-container-name    string
+     |  |     |  |  +--ro tdm-container:tdm-container-size?   int32
+     |  |     |  +--ro tdm-container:admin-shut-down-is-avail?            boolean
+     |  |     |  +--ro tdm-container:supported-loop-back-kind-list*       loop-back-type
+     |  |     |  +--ro tdm-container:maintenance-timer-range?             string
+     |  |     |  +--ro tdm-container:supported-alarm-list*                string
+     |  |     |  +--ro tdm-container:performance-monitoring-is-avail?     boolean
+     |  |     +--ro tdm-container:tdm-container-configuration
+     |  |     |  +--ro tdm-container:interface-name?                            string
+     |  |     |  +--ro tdm-container:interface-is-on?                           boolean
+     |  |     |  +--ro tdm-container:tdm-container-kind
+     |  |     |  |  +--ro tdm-container:tdm-container-name?   string
+     |  |     |  |  +--ro tdm-container:tdm-container-size?   int32
+     |  |     |  +--ro tdm-container:segment-number?                            int16
+     |  |     |  +--ro tdm-container:loop-back-kind-on?                         loop-back-type
+     |  |     |  +--ro tdm-container:maintenance-timer?                         int32
+     |  |     |  +--ro tdm-container:problem-kind-severity-list* [problem-kind-name]
+     |  |     |  |  +--ro tdm-container:problem-kind-name        string
+     |  |     |  |  +--ro tdm-container:problem-kind-severity?   severity-type
+     |  |     |  +--ro tdm-container:performance-monitoring-collection-is-on?   boolean
+     |  |     +--ro tdm-container:tdm-container-status
+     |  |     |  +--ro tdm-container:interface-status?               interface-status-type
+     |  |     |  +--ro tdm-container:loop-back-kind-up?              loop-back-type
+     |  |     |  +--ro tdm-container:statistics-is-up?               boolean
+     |  |     |  +--ro tdm-container:performance-monitoring-is-up?   boolean
+     |  |     +--ro tdm-container:tdm-container-current-problems
+     |  |     |  +--ro tdm-container:current-problem-list* [sequence-number]
+     |  |     |     +--ro tdm-container:problem-name?       string
+     |  |     |     +--ro tdm-container:sequence-number     int16
+     |  |     |     +--ro tdm-container:time-stamp?         string
+     |  |     |     +--ro tdm-container:problem-severity?   severity-type
+     |  |     +--ro tdm-container:tdm-container-current-performance
+     |  |     |  +--ro tdm-container:current-performance-data-list* [granularity-period]
+     |  |     |     +--ro tdm-container:performance-data?        container-performance-type
+     |  |     |     +--ro tdm-container:timestamp?               string
+     |  |     |     +--ro tdm-container:suspect-interval-flag?   boolean
+     |  |     |     +--ro tdm-container:elapsed-time?            int64
+     |  |     |     +--ro tdm-container:scanner-id?              string
+     |  |     |     +--ro tdm-container:operational-state?       operational-state-type
+     |  |     |     +--ro tdm-container:granularity-period       granularity-period-type
+     |  |     |     +--ro tdm-container:administrative-state?    administrative-state-type
+     |  |     |     +--ro tdm-container:object-class?            string
+     |  |     |     +--ro tdm-container:name-binding?            string
+     |  |     |     +--ro tdm-container:packages?                string
+     |  |     |     +--ro tdm-container:allomorphs?              string
+     |  |     +--ro tdm-container:tdm-container-historical-performances
+     |  |        +--ro tdm-container:historical-performance-data-list* [period-end-time]
+     |  |           +--ro tdm-container:performance-data?        container-performance-type
+     |  |           +--ro tdm-container:suspect-interval-flag?   boolean
+     |  |           +--ro tdm-container:history-data-id?         string
+     |  |           +--ro tdm-container:period-end-time          string
+     |  |           +--ro tdm-container:granularity-period?      granularity-period-type
+     |  |           +--ro tdm-container:object-class?            string
+     |  |           +--ro tdm-container:name-binding?            string
+     |  |           +--ro tdm-container:packages?                string
+     |  |           +--ro tdm-container:allomorphs?              string
+     |  +--rw connected-ltp?             -> /control-construct/logical-termination-point/uuid
+     |  +--rw peer-ltp?                  -> /control-construct/logical-termination-point/uuid
+     |  +--rw physical-port-reference*   string
+     |  +--rw ltp-in-other-view*         -> /control-construct/logical-termination-point/uuid
+     |  +--rw ltp-direction?             termination-direction
+     |  +--rw transfer-capacity-pac?     string
+     |  +--rw fd-rule-group*             -> /control-construct/forwarding-domain/uuid
+     |  +--rw embedded-clock* [local-id]
+     |  |  +--ro run-mode?                 run-mode
+     |  |  +--rw encompassed-clock*        -> /control-construct/logical-termination-point/embedded-clock/local-id
+     |  |  +--rw encapsulated-fc* [uuid]
+     |  |  |  +--rw layer-protocol-name?                layer-protocol-name-type
+     |  |  |  +--rw lower-level-fc*                     -> /control-construct/forwarding-domain/fc/uuid
+     |  |  |  +--rw fc-route?                           string
+     |  |  |  +--rw fc-port* [local-id]
+     |  |  |  |  +--rw logical-termination-point*       -> /control-construct/logical-termination-point/uuid
+     |  |  |  |  +--rw role?                            port-role
+     |  |  |  |  +--rw fc-port-direction?               port-direction
+     |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
+     |  |  |  |  +--rw selection-priority?              int64
+     |  |  |  |  +--ro is-internal-port?                boolean
+     |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+     |  |  |  |  +--rw fc-port*                         -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  +--rw port-of-internal-fc*             -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  +--rw local-id                         string
+     |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--ro operational-state?               operational-state
+     |  |  |  |  +--rw administrative-control?          administrative-control
+     |  |  |  |  +--ro administrative-state?            administrative-state
+     |  |  |  |  +--rw lifecycle-state?                 lifecycle-state
+     |  |  |  |  +--rw address*                         dt-address
+     |  |  |  +--rw fc-switch* [local-id]
+     |  |  |  |  +--rw hold-off-time?                               int64
+     |  |  |  |  +--rw prot-type?                                   protection-type
+     |  |  |  |  +--rw reversion-mode?                              reversion-mode
+     |  |  |  |  +--rw selected-fc-port* [local-id]
+     |  |  |  |  |  +--rw logical-termination-point*       -> /control-construct/logical-termination-point/uuid
+     |  |  |  |  |  +--rw role?                            port-role
+     |  |  |  |  |  +--rw fc-port-direction?               port-direction
+     |  |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
+     |  |  |  |  |  +--rw selection-priority?              int64
+     |  |  |  |  |  +--ro is-internal-port?                boolean
+     |  |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+     |  |  |  |  |  +--rw fc-port*                         -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  |  +--rw port-of-internal-fc*             -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  |  +--rw local-id                         string
+     |  |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  |  +--rw value?        string
+     |  |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  |  +--rw value?        string
+     |  |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  |  +--rw value?        string
+     |  |  |  |  |  +--ro operational-state?               operational-state
+     |  |  |  |  |  +--rw administrative-control?          administrative-control
+     |  |  |  |  |  +--ro administrative-state?            administrative-state
+     |  |  |  |  |  +--rw lifecycle-state?                 lifecycle-state
+     |  |  |  |  |  +--rw address*                         dt-address
+     |  |  |  |  +--rw profile-proxy*                               string
+     |  |  |  |  +--rw configuration-and-switch-control?            string
+     |  |  |  |  +--rw internal-configuration-and-switch-control?   string
+     |  |  |  |  +--rw switch-control?                              switch-control
+     |  |  |  |  +--rw switch-selects-ports?                        port-direction
+     |  |  |  |  +--ro switch-selection-reason?                     switch-state-reason
+     |  |  |  |  +--rw control-parameters
+     |  |  |  |  |  +--rw reversion-mode?                 reversion-mode
+     |  |  |  |  |  +--rw wait-to-revert-time?            int64
+     |  |  |  |  |  +--rw prot-type?                      protection-type
+     |  |  |  |  |  +--rw hold-off-time?                  int64
+     |  |  |  |  |  +--rw network-scheme-specification?   string
+     |  |  |  |  +--rw wait-to-restore-time?                        int64
+     |  |  |  |  +--rw local-id                                     string
+     |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--ro operational-state?                           operational-state
+     |  |  |  |  +--rw administrative-control?                      administrative-control
+     |  |  |  |  +--ro administrative-state?                        administrative-state
+     |  |  |  |  +--rw lifecycle-state?                             lifecycle-state
+     |  |  |  |  +--rw address*                                     dt-address
+     |  |  |  +--rw configuration-and-switch-control*   string
+     |  |  |  +--rw forwarding-direction?               forwarding-direction
+     |  |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
+     |  |  |  +--rw service-priority?                   int64
+     |  |  |  +--rw supported-link*                     string
+     |  |  |  +--rw supporting-pc?                      string
+     |  |  |  +--rw external-managed-id
+     |  |  |  |  +--rw manager-identifier?      string
+     |  |  |  |  +--rw external-managed-uuid?   string
+     |  |  |  +--rw local-id?                           string
+     |  |  |  +--rw uuid                                universal-id
+     |  |  |  +--rw name* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw label* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw extension* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--ro operational-state?                  operational-state
+     |  |  |  +--rw administrative-control?             administrative-control
+     |  |  |  +--ro administrative-state?               administrative-state
+     |  |  |  +--rw lifecycle-state?                    lifecycle-state
+     |  |  |  +--rw address*                            dt-address
+     |  |  +--rw sync-ltp*                 -> /control-construct/logical-termination-point/uuid
+     |  |  +--rw encapsulated-casc*        string
+     |  |  +--rw phase-aligned-clock*      -> /control-construct/logical-termination-point/embedded-clock/local-id
+     |  |  +--rw local-id                  string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?        operational-state
+     |  |  +--rw administrative-control?   administrative-control
+     |  |  +--ro administrative-state?     administrative-state
+     |  |  +--rw lifecycle-state?          lifecycle-state
+     |  |  +--rw address*                  dt-address
+     |  +--rw supporting-pc?             string
+     |  +--rw external-managed-id
+     |  |  +--rw manager-identifier?      string
+     |  |  +--rw external-managed-uuid?   string
+     |  +--rw local-id?                  string
+     |  +--rw uuid                       universal-id
+     |  +--rw name* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw label* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw extension* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--ro operational-state?         operational-state
+     |  +--rw administrative-control?    administrative-control
+     |  +--ro administrative-state?      administrative-state
+     |  +--rw lifecycle-state?           lifecycle-state
+     |  +--rw address*                   dt-address
+     +--rw forwarding-domain* [uuid]
+     |  +--rw layer-protocol-name*         layer-protocol-name-type
+     |  +--rw lower-level-fd*              -> /control-construct/forwarding-domain/uuid
+     |  +--rw fc* [uuid]
+     |  |  +--rw layer-protocol-name?                layer-protocol-name-type
+     |  |  +--rw lower-level-fc*                     -> /control-construct/forwarding-domain/fc/uuid
+     |  |  +--rw fc-route?                           string
+     |  |  +--rw fc-port* [local-id]
+     |  |  |  +--rw logical-termination-point*       -> /control-construct/logical-termination-point/uuid
+     |  |  |  +--rw role?                            port-role
+     |  |  |  +--rw fc-port-direction?               port-direction
+     |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
+     |  |  |  +--rw selection-priority?              int64
+     |  |  |  +--ro is-internal-port?                boolean
+     |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+     |  |  |  +--rw fc-port*                         -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  +--rw port-of-internal-fc*             -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  +--rw local-id                         string
+     |  |  |  +--rw name* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw label* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw extension* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--ro operational-state?               operational-state
+     |  |  |  +--rw administrative-control?          administrative-control
+     |  |  |  +--ro administrative-state?            administrative-state
+     |  |  |  +--rw lifecycle-state?                 lifecycle-state
+     |  |  |  +--rw address*                         dt-address
+     |  |  +--rw fc-switch* [local-id]
+     |  |  |  +--rw hold-off-time?                               int64
+     |  |  |  +--rw prot-type?                                   protection-type
+     |  |  |  +--rw reversion-mode?                              reversion-mode
+     |  |  |  +--rw selected-fc-port* [local-id]
+     |  |  |  |  +--rw logical-termination-point*       -> /control-construct/logical-termination-point/uuid
+     |  |  |  |  +--rw role?                            port-role
+     |  |  |  |  +--rw fc-port-direction?               port-direction
+     |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
+     |  |  |  |  +--rw selection-priority?              int64
+     |  |  |  |  +--ro is-internal-port?                boolean
+     |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+     |  |  |  |  +--rw fc-port*                         -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  +--rw port-of-internal-fc*             -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  +--rw local-id                         string
+     |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--ro operational-state?               operational-state
+     |  |  |  |  +--rw administrative-control?          administrative-control
+     |  |  |  |  +--ro administrative-state?            administrative-state
+     |  |  |  |  +--rw lifecycle-state?                 lifecycle-state
+     |  |  |  |  +--rw address*                         dt-address
+     |  |  |  +--rw profile-proxy*                               string
+     |  |  |  +--rw configuration-and-switch-control?            string
+     |  |  |  +--rw internal-configuration-and-switch-control?   string
+     |  |  |  +--rw switch-control?                              switch-control
+     |  |  |  +--rw switch-selects-ports?                        port-direction
+     |  |  |  +--ro switch-selection-reason?                     switch-state-reason
+     |  |  |  +--rw control-parameters
+     |  |  |  |  +--rw reversion-mode?                 reversion-mode
+     |  |  |  |  +--rw wait-to-revert-time?            int64
+     |  |  |  |  +--rw prot-type?                      protection-type
+     |  |  |  |  +--rw hold-off-time?                  int64
+     |  |  |  |  +--rw network-scheme-specification?   string
+     |  |  |  +--rw wait-to-restore-time?                        int64
+     |  |  |  +--rw local-id                                     string
+     |  |  |  +--rw name* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw label* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw extension* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--ro operational-state?                           operational-state
+     |  |  |  +--rw administrative-control?                      administrative-control
+     |  |  |  +--ro administrative-state?                        administrative-state
+     |  |  |  +--rw lifecycle-state?                             lifecycle-state
+     |  |  |  +--rw address*                                     dt-address
+     |  |  +--rw configuration-and-switch-control*   string
+     |  |  +--rw forwarding-direction?               forwarding-direction
+     |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
+     |  |  +--rw service-priority?                   int64
+     |  |  +--rw supported-link*                     string
+     |  |  +--rw supporting-pc?                      string
+     |  |  +--rw external-managed-id
+     |  |  |  +--rw manager-identifier?      string
+     |  |  |  +--rw external-managed-uuid?   string
+     |  |  +--rw local-id?                           string
+     |  |  +--rw uuid                                universal-id
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?                  operational-state
+     |  |  +--rw administrative-control?             administrative-control
+     |  |  +--ro administrative-state?               administrative-state
+     |  |  +--rw lifecycle-state?                    lifecycle-state
+     |  |  +--rw address*                            dt-address
+     |  +--rw logical-termination-point*   -> /control-construct/logical-termination-point/uuid
+     |  +--rw fd-port* [local-id]
+     |  |  +--rw logical-termination-point*   -> /control-construct/logical-termination-point/uuid
+     |  |  +--rw role?                        port-role
+     |  |  +--rw fd-port-direction?           port-direction
+     |  |  +--rw fc-port*                     -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  +--rw fd-port*                     -> /control-construct/forwarding-domain/fd-port/local-id
+     |  |  +--rw local-id                     string
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?           operational-state
+     |  |  +--rw administrative-control?      administrative-control
+     |  |  +--ro administrative-state?        administrative-state
+     |  |  +--rw lifecycle-state?             lifecycle-state
+     |  |  +--rw address*                     dt-address
+     |  +--rw external-managed-id
+     |  |  +--rw manager-identifier?      string
+     |  |  +--rw external-managed-uuid?   string
+     |  +--rw local-id?                    string
+     |  +--rw uuid                         universal-id
+     |  +--rw name* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw label* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw extension* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--ro operational-state?           operational-state
+     |  +--rw administrative-control?      administrative-control
+     |  +--ro administrative-state?        administrative-state
+     |  +--rw lifecycle-state?             lifecycle-state
+     |  +--rw address*                     dt-address
+     +--rw profile-collection
+     |  +--rw profile* [uuid]
+     |     +--rw profile-name?             profile-name-type
+     |     +--rw external-managed-id
+     |     |  +--rw manager-identifier?      string
+     |     |  +--rw external-managed-uuid?   string
+     |     +--rw local-id?                 string
+     |     +--rw uuid                      universal-id
+     |     +--rw name* [value-name]
+     |     |  +--rw value-name    string
+     |     |  +--rw value?        string
+     |     +--rw label* [value-name]
+     |     |  +--rw value-name    string
+     |     |  +--rw value?        string
+     |     +--rw extension* [value-name]
+     |     |  +--rw value-name    string
+     |     |  +--rw value?        string
+     |     +--ro operational-state?        operational-state
+     |     +--rw administrative-control?   administrative-control
+     |     +--ro administrative-state?     administrative-state
+     |     +--rw lifecycle-state?          lifecycle-state
+     |     +--rw address*                  dt-address
+     +--rw external-managed-id
+     |  +--rw manager-identifier?      string
+     |  +--rw external-managed-uuid?   string
+     +--rw local-id?                    string
+     +--rw uuid?                        universal-id
+     +--rw name* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--rw label* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--rw extension* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--ro operational-state?           operational-state
+     +--rw administrative-control?      administrative-control
+     +--ro administrative-state?        administrative-state
+     +--rw lifecycle-state?             lifecycle-state
+     +--rw address*                     dt-address
+
+  rpcs:
+    +---x apply-system-structure-state-defined-by-constraint
+    |  +---w input
+    |  |  +---w input-constraint-structure?   string
+    |  +--ro output
+    |     +--ro output-constraint-structure?   string
+    +---x retrieve-system-structure-defined-by-constraint
+       +---w input
+       |  +---w input-constraint-structure?   string
+       +--ro output
+          +--ro output-constraint-structure?   string
+module: tdm-container
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int64
+    |  +--ro time-stamp?       string
+    |  +--ro object-id-ref?    string
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int64
+       +--ro time-stamp?      string
+       +--ro object-id-ref?   string
+       +--ro problem?         string
+       +--ro severity?        severity-type

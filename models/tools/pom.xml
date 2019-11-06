@@ -64,15 +64,15 @@
         <executions>
           <execution>
             <id>deploy</id>
-            <phase>compile</phase>
+            <phase>package</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/distribution</outputDirectory>
+              <outputDirectory>${basedir}/../distribution</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${basedir}/xmi-to-yang/target/yang</directory>
+                  <directory>${basedir}/../xmi-to-yang/target/yang</directory>
                   <filtering>true</filtering>
                   <includes>
                     <include>**/*.yang</include>

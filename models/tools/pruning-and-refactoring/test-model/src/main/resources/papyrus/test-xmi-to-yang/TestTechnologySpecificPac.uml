@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
   <uml:Model xmi:id="1B_17MG9FEembcsaJa33rBA" name="TestTechnologySpecificPac">
     <ownedComment xmi:type="uml:Comment" xmi:id="_vx52UH72Eemg07MSqaqjCw">
       <body>This is a test Papyrus UML project to check the beauty of the EagelUmlYang tool.</body>
@@ -46,6 +46,11 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_FPHVQHMDEemHoZj0yu-6dg" name="capability2">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_KpLYcsc9EemUDOhmvQpsMw" name="referenceToOtherLtp" aggregation="shared" association="_KpKKUMc9EemUDOhmvQpsMw">
+          <type xmi:type="uml:Class" href="TestCoreModel.uml#_qj1zIHFaEemHoZj0yu-6dg"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KpObwMc9EemUDOhmvQpsMw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KpSGIMc9EemUDOhmvQpsMw" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="1WNwnsHMDEemHoZj0yu-6dg" name="TestConfiguration">
@@ -121,6 +126,12 @@
       </ownedComment>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_0norAKF4Eem1L6jqz3rbgg" name="LayerProtocolName">
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_24sHoKF4Eem1L6jqz3rbgg" name="TestLayer"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_KpKKUMc9EemUDOhmvQpsMw" name="hasReferenceToAnotherLTP" memberEnd="_KpLYcsc9EemUDOhmvQpsMw _KpVwgMc9EemUDOhmvQpsMw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KpLYcMc9EemUDOhmvQpsMw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KpLYccc9EemUDOhmvQpsMw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_KpVwgMc9EemUDOhmvQpsMw" name="_testCapability" type="1APM9kHJyEemHoZj0yu-6dg" association="_KpKKUMc9EemUDOhmvQpsMw"/>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_ZK4-IG9IEemHoZj0yu-6dg">
@@ -232,4 +243,8 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_5Pp5IILmEemHhKupNRpLhQ" base_StructuralFeature="_5PpSEILmEemHhKupNRpLhQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5PrHQILmEemHhKupNRpLhQ" base_Property="_5PpSEILmEemHhKupNRpLhQ"/>
   <OpenModel_Profile:Reference xmi:id="_IeaBIKF5Eem1L6jqz3rbgg" base_Element="_0norAKF4Eem1L6jqz3rbgg" reference="/ControlConstruct/LogicalTerminationPoint/LayerProtoclNameENUM"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_KpLYc8c9EemUDOhmvQpsMw" base_Property="_KpLYcsc9EemUDOhmvQpsMw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_KpL_gMc9EemUDOhmvQpsMw" base_StructuralFeature="_KpLYcsc9EemUDOhmvQpsMw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_KpWXkMc9EemUDOhmvQpsMw" base_Property="_KpVwgMc9EemUDOhmvQpsMw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_KpWXkcc9EemUDOhmvQpsMw" base_StructuralFeature="_KpVwgMc9EemUDOhmvQpsMw"/>
 </xmi:XMI>

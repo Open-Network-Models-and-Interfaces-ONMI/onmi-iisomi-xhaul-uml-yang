@@ -26,6 +26,7 @@
        - remove package CoreModel::CoreInteractionModel
        - remove package CoreModel::Z.AssociationsOutOfPlace
 
+
        - add prefix "_" where missing for attribute names
 
        - centralized TypeDefinitions
@@ -36,6 +37,9 @@
        - avoiding naming confilcts for class and data-type "Address"
        - modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String
        - modify type for LayerProtocol::layerProtocolName - set to extensible ENUM
+       - Rename extensible ENUM LayerprotocolName to LayerProtocolNameType
+       - Rename attribute ltp to logical-termination-point
+       - add TypeDefinition ProfileNameType
        - add reference to uml, for ownedAttributes, in case no comment is provided by UML
 -->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
@@ -88,7 +92,7 @@
        - remove FruNonFruRules
 	   - add high-level description
 -->
-<xsl:stylesheet version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exclude-result-prefixes="fn">
+<xsl:stylesheet version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exclude-result-prefixes="fn xs">
   <!-- imports -->
   <xsl:import href="./global-functions.xslt"/>
   <!-- output defintions -->
@@ -210,7 +214,23 @@
       </ownedComment>
       <packagedElement xmi:type="uml:Package" xmi:id="core-model-type-definitions" name="TypeDefinitions">
         <xsl:apply-templates select="//packagedElement[@xmi:type='uml:Package' and @name='TypeDefinitions']/node()"/>
-      </packagedElement>
+        <!-- add Type ProfileNameType -->
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_jMtRsKInEem1L6jqz3rbgg" name="ProfileNameType" isAbstract="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jMt4wKInEem1L6jqz3rbgg" annotatedElement="_jMtRsKInEem1L6jqz3rbgg">
+            <body>A controlled list of Profile names.</body>
+          </ownedComment>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_x95OEKInEem1L6jqz3rbgg" name="USER_PROFILE"/>
+        </packagedElement>
+        <!-- add Type ExternalManagedUniversalId -->
+          <packagedElement xmi:type="uml:DataType" xmi:id="_3EHRQJ1WEemVGaFq9YMDhg" name="ExternalManagedUniversalId">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_3EHRQZ1WEemVGaFq9YMDhg" name="managerIdentifier" visibility="public">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_3EHRQp1WEemVGaFq9YMDhg" name="externalManagedUuid">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+          </packagedElement>
+                </packagedElement>
       <xsl:apply-templates select="node() | text()"/>
     </xsl:copy>
   </xsl:template>
@@ -224,17 +244,18 @@
           <xsl:text>none</xsl:text>
           <xsl:call-template name="addUmlReference">
             <xsl:with-param name="node" select="."/>
-            <xsl:with-param name="visible" select="fn:false()"/>
+            <xsl:with-param name="visible" select="fn:true()"/>
           </xsl:call-template>
         </body>
       </ownedComment>
     </xsl:copy>
   </xsl:template>
   <!-- 
-     modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String -->
+     modify type for CoreModel::CoreNetworkModule::ObjectClasses::LocalClass::localId - set to String and multiplicity to 1 -->
   <xsl:template match="ownedAttribute[@name = 'localId' ]" >
     <xsl:copy>
-      <xsl:apply-templates select="* | @*[fn:not(fn:name(.) = 'type')] | text()"/>
+      <xsl:apply-templates select="*[fn:not(fn:name(.) = 'upperValue')] | @*[fn:not(fn:name(.) = 'type')] | text()"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xT__YI3wEeO38ZmbECnvbg" value="1"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </xsl:copy>
   </xsl:template>
@@ -242,8 +263,133 @@
     modify type for LayerProtocol::layerProtocolName - set to extensible ENUM -->
   <xsl:template match="ownedAttribute[@name = 'layerProtocolName' ]" >
     <xsl:copy>
-<xsl:attribute name="type">_MbUkMIQ4EeiXzpgfQWpR-Q</xsl:attribute>
-      <xsl:apply-templates select="*[fn:not(fn:name(.) = 'type')] | @* | text()"/>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="type">_MbUkMIQ4EeiXzpgfQWpR-Q</xsl:attribute>
+      <xsl:apply-templates select="*[fn:not(fn:name(.) = 'type')] | text()"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
+    rename "_ltp" to "_logicalTerminationPoint" -->
+  <xsl:template match="ownedAttribute[@name = '_ltp' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="name">_logicalTerminationPoint</xsl:attribute>
+      <xsl:apply-templates select="node() | text()"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
+    rename "_lp" to "_layerProtocol" -->
+  <xsl:template match="ownedAttribute[@name = '_lp' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="name">_layerProtocol</xsl:attribute>
+      <xsl:apply-templates select="node() | text()"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
+    Add attributes to class ControlConstruct  -->
+  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'ControlConstruct']" >
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node() | text()"/>
+          <ownedComment xmi:type="uml:Comment" xmi:id="_RlPRwJ5jEemkbek818V8NQ">
+            <body>Root element for controller southbound APIs.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_TwNWgZ5NEemkbek818V8NQ" name="_topLevelEquipment" type="_8SXNej-HEeaRI-H69PghuA" aggregation="shared" association="_TwKTMJ5NEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TwRA4J5NEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TwUrQJ5NEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_dbQycp5AEemkbek818V8NQ" name="_equipment" type="_8SXNej-HEeaRI-H69PghuA" aggregation="composite" association="_dbO9QJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dbSAkJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dbSAkZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ugCiEp5AEemkbek818V8NQ" name="_logicalTerminationPoint" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_ugAF0J5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ugDJIJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugDJIZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="___8ugp5AEemkbek818V8NQ" name="_forwardingDomain" type="_oGql-FLNEeO75dO39GbF8Q" aggregation="composite" association="___65UJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="___9VkJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="___9VkZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_0pHrEJ4-Eemkbek818V8NQ" name="_profileCollection" type="_GLZy4J47Eemkbek818V8NQ" aggregation="composite" association="_0pFO0J4-Eemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0pISIJ4-Eemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0pISIZ4-Eemkbek818V8NQ" value="1"/>
+          </ownedAttribute>
+    </xsl:copy>
+            <packagedElement xmi:type="uml:Class" xmi:id="_GLZy4J47Eemkbek818V8NQ" name="ProfileCollection">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_OryDEJ48Eemkbek818V8NQ" name="_profile" type="_GLc2MJ47Eemkbek818V8NQ" aggregation="composite" association="_Orr8cJ48Eemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OryqIJ48Eemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OrzRMJ48Eemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_GLc2MJ47Eemkbek818V8NQ" name="Profile">
+          <generalization xmi:type="uml:Generalization" xmi:id="_jiXs4J47Eemkbek818V8NQ" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_GLc2NZ47Eemkbek818V8NQ" name="profileName" type="_jMtRsKInEem1L6jqz3rbgg"/>
+        </packagedElement>
+      
+
+  </xsl:template>
+  <!-- 
+    Add assoziations to ControlConstruct  -->
+  <xsl:template match="packagedElement[@name = 'Assocations']" >
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node() | text()"/>
+
+        <packagedElement xmi:type="uml:Package" xmi:id="_3RUOoJ45Eemkbek818V8NQ" name="pnrDeviceModel">
+          <packagedElement xmi:type="uml:Association" xmi:id="_Orr8cJ48Eemkbek818V8NQ" name="hasProfiles" memberEnd="_OryDEJ48Eemkbek818V8NQ _OrzRMZ48Eemkbek818V8NQ">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Orw08J48Eemkbek818V8NQ" source="org.eclipse.papyrus">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Orw08Z48Eemkbek818V8NQ" key="nature" value="UML_Nature"/>
+            </eAnnotations>
+            <ownedEnd xmi:type="uml:Property" xmi:id="_OrzRMZ48Eemkbek818V8NQ" name="_profileCollection" type="_GLZy4J47Eemkbek818V8NQ" association="_Orr8cJ48Eemkbek818V8NQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_0pFO0J4-Eemkbek818V8NQ" name="ControlConstructHasProfileCollection" memberEnd="_0pHrEJ4-Eemkbek818V8NQ _0pI5MJ4-Eemkbek818V8NQ">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0pHEAJ4-Eemkbek818V8NQ" source="org.eclipse.papyrus">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0pHEAZ4-Eemkbek818V8NQ" key="nature" value="UML_Nature"/>
+            </eAnnotations>
+            <ownedEnd xmi:type="uml:Property" xmi:id="_0pI5MJ4-Eemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_0pFO0J4-Eemkbek818V8NQ"/>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_dbO9QJ5AEemkbek818V8NQ" name="ControlConstructHasEquipment" memberEnd="_dbQycp5AEemkbek818V8NQ _dbSAkp5AEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_dbQycJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_dbQycZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_dbSAkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_dbO9QJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qME1sJ5EEemkbek818V8NQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qMIgEJ5EEemkbek818V8NQ" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_ugAF0J5AEemkbek818V8NQ" name="ControlConstructHasLtp" memberEnd="_ugCiEp5AEemkbek818V8NQ _ugDwMJ5AEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ugCiEJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ugCiEZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_ugDwMJ5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_ugAF0J5AEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="___65UJ5AEemkbek818V8NQ" name="ControlConstructHasForwrdingDomains" memberEnd="___8ugp5AEemkbek818V8NQ ___9Vkp5AEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="___8ugJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="___8ugZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="___9Vkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="___65UJ5AEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_TwKTMJ5NEemkbek818V8NQ" name="ControlConstructPointsToTopLevelEquipment" memberEnd="_TwNWgZ5NEemkbek818V8NQ _TwXHgJ5NEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TwMvcJ5NEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TwNWgJ5NEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_TwXHgJ5NEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_TwKTMJ5NEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_ej9ncJ5iEemkbek818V8NQ" name="LtpReferencesEquipment" memberEnd="_ekADsJ5iEemkbek818V8NQ _ekAqwp5iEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ej_coJ5iEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ej_coZ5iEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_ekAqwp5iEemkbek818V8NQ" name="_logicalTerminationPoint" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_ej9ncJ5iEemkbek818V8NQ"/>
+        </packagedElement>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
+    Rename extensible ENUM LayerprotocolName to LayerProtocolNameType  -->
+  <xsl:template match="packagedElement[@name = 'LayerProtocolName']" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="name">LayerProtocolNameType</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
   </xsl:template>
   <!-- 
@@ -282,6 +428,11 @@
   <xsl:template match="/xmi:XMI">
     <xsl:copy>
       <xsl:apply-templates select="@* | node() | text()"/>
+
+
+
+
+
       <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:core-model" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
         <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
 
@@ -324,6 +475,19 @@
     </xsl:copy>
   </xsl:template>
 
+
+
+  <!-- add attribute 'externalManagedId to GlobalClass -->
+  <xsl:template match="packagedElement[@name='GlobalClass']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/> 
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_5-IdYJ49Eemkbek818V8NQ" name="externalManagedId" type="_3EHRQJ1WEemVGaFq9YMDhg">
+              <ownedComment xmi:type="uml:Comment" xmi:id="_5-IdYZ49Eemkbek818V8NQ">
+                <body>A list of external managed universal identifiers, set by an external tool. There must not be any function implemented on the ControlConstruct itself next to updating the list on request and storing it persitenly. </body>
+              </ownedComment>
+            </ownedAttribute>      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+  </xsl:template>
   <!-- add generalization to GlobalClass from CascPort -->
   <xsl:template match="packagedElement[@name='CascPort']">
     <xsl:copy>
@@ -350,7 +514,7 @@
       </xsl:copy>
   </xsl:template>
   
-<!-- temporary -->
+  <!-- temporary -->
   <xsl:template name="addUmlReference">
     <xsl:param name="node"/>
     <xsl:param name="visible"/>
@@ -397,4 +561,4 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template> 
-  </xsl:stylesheet>
+</xsl:stylesheet>

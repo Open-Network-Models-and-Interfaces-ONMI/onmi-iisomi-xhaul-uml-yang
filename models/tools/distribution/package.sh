@@ -19,9 +19,8 @@
  DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"	
 if [ $# -gt 0 ]; then	
   DIR=$1;	
-fi	
-
- pyang --lint *.yang	
+fi
+pyang --lint *.yang	
 pyang -f tree -p $DIR -o all-together.tree *.yang	
 for yang in $DIR/*.yang	
 do	
@@ -30,7 +29,7 @@ do
   git diff ${yang%%.*}.tree > ${yang%%.*}.tree.diff.txt	
 done	
 
- for yang in $DIR/*.yang	
+for yang in $DIR/*.yang	
 do	
   filename=${yang#*$DIR/};	
 	echo "package ${filename%%.*}"	

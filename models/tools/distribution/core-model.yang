@@ -114,14 +114,6 @@ module core-model {
       "A controlled list of LayerProtocol names.";
   }
 
-  typedef profile-name-type {
-    type identityref {
-      base PROFILE_NAME_TYPE;
-    }
-    description
-      "A controlled list of LayerProtocol names.";
-  }
-
   typedef bit-string {
     type string;
     description
@@ -219,6 +211,14 @@ module core-model {
     type string;
     description
       "none";
+  }
+
+  typedef profile-name-type {
+    type identityref {
+      base PROFILE_NAME_TYPE;
+    }
+    description
+      "A controlled list of Profile names.";
   }
 
   /*********************************************
@@ -556,17 +556,6 @@ module core-model {
       "The characteristic information is that of a channel able to carry Ethernet protocol and of the Ethernet protocol source/sink.";
   }
 
-  identity PROFILE_NAME_TYPE {
-    description
-      "none";
-  }
-
-  identity PROFILE_NAME_TYPE_USER_PROFILE {
-    base PROFILE_NAME_TYPE;
-    description
-      "none";
-  }
-
   identity OPERATIONAL_STATE {
     description
       "none";
@@ -790,6 +779,17 @@ module core-model {
       "none";
   }
 
+  identity PROFILE_NAME_TYPE {
+    description
+      "none";
+  }
+
+  identity PROFILE_NAME_TYPE_USER_PROFILE {
+    base PROFILE_NAME_TYPE;
+    description
+      "none";
+  }
+
   identity CONNECTOR_AND_PIN_ORIENTATION {
     description
       "none";
@@ -1002,21 +1002,6 @@ module core-model {
       "The localId and the class of entity that it identifies.";
   }
 
-  grouping external-managed-universal-id {
-    leaf manager-identifier {
-      type string;
-      description
-        "none";
-    }
-    leaf external-managed-uuid {
-      type string;
-      description
-        "none";
-    }
-    description
-      "none";
-  }
-
   grouping port-role-rule {
     leaf-list port-role {
       type port-role;
@@ -1026,7 +1011,10 @@ module core-model {
     leaf-list port-role-rule {
       type port-role-rule-option;
       description
-        "none";
+        "none
+
+         uml:identifier = '_VM0t0IlfEeahttOwTtJ6Iw'
+         uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/PortRoleRule'";
     }
     description
       "Constrains which ports the rule applies to.";
@@ -1066,6 +1054,21 @@ module core-model {
       ";
   }
 
+  grouping external-managed-universal-id {
+    leaf manager-identifier {
+      type string;
+      description
+        "none";
+    }
+    leaf external-managed-uuid {
+      type string;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
   /****************************************
    * package core-network-model
    **************************************/ 
@@ -1103,7 +1106,10 @@ module core-model {
     leaf network-scheme-specification {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_doxoIDLIEea40e5DA9KE3w'
+         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/ControlParameters_Pac'";
     }
     description
       "A list of control parameters to apply to a switch.";
@@ -1169,7 +1175,10 @@ module core-model {
     container control-parameters {
       uses control-parameters-pac;
       description
-        "none";
+        "none
+
+         uml:identifier = '_k40wIVJKEeaDuo8VlVeg_g'
+         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/FcSwitch'";
     }
     leaf wait-to-restore-time {
       type int64;
@@ -1206,7 +1215,7 @@ module core-model {
       description
         "A link to properties associated with the port role as defined by the CascSpec.";
     }
-    list ltp {
+    list logical-termination-point {
       key "uuid";
       uses logical-termination-point;
       description
@@ -1331,10 +1340,9 @@ module core-model {
   }
 
   grouping forwarding-domain {
-    list layer-protocol-name {
-      key "layer-protocol-name";
+    leaf-list layer-protocol-name {
+      type layer-protocol-name-type;
       min-elements 1;
-      uses layer-protocol-name-and-qualifier;
       description
         "One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.";
     }
@@ -1354,7 +1362,7 @@ module core-model {
       description
         "An FD aggregates one or more FCs. An aggregated FC connects LTPs that bound the FD.";
     }
-    leaf-list ltp {
+    leaf-list logical-termination-point {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
@@ -1388,18 +1396,10 @@ module core-model {
   }
 
   grouping forwarding-construct {
-    container layer-protocol-name {
-      uses layer-protocol-name-and-qualifier;
+    leaf layer-protocol-name {
+      type layer-protocol-name-type;
       description
         "The layerProtocol at which the FC enables the potential for forwarding.";
-    }
-    leaf forwarding-direction {
-      type forwarding-direction;
-      description
-        "The directionality of the ForwardingConstruct.
-         Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL).
-         Is not present in more complex cases.
-         In the case of media the FcPorts and FC may also be omni-directional.";
     }
     leaf-list lower-level-fc {
       type leafref {
@@ -1438,6 +1438,14 @@ module core-model {
       description
         "Reference to a ConfigurationAndSwitchController that coordinates switches encapsulated in the FC.
          The controller coordinates multiple switches in the same FC.";
+    }
+    leaf forwarding-direction {
+      type forwarding-direction;
+      description
+        "The directionality of the ForwardingConstruct.
+         Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL).
+         Is not present in more complex cases.
+         In the case of media the FcPorts and FC may also be omni-directional.";
     }
     leaf is-protection-lock-out {
       if-feature "forwardingconstructisprotectionlockout";
@@ -1483,7 +1491,7 @@ module core-model {
   }
 
   grouping fc-port {
-    leaf-list ltp {
+    leaf-list logical-termination-point {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
@@ -1559,7 +1567,10 @@ module core-model {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port/core-model:local-id";
       }
       description
-        "none";
+        "none
+
+         uml:identifier = '_MKCzQRtuEee9I5wuRX6wwQ'
+         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
     }
     uses local-class;
     description
@@ -1625,28 +1636,6 @@ module core-model {
   }
 
   grouping logical-termination-point {
-    list layer-protocol {
-      key "local-id";
-      min-elements 1;
-      uses layer-protocol;
-      description
-        "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).";
-    }
-    leaf ltp-direction {
-      type termination-direction;
-      description
-        "The overall directionality of the LTP.
-         - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
-         - A SINK LTP can only contain SINK LPs
-         - A SOURCE LTP can only contain SOURCE LPs";
-    }
-    leaf-list physical-port-reference {
-      type leafref {
-        path "/core-model:control-construct/core-model:equipment/core-model:uuid";
-      }
-      description
-        "none";
-    }
     leaf-list server-ltp {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
@@ -1660,6 +1649,13 @@ module core-model {
       }
       description
         "References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.";
+    }
+    list layer-protocol {
+      key "local-id";
+      min-elements 1;
+      uses layer-protocol;
+      description
+        "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).";
     }
     leaf connected-ltp {
       type leafref {
@@ -1676,6 +1672,12 @@ module core-model {
       description
         "References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on this LTP.";
     }
+    leaf-list physical-port-reference {
+      type string;
+      description
+        "One or more text labels for the unmodeled physical port associated with the LTP.
+         In many cases there is no associated physical port.";
+    }
     leaf-list ltp-in-other-view {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
@@ -1683,6 +1685,14 @@ module core-model {
       description
         "References one or more LTPs in other views that represent this LTP.
          The referencing LTP is the provider of capability.";
+    }
+    leaf ltp-direction {
+      type termination-direction;
+      description
+        "The overall directionality of the LTP.
+         - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
+         - A SINK LTP can only contain SINK LPs
+         - A SOURCE LTP can only contain SOURCE LPs";
     }
     leaf transfer-capacity-pac {
       type string;
@@ -1699,16 +1709,19 @@ module core-model {
       description
         "An LTP can reference FD rules that the FD that aggregates it also references so that the rules can then apply to the LTP.";
     }
-    leaf supporting-pc {
-      type string;
-      description
-        "The functionality supporting this entity.";
-    }
     list embedded-clock {
       key "local-id";
       uses clock;
       description
-        "none";
+        "none
+
+         uml:identifier = '_sAdD0XXGEeeqyuooNTTDCg'
+         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+    }
+    leaf supporting-pc {
+      type string;
+      description
+        "The functionality supporting this entity.";
     }
     uses global-class;
     description
@@ -1718,7 +1731,7 @@ module core-model {
   }
 
   grouping fd-port {
-    leaf-list ltp {
+    leaf-list logical-termination-point {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
@@ -1761,28 +1774,6 @@ module core-model {
        The FD can be considered as a component and the FdPort as a Port on that component.";
   }
 
-  grouping profile-collection {
-    list profile {
-      key "uuid";
-      uses profile;
-      description
-        "none";
-    }
-    description
-      "none";
-  }
-
-  grouping profile {
-    leaf profile-name {
-      type profile-name-type;
-      description
-        "none";
-    }
-    uses global-class;
-    description
-      "none";
-  }
-
   feature forwardingconstructisprotectionlockout {
     description
       "none";
@@ -1819,23 +1810,23 @@ module core-model {
   }
 
   grouping global-class {
+    container external-managed-id {
+      uses external-managed-universal-id;
+      description
+        "A list of external managed universal identifiers, set by an external tool. There must not be any function implemented on the ControlConstruct itself next to updating the list on request and storing it persitenly. ";
+    }
+    leaf local-id {
+      type string;
+      description
+        "An identifier that is unique in the context of some scope that is less than the global scope.
+         (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
+    }
     leaf uuid {
       type universal-id;
       description
         "UUID: An identifier that is universally unique
          (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)
          The uuid should be treated as opaque by the user.";
-    }
-    leaf-list local-id {
-      type string;
-      description
-        "An identifier that is unique in the context of some scope that is less than the global scope.
-         (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
-    }
-    container external-managed-id {
-      uses external-managed-universal-id;
-      description
-        "A list of external managed universal identifiers, set by an external tool. There must not be any function implemented on the ControlConstruct itself next to updating the list on request and storing it persitenly. ";
     }
     uses name;
     uses label;
@@ -1928,6 +1919,9 @@ module core-model {
   }
 
   /****************************************
+   * package assocations
+   **************************************/ 
+  /****************************************
    * package state-model
    **************************************/ 
   /****************************************
@@ -1984,18 +1978,27 @@ module core-model {
       key "uuid";
       uses non-field-replaceable;
       description
-        "none";
+        "none
+
+         uml:identifier = '_8SXNgj-HEeaRI-H69PghuA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses/FieldReplaceable'";
     }
     list holder {
       key "local-id";
       uses holder;
       description
-        "none";
+        "none
+
+         uml:identifier = '_8SXNhT-HEeaRI-H69PghuA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses/FieldReplaceable'";
     }
     container holder-address {
       uses holder;
       description
-        "none";
+        "none
+
+         uml:identifier = '_8SXNiD-HEeaRI-H69PghuA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses/FieldReplaceable'";
     }
     uses equipment;
     description
@@ -2058,7 +2061,10 @@ module core-model {
     leaf rotation-speed {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_M1XJIEQ-EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/MechanicalFunctions'";
     }
     description
       "Represents the dynamic aspects of the mechanical functions of the equipment.";
@@ -2068,7 +2074,10 @@ module core-model {
     leaf temperature {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_Vlnd0EQ-EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/PhysicalProperties'";
     }
     description
       "Represents the dynamic aspects of the physical environmental properties of the equipment.";
@@ -2078,12 +2087,18 @@ module core-model {
     leaf equipment-location {
       type dt-address;
       description
-        "none";
+        "none
+
+         uml:identifier = '_RUXMYEQwEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/Location'";
     }
     leaf geographical-location {
       type dt-address;
       description
-        "none";
+        "none
+
+         uml:identifier = '_XOQ_AEQwEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/Location'";
     }
     description
       "Represents where the equipment is.";
@@ -2157,12 +2172,18 @@ module core-model {
     leaf holder-category {
       type holder-category;
       description
-        "none";
+        "none
+
+         uml:identifier = '_r240kERLEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
     }
     leaf is-captive {
       type boolean;
       description
-        "none";
+        "none
+
+         uml:identifier = '_4XbukERMEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
     }
     leaf is-guided {
       type boolean;
@@ -2172,7 +2193,10 @@ module core-model {
     leaf is-quantised-space {
       type boolean;
       description
-        "none";
+        "none
+
+         uml:identifier = '_Lj7_sERNEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
     }
     description
       "Represents the form of the holder.";
@@ -2182,27 +2206,42 @@ module core-model {
     container manufacturer-properties {
       uses manufacturer-properties;
       description
-        "none";
+        "none
+
+         uml:identifier = '_pGRSoURBEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
     }
     container equipment-type {
       uses equipment-type;
       description
-        "none";
+        "none
+
+         uml:identifier = '_1KggkERBEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
     }
     container equipment-instance {
       uses equipment-instance;
       description
-        "none";
+        "none
+
+         uml:identifier = '_CE4sUkRCEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
     }
     container operator-augmented-equipment-type {
       uses operator-augmented-equipment-type;
       description
-        "none";
+        "none
+
+         uml:identifier = '_gfKX0kc_EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
     }
     container operator-augmented-equipment-instance {
       uses operator-augmented-equipment-instance;
       description
-        "none";
+        "none
+
+         uml:identifier = '_pGCj0IM9EeePYJZQb-Dcag'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
     }
     description
       "Collects all invariant aspects of a manufactured thing.";
@@ -2212,12 +2251,18 @@ module core-model {
     leaf manufacturer-identifier {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_VTQLMEQtEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturerProperties'";
     }
     leaf manufacturer-name {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_cC-A8EQsEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturerProperties'";
     }
     description
       "Represents the properties of the manufacturer.";
@@ -2232,7 +2277,10 @@ module core-model {
     leaf asset-type-identifier {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_uHNXkEQuEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/OperatorAugmentedEquipmentType'";
     }
     description
       "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.";
@@ -2242,17 +2290,26 @@ module core-model {
     leaf weight-characeristics {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_87dRMEQ9EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/PhysicalCharacteristics'";
     }
     leaf fire-characteristics {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '__oPnkEQ9EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/PhysicalCharacteristics'";
     }
     leaf materials {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_BoTa0EQ-EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/PhysicalCharacteristics'";
     }
     description
       "Represents the invariant physical characteristics (including composition and physical robustness) of the type.";
@@ -2284,7 +2341,10 @@ module core-model {
     leaf relative-position {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_U_6mYERXEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/Position'";
     }
     description
       "Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.";
@@ -2294,17 +2354,26 @@ module core-model {
     leaf height {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_k_CVUEQyEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/SpatialPropertiesOfType'";
     }
     leaf width {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_n6nVoEQyEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/SpatialPropertiesOfType'";
     }
     leaf length {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_uIPVgEQyEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/SpatialPropertiesOfType'";
     }
     description
       "Represents the basic invariant spatial properties of a physical thing.";
@@ -2315,7 +2384,10 @@ module core-model {
       type boolean;
       default "true";
       description
-        "none";
+        "none
+
+         uml:identifier = '_yb3zEEQgEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/Swappability'";
     }
     description
       "Represents the degree of field replacement that is possible for the equipment type.";
@@ -2339,17 +2411,26 @@ module core-model {
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
       description
-        "none";
+        "none
+
+         uml:identifier = '_gCuhoURZEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/CableDetails'";
     }
     container physical-characteristics {
       uses physical-characteristics;
       description
-        "none";
+        "none
+
+         uml:identifier = '_bfUn4ERZEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/CableDetails'";
     }
     container manufactured-thing {
       uses manufactured-thing;
       description
-        "none";
+        "none
+
+         uml:identifier = '_omrR8ERUEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/CableDetails'";
     }
     description
       "none";
@@ -2359,17 +2440,26 @@ module core-model {
     container position {
       uses position;
       description
-        "none";
+        "none
+
+         uml:identifier = '_HbgJsERYEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/ConnectorDetails'";
     }
     container mechanical-features {
       uses mechanical-features;
       description
-        "none";
+        "none
+
+         uml:identifier = '_lQrpsERYEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/ConnectorDetails'";
     }
     container manufactured-thing {
       uses manufactured-thing;
       description
-        "none";
+        "none
+
+         uml:identifier = '_kaVX4ERVEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/ConnectorDetails'";
     }
     description
       "none";
@@ -2379,57 +2469,90 @@ module core-model {
     container location {
       uses location;
       description
-        "none";
+        "none
+
+         uml:identifier = '_lNf7kHpKEeaVjtpstJMDXA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container structure {
       uses equipment-structure;
       description
-        "none";
+        "none
+
+         uml:identifier = '_jbGZ8Ec-EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container swappability {
       uses swappability;
       description
-        "none";
+        "none
+
+         uml:identifier = '_wwGXEUc8EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container physical-properties {
       uses physical-properties;
       description
-        "none";
+        "none
+
+         uml:identifier = '_t0pzs0RJEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container function-enablers {
       uses function-enablers;
       description
-        "none";
+        "none
+
+         uml:identifier = '_1vzsYERJEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container mechanical-functions {
       uses mechanical-functions;
       description
-        "none";
+        "none
+
+         uml:identifier = '_-Ci-o0RJEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container physical-characteristics {
       uses physical-characteristics;
       description
-        "none";
+        "none
+
+         uml:identifier = '_Kiw98URKEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container mechanical-features {
       uses mechanical-features;
       description
-        "none";
+        "none
+
+         uml:identifier = '_X1TkUkRFEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
       description
-        "none";
+        "none
+
+         uml:identifier = '_AqumAkRDEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container environmental-rating {
       uses environmental-rating;
       description
-        "none";
+        "none
+
+         uml:identifier = '_rGOmsUdLEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     container manufactured-thing {
       uses manufactured-thing;
       description
-        "none";
+        "none
+
+         uml:identifier = '_XtDuokRCEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
     }
     uses local-class;
     description
@@ -2440,22 +2563,34 @@ module core-model {
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
       description
-        "none";
+        "none
+
+         uml:identifier = '_bAAS0kRSEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
     }
     container environmental-rating {
       uses environmental-rating;
       description
-        "none";
+        "none
+
+         uml:identifier = '_EjPzoUdMEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
     }
     container position {
       uses position;
       description
-        "none";
+        "none
+
+         uml:identifier = '_um5noERXEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
     }
     container holder-structure {
       uses holder-structure;
       description
-        "none";
+        "none
+
+         uml:identifier = '_U93mQEc8EeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
     }
     uses local-class;
     description
@@ -2499,7 +2634,10 @@ module core-model {
     leaf power-rating-value {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_sGvuAGsnEeiRh-lc79MSRw'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes/PowerRating'";
     }
     description
       "none";
@@ -2527,7 +2665,10 @@ module core-model {
     leaf pin-layout {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_EaxH4kdeEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Connector'";
     }
     leaf connector-type {
       type string;
@@ -2546,17 +2687,6 @@ module core-model {
   }
 
   grouping equipment {
-    list expected-equipment {
-      key "local-id";
-      uses expected-equipment;
-      description
-        "none";
-    }
-    container actual-equipment {
-      uses actual-equipment;
-      description
-        "none";
-    }
     list connector {
       key "local-id";
       uses connector;
@@ -2582,12 +2712,35 @@ module core-model {
     leaf-list function-block {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_8SXNfj-HEeaRI-H69PghuA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+    }
+    list expected-equipment {
+      key "local-id";
+      uses expected-equipment;
+      description
+        "none
+
+         uml:identifier = '_xLQU8EmgEeaDccCv6BIgdg'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+    }
+    container actual-equipment {
+      uses actual-equipment;
+      description
+        "none
+
+         uml:identifier = '_x24r4UmgEeaDccCv6BIgdg'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
     }
     leaf equipment-functional-boundary {
       type string;
       description
-        "none";
+        "none
+
+         uml:identifier = '_W2eCM1mrEeiyzdV8zVsJ_w'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
     }
     uses global-class;
     description
@@ -2620,12 +2773,18 @@ module core-model {
     container expected-holder {
       uses expected-holder;
       description
-        "none";
+        "none
+
+         uml:identifier = '_Ve5tMUmhEeaDccCv6BIgdg'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
     }
     container actual-holder {
       uses actual-holder;
       description
-        "none";
+        "none
+
+         uml:identifier = '_WUOLoEmhEeaDccCv6BIgdg'
+         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
     }
     uses local-class;
     description
@@ -2703,7 +2862,7 @@ module core-model {
    **************************************/ 
 
   grouping signal-ref-pt {
-    container ltp {
+    container logical-termination-point {
       uses logical-termination-point;
       description
         "none";
@@ -2712,7 +2871,10 @@ module core-model {
       min-elements 1;
       uses elemental-signals;
       description
-        "none";
+        "none
+
+         uml:identifier = '_HoKtckddEeasL6dcjI1vEA'
+         uml:reference  = '/CoreModel/CorePhysicalModel/ConnectorAndPin/ObjectClasses/SignalRefPt'";
     }
     description
       "A single coherent signal as processed by a single LTP.";
@@ -2790,8 +2952,30 @@ module core-model {
        Root element for controller southbound APIs.";
   }
 
+  grouping profile-collection {
+    list profile {
+      key "uuid";
+      uses profile;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping profile {
+    leaf profile-name {
+      type profile-name-type;
+      description
+        "none";
+    }
+    uses global-class;
+    description
+      "none";
+  }
+
   grouping control-port {
-    container ltp {
+    container logical-termination-point {
       uses logical-termination-point;
       description
         "The LTP through which the control messaging/signaling flows.";

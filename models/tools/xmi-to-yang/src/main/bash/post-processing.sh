@@ -85,6 +85,7 @@ do
   sed -i -e "s/container control-construct {/container control-construct {\npresence \"Enables SDN\";/g" $yang
 
   sed -i -e "s/fc-portlocal-id fc-portname/local-id/g" $yang
+  sed -i -e "s/fc-portname/local-id/g" $yang
 
   sed -i -e "s/path '\/core-model:logical-termination-point\/core-model:peer-ltp\/core-model:/path '\/core-model:control-construct\/core-model:logical-termination-point\/core-model:/g" $yang
 
