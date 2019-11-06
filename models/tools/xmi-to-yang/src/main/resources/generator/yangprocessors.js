@@ -349,7 +349,8 @@ module.exports = {
                                 ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
                                 //console.debug("yangprocessors-didn't find the class");
                                 if (ele[i].attribute[j].name.toLowerCase()==="timestamp") {
-                                    ele[i].attribute[j].type = "yang:date-and-time";   
+                                    ele[i].attribute[j].type = "yang:date-and-time";
+                                       
                                 }
                                 else{
                                     ele[i].attribute[j].type = "string";
