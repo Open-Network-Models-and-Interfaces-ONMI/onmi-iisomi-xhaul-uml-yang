@@ -284,9 +284,15 @@ module.exports = {
                                         }
                                         if (ele[i].attribute[j].nodeType == "list") {
                                             ele[i].attribute[j].nodeType = "leaf-list";
+                                            //edited by Waseem
+                                            //ele[i].attribute[j].nodeType = "leafref";
+                                            
                                         }
                                         else if (ele[i].attribute[j].nodeType == "container") {
                                             ele[i].attribute[j].nodeType = "leaf";
+                                            //edited by Waseem
+                                            //ele[i].attribute[j].nodeType = "leafref";
+
                                         }
                                         break;
                                     }
@@ -337,8 +343,17 @@ module.exports = {
                             }
                             //didn't find the "class"
                             if (k === store.Class.length) {
+                            
+                                //console.info("yanfprocessors.js \t"+JSON.stringify(ele[i].attribute[j]));
+
                                 ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
-                                ele[i].attribute[j].type = "string";
+                                //console.debug("yangprocessors-didn't find the class");
+                                if (ele[i].attribute[j].name.toLowerCase()==="timestamp") {
+                                    ele[i].attribute[j].type = "yang:date-and-time";   
+                                }
+                                else{
+                                    ele[i].attribute[j].type = "string";
+                                }
                             }
                         }
                         if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
@@ -686,6 +701,7 @@ module.exports = {
             var flag = true;
             for(var n=0; n < store.rootElement.length; n++){
                 var re = store.rootElement[n];
+                console.info("yangprocessor.js - store.rootElemenmt\t:"+JSON.stringify(re));
                 if(ele[i].id==re.id){
                     rootFlag=1;
                     flag=false;
