@@ -1,6 +1,6 @@
 module core-model {
   yang-version 1.1;
-  namespace "urn:onf:yang:core-model";
+  namespace "urn:onf:yang:extensible-network-function";
   prefix core-model;
 
   organization
@@ -1011,10 +1011,7 @@ module core-model {
     leaf-list port-role-rule {
       type port-role-rule-option;
       description
-        "none
-
-         uml:identifier = '_VM0t0IlfEeahttOwTtJ6Iw'
-         uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/PortRoleRule'";
+        "none";
     }
     description
       "Constrains which ports the rule applies to.";
@@ -1106,10 +1103,7 @@ module core-model {
     leaf network-scheme-specification {
       type string;
       description
-        "none
-
-         uml:identifier = '_doxoIDLIEea40e5DA9KE3w'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/ControlParameters_Pac'";
+        "none";
     }
     description
       "A list of control parameters to apply to a switch.";
@@ -1175,10 +1169,7 @@ module core-model {
     container control-parameters {
       uses control-parameters-pac;
       description
-        "none
-
-         uml:identifier = '_k40wIVJKEeaDuo8VlVeg_g'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/FcSwitch'";
+        "none";
     }
     leaf wait-to-restore-time {
       type int64;
@@ -1419,7 +1410,7 @@ module core-model {
     }
     list fc-port {
       key "local-id";
-      min-elements 2;
+      min-elements 0;
       uses fc-port;
       description
         "The FcPorts define the boundary of the FC.
@@ -1567,10 +1558,7 @@ module core-model {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port/core-model:local-id";
       }
       description
-        "none
-
-         uml:identifier = '_MKCzQRtuEee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+        "none";
     }
     uses local-class;
     description
@@ -1713,10 +1701,7 @@ module core-model {
       key "local-id";
       uses clock;
       description
-        "none
-
-         uml:identifier = '_sAdD0XXGEeeqyuooNTTDCg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "none";
     }
     leaf supporting-pc {
       type string;
@@ -1800,7 +1785,7 @@ module core-model {
   grouping name {
     list name {
       key "value-name";
-      min-elements 1;
+      min-elements 0;
       uses name-and-value;
       description
         "List of names.";
@@ -1978,27 +1963,18 @@ module core-model {
       key "uuid";
       uses non-field-replaceable;
       description
-        "none
-
-         uml:identifier = '_8SXNgj-HEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses/FieldReplaceable'";
+        "none";
     }
     list holder {
       key "local-id";
       uses holder;
       description
-        "none
-
-         uml:identifier = '_8SXNhT-HEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses/FieldReplaceable'";
+        "none";
     }
     container holder-address {
       uses holder;
       description
-        "none
-
-         uml:identifier = '_8SXNiD-HEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses/FieldReplaceable'";
+        "none";
     }
     uses equipment;
     description
@@ -2061,10 +2037,7 @@ module core-model {
     leaf rotation-speed {
       type string;
       description
-        "none
-
-         uml:identifier = '_M1XJIEQ-EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/MechanicalFunctions'";
+        "none";
     }
     description
       "Represents the dynamic aspects of the mechanical functions of the equipment.";
@@ -2074,10 +2047,7 @@ module core-model {
     leaf temperature {
       type string;
       description
-        "none
-
-         uml:identifier = '_Vlnd0EQ-EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/PhysicalProperties'";
+        "none";
     }
     description
       "Represents the dynamic aspects of the physical environmental properties of the equipment.";
@@ -2087,18 +2057,12 @@ module core-model {
     leaf equipment-location {
       type dt-address;
       description
-        "none
-
-         uml:identifier = '_RUXMYEQwEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/Location'";
+        "none";
     }
     leaf geographical-location {
       type dt-address;
       description
-        "none
-
-         uml:identifier = '_XOQ_AEQwEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/Location'";
+        "none";
     }
     description
       "Represents where the equipment is.";
@@ -2172,18 +2136,12 @@ module core-model {
     leaf holder-category {
       type holder-category;
       description
-        "none
-
-         uml:identifier = '_r240kERLEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
+        "none";
     }
     leaf is-captive {
       type boolean;
       description
-        "none
-
-         uml:identifier = '_4XbukERMEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
+        "none";
     }
     leaf is-guided {
       type boolean;
@@ -2193,10 +2151,7 @@ module core-model {
     leaf is-quantised-space {
       type boolean;
       description
-        "none
-
-         uml:identifier = '_Lj7_sERNEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
+        "none";
     }
     description
       "Represents the form of the holder.";
@@ -2206,42 +2161,27 @@ module core-model {
     container manufacturer-properties {
       uses manufacturer-properties;
       description
-        "none
-
-         uml:identifier = '_pGRSoURBEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
+        "none";
     }
     container equipment-type {
       uses equipment-type;
       description
-        "none
-
-         uml:identifier = '_1KggkERBEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
+        "none";
     }
     container equipment-instance {
       uses equipment-instance;
       description
-        "none
-
-         uml:identifier = '_CE4sUkRCEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
+        "none";
     }
     container operator-augmented-equipment-type {
       uses operator-augmented-equipment-type;
       description
-        "none
-
-         uml:identifier = '_gfKX0kc_EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
+        "none";
     }
     container operator-augmented-equipment-instance {
       uses operator-augmented-equipment-instance;
       description
-        "none
-
-         uml:identifier = '_pGCj0IM9EeePYJZQb-Dcag'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturedThing'";
+        "none";
     }
     description
       "Collects all invariant aspects of a manufactured thing.";
@@ -2251,18 +2191,12 @@ module core-model {
     leaf manufacturer-identifier {
       type string;
       description
-        "none
-
-         uml:identifier = '_VTQLMEQtEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturerProperties'";
+        "none";
     }
     leaf manufacturer-name {
       type string;
       description
-        "none
-
-         uml:identifier = '_cC-A8EQsEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/ManufacturerProperties'";
+        "none";
     }
     description
       "Represents the properties of the manufacturer.";
@@ -2277,10 +2211,7 @@ module core-model {
     leaf asset-type-identifier {
       type string;
       description
-        "none
-
-         uml:identifier = '_uHNXkEQuEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/OperatorAugmentedEquipmentType'";
+        "none";
     }
     description
       "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.";
@@ -2290,26 +2221,17 @@ module core-model {
     leaf weight-characeristics {
       type string;
       description
-        "none
-
-         uml:identifier = '_87dRMEQ9EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/PhysicalCharacteristics'";
+        "none";
     }
     leaf fire-characteristics {
       type string;
       description
-        "none
-
-         uml:identifier = '__oPnkEQ9EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/PhysicalCharacteristics'";
+        "none";
     }
     leaf materials {
       type string;
       description
-        "none
-
-         uml:identifier = '_BoTa0EQ-EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/PhysicalCharacteristics'";
+        "none";
     }
     description
       "Represents the invariant physical characteristics (including composition and physical robustness) of the type.";
@@ -2341,10 +2263,7 @@ module core-model {
     leaf relative-position {
       type string;
       description
-        "none
-
-         uml:identifier = '_U_6mYERXEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/Position'";
+        "none";
     }
     description
       "Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.";
@@ -2354,26 +2273,17 @@ module core-model {
     leaf height {
       type string;
       description
-        "none
-
-         uml:identifier = '_k_CVUEQyEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/SpatialPropertiesOfType'";
+        "none";
     }
     leaf width {
       type string;
       description
-        "none
-
-         uml:identifier = '_n6nVoEQyEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/SpatialPropertiesOfType'";
+        "none";
     }
     leaf length {
       type string;
       description
-        "none
-
-         uml:identifier = '_uIPVgEQyEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/SpatialPropertiesOfType'";
+        "none";
     }
     description
       "Represents the basic invariant spatial properties of a physical thing.";
@@ -2384,10 +2294,7 @@ module core-model {
       type boolean;
       default "true";
       description
-        "none
-
-         uml:identifier = '_yb3zEEQgEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/Swappability'";
+        "none";
     }
     description
       "Represents the degree of field replacement that is possible for the equipment type.";
@@ -2411,26 +2318,17 @@ module core-model {
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
       description
-        "none
-
-         uml:identifier = '_gCuhoURZEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/CableDetails'";
+        "none";
     }
     container physical-characteristics {
       uses physical-characteristics;
       description
-        "none
-
-         uml:identifier = '_bfUn4ERZEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/CableDetails'";
+        "none";
     }
     container manufactured-thing {
       uses manufactured-thing;
       description
-        "none
-
-         uml:identifier = '_omrR8ERUEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/CableDetails'";
+        "none";
     }
     description
       "none";
@@ -2440,26 +2338,17 @@ module core-model {
     container position {
       uses position;
       description
-        "none
-
-         uml:identifier = '_HbgJsERYEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/ConnectorDetails'";
+        "none";
     }
     container mechanical-features {
       uses mechanical-features;
       description
-        "none
-
-         uml:identifier = '_lQrpsERYEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/ConnectorDetails'";
+        "none";
     }
     container manufactured-thing {
       uses manufactured-thing;
       description
-        "none
-
-         uml:identifier = '_kaVX4ERVEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/ConnectorDetails'";
+        "none";
     }
     description
       "none";
@@ -2469,90 +2358,57 @@ module core-model {
     container location {
       uses location;
       description
-        "none
-
-         uml:identifier = '_lNf7kHpKEeaVjtpstJMDXA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container structure {
       uses equipment-structure;
       description
-        "none
-
-         uml:identifier = '_jbGZ8Ec-EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container swappability {
       uses swappability;
       description
-        "none
-
-         uml:identifier = '_wwGXEUc8EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container physical-properties {
       uses physical-properties;
       description
-        "none
-
-         uml:identifier = '_t0pzs0RJEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container function-enablers {
       uses function-enablers;
       description
-        "none
-
-         uml:identifier = '_1vzsYERJEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container mechanical-functions {
       uses mechanical-functions;
       description
-        "none
-
-         uml:identifier = '_-Ci-o0RJEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container physical-characteristics {
       uses physical-characteristics;
       description
-        "none
-
-         uml:identifier = '_Kiw98URKEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container mechanical-features {
       uses mechanical-features;
       description
-        "none
-
-         uml:identifier = '_X1TkUkRFEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
       description
-        "none
-
-         uml:identifier = '_AqumAkRDEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container environmental-rating {
       uses environmental-rating;
       description
-        "none
-
-         uml:identifier = '_rGOmsUdLEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     container manufactured-thing {
       uses manufactured-thing;
       description
-        "none
-
-         uml:identifier = '_XtDuokRCEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/EquipmentDetail'";
+        "none";
     }
     uses local-class;
     description
@@ -2563,34 +2419,22 @@ module core-model {
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
       description
-        "none
-
-         uml:identifier = '_bAAS0kRSEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
+        "none";
     }
     container environmental-rating {
       uses environmental-rating;
       description
-        "none
-
-         uml:identifier = '_EjPzoUdMEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
+        "none";
     }
     container position {
       uses position;
       description
-        "none
-
-         uml:identifier = '_um5noERXEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
+        "none";
     }
     container holder-structure {
       uses holder-structure;
       description
-        "none
-
-         uml:identifier = '_U93mQEc8EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/PatternClasses/HolderDetails'";
+        "none";
     }
     uses local-class;
     description
@@ -2634,10 +2478,7 @@ module core-model {
     leaf power-rating-value {
       type string;
       description
-        "none
-
-         uml:identifier = '_sGvuAGsnEeiRh-lc79MSRw'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes/PowerRating'";
+        "none";
     }
     description
       "none";
@@ -2665,10 +2506,7 @@ module core-model {
     leaf pin-layout {
       type string;
       description
-        "none
-
-         uml:identifier = '_EaxH4kdeEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Connector'";
+        "none";
     }
     leaf connector-type {
       type string;
@@ -2712,35 +2550,23 @@ module core-model {
     leaf-list function-block {
       type string;
       description
-        "none
-
-         uml:identifier = '_8SXNfj-HEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+        "none";
     }
     list expected-equipment {
       key "local-id";
       uses expected-equipment;
       description
-        "none
-
-         uml:identifier = '_xLQU8EmgEeaDccCv6BIgdg'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+        "none";
     }
     container actual-equipment {
       uses actual-equipment;
       description
-        "none
-
-         uml:identifier = '_x24r4UmgEeaDccCv6BIgdg'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+        "none";
     }
     leaf equipment-functional-boundary {
       type string;
       description
-        "none
-
-         uml:identifier = '_W2eCM1mrEeiyzdV8zVsJ_w'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+        "none";
     }
     uses global-class;
     description
@@ -2764,27 +2590,15 @@ module core-model {
       description
         "The relative position of the holder in the context of its containing equipment along with the position of that containing Equipment (and further recursion).";
     }
-    leaf-list supported-equipment-type {
-      type string;
-      min-elements 1;
-      description
-        "An Equipment type that the Holder can accommodate (is compatible with).";
-    }
     container expected-holder {
       uses expected-holder;
       description
-        "none
-
-         uml:identifier = '_Ve5tMUmhEeaDccCv6BIgdg'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
+        "none";
     }
     container actual-holder {
       uses actual-holder;
       description
-        "none
-
-         uml:identifier = '_WUOLoEmhEeaDccCv6BIgdg'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
+        "none";
     }
     uses local-class;
     description
@@ -2818,6 +2632,70 @@ module core-model {
     }
     description
       "The form of holder.";
+  }
+
+  /****************************************
+   * package equipment-specification
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
+  grouping support-constraints {
+    list constrained-supported-non-fru-type {
+      key "supported-non-fru-typenon-fru-details";
+      uses supported-non-fru-type;
+      description
+        "none";
+    }
+    list constrained-supported-fru-type {
+      key "supported-equipment-typefru-details";
+      uses supported-equipment-type;
+      description
+        "none";
+    }
+    description
+      "Rules related to how both non-FRU and FRU presence restricts the potential for additional equipments to be installed.
+       An FRU type installed in one holder may limit the FRU types that can be installed in another holder etc.";
+  }
+
+  grouping supported-non-fru-type {
+    container non-fru-details {
+      uses equipment;
+      description
+        "none";
+    }
+    list blocked-non-fru-position {
+      min-elements 1;
+      uses non-fru-support-position;
+      description
+        "none";
+    }
+    description
+      "The non-FRU equipment types supported by the non-FRU support position.";
+  }
+
+  grouping non-fru-support-position {
+    description
+      "Equivalent to the holder for the FRU, represents in the specification a place where one or more types of non-FRU could be present.
+       Unlike the FRU in a Holder, the non-FRU present is fixed in place whilst the equipment is in the field (as it is not Field-replaceable).";
+  }
+
+  grouping supported-equipment-type {
+    container fru-details {
+      uses equipment;
+      description
+        "none";
+    }
+    list holder {
+      key "holdername holderlocal-id";
+      min-elements 1;
+      uses holder;
+      description
+        "none";
+    }
+    description
+      "The FRU equipment types supported by the holder.";
   }
 
   /****************************************
@@ -2871,10 +2749,7 @@ module core-model {
       min-elements 1;
       uses elemental-signals;
       description
-        "none
-
-         uml:identifier = '_HoKtckddEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/ConnectorAndPin/ObjectClasses/SignalRefPt'";
+        "none";
     }
     description
       "A single coherent signal as processed by a single LTP.";

@@ -26,6 +26,7 @@ declare -A namespace
 namespace=(
   [air-interface]=air-interface
   [core-model]=core-model
+  [extensible-network-function]=core-model  
   [ethernet-container]=ethernet-container
   [hybrid-mw-structure]=hybrid-mw-structure
   [ip-interface]=ip-interface
@@ -35,14 +36,14 @@ namespace=(
   [qos-profile]=qos-profile
   [tdm-container]=tdm-container
   [wire-interface]=wire-interface
-  [wred-profile]=wred-profile
-  
+  [wred-profile]=wred-profile  
 );
 
 declare -A layer
 layer=(
   [air-interface]=LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER
   [core-model]=COMMON_LAYER
+  [extensible-network-function]=COMMON_LAYER
   [ethernet-container]=LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER
   [hybrid-mw-structure]=LAYER_PROTOCOL_NAME_TYPE_HYBRID_MW_STRUCTURE_LAYER
   [ip-interface]=LAYER_PROTOCOL_NAME_TYPE_IP_LAYER
@@ -124,12 +125,24 @@ do
   sed -i -e "s/$find/$replace/g" $yang;
 
 
-## prefix yang
- find="prefix ietf-yang-types";
- replace="prefix yang";
- sed -i -e "s/$find/$replace/g" $yang;
+  ## imports
+  find="import implementation-common-data-types";
+  replace="import ietf-yang-types";
+  sed -i -e "s/$find/$replace/g" $yang;
 
+  find="prefix implementation-common-data-types";
+  replace="prefix yang";
+  sed -i -e "s/$find/$replace/g" $yang;
 
+  ## remove umlprimitive-types import
+  find="import umlprimitive-types (.|\s)*import";
+  replace="import";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  ## prefix yang
+  find="prefix ietf-yang-types";
+  replace="prefix yang";
+  sed -i -e "s/$find/$replace/g" $yang;
 
   # format
   pyang -f yang -p $DIR -o $yang $yang
