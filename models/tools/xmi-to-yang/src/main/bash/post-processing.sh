@@ -60,15 +60,6 @@ profile=(
   [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
 );
 
-
-#/home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang
-echo "copying ietf yang" 
-cd $DIR
-cp ../../ietf-yang-types@2013-07-15.yang $DIR
-#cd /home/wasimsattar/workspace/5G-xHaul/models/tools/ 
-#cp "ietf-yang-types@2013-07-15.yang" $DIR
-
-
 for yang in $DIR/*.yang
 do
 	echo "Post processing $yang"

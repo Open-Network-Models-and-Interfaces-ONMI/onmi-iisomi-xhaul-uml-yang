@@ -54,6 +54,32 @@
     <plugins>
 
       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>copy-standard-yang</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/yang</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/resources/standard-yang</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>**/*.yang</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>${exec.maven.plugin.version}</version>
