@@ -3,6 +3,9 @@ module mac-interface {
   namespace "urn:onf:yang:mac-interface";
   prefix mac-interface;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
   import core-model {
     prefix core-model;
   }
@@ -70,7 +73,7 @@ module mac-interface {
         "Counts object creation notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -108,7 +111,7 @@ module mac-interface {
         "Counts object deletion notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -139,7 +142,7 @@ module mac-interface {
         "Counts attribute value changed notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -184,7 +187,7 @@ module mac-interface {
         "Counts problem notifications";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -228,7 +231,7 @@ module mac-interface {
         "Unique sequence number of the current problem object.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -246,7 +249,7 @@ module mac-interface {
 
   grouping current-performance {
     leaf timestamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -720,7 +723,7 @@ module mac-interface {
         "1 = Performance values are currently collected and aggregated.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description

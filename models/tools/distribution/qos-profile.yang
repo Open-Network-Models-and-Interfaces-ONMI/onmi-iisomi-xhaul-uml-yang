@@ -3,6 +3,9 @@ module qos-profile {
   namespace "urn:onf:yang:qos-profile";
   prefix qos-profile;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
   import core-model {
     prefix core-model;
   }
@@ -68,7 +71,7 @@ module qos-profile {
         "Counts object creation notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -106,7 +109,7 @@ module qos-profile {
         "Counts object deletion notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description

@@ -3,6 +3,9 @@ module tdm-container {
   namespace "urn:onf:yang:tdm-container";
   prefix tdm-container;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
   import core-model {
     prefix core-model;
   }
@@ -70,7 +73,7 @@ module tdm-container {
         "Counts object creation notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -108,7 +111,7 @@ module tdm-container {
         "Counts object deletion notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -139,7 +142,7 @@ module tdm-container {
         "Counts attribute value changed notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -184,7 +187,7 @@ module tdm-container {
         "Counts problem notifications";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -228,7 +231,7 @@ module tdm-container {
         "Unique sequence number of the current problem object.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -246,7 +249,7 @@ module tdm-container {
 
   grouping current-performance {
     leaf timestamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description

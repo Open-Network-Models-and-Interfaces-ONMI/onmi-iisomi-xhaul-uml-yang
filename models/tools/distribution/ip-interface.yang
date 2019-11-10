@@ -3,6 +3,9 @@ module ip-interface {
   namespace "urn:onf:yang:ip-interface";
   prefix ip-interface;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
   import core-model {
     prefix core-model;
   }
@@ -70,7 +73,7 @@ module ip-interface {
         "Counts object creation notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -108,7 +111,7 @@ module ip-interface {
         "Counts object deletion notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -139,7 +142,7 @@ module ip-interface {
         "Counts attribute value changed notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -184,7 +187,7 @@ module ip-interface {
         "Counts problem notifications";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -228,7 +231,7 @@ module ip-interface {
         "Unique sequence number of the current problem object.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -569,7 +572,7 @@ module ip-interface {
         "1 = Statistics are currently counted";
     }
     leaf timestamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description

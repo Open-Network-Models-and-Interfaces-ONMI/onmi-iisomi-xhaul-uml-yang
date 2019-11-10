@@ -29,4 +29,5 @@
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
   <!-- key definitions -->
   <!-- templates -->
-  <xsl:template match="packageImport[importedPackage/@href = 'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0']"/> </xsl:stylesheet>
+  <xsl:template match="packageImport[importedPackage/@href = 'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0']"/> 
+</xsl:stylesheet>

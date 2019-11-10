@@ -30,7 +30,7 @@
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
   <!-- key definitions -->
   <!-- templates -->
-  <xsl:template match="packageImport[importedPackage/@xmi:type = 'uml:Model']"/>
+  <xsl:template match="packageImport[importedPackage/@href = 'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0']"/>
   <xsl:template match="defaultValue[@value = '-1.-1.-1.-1']">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>

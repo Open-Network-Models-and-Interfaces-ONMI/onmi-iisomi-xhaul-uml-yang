@@ -3,6 +3,9 @@ module l-3vpn-profile {
   namespace "urn:onf:yang:l-3vpn-profile";
   prefix l-3vpn-profile;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
   import core-model {
     prefix core-model;
   }
@@ -70,7 +73,7 @@ module l-3vpn-profile {
         "Counts object creation notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -108,7 +111,7 @@ module l-3vpn-profile {
         "Counts object deletion notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description

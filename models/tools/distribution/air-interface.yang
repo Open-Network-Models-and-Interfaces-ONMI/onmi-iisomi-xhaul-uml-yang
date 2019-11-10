@@ -3,6 +3,9 @@ module air-interface {
   namespace "urn:onf:yang:air-interface";
   prefix air-interface;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
   import core-model {
     prefix core-model;
   }
@@ -68,7 +71,7 @@ module air-interface {
         "Counts object creation notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -106,7 +109,7 @@ module air-interface {
         "Counts object deletion notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -137,7 +140,7 @@ module air-interface {
         "Counts attribute value changed notifications.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -182,7 +185,7 @@ module air-interface {
         "Counts problem notifications";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -226,7 +229,7 @@ module air-interface {
         "Unique sequence number of the current problem object.";
     }
     leaf time-stamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
@@ -244,7 +247,7 @@ module air-interface {
 
   grouping current-performance {
     leaf timestamp {
-      type string;
+      type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
       description
