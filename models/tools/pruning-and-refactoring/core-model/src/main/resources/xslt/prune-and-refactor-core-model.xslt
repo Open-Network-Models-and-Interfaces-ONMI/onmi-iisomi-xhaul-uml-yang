@@ -200,7 +200,6 @@
 
   <!-- templates -->
  
-
   <!-- rename CoreModel to CoreNetworkFunctions - ->
   <xsl:template match="@name[. = 'CoreModel']" >
     <xsl:attribute name="name">ExtensibleNetworkFunction</xsl:attribute>
@@ -231,7 +230,18 @@
             </ownedAttribute>
           </packagedElement>
                 </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdP19LEemkV8c3A5D8-A" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_nzCdQF9LEemkV8c3A5D8-A">
+        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+      </packageImport>
+      <!--
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_nzCdQV9LEemkV8c3A5D8-A">
+        <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+      </packageImport> -->
+    </packagedElement>
       <xsl:apply-templates select="node() | text()"/>
+
+
     </xsl:copy>
   </xsl:template>
   <!-- 

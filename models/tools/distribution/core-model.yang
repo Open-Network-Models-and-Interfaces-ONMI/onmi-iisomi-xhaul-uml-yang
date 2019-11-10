@@ -3,6 +3,10 @@ module core-model {
   namespace "urn:onf:yang:extensible-network-function";
   prefix core-model;
 
+  import ietf-yang-types {
+    prefix yang;
+  }
+
   organization
     "Open Networking Foundation (ONF)";
   contact
@@ -2930,7 +2934,7 @@ module core-model {
         "The size of the File, in bytes.";
     }
     leaf last-modify-time {
-      type string;
+      type yang:date-and-time;
       description
         "The date time that the File was last modified.";
     }
@@ -2976,7 +2980,7 @@ module core-model {
         "The name of the entry in its Directory.";
     }
     leaf create-date {
-      type string;
+      type yang:date-and-time;
       description
         "The date that the entry was created.";
     }

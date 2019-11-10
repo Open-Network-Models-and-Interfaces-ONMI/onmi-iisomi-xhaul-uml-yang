@@ -342,7 +342,7 @@ module air-interface {
         "none";
     }
     leaf period-end-time {
-      type string;
+      type yang:date-and-time;
       config false;
       description
         "Time when the counter values have been recorded and the counter reset.";

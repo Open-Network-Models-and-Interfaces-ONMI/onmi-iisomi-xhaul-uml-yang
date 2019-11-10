@@ -40,7 +40,6 @@
   </xsl:template>
   <!-- Why node() and not "OpenModel_Profile:OpenModelAttribute" -->
   <xsl:template match="node()[@xmi:id = '_jGzksiucEem2NaoGN_ENVg']">
-    <xsl:message select="'yippy'"/>
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:attribute name="unsigned" select="fn:false()"/>

@@ -347,12 +347,21 @@ module.exports = {
                                 //console.info("yanfprocessors.js \t"+JSON.stringify(ele[i].attribute[j]));
 
                                 ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
-                                //console.debug("yangprocessors-didn't find the class");
-                                if (ele[i].attribute[j].name.toLowerCase()==="timestamp") {
-                                    ele[i].attribute[j].type = "yang:date-and-time";
-                                       
+
+                                var typeMapping = {
+                                    "_ip8kjfzaeewhrf3fikfx5w": "yang:date-and-time"
+                                };
+
+                                if (typeMapping[ele[i].attribute[j].type]) {
+                                    ele[i].attribute[j].type = typeMapping[ele[i].attribute[j].type];
                                 }
+                                //console.debug("yangprocessors-didn't find the class");
+                                // if (ele[i].attribute[j].name.toLowerCase()==="timestamp") {
+                                //     ele[i].attribute[j].type = "yang:date-and-time";
+                                       
+                                // }
                                 else{
+                                    console.info("Type not found, 'string' used instead.", ele[i].attribute[j].type, typeMapping[ele[i].attribute[j].type]);
                                     ele[i].attribute[j].type = "string";
                                 }
                             }
