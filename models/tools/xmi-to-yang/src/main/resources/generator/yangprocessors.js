@@ -349,7 +349,9 @@ module.exports = {
                                 ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
 
                                 var typeMapping = {
-                                    "_ip8kjfzaeewhrf3fikfx5w": "yang:date-and-time"
+                                    "_ip8kjfzaeewhrf3fikfx5w": "yang:date-and-time",
+                                    "_iqbco_zaeewhrf3fikfx5w": "yang:uuid",
+                                    "_iP9yQ_ZaEeWhRf3FikFX5w": "yang:mac-address"
                                 };
 
                                 if (typeMapping[ele[i].attribute[j].type]) {
