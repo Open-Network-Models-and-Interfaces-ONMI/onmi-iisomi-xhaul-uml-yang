@@ -82,7 +82,7 @@ module wire-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -120,7 +120,7 @@ module wire-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -151,7 +151,7 @@ module wire-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -196,7 +196,7 @@ module wire-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";

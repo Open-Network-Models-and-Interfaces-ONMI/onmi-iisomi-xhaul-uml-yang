@@ -80,7 +80,7 @@ module hybrid-mw-structure {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -118,7 +118,7 @@ module hybrid-mw-structure {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -149,7 +149,7 @@ module hybrid-mw-structure {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -194,7 +194,7 @@ module hybrid-mw-structure {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";

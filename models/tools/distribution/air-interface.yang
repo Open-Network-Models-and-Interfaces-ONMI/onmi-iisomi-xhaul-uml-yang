@@ -78,7 +78,7 @@ module air-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "ID of the affected MW_AirInterface_Pac";
@@ -116,7 +116,7 @@ module air-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "ID of the affected MW_AirInterface_Pac";
@@ -147,7 +147,7 @@ module air-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "ID of the affected MW_AirInterface_Pac";
@@ -192,7 +192,7 @@ module air-interface {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "ID of the affected MW_AirInterface_Pac";

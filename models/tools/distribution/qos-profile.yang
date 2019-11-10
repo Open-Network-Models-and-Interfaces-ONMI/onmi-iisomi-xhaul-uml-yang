@@ -78,7 +78,7 @@ module qos-profile {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
@@ -116,7 +116,7 @@ module qos-profile {
         "none";
     }
     leaf object-id-ref {
-      type string;
+      type yang:uuid;
       config false;
       description
         "none";
