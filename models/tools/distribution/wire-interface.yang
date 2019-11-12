@@ -3,11 +3,11 @@ module wire-interface {
   namespace "urn:onf:yang:wire-interface";
   prefix wire-interface;
 
-  import ietf-yang-types {
-    prefix yang;
-  }
   import core-model {
     prefix core-model;
+  }
+  import ietf-yang-types {
+    prefix yang;
   }
 
   organization
@@ -34,6 +34,23 @@ module wire-interface {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
+  revision 2019-11-11 {
+    description
+      "Manually generated YANG.
+       Starting point: WireInterface_2.0.0-tsp.191030.1420+yang.3
+       'prefix ietf-yang-types' changed to 'prefix yang'; all datatypes changed accordingly;
+       'leafref' datatypes at the 'fixed-pmd-kind', 'auto-negotiation-pmd-list', 'pmd-kind-cur' attributes complemented by 'require-instance false;' statement;
+       'time-stamp' substituted by 'timestamp';
+       '/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol/wire-interface:wire-interface-pac' replaced by '../..'";
+  }
+  revision 2019-10-30 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/wireInterface/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
   revision 2019-07-11 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
@@ -74,7 +91,7 @@ module wire-interface {
       description
         "Counts object creation notifications.";
     }
-    leaf time-stamp {
+    leaf timestamp {
       type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
@@ -112,7 +129,7 @@ module wire-interface {
       description
         "Counts object deletion notifications.";
     }
-    leaf time-stamp {
+    leaf timestamp {
       type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
@@ -143,7 +160,7 @@ module wire-interface {
       description
         "Counts attribute value changed notifications.";
     }
-    leaf time-stamp {
+    leaf timestamp {
       type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
@@ -188,7 +205,7 @@ module wire-interface {
       description
         "Counts problem notifications";
     }
-    leaf time-stamp {
+    leaf timestamp {
       type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
@@ -232,7 +249,7 @@ module wire-interface {
       description
         "Unique sequence number of the current problem object.";
     }
-    leaf time-stamp {
+    leaf timestamp {
       type yang:date-and-time;
       default "2010-11-20T14:00:00+01:00";
       config false;
@@ -303,26 +320,26 @@ module wire-interface {
         "none";
     }
     leaf object-class {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
          localForm    [1] INTEGER}";
     }
     leaf name-binding {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "none";
     }
     leaf packages {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "none";
     }
     leaf allomorphs {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "none";
@@ -358,26 +375,26 @@ module wire-interface {
         "Time period between reset of the underlying counter.";
     }
     leaf object-class {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
          localForm    [1] INTEGER}";
     }
     leaf name-binding {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "none";
     }
     leaf packages {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "none";
     }
     leaf allomorphs {
-      type string;
+      type yang:object-identifier;
       config false;
       description
         "none";
@@ -388,7 +405,6 @@ module wire-interface {
 
   grouping wire-interface-lp-spec {
     container wire-interface-pac {
-      config false;
       uses wire-interface-pac;
       description
         "none";
@@ -583,6 +599,12 @@ module wire-interface {
       description
         "1 = Manual switching on and off of the interface without deleting it (underlying OSI network layers are also not affected) is available.";
     }
+    leaf isolation-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Separation of the PHY from higher network layers is supported by the device. Maintenance feature. Source: 802.3. ";
+    }
     leaf-list supported-loop-back-kind-list {
       type loop-back-type;
       config false;
@@ -645,15 +667,19 @@ module wire-interface {
       description
         "Only relevant if (autoPmdNegotiationIsAvail == 1). 1 = Auto-negotiation is switched on";
     }
-    container fixed-pmd-kind {
-      uses pmd-kind;
+    leaf fixed-pmd-kind {
+      type leafref {
+	require-instance false;
+        path "../../wire-interface:wire-interface-capability/wire-interface:supported-pmd-kind-list/wire-interface:pmd-name";
+      }
       description
         "If (autoPmdNegotiationIsOn==0) : Configuration of the concrete kind of Physical Medium Dependent (PMD). If (autoNegotiationIsOn=1) value of this field becomes irrelevant";
     }
-    list auto-negotiation-pmd-list {
-      key "pmd-name";
-      min-elements 1;
-      uses pmd-kind;
+    leaf-list auto-negotiation-pmd-list {
+      type leafref {
+	require-instance false;
+        path "../../wire-interface:wire-interface-capability/wire-interface:supported-pmd-kind-list/wire-interface:pmd-name";
+      }
       description
         "If (autoPmdNegotiationIsOn==1) AND (autoNegotiationPmdSelectionIsAvail==1), this list defines the selection of PMDs the automated negotiation process is allowed to choose from. If no entry, the automated negotiation process is allowed to choose from all available PMDs.";
     }
@@ -708,7 +734,7 @@ module wire-interface {
     leaf isolation-is-on {
       type boolean;
       description
-        "Maintenance Feature. Source: 802.3. 1 = Activation of the separation of the PHY from higher network layers. Maintenance feature.";
+        "Maintenance Feature. Only relevant if (isolationIsAvail == 1). Source: 802.3. 1 = Activation of the separation of the PHY from higher network layers. Maintenance feature.";
     }
     leaf loop-back-kind-on {
       type loop-back-type;
@@ -764,9 +790,12 @@ module wire-interface {
       description
         "Source: Inverse of 802.3 45.2.1.2.3 Fault (1.1.7). If (interfaceIsUp==1) BUT (pmdIsUp==0) : there is a fault in either transmit or receive path";
     }
-    container pmd-kind-cur {
+    leaf pmd-kind-cur {
+      type leafref {
+	require-instance false;
+        path "../../wire-interface:wire-interface-capability/wire-interface:supported-pmd-kind-list/wire-interface:pmd-name";
+      }
       config false;
-      uses pmd-kind;
       description
         "Indicates the kind of Physical Medium Dependent (PMD) currently operated at this interface";
     }
@@ -806,12 +835,6 @@ module wire-interface {
       description
         "The currently active (not just configured) type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.";
     }
-    leaf performance-monitoring-is-up {
-      type boolean;
-      config false;
-      description
-        "1 = Performance values are currently collected and aggregated.";
-    }
     leaf tx-level-cur {
       type int8;
       units "dBm";
@@ -827,6 +850,12 @@ module wire-interface {
       max-elements 4;
       description
         "Current receive power; Also used for receive signal power measured at the Medium Dependent Interface (MDI) of 10GBASE-T during training as described in 802.3 55.4.3.1";
+    }
+    leaf performance-monitoring-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Performance values are currently collected and aggregated.";
     }
     description
       "none";
@@ -875,18 +904,18 @@ module wire-interface {
       type string;
       config false;
       description
-        "To be chosen from the following list of PMD names according to IEEE 802.3 '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED'";
+        "To be chosen from the following list of PMD names according to IEEE 802.3 '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED'. Some PMDs are distinguishing Full Duplex and Half Duplex. '_FD' and '_HD' are to be attached to the respective PMD name accordingly.";
     }
     leaf speed {
       type string;
       default "NOT_YET_DEFINED";
       description
-        "Line speed of the PMD. Value to be chosen from '2Mbit/s', '10Mbit/s', '100Mbit/s', '1000Mbit/s', '10Gbit/s', '40Gbit/s', '100Gbit/s' or 'NOT_YET_DEFINED'.";
+        "Line speed of the PMD. Value to be chosen from '2Mbit/s', '10Mbit/s', '100Mbit/s', '1000Mbit/s', '10Gbit/s', '40Gbit/s', '100Gbit/s' or 'NOT_YET_DEFINED'. This field is not for calculation purposes, but for supporting selection of the correct PMD on application layer.";
     }
     leaf duplex {
       type duplex-type;
       description
-        "To be expressed, whether the PMD is full duplex or just half duplex";
+        "To be expressed, whether the PMD is full duplex or just half duplex. This field is not for configuration purposes, but for supporting selection of the correct PMD on application layer.";
     }
     description
       "none";

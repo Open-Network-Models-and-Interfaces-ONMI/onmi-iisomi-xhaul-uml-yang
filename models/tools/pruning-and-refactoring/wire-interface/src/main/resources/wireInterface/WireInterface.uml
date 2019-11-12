@@ -82,6 +82,17 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_TXrfgl-IEemI8ps-yiNc8Q" name="Diagrams"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_8rWo4PsUEemTQ-N8diAjnA" name="ExtentedCoreEnumerations">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="__Jm0APsUEemTQ-N8diAjnA" name="LayerProtocolNameType">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_EBzSAPsVEemTQ-N8diAjnA" annotatedElement="__Jm0APsUEemTQ-N8diAjnA">
+          <body>A controlled list of LayerProtocol names.</body>
+        </ownedComment>
+        <generalization xmi:type="uml:Generalization" xmi:id="_ezxfsPsVEemTQ-N8diAjnA">
+          <general xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_MbUkMIQ4EeiXzpgfQWpR-Q"/>
+        </generalization>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_GF5QsPsVEemTQ-N8diAjnA" name="LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER"/>
+      </packagedElement>
+    </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_TXrfg1-IEemI8ps-yiNc8Q" name="Imports">
       <packageImport xmi:type="uml:PackageImport" xmi:id="_TXrfhF-IEemI8ps-yiNc8Q">
         <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
@@ -91,6 +102,9 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
       </packageImport>
       <packageImport xmi:type="uml:PackageImport" xmi:id="_HK0nkJ2CEemRh9ZwWhYdUw">
         <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_rKhs8PpEEemgbedqj_WsFg">
+        <importedPackage xmi:type="uml:Model" href="../IETF%20Datatypes/IetfYangTypes.uml#d4e1"/>
       </packageImport>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_TXrfhl-IEemI8ps-yiNc8Q" name="Interfaces"/>
@@ -198,7 +212,7 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
         <body>The WireInterface is quite similar to the Medium Attachment Unit (MAU) accordinung to 802.3</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="_sYKS0J2AEemRh9ZwWhYdUw" name="WireInterfaceLpSpec">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_HVwaUZ2EEemRh9ZwWhYdUw" name="_wireInterface_Pac" type="_w-Abv2HAEembqusQnCFcag" isReadOnly="true" aggregation="composite" association="_HVvMMJ2EEemRh9ZwWhYdUw"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_HVwaUZ2EEemRh9ZwWhYdUw" name="_wireInterface_Pac" type="_w-Abv2HAEembqusQnCFcag" aggregation="composite" association="_HVvMMJ2EEemRh9ZwWhYdUw"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_w-Abv2HAEembqusQnCFcag" name="WireInterface_Pac">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_w-AbwWHAEembqusQnCFcag" name="_wireInterfaceCapability" type="_w-Abx2HAEembqusQnCFcag" isReadOnly="true" aggregation="composite" association="_w-Ac2GHAEembqusQnCFcag"/>
@@ -364,6 +378,13 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_xOp5oqPAEem9GeuT6wIW6g"/>
         </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_tFEgkPmgEemb6rnYsTgHUg" name="isolationIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_tFEgkfmgEemb6rnYsTgHUg" annotatedElement="_tFEgkPmgEemb6rnYsTgHUg">
+            <body>1 = Separation of the PHY from higher network layers is supported by the device. Maintenance feature. Source: 802.3. </body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_tFEgkvmgEemb6rnYsTgHUg"/>
+        </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_w-AcEmHAEembqusQnCFcag" name="supportedLoopBackKindList" type="_w-AbE2HAEembqusQnCFcag" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_w-AcE2HAEembqusQnCFcag" annotatedElement="_w-AcEmHAEembqusQnCFcag">
             <body>Source: 802.3 45.2.1.12.1 PMA remote loopback ability. List of supported kinds of looping back of header information to the remote site.</body>
@@ -434,12 +455,12 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_w-AcK2HAEembqusQnCFcag"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_gFYkMWHYEemHSrFFady1vg" name="_fixedPmdKind" type="_eafQAGHVEemHSrFFady1vg" association="_gFWvAGHYEemHSrFFady1vg">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_gFYkMWHYEemHSrFFady1vg" name="_fixedPmdKind" type="_eafQAGHVEemHSrFFady1vg" aggregation="shared" association="_gFWvAGHYEemHSrFFady1vg">
           <ownedComment xmi:type="uml:Comment" xmi:id="_pDqGwGHYEemHSrFFady1vg" annotatedElement="_gFYkMWHYEemHSrFFady1vg">
             <body>If (autoPmdNegotiationIsOn==0) : Configuration of the concrete kind of Physical Medium Dependent (PMD). If (autoNegotiationIsOn=1) value of this field becomes irrelevant</body>
           </ownedComment>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_zWclM2HYEemHSrFFady1vg" name="_autoNegotiationPmdList" type="_eafQAGHVEemHSrFFady1vg" association="_zWclMGHYEemHSrFFady1vg">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_zWclM2HYEemHSrFFady1vg" name="_autoNegotiationPmdList" type="_eafQAGHVEemHSrFFady1vg" aggregation="shared" association="_zWclMGHYEemHSrFFady1vg">
           <ownedComment xmi:type="uml:Comment" xmi:id="_4keJQGHYEemHSrFFady1vg" annotatedElement="_zWclM2HYEemHSrFFady1vg">
             <body>If (autoPmdNegotiationIsOn==1) AND (autoNegotiationPmdSelectionIsAvail==1), this list defines the selection of PMDs the automated negotiation process is allowed to choose from. If no entry, the automated negotiation process is allowed to choose from all available PMDs.</body>
           </ownedComment>
@@ -512,7 +533,7 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_w-AcVmHAEembqusQnCFcag" name="isolationIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_w-AcV2HAEembqusQnCFcag" annotatedElement="_w-AcVmHAEembqusQnCFcag">
-            <body>Maintenance Feature. Source: 802.3. 1 = Activation of the separation of the PHY from higher network layers. Maintenance feature.</body>
+            <body>Maintenance Feature. Only relevant if (isolationIsAvail == 1). Source: 802.3. 1 = Activation of the separation of the PHY from higher network layers. Maintenance feature.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_w-AcWGHAEembqusQnCFcag"/>
@@ -574,7 +595,7 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_w-AcamHAEembqusQnCFcag"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_WdGJYGHaEemHSrFFady1vg" name="_pmdKindCur" type="_eafQAGHVEemHSrFFady1vg" isReadOnly="true" association="_WdEUMGHaEemHSrFFady1vg">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_WdGJYGHaEemHSrFFady1vg" name="_pmdKindCur" type="_eafQAGHVEemHSrFFady1vg" isReadOnly="true" aggregation="shared" association="_WdEUMGHaEemHSrFFady1vg">
           <ownedComment xmi:type="uml:Comment" xmi:id="_i5pwsGHaEemHSrFFady1vg" annotatedElement="_WdGJYGHaEemHSrFFady1vg">
             <body>Indicates the kind of Physical Medium Dependent (PMD) currently operated at this interface</body>
           </ownedComment>
@@ -618,13 +639,6 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
           </ownedComment>
           <defaultValue xmi:type="uml:InstanceValue" xmi:id="_w-AchmHAEembqusQnCFcag" type="_w-AbE2HAEembqusQnCFcag" instance="_w-AbFGHAEembqusQnCFcag"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_wJM4AKPBEem9GeuT6wIW6g" name="performanceMonitoringIsUp" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_wJM4AaPBEem9GeuT6wIW6g" annotatedElement="_wJM4AKPBEem9GeuT6wIW6g">
-            <body>1 = Performance values are currently collected and aggregated.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_wJM4AqPBEem9GeuT6wIW6g"/>
-        </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_w-AcfGHAEembqusQnCFcag" name="txLevelCur" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_w-AcfWHAEembqusQnCFcag" annotatedElement="_w-AcfGHAEembqusQnCFcag">
             <body>Current transmit power</body>
@@ -640,6 +654,13 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_w-AcgWHAEembqusQnCFcag"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_w-AcgmHAEembqusQnCFcag" value="4"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_w-Acg2HAEembqusQnCFcag" value="99"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_wJM4AKPBEem9GeuT6wIW6g" name="performanceMonitoringIsUp" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_wJM4AaPBEem9GeuT6wIW6g" annotatedElement="_wJM4AKPBEem9GeuT6wIW6g">
+            <body>1 = Performance values are currently collected and aggregated.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_wJM4AqPBEem9GeuT6wIW6g"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_w-Ach2HAEembqusQnCFcag" name="WireInterfaceCurrentProblems">
@@ -672,20 +693,20 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
       <packagedElement xmi:type="uml:Class" xmi:id="_eafQAGHVEemHSrFFady1vg" name="PmdKind">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_ifv1MGHVEemHSrFFady1vg" name="pmdName" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_ifwcQGHVEemHSrFFady1vg" annotatedElement="_ifv1MGHVEemHSrFFady1vg">
-            <body>To be chosen from the following list of PMD names according to IEEE 802.3 '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED'</body>
+            <body>To be chosen from the following list of PMD names according to IEEE 802.3 '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED'. Some PMDs are distinguishing Full Duplex and Half Duplex. '_FD' and '_HD' are to be attached to the respective PMD name accordingly.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_if3J8GHVEemHSrFFady1vg" name="speed">
           <ownedComment xmi:type="uml:Comment" xmi:id="_if3J8WHVEemHSrFFady1vg" annotatedElement="_if3J8GHVEemHSrFFady1vg">
-            <body>Line speed of the PMD. Value to be chosen from '2Mbit/s', '10Mbit/s', '100Mbit/s', '1000Mbit/s', '10Gbit/s', '40Gbit/s', '100Gbit/s' or 'NOT_YET_DEFINED'.</body>
+            <body>Line speed of the PMD. Value to be chosen from '2Mbit/s', '10Mbit/s', '100Mbit/s', '1000Mbit/s', '10Gbit/s', '40Gbit/s', '100Gbit/s' or 'NOT_YET_DEFINED'. This field is not for calculation purposes, but for supporting selection of the correct PMD on application layer.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_if3J8mHVEemHSrFFady1vg" value="NOT_YET_DEFINED"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_if6NQGHVEemHSrFFady1vg" name="duplex" type="_w-Abd2HAEembqusQnCFcag" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_if6NQWHVEemHSrFFady1vg" annotatedElement="_if6NQGHVEemHSrFFady1vg">
-            <body>To be expressed, whether the PMD is full duplex or just half duplex</body>
+            <body>To be expressed, whether the PMD is full duplex or just half duplex. This field is not for configuration purposes, but for supporting selection of the correct PMD on application layer.</body>
           </ownedComment>
           <defaultValue xmi:type="uml:InstanceValue" xmi:id="_if6NQmHVEemHSrFFady1vg" type="_w-Abd2HAEembqusQnCFcag" instance="_w-AbemHAEembqusQnCFcag"/>
         </ownedAttribute>
@@ -1275,6 +1296,7 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:wire-interface" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing wire interface according to IEEE802.3 ." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_2Hwn0J2EEemRh9ZwWhYdUw" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="WireInterface@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_oQI7QJ2FEemRh9ZwWhYdUw" date="2019-07-11" version="2.0.0-tsp.190711.1215" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wireInterface/issues" reference="https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_maT90PsWEemTQ-N8diAjnA" date="2019-10-30" version="2.0.0-tsp.191030.1420" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wireInterface/issues" reference="https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_TXwYAF-IEemI8ps-yiNc8Q" base_Element="_TXrfn1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xAyCQGHAEembqusQnCFcag" base_Property="_w-AbimHAEembqusQnCFcag" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
@@ -1515,9 +1537,9 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XIdflWaFEemrzeoMa-WOOQ" base_Property="_XIEfZmaFEemrzeoMa-WOOQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_XIdflmaFEemrzeoMa-WOOQ" base_StructuralFeature="_XIEfZmaFEemrzeoMa-WOOQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XIdfl2aFEemrzeoMa-WOOQ" base_Property="_XIEfaGaFEemrzeoMa-WOOQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_XIdfmGaFEemrzeoMa-WOOQ" base_StructuralFeature="_XIEfaGaFEemrzeoMa-WOOQ" partOfObjectKey="1" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XIdfmGaFEemrzeoMa-WOOQ" base_StructuralFeature="_XIEfaGaFEemrzeoMa-WOOQ" partOfObjectKey="2" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XIeGoGaFEemrzeoMa-WOOQ" base_Property="_XIEfa2aFEemrzeoMa-WOOQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_XIeGoWaFEemrzeoMa-WOOQ" base_StructuralFeature="_XIEfa2aFEemrzeoMa-WOOQ" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XIeGoWaFEemrzeoMa-WOOQ" base_StructuralFeature="_XIEfa2aFEemrzeoMa-WOOQ" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XIeGomaFEemrzeoMa-WOOQ" base_Property="_XIEfbmaFEemrzeoMa-WOOQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_XIeGo2aFEemrzeoMa-WOOQ" base_StructuralFeature="_XIEfbmaFEemrzeoMa-WOOQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XIeGpGaFEemrzeoMa-WOOQ" base_Property="_XIEfcGaFEemrzeoMa-WOOQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -1600,4 +1622,7 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
   <OpenModel_Profile:OpenModelAttribute xmi:id="_xOs88KPAEem9GeuT6wIW6g" base_StructuralFeature="_xOp5oKPAEem9GeuT6wIW6g" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_wJNfEKPBEem9GeuT6wIW6g" base_Property="_wJM4AKPBEem9GeuT6wIW6g" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_wJOGIKPBEem9GeuT6wIW6g" base_StructuralFeature="_wJM4AKPBEem9GeuT6wIW6g"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_tFIyAPmgEemb6rnYsTgHUg" base_Property="_tFEgkPmgEemb6rnYsTgHUg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_tFFusPmgEemb6rnYsTgHUg" base_StructuralFeature="_tFEgkPmgEemb6rnYsTgHUg" isInvariant="true"/>
+  <OpenModel_Profile:Experimental xmi:id="_sEegwPsVEemTQ-N8diAjnA" base_Element="__Jm0APsUEemTQ-N8diAjnA"/>
 </xmi:XMI>
