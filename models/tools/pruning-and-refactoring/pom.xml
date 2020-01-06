@@ -39,11 +39,19 @@
     <!-- don't remove the core-model, in case of other modules have a dependency to the core-model-->
     <module>core-model</module>
     <module>air-interface</module>
+<<<<<<< HEAD
+    <module>hybrid-mw-structure</module>
+    <module>pure-ethernet-structure</module>
+    <module>ethernet-container</module>
+    <module>tdm-container</module>
+    <module>wire-interface</module> 
+=======
      <module>hybrid-mw-structure</module> 
     <module>pure-ethernet-structure</module>
     <module>ethernet-container</module>
     <module>tdm-container</module>
     <module>wire-interface</module>  
+>>>>>>> 3b10c6265d9026f44ce5cb7a1f73a0fd9d02cf1c
     <module>mac-interface</module>
     <module>ip-interface</module>
     <module>wred-profile</module>

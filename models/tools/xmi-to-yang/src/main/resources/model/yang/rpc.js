@@ -53,6 +53,8 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
             break;
         case "list":
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.isOrdered, att.support, att.status, att.fileName);
+            
+                        
             if (att.isUses) {
                 if (att.key) {
                     obj.key = att.key;

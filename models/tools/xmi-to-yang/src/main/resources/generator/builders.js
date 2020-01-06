@@ -47,18 +47,33 @@ var builders = {
             newkeyid:undefined,
             newkeyvalue:undefined
         };
-
+        
         if(general.class2.key.length !== 0){
             props.keyLength = general.class2.key instanceof Array ? general.class2.key.length : 1;
             for(var i = 0; i < props.keyLength; i++){
-                props.newkey = props.keyLength === 1 ? general.class2.key : general.class2.key[i];
-                props.newkeyid = props.keyLength === 1 ? general.class2.keyid : general.class2.keyid[i];
-                props.newkeyvalue = props.keyLength === 1 ? general.class2.keyvalue : general.class2.keyvalue[i];
-                if(general.class2.key instanceof Array){
-                    props.newkey = general.class2.key[0];
-                    props.newkeyid = general.class2.keyid[0];
-                    props.newkeyvalue = general.class2.keyvalue[0];
-                }
+           
+                // the following lines are commented out,  to get more than one partOfObjectKey under one class.
+
+                /*
+                    props.newkey = props.keyLength === 1 ? general.class2.key : general.class2.key[i];
+                    props.newkeyid = props.keyLength === 1 ? general.class2.keyid : general.class2.keyid[i];
+                    props.newkeyvalue = props.keyLength === 1 ? general.class2.keyvalue : general.class2.keyvalue[i];
+                */
+                props.newkey = general.class2.key[i];
+                props.newkeyid = general.class2.keyid[i];
+                props.keyLength = general.class2.keyvalue[i];
+               
+                // This part seems to make no sense, commented out by Waseem
+                
+                /*
+                    if(general.class2.key instanceof Array){
+                        props.newkey = general.class2.key[0];
+                        props.newkeyid = general.class2.keyid[0];
+                        props.newkeyvalue = general.class2.keyvalue[0];
+                    }
+
+                */
+
                 for(var j = 0; j < general.class1.key.length; j++){
                     if(props.newkeyid === general.class1.keyid[j]){
                         break;
@@ -280,7 +295,7 @@ var builders = {
                                 
                                 var t = builders.datatypeExe(clazz.attribute[0].type, store);
                                 
-                                console.info("builder.js \t"+JSON.stringify(t));
+                                
 
                                 switch (t.split(",")[0]) {
                                     case "enumeration":

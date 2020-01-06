@@ -39,7 +39,7 @@ Module.prototype.writeNode = function (store,layer) {
     if (!this.import || this.import === []) {
         imp = "";
     } else {
-        // console.info("[sko] # fileName", this.fileName)
+        
         for (var i = 0; i < this.import.length; i++) {
             var impname = Util.yangifyName(this.import[i]);
             var impPrefix = impname;

@@ -141,9 +141,7 @@ var processors = {
 
                 if (props.r !== "basicType") {
                     processors.clazz.basicTypes(props,obj,node, i, store);
-                   // if(node.id =="_X1q3Qj-QEeaRI-H69PghuA"){
-                     //   console.info("processors.js \t"+ node.name);
-                    //}
+                
                     if(!node.attribute[i].isleafRef && node.type == "Class"){
                         var instance = {};
                         instance.id = props.r;
@@ -188,7 +186,7 @@ var processors = {
                 } else{
                     node.buildIdentityref(obj);
 
-                    //console.info ("processors.js - node\t"+JSON.stringify(node));
+                    
                     store.Typedef.push(node);
 
                     global.name=global.name.replace(/-t$/g,"");
@@ -196,11 +194,10 @@ var processors = {
                     global.name=global.name.replace(/-/g,"_");
                     global.name=global.name.toUpperCase();
                    // if(global.name==='ROUTE_SELECTION_CONTROL'||'SWITCH_CONTROL'){
-                        //console.info ("ROUTE_SELECTION_CONTROL found");
-                     //   console.info ("Node:\t"+JSON.stringify(node));
+                      
                     //}
                     var nodeI = new yangModels.Node(global.name,"","identity");
-                   // console.info ("processors.js - nodeI\t"+JSON.stringify(nodeI));
+                  
                     nodeI.fileName=node.fileName;
 
                     store.Identity.push(nodeI);

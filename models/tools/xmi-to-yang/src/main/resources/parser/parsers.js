@@ -210,7 +210,7 @@ var parsers = {
         var openModelStatementChildrenParser = {
             _contact: function (jsonObject) {
 
-                console.info("processors.js \t"+JSON.stringify(jsonObject));
+                
                 
                 return [
                     "WG Web : " + jsonObject.projectWeb,

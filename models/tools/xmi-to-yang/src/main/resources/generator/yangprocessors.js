@@ -102,9 +102,7 @@ module.exports = {
                             Martin & Waseem
                             
                             if(ele[i].generalization[j] == typeDef.id) {
-                                console.info("\nchildren before:\t"+JSON.stringify(ele[i].attribute[0].children));
                                 //ele[i].attribute[0].children = typeDef.attribute[0].children.concat(ele[i].attribute[0].children);
-                                console.info("\nchildren after:\t"+JSON.stringify(ele[i].attribute[0].children));
                                 break;
                             }
                             */
@@ -275,6 +273,7 @@ module.exports = {
                                     if (i == k) {
                                         if (clazz.instancePath[0] == "/") {
                                             ele[i].attribute[j].type = "leafref+path '" + yangPathStatement + "'";
+
                                         }
                                         else {
                                             ele[i].attribute[j].type = "leafref+path '/" + yangPathStatement + "'";
@@ -344,8 +343,7 @@ module.exports = {
                             //didn't find the "class"
                             if (k === store.Class.length) {
                             
-                                //console.info("yanfprocessors.js \t"+JSON.stringify(ele[i].attribute[j]));
-
+                                
                                 ele[i].attribute[j].nodeType === "list" ? ele[i].attribute[j].nodeType = "leaf-list" : ele[i].attribute[j].nodeType = "leaf";
 
                                 var typeMapping = {
@@ -358,16 +356,52 @@ module.exports = {
                                     ele[i].attribute[j].type = typeMapping[ele[i].attribute[j].type];
                                 }
                                 //console.debug("yangprocessors-didn't find the class");
+<<<<<<< HEAD
+                                // assigin yang types - eidtey by Waseem Sattar
+                                switch (ele[i].attribute[j].name.toLowerCase()) {
+                                    case "timestamp":
+                                        ele[i].attribute[j].type = "yang:date-and-time";
+                                      break;
+                                    case "periodendtime":
+                                        ele[i].attribute[j].type = "yang:date-and-time";
+                                      break;
+                                      case "objectclass":
+                                        ele[i].attribute[j].type = "yang:object-identifier";
+                                      break;
+                                    case "namebinding":
+                                        ele[i].attribute[j].type = "yang:object-identifier";
+                                      break;
+                                    case "allomorphs":
+                                        ele[i].attribute[j].type = "yang:object-identifier";
+                                      break;
+                                    case "packages":
+                                        ele[i].attribute[j].type = "yang:object-identifier";
+                                      break;
+                                   default:
+                                        ele[i].attribute[j].type = "string";
+
+                                  }
+                                
+                                /*
+                                  if (ele[i].attribute[j].name.toLowerCase()==="timestamp" || "periodendtime") {
+                                    ele[i].attribute[j].type = "yang:date-and-time";
+                                       
+                                } if (ele[i].attribute[j].name.toLowerCase()==="objectclass" || "namebinding" || "allomorphs" || "packages"){
+                                    ele[i].attribute[j].type = "yang:object-identifier";
+                                }                              
+=======
                                 // if (ele[i].attribute[j].name.toLowerCase()==="timestamp") {
                                 //     ele[i].attribute[j].type = "yang:date-and-time";
                                        
                                 // }
+>>>>>>> 3b10c6265d9026f44ce5cb7a1f73a0fd9d02cf1c
                                 else{
                                     console.info("Type not found, 'string' used instead.", ele[i].attribute[j].type, typeMapping[ele[i].attribute[j].type]);
                                     ele[i].attribute[j].type = "string";
-                                }
+                                }*/
                             }
                         }
+                       
                         if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
                             ele[i].attribute[j].type = new yangModels.Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
                         } else if (ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list") {
@@ -528,9 +562,15 @@ module.exports = {
                         if (ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
                             && ele[i].attribute[j].isDefinedBySpec === false) {
                             if(ele[i].attribute[j].nodeType == "list"){
+                                
+                                
+                                
                                 ele[i].attribute[j].key = clazz.key;
+
                                 ele[i].attribute[j].keyid = clazz.keyid;
+                                
                                 ele[i].attribute[j].keyvalue = clazz.keyvalue;
+                                
                             }
                             obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
                         }
@@ -653,7 +693,7 @@ module.exports = {
                                             pValue.isUses = clazz.name;
                                             if(config.withSuffix){
                                                 pValue.isUses+='-g';
-                                            }
+                                            }config
 
                                         }
                                         break;
@@ -672,6 +712,9 @@ module.exports = {
                                         pValue.key = clazz.key;
                                         pValue.keyid = clazz.keyid;
                                         pValue.keyvalue = clazz.keyvalue;
+
+                                        
+
                                         break;
                                     }
                                 }
@@ -713,7 +756,7 @@ module.exports = {
             var flag = true;
             for(var n=0; n < store.rootElement.length; n++){
                 var re = store.rootElement[n];
-                console.info("yangprocessor.js - store.rootElemenmt\t:"+JSON.stringify(re));
+                
                 if(ele[i].id==re.id){
                     rootFlag=1;
                     flag=false;

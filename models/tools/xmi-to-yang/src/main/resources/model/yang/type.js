@@ -99,21 +99,11 @@ type.prototype.writeNode = function (layer) {
         s = "{ fraction-digits 3; }";
     } else if (this.path || this.range || this.length || this.children.length){
         s = " {\r\n";
+        if(this.name == "leafref"){
+            s += "\t\t\t\t\trequire-instance false;\r\n";
+        }     
         var regex  = /[^0-9/./*]/;
         if(this.range){
-            /*if(regex.test(this.range) == true){
-                if(this.range.indexOf('*') !== -1){
-                    this.range = this.range.replace('*', "max");
-                }
-                this.description = "range " + this.range + "\r\n" + this.description;
-                this.description = this.description.replace(/\r\n$/g, "");
-                this.range = undefined;
-                console.warn("Warning: The range of id = \"" + this.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
-            }else{
-                this.range = this.range.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');
-                s += PRE + "\trange ";
-                s += "\"" + this.range + "\"" + ";\r\n";
-            }*/
             s += PRE + "\trange ";
             s += "\"" + this.range + "\"" + ";\r\n";
         }
@@ -134,7 +124,10 @@ type.prototype.writeNode = function (layer) {
                 });
             }
         }
+        //console.info("type.js - path\t"+this.path);
+        var tmpmust="";
         if(this.path){
+           tmpmust= this.path.split("path ");
             s += PRE + "\t";
             s += Util.yangifyName(this.path) + ";\r\n";
         }

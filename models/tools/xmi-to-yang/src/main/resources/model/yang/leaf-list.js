@@ -21,7 +21,7 @@ function leaf_list(name, id, config, descrip, maxele, minele, type, isOrdered, f
     this.status = status;
     this["ordered-by"] = isOrdered;
     this["max-elements"] = maxele;
-    this["min-elements"] = minele;
+    this["min-elements"] = minele;this.type
     this["if-feature"] = feature;
     this.type = type;
     this.units = this.type.units;
@@ -41,11 +41,14 @@ leaf_list.prototype.writeNode = function (layer) {
         this.description = "none";
     }
     if (typeof this.description == 'string') {
+        
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
 
+
     }
-    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
+    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";" : "";
+    
     var feature = "";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
@@ -69,11 +72,14 @@ leaf_list.prototype.writeNode = function (layer) {
         maxele = "";
     }
     var type = this.type ? this.type : "string";
+    
+    //console.info("leaf-list.js - intial type\t"+JSON.stringify(this.type));
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
+        
     } else if (typeof this.type == "string"){
         if (type.split("+")[0] == "leafref") {
-            type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + Util.yangifyName(type.split("+")[1]) + ";\r\n" + PRE + "\t}\r\n";
+            type = PRE + "\ttype leafref {\r\n " + PRE + "\t\t" + Util.yangifyName(type.split("+")[1]) + ";\r\n" + PRE + "\t}\r\n";
         }
         else if(!this.type){
             type="";
@@ -88,7 +94,7 @@ leaf_list.prototype.writeNode = function (layer) {
     }else{
         units = "";
     }
-
+    
     var s = PRE + name + " {\r\n" +
         feature +
         type +

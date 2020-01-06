@@ -24,20 +24,38 @@ fi
 
 declare -A namespace
 namespace=(
-  [air-interface]=air-interface
-  [core-model]=core-model
+  [air-interface]=air-interface-2-0
+  [core-model]=core-model-1-4
   [extensible-network-function]=core-model  
-  [ethernet-container]=ethernet-container
-  [hybrid-mw-structure]=hybrid-mw-structure
-  [ip-interface]=ip-interface
-  [l-3vpn-profile]=l-3vpn-profile
-  [mac-interface]=mac-interface
-  [pure-ethernet-structure]=pure-ethernet-structure
-  [qos-profile]=qos-profile
+  [ethernet-container]=ethernet-container-2-0
+  [hybrid-mw-structure]=hybrid-mw-structure-2-0
+  [ip-interface]=ip-interface-2-0
+  [l-3vpn-profile]=l-3vpn-profile-2-0
+  [mac-interface]=mac-interface-2-0
+  [pure-ethernet-structure]=pure-ethernet-structure-2-0
+  [qos-profile]=qos-profile-2-0
   [tdm-container]=tdm-container
-  [wire-interface]=wire-interface
-  [wred-profile]=wred-profile  
+  [wire-interface]=wire-interface-2-0
+  [wred-profile]=wred-profile-2-0
 );
+
+declare -A fileversions
+fileversions=(
+  [air-interface]=air-interface-2-0 
+  [core-model]=core-model-1-4
+  [extensible-network-function]=core-model  
+  [ethernet-container]=ethernet-container-2-0
+  [hybrid-mw-structure]=hybrid-mw-structure-2-0
+  [ip-interface]=ip-interface-2-0
+  [l-3vpn-profile]=l-3vpn-profile-2-0
+  [mac-interface]=mac-interface-2-0
+  [pure-ethernet-structure]=pure-ethernet-structure-2-0
+  [qos-profile]=qos-profile-2-0
+  [tdm-container]=tdm-container-2-0
+  [wire-interface]=wire-interface-2-0
+  [wred-profile]=wred-profile-2-0
+);
+
 
 declare -A layer
 layer=(
@@ -60,9 +78,28 @@ profile=(
   [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
 );
 
+<<<<<<< HEAD
+#echo "copying ietf yang"$DIR 
+#cd $DIR
+#cp ../../ietf-yang-types@2013-07-15.yang $DIR
+#cd .
+
+  # technology specific augmentation
+  ## layer protocol name
+  
+echo "copying ietf yang "$DIR
+cd $DIR 
+cp ../../ietf-yang-types@2013-07-15.yang $DIR
+cd .
+  
+=======
+>>>>>>> 3b10c6265d9026f44ce5cb7a1f73a0fd9d02cf1c
 for yang in $DIR/*.yang
 do
 	echo "Post processing $yang"
+        filename=${yang#*$DIR/}
+	index=${filename%%.*}
+        echo "index: "$index
 
   # find/replace in core-model
   sed -i -e "s/name local\-id/local-id/g" $yang
@@ -94,15 +131,13 @@ do
   # find/replace in wire-interface
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
 
-  # technology specific augmentation
-  ## layer protocol name
-  filename=${yang#*$DIR/};
-  index=${filename%%.*};
+
+ 
 
   find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
 
   identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
-  when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '${namespace[$index]}:${layer[$index]}')\";"
+  when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
   replace=" $identity \n $find \n $when";
 
   sed -i -e "s/$find/$replace/g" $yang;
@@ -111,12 +146,29 @@ do
   find="augment \"\/core-model:control-construct\/core-model:profile-collection\/core-model:profile\"{";
   
   identity="identity ${profile[$index]} {\n base core-model:PROFILE_NAME_TYPE; \n description \"none\"; \n}\n";
-  when="when \"derived-from-or-self(.\/core-model:profile-name, '${namespace[$index]}:${profile[$index]}')\";"
+  when="when \"derived-from-or-self(.\/core-model:profile-name, '$index:${profile[$index]}')\";"
   replace=" $identity \n $find \n $when";
   sed -i -e "s/$find/$replace/g" $yang;
 
+ ##modules
+  #echo "namespace: "${namespace[$index]}
+  find="module "$index; 
+  replace="module "${namespace[$index]};
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  find='namespace \".*\"';
+  replace='\r    namespace \"urn:onf:yang:'${namespace[$index]}'"';
+  sed -i -e "s/$find/$replace/g" $yang;
+  
+#echo "yang"$yang;
+#echo "find"$find;
+#echo "replace"$replace;
 
   ## imports
+  find="import core-model";
+  replace="import core-model-1-4";
+  sed -i -e "s/$find/$replace/g" $yang;
+
   find="import implementation-common-data-types";
   replace="import ietf-yang-types";
   sed -i -e "s/$find/$replace/g" $yang;
@@ -134,9 +186,19 @@ do
   find="prefix ietf-yang-types";
   replace="prefix yang";
   sed -i -e "s/$find/$replace/g" $yang;
+  
+  mv $filename ${fileversions[$index]}".yang"; 
+done
 
-  # format
+cd .
+
+
+##change filenames
+for yang in $DIR/*.yang
+do
+  echo "unix2dos"
   pyang -f yang -p $DIR -o $yang $yang
   unix2dos $yang
-  
 done
+
+

@@ -2,20 +2,8 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
   <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="AirInterface" URI="">
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdIV9LEemkV8c3A5D8-A" name="Associations">
-      <packagedElement xmi:type="uml:Abstraction" xmi:id="_Rg7nEKMlEemOU89mRgVhCg" client="_04TZwKMkEemOU89mRgVhCg">
-        <supplier xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_gROecFYXEeOVGaP4lO41SQ"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Constraint" xmi:id="_akQowKMlEemOU89mRgVhCg" name="When" constrainedElement="_Rg7nEKMlEemOU89mRgVhCg">
-        <specification xmi:type="uml:LiteralString" xmi:id="_akR24KMlEemOU89mRgVhCg" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER'"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_rRIOsKMlEemOU89mRgVhCg" memberEnd="_rRKD4aMlEemOU89mRgVhCg _rRSmwKMlEemOU89mRgVhCg">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_rRJc0KMlEemOU89mRgVhCg" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_rRKD4KMlEemOU89mRgVhCg" key="nature" value="UML_Nature"/>
-        </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_rRSmwKMlEemOU89mRgVhCg" name="cochannelgroup" type="_Gsv9bF9MEemkV8c3A5D8-A" association="_rRIOsKMlEemOU89mRgVhCg">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_x1abEKMlEemOU89mRgVhCg"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_x2EiYKMlEemOU89mRgVhCg" value="1"/>
-        </ownedEnd>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_j7K2oA1FEeqqRqGDdjHRpQ" client="_04TZwKMkEemOU89mRgVhCg">
+        <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_Gsv_Zl9MEemkV8c3A5D8-A" name="AirInterfaceHasCapabilities" memberEnd="_GsvW_19MEemkV8c3A5D8-A _Gsv_aV9MEemkV8c3A5D8-A">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Gsv_Z19MEemkV8c3A5D8-A" source="org.eclipse.papyrus">
@@ -95,25 +83,55 @@
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_AEoIQKMlEemOU89mRgVhCg" name="airinterfacelpspec" type="_04TZwKMkEemOU89mRgVhCg" association="_AEb7AKMlEemOU89mRgVhCg"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_pySwIA1HEeqYiPKOUYVdIg" memberEnd="_pyaE4A1HEeqYiPKOUYVdIg _pychIA1HEeqYiPKOUYVdIg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pyYPsA1HEeqYiPKOUYVdIg" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pyYPsQ1HEeqYiPKOUYVdIg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_pychIA1HEeqYiPKOUYVdIg" name="objectcreationnotification" type="_Gsv_L19MEemkV8c3A5D8-A" association="_pySwIA1HEeqYiPKOUYVdIg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tBsEUA1HEeqYiPKOUYVdIg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tByyAA1HEeqYiPKOUYVdIg" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_0Bg9MA1HEeqYiPKOUYVdIg" memberEnd="_0BiyYQ1HEeqYiPKOUYVdIg _0Bl1sA1HEeqYiPKOUYVdIg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0BiLUA1HEeqYiPKOUYVdIg" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0BiyYA1HEeqYiPKOUYVdIg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_0Bl1sA1HEeqYiPKOUYVdIg" name="objectdeletionnotification" type="_Gsv_O19MEemkV8c3A5D8-A" association="_0Bg9MA1HEeqYiPKOUYVdIg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1wluIA1HEeqYiPKOUYVdIg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1woxcA1HEeqYiPKOUYVdIg" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_6edygA1HEeqYiPKOUYVdIg" memberEnd="_6egOwQ1HEeqYiPKOUYVdIg _6ejSEA1HEeqYiPKOUYVdIg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6efnsA1HEeqYiPKOUYVdIg" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6egOwA1HEeqYiPKOUYVdIg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_6ejSEA1HEeqYiPKOUYVdIg" name="attributevaluechangednotification" type="_Gsv_RF9MEemkV8c3A5D8-A" association="_6edygA1HEeqYiPKOUYVdIg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7urdMA1HEeqYiPKOUYVdIg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7uw8wA1HEeqYiPKOUYVdIg" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_-OBNcA1HEeqYiPKOUYVdIg" memberEnd="_-OCbkg1HEeqYiPKOUYVdIg _-OE30A1HEeqYiPKOUYVdIg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-OCbkA1HEeqYiPKOUYVdIg" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-OCbkQ1HEeqYiPKOUYVdIg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_-OE30A1HEeqYiPKOUYVdIg" name="problemnotification" type="_Gsv_VV9MEemkV8c3A5D8-A" association="_-OBNcA1HEeqYiPKOUYVdIg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="___5awA1HEeqYiPKOUYVdIg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AAGPEA1IEeqYiPKOUYVdIg" value="*"/>
+        </ownedEnd>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdPl9LEemkV8c3A5D8-A" name="Diagrams"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdP19LEemkV8c3A5D8-A" name="Imports">
       <packageImport xmi:type="uml:PackageImport" xmi:id="_nzCdQF9LEemkV8c3A5D8-A">
         <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
       </packageImport>
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_nzCdQV9LEemkV8c3A5D8-A">
-        <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-      </packageImport>
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_P6EzcKMkEemOU89mRgVhCg">
-        <importedPackage xmi:type="uml:Package" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_eOqRsA1DEeqqRqGDdjHRpQ">
+        <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
       </packageImport>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdQl9LEemkV8c3A5D8-A" name="Interfaces"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdQ19LEemkV8c3A5D8-A" name="Notifications">
       <packagedElement xmi:type="uml:Signal" xmi:id="_Gsv_L19MEemkV8c3A5D8-A" name="ObjectCreationNotification">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_MF9MEemkV8c3A5D8-A" annotatedElement="_Gsv_L19MEemkV8c3A5D8-A">
-          <body>To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.</body>
-        </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_MV9MEemkV8c3A5D8-A" name="counter" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_Ml9MEemkV8c3A5D8-A" annotatedElement="_Gsv_MV9MEemkV8c3A5D8-A">
             <body>Counts object creation notifications.</body>
@@ -121,15 +139,12 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv_M19MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_NF9MEemkV8c3A5D8-A" name="timeStamp" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_NF9MEemkV8c3A5D8-A" name="timestamp" isUnique="false" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv_NV9MEemkV8c3A5D8-A" value="2010-11-20T14:00:00+01:00"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_Nl9MEemkV8c3A5D8-A" name="objectIdRef" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_N19MEemkV8c3A5D8-A" annotatedElement="_Gsv_Nl9MEemkV8c3A5D8-A">
-            <body>ID of the affected MW_AirInterface_Pac</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iQBco_ZaEeWhRf3FikFX5w"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_pyaE4A1HEeqYiPKOUYVdIg" name="_objectIdRef" aggregation="shared" association="_pySwIA1HEeqYiPKOUYVdIg">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_OF9MEemkV8c3A5D8-A" name="objectType" isUnique="false" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -137,9 +152,6 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Signal" xmi:id="_Gsv_O19MEemkV8c3A5D8-A" name="ObjectDeletionNotification">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_PF9MEemkV8c3A5D8-A" annotatedElement="_Gsv_O19MEemkV8c3A5D8-A">
-          <body>To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.</body>
-        </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_PV9MEemkV8c3A5D8-A" name="counter" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_Pl9MEemkV8c3A5D8-A" annotatedElement="_Gsv_PV9MEemkV8c3A5D8-A">
             <body>Counts object deletion notifications.</body>
@@ -147,21 +159,15 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv_P19MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_QF9MEemkV8c3A5D8-A" name="timeStamp" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_QF9MEemkV8c3A5D8-A" name="timestamp" isUnique="false" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv_QV9MEemkV8c3A5D8-A" value="2010-11-20T14:00:00+01:00"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_Ql9MEemkV8c3A5D8-A" name="objectIdRef" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_Q19MEemkV8c3A5D8-A" annotatedElement="_Gsv_Ql9MEemkV8c3A5D8-A">
-            <body>ID of the affected MW_AirInterface_Pac</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iQBco_ZaEeWhRf3FikFX5w"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_0BiyYQ1HEeqYiPKOUYVdIg" name="_objectIdRef" aggregation="shared" association="_0Bg9MA1HEeqYiPKOUYVdIg">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Signal" xmi:id="_Gsv_RF9MEemkV8c3A5D8-A" name="AttributeValueChangedNotification">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_RV9MEemkV8c3A5D8-A" annotatedElement="_Gsv_RF9MEemkV8c3A5D8-A">
-          <body>To be sent when an attribute has changed and one or more controllers have to update their data.</body>
-        </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_Rl9MEemkV8c3A5D8-A" name="counter" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_R19MEemkV8c3A5D8-A" annotatedElement="_Gsv_Rl9MEemkV8c3A5D8-A">
             <body>Counts attribute value changed notifications.</body>
@@ -169,15 +175,12 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv_SF9MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_SV9MEemkV8c3A5D8-A" name="timeStamp" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_SV9MEemkV8c3A5D8-A" name="timestamp" isUnique="false" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv_Sl9MEemkV8c3A5D8-A" value="2010-11-20T14:00:00+01:00"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_S19MEemkV8c3A5D8-A" name="objectIdRef" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_TF9MEemkV8c3A5D8-A" annotatedElement="_Gsv_S19MEemkV8c3A5D8-A">
-            <body>ID of the affected MW_AirInterface_Pac</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iQBco_ZaEeWhRf3FikFX5w"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_6egOwQ1HEeqYiPKOUYVdIg" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_6edygA1HEeqYiPKOUYVdIg">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_TV9MEemkV8c3A5D8-A" name="attributeName" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_Tl9MEemkV8c3A5D8-A" annotatedElement="_Gsv_TV9MEemkV8c3A5D8-A">
@@ -197,9 +200,6 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Signal" xmi:id="_Gsv_VV9MEemkV8c3A5D8-A" name="ProblemNotification">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_Vl9MEemkV8c3A5D8-A" annotatedElement="_Gsv_VV9MEemkV8c3A5D8-A">
-          <body>To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.</body>
-        </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_V19MEemkV8c3A5D8-A" name="counter" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_WF9MEemkV8c3A5D8-A" annotatedElement="_Gsv_V19MEemkV8c3A5D8-A">
             <body>Counts problem notifications</body>
@@ -207,15 +207,12 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv_WV9MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_Wl9MEemkV8c3A5D8-A" name="timeStamp" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_Wl9MEemkV8c3A5D8-A" name="timestamp" isUnique="false" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv_W19MEemkV8c3A5D8-A" value="2010-11-20T14:00:00+01:00"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_XF9MEemkV8c3A5D8-A" name="objectIdRef" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_XV9MEemkV8c3A5D8-A" annotatedElement="_Gsv_XF9MEemkV8c3A5D8-A">
-            <body>ID of the affected MW_AirInterface_Pac</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iQBco_ZaEeWhRf3FikFX5w"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_-OCbkg1HEeqYiPKOUYVdIg" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_-OBNcA1HEeqYiPKOUYVdIg">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_Xl9MEemkV8c3A5D8-A" name="problem" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv_X19MEemkV8c3A5D8-A" annotatedElement="_Gsv_Xl9MEemkV8c3A5D8-A">
@@ -234,7 +231,10 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdRF9LEemkV8c3A5D8-A" name="ObjectClasses">
       <packagedElement xmi:type="uml:Class" xmi:id="_04TZwKMkEemOU89mRgVhCg" name="AirInterfaceLpSpec">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_AEiosKMlEemOU89mRgVhCg" name="_airInterface_Pac" type="_GsvW-l9MEemkV8c3A5D8-A" isReadOnly="true" aggregation="composite" association="_AEb7AKMlEemOU89mRgVhCg"/>
+        <ownedRule xmi:type="uml:Constraint" xmi:id="_s4Km0A1FEeqqRqGDdjHRpQ" name="When" constrainedElement="_j7K2oA1FEeqqRqGDdjHRpQ">
+          <specification xmi:type="uml:LiteralString" xmi:id="_s4L08A1FEeqqRqGDdjHRpQ" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER'"/>
+        </ownedRule>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_AEiosKMlEemOU89mRgVhCg" name="_airInterface_Pac" type="_GsvW-l9MEemkV8c3A5D8-A" aggregation="composite" association="_AEb7AKMlEemOU89mRgVhCg"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_GsvW-l9MEemkV8c3A5D8-A" name="AirInterface_Pac">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_GsvW_19MEemkV8c3A5D8-A" name="_airInterfaceCapability" type="_GsvXDV9MEemkV8c3A5D8-A" isUnique="false" isReadOnly="true" aggregation="composite" association="_Gsv_Zl9MEemkV8c3A5D8-A">
@@ -331,29 +331,6 @@
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_GsvXJV9MEemkV8c3A5D8-A"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_GsvXJl9MEemkV8c3A5D8-A" name="mimoIsAvail" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_GsvXJ19MEemkV8c3A5D8-A" annotatedElement="_GsvXJl9MEemkV8c3A5D8-A">
-            <body>In case the device is capable of MIMO, this field shall contain a 'true'.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_GsvXKF9MEemkV8c3A5D8-A"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_GsvXKV9MEemkV8c3A5D8-A" name="mimoChannels" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_GsvXKl9MEemkV8c3A5D8-A" annotatedElement="_GsvXKV9MEemkV8c3A5D8-A">
-            <body>Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv8QF9MEemkV8c3A5D8-A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsv8QV9MEemkV8c3A5D8-A" value="1"/>
-          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv8Ql9MEemkV8c3A5D8-A" value="1"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8Q19MEemkV8c3A5D8-A" name="alicIsAvail" isUnique="false" isReadOnly="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv8RF9MEemkV8c3A5D8-A" annotatedElement="_Gsv8Q19MEemkV8c3A5D8-A">
-            <body>In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_Gsv8RV9MEemkV8c3A5D8-A"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8Rl9MEemkV8c3A5D8-A" name="atpcIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv8R19MEemkV8c3A5D8-A" annotatedElement="_Gsv8Rl9MEemkV8c3A5D8-A">
@@ -452,12 +429,12 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsv8a19MEemkV8c3A5D8-A" value="1"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv8bF9MEemkV8c3A5D8-A" value="Air interface ID at the remote site not yet defined."/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8cF9MEemkV8c3A5D8-A" name="transmittedRadioSignalID" type="_UThkYJ2cEem154wIx7g9BA" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8cF9MEemkV8c3A5D8-A" name="transmittedRadioSignalID" type="_dh-mEJ2eEem154wIx7g9BA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv8cV9MEemkV8c3A5D8-A" annotatedElement="_Gsv8cF9MEemkV8c3A5D8-A">
             <body>Transmitted radio signal ID for synchronizing the remote receiver.</body>
           </ownedComment>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8bV9MEemkV8c3A5D8-A" name="expectedRadioSignalID" type="_UThkYJ2cEem154wIx7g9BA" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8bV9MEemkV8c3A5D8-A" name="expectedRadioSignalID" type="_dh-mEJ2eEem154wIx7g9BA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv8bl9MEemkV8c3A5D8-A" annotatedElement="_Gsv8bV9MEemkV8c3A5D8-A">
             <body>Received radio signal ID for identifying the correct transmitter to synchronize on.</body>
           </ownedComment>
@@ -493,15 +470,6 @@
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VVoI0F9aEemkV8c3A5D8-A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VVu2gF9aEemkV8c3A5D8-A" value="1"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8i19MEemkV8c3A5D8-A" name="rxChannelBandwidth" isUnique="false">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv8jF9MEemkV8c3A5D8-A" annotatedElement="_Gsv8i19MEemkV8c3A5D8-A">
-            <body>Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv8jV9MEemkV8c3A5D8-A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsv8jl9MEemkV8c3A5D8-A" value="1"/>
-          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv8j19MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv8lV9MEemkV8c3A5D8-A" name="powerIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv8ll9MEemkV8c3A5D8-A" annotatedElement="_Gsv8lV9MEemkV8c3A5D8-A">
@@ -746,7 +714,7 @@
             <body>Currently operated transmission mode according to definitions in Capabilities.</body>
           </ownedComment>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv9Jl9MEemkV8c3A5D8-A" name="receivedRadioSignalID" type="_UThkYJ2cEem154wIx7g9BA" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv9Jl9MEemkV8c3A5D8-A" name="receivedRadioSignalID" type="_dh-mEJ2eEem154wIx7g9BA" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv9J19MEemkV8c3A5D8-A" annotatedElement="_Gsv9Jl9MEemkV8c3A5D8-A">
             <body>Radio signal ID of the signal, which the receiver is currently synchronized on.</body>
           </ownedComment>
@@ -902,26 +870,6 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsv9a19MEemkV8c3A5D8-A" value="*"/>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_Gsv9bF9MEemkV8c3A5D8-A" name="CoChannelGroup">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv9bV9MEemkV8c3A5D8-A" annotatedElement="_Gsv9bF9MEemkV8c3A5D8-A">
-          <body>Required for configuring XPIC, MIMO and ALIC.</body>
-        </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv9bl9MEemkV8c3A5D8-A" name="coChannelGroupId">
-          <type xmi:type="uml:DataType" href="../OnfModel-CoreModel/CoreModel.uml#_SU3Q4I30EeO38ZmbECnvbg"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_rRKD4aMlEemOU89mRgVhCg" name="_logicalTerminationPointList" aggregation="shared" association="_rRIOsKMlEemOU89mRgVhCg">
-          <type xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_u5uGAKMlEemOU89mRgVhCg"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_u5y-gKMlEemOU89mRgVhCg" value="*"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv9c19MEemkV8c3A5D8-A" name="sortOfCoChannelGroup" isUnique="false">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Gsv9dF9MEemkV8c3A5D8-A" annotatedElement="_Gsv9c19MEemkV8c3A5D8-A">
-            <body>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv9dV9MEemkV8c3A5D8-A" value="Kind of co-channel group not specified."/>
-        </ownedAttribute>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_i1uKYF9SEemkV8c3A5D8-A" name="TransmissionMode">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_GsvVYl9MEemkV8c3A5D8-A" name="transmissionModeName" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_GsvVY19MEemkV8c3A5D8-A" annotatedElement="_GsvVYl9MEemkV8c3A5D8-A">
@@ -1026,7 +974,7 @@
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_J19MEemkV8c3A5D8-A" name="timeStamp" isUnique="false" isReadOnly="true">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Gsv_J19MEemkV8c3A5D8-A" name="timestamp" isUnique="false" isReadOnly="true">
             <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_Gsv_KV9MEemkV8c3A5D8-A" value="2010-11-20T14:00:00+01:00"/>
           </ownedAttribute>
@@ -1588,7 +1536,7 @@
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nzCdnV9LEemkV8c3A5D8-A" name="NOT_YET_DEFINED"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Enumeration" xmi:id="_FGE-4GBIEemttdJfSvwReA" name="OperationalState">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_FGE-4GBIEemttdJfSvwReA" name="OperationalStateType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_FGE-4WBIEemttdJfSvwReA" annotatedElement="_FGE-4GBIEemttdJfSvwReA">
             <body>The list of valid operational states for the connection.</body>
           </ownedComment>
@@ -1596,7 +1544,7 @@
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_FGE-42BIEemttdJfSvwReA" name="DISABLED"/>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_asVagGZ7EemrzeoMa-WOOQ" name="NOT_YET_DEFINED"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Enumeration" xmi:id="_y72qIGBHEemttdJfSvwReA" name="AdministrativeState">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_y72qIGBHEemttdJfSvwReA" name="AdministrativeStateType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_7nin4GBHEemttdJfSvwReA" annotatedElement="_y72qIGBHEemttdJfSvwReA">
             <body>For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.</body>
           </ownedComment>
@@ -1623,6 +1571,17 @@
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdr19LEemkV8c3A5D8-A" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Package" xmi:id="_ecdn4AYWEeqSPKw09tfNVg" name="ExtentedCoreEnumerations ">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_k76XkAYWEeqSPKw09tfNVg" name="LayerProtocolNameType">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_nx5tQAYWEeqSPKw09tfNVg" annotatedElement="_k76XkAYWEeqSPKw09tfNVg">
+            <body>A controlled list of LayerProtocol names.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_xc2k4A1DEeqqRqGDdjHRpQ">
+            <general xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_MbUkMIQ4EeiXzpgfQWpR-Q"/>
+          </generalization>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_wpVoAAYWEeqSPKw09tfNVg" name="LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER"/>
+        </packagedElement>
+      </packagedElement>
       <packagedElement xmi:type="uml:Usage" xmi:id="_Gswk-V9MEemkV8c3A5D8-A" client="_nzCdPl9LEemkV8c3A5D8-A" supplier="_GsvVi19MEemkV8c3A5D8-A"/>
       <packagedElement xmi:type="uml:Usage" xmi:id="_Gswk-l9MEemkV8c3A5D8-A" client="_GsvVmF9MEemkV8c3A5D8-A" supplier="_GsvVk19MEemkV8c3A5D8-A"/>
       <packagedElement xmi:type="uml:Usage" xmi:id="_Gswk-19MEemkV8c3A5D8-A" client="_Gsv_JF9MEemkV8c3A5D8-A" supplier="_GsvVQl9MEemkV8c3A5D8-A"/>
@@ -1695,6 +1654,7 @@
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:air-interface" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing a microwave radio interface." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_DqkpUKMnEemOU89mRgVhCg" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="AirInterface@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_y4PdoAYYEeqSPKw09tfNVg" date="2019-11-22" version="2.0.0-tsp.191122.1800" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/airInterface/issues" reference="https://github.com/openBackhaul/airInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_zw8owKMnEemOU89mRgVhCg" date="2019-07-11" version="2.0.0-tsp.190711.1825" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/airInterface/issues" reference="https://github.com/openBackhaul/airInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_n3pQUF9LEemkV8c3A5D8-A" base_Element="_nzCdr19LEemkV8c3A5D8-A"/>
@@ -1722,8 +1682,8 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Gs6UU19MEemkV8c3A5D8-A" base_StructuralFeature="_GsvVhF9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gs67YF9MEemkV8c3A5D8-A" base_Property="_GsvVml9MEemkV8c3A5D8-A" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Gs67YV9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvVml9MEemkV8c3A5D8-A" partOfObjectKey="1" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gs67Y19MEemkV8c3A5D8-A" base_Property="_GsvVnF9MEemkV8c3A5D8-A" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_Gs67ZF9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvVnF9MEemkV8c3A5D8-A"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gs67Y19MEemkV8c3A5D8-A" base_Property="_GsvVnF9MEemkV8c3A5D8-A" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Gs67ZF9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvVnF9MEemkV8c3A5D8-A" partOfObjectKey="2" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gs67Zl9MEemkV8c3A5D8-A" base_Property="_GsvVnl9MEemkV8c3A5D8-A" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Gs7icF9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvVnl9MEemkV8c3A5D8-A" unit="s"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gs7icl9MEemkV8c3A5D8-A" base_Property="_GsvVoV9MEemkV8c3A5D8-A" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
@@ -1810,12 +1770,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GtY1eV9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvXG19MEemkV8c3A5D8-A" isInvariant="true" unit="kHz"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtZcg19MEemkV8c3A5D8-A" base_Property="_GsvXI19MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GtZchF9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvXI19MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtZchl9MEemkV8c3A5D8-A" base_Property="_GsvXJl9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GtZch19MEemkV8c3A5D8-A" base_StructuralFeature="_GsvXJl9MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtaDkV9MEemkV8c3A5D8-A" base_Property="_GsvXKV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GtaDkl9MEemkV8c3A5D8-A" base_StructuralFeature="_GsvXKV9MEemkV8c3A5D8-A" isInvariant="true" unit="channels"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtaDlF9MEemkV8c3A5D8-A" base_Property="_Gsv8Q19MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GtaDlV9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv8Q19MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtaDl19MEemkV8c3A5D8-A" base_Property="_Gsv8Rl9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GtaDmF9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv8Rl9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtaqoV9MEemkV8c3A5D8-A" base_Property="_Gsv8SV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
@@ -1842,8 +1796,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Gtdt9V9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv8eF9MEemkV8c3A5D8-A" unit="kHz"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GteVAF9MEemkV8c3A5D8-A" base_Property="_Gsv8fV9MEemkV8c3A5D8-A" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GteVAV9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv8fV9MEemkV8c3A5D8-A" unit="kHz"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gte8FF9MEemkV8c3A5D8-A" base_Property="_Gsv8i19MEemkV8c3A5D8-A" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_Gte8FV9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv8i19MEemkV8c3A5D8-A" unit="kHz"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtfjIl9MEemkV8c3A5D8-A" base_Property="_Gsv8lV9MEemkV8c3A5D8-A" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GtfjI19MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv8lV9MEemkV8c3A5D8-A"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtfjJV9MEemkV8c3A5D8-A" base_Property="_Gsv8ml9MEemkV8c3A5D8-A" attributeValueChangeNotification="YES"/>
@@ -1938,12 +1890,6 @@
   <OpenModel_Profile:OpenModelClass xmi:id="_GtotGF9MEemkV8c3A5D8-A" base_Class="_Gsv9Z19MEemkV8c3A5D8-A"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtotGV9MEemkV8c3A5D8-A" base_Property="_Gsv9aV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GtpUIF9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv9aV9MEemkV8c3A5D8-A"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_GtpUI19MEemkV8c3A5D8-A" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_Gsv9bF9MEemkV8c3A5D8-A"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_GtpUJF9MEemkV8c3A5D8-A" base_Class="_Gsv9bF9MEemkV8c3A5D8-A"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GtpUJV9MEemkV8c3A5D8-A" base_Property="_Gsv9bl9MEemkV8c3A5D8-A" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GtpUJl9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv9bl9MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Gtp7MF9MEemkV8c3A5D8-A" base_Property="_Gsv9c19MEemkV8c3A5D8-A" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_Gtp7MV9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv9c19MEemkV8c3A5D8-A"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_GuC8x19MEemkV8c3A5D8-A" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_Gsv_JF9MEemkV8c3A5D8-A"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_GuC8yF9MEemkV8c3A5D8-A" base_Class="_Gsv_JF9MEemkV8c3A5D8-A"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuC8yV9MEemkV8c3A5D8-A" base_Property="_Gsv_JV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
@@ -1957,8 +1903,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEK4F9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_MV9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuEK4l9MEemkV8c3A5D8-A" base_Property="_Gsv_NF9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEK419MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_NF9MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuEK5V9MEemkV8c3A5D8-A" base_Property="_Gsv_Nl9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEK5l9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_Nl9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuEK6F9MEemkV8c3A5D8-A" base_Property="_Gsv_OF9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEK6V9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_OF9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenModel_Profile:OpenModelNotification xmi:id="_GuEK619MEemkV8c3A5D8-A" base_Signal="_Gsv_O19MEemkV8c3A5D8-A"/>
@@ -1966,15 +1910,11 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEx8l9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_PV9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuEx9F9MEemkV8c3A5D8-A" base_Property="_Gsv_QF9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEx9V9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_QF9MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuEx919MEemkV8c3A5D8-A" base_Property="_Gsv_Ql9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GuEx-F9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_Ql9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenModel_Profile:OpenModelNotification xmi:id="_GuEx-l9MEemkV8c3A5D8-A" base_Signal="_Gsv_RF9MEemkV8c3A5D8-A"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuEx_F9MEemkV8c3A5D8-A" base_Property="_Gsv_Rl9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuFZAF9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_Rl9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuFZAl9MEemkV8c3A5D8-A" base_Property="_Gsv_SV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuFZA19MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_SV9MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuFZBV9MEemkV8c3A5D8-A" base_Property="_Gsv_S19MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GuFZBl9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_S19MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuFZCF9MEemkV8c3A5D8-A" base_Property="_Gsv_TV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuFZCV9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_TV9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuFZC19MEemkV8c3A5D8-A" base_Property="_Gsv_UF9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -1984,8 +1924,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuGAFV9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_V19MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuGAF19MEemkV8c3A5D8-A" base_Property="_Gsv_Wl9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuGAGF9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_Wl9MEemkV8c3A5D8-A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuGAGl9MEemkV8c3A5D8-A" base_Property="_Gsv_XF9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_GuGnIF9MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_XF9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuGnIl9MEemkV8c3A5D8-A" base_Property="_Gsv_Xl9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GuGnI19MEemkV8c3A5D8-A" base_StructuralFeature="_Gsv_Xl9MEemkV8c3A5D8-A" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_GuGnJV9MEemkV8c3A5D8-A" base_Property="_Gsv_YV9MEemkV8c3A5D8-A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -2114,9 +2052,9 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_WXcr8GA7EemXhPnSspCLhQ" base_Property="_WXcE4GA7EemXhPnSspCLhQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_WXcE4WA7EemXhPnSspCLhQ" base_StructuralFeature="_WXcE4GA7EemXhPnSspCLhQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_WXfvQGA7EemXhPnSspCLhQ" base_Property="_WXfIMGA7EemXhPnSspCLhQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_WXfIMWA7EemXhPnSspCLhQ" base_StructuralFeature="_WXfIMGA7EemXhPnSspCLhQ" partOfObjectKey="1" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_WXfIMWA7EemXhPnSspCLhQ" base_StructuralFeature="_WXfIMGA7EemXhPnSspCLhQ" partOfObjectKey="2" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_WXiLgGA7EemXhPnSspCLhQ" base_Property="_WXhkcGA7EemXhPnSspCLhQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_WXhkcWA7EemXhPnSspCLhQ" base_StructuralFeature="_WXhkcGA7EemXhPnSspCLhQ" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_WXhkcWA7EemXhPnSspCLhQ" base_StructuralFeature="_WXhkcGA7EemXhPnSspCLhQ" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ZfRYgGA7EemXhPnSspCLhQ" base_Property="_ZfQKYGA7EemXhPnSspCLhQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ZfQxcGA7EemXhPnSspCLhQ" base_StructuralFeature="_ZfQKYGA7EemXhPnSspCLhQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ZfXfIWA7EemXhPnSspCLhQ" base_Property="_ZfWRAGA7EemXhPnSspCLhQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -2130,17 +2068,17 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_KkrYYIIwEemBzPOx3Tebww" base_Property="_KkpjMIIwEemBzPOx3Tebww" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_KkqKQYIwEemBzPOx3Tebww" base_StructuralFeature="_KkpjMIIwEemBzPOx3Tebww" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rlMIwIIsEemBzPOx3Tebww" base_Property="_rlJsgIIsEemBzPOx3Tebww" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_rlKTkIIsEemBzPOx3Tebww" base_StructuralFeature="_rlJsgIIsEemBzPOx3Tebww" partOfObjectKey="2" isInvariant="true" unit="dBm"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_rlKTkIIsEemBzPOx3Tebww" base_StructuralFeature="_rlJsgIIsEemBzPOx3Tebww" partOfObjectKey="3" isInvariant="true" unit="dBm"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_2Te3cIIsEemBzPOx3Tebww" base_Property="_2Tb0IIIsEemBzPOx3Tebww" attributeValueChangeNotification="YES" bitLength="LENGTH_16_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_2TdCQIIsEemBzPOx3Tebww" base_StructuralFeature="_2Tb0IIIsEemBzPOx3Tebww" unit="s"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_cubBcIIvEemBzPOx3Tebww" base_Property="_cuZzUIIvEemBzPOx3Tebww" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_cuZzU4IvEemBzPOx3Tebww" base_StructuralFeature="_cuZzUIIvEemBzPOx3Tebww"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_cubBcIIvEemBzPOx3Tebww" base_Property="_cuZzUIIvEemBzPOx3Tebww" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_cuZzU4IvEemBzPOx3Tebww" base_StructuralFeature="_cuZzUIIvEemBzPOx3Tebww" partOfObjectKey="2" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_QD71YII7EemBzPOx3Tebww" base_Property="_QD6AMII7EemBzPOx3Tebww" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_QD6AMYI7EemBzPOx3Tebww" base_StructuralFeature="_QD6AMII7EemBzPOx3Tebww"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_-wInxII5EemBzPOx3Tebww" base_Property="_-wHZp4I5EemBzPOx3Tebww" attributeValueChangeNotification="YES" bitLength="LENGTH_16_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_-wInw4I5EemBzPOx3Tebww" base_StructuralFeature="_-wHZp4I5EemBzPOx3Tebww" unit="s"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_-wJO0YI5EemBzPOx3Tebww" base_Property="_-wHZqYI5EemBzPOx3Tebww" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wJO0II5EemBzPOx3Tebww" base_StructuralFeature="_-wHZqYI5EemBzPOx3Tebww"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_-wJO0YI5EemBzPOx3Tebww" base_Property="_-wHZqYI5EemBzPOx3Tebww" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wJO0II5EemBzPOx3Tebww" base_StructuralFeature="_-wHZqYI5EemBzPOx3Tebww" partOfObjectKey="2" isInvariant="true"/>
   <OpenModel_Profile:Obsolete xmi:id="_rRBWcKMkEemOU89mRgVhCg" base_Element="_EQUUkJ2eEem154wIx7g9BA"/>
   <OpenModel_Profile:Obsolete xmi:id="_r87aMKMkEemOU89mRgVhCg" base_Element="_JYWMEJ2jEem154wIx7g9BA"/>
   <OpenModel_Profile:Obsolete xmi:id="_sqwJgKMkEemOU89mRgVhCg" base_Element="_3YsTIJ2jEem154wIx7g9BA"/>
@@ -2151,15 +2089,34 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_AEkd4KMlEemOU89mRgVhCg" base_StructuralFeature="_AEiosKMlEemOU89mRgVhCg" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_AEovUKMlEemOU89mRgVhCg" base_Property="_AEoIQKMlEemOU89mRgVhCg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_AEovUaMlEemOU89mRgVhCg" base_StructuralFeature="_AEoIQKMlEemOU89mRgVhCg"/>
-  <OpenModel_Profile:Specify xmi:id="_S7I7QKMlEemOU89mRgVhCg" base_Abstraction="_Rg7nEKMlEemOU89mRgVhCg">
-    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:LogicalTerminationPoint:LogicalTerminationPoint/CoreModel:LogicalTerminationPoint:LayerProtocol</target>
-  </OpenModel_Profile:Specify>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRKq8KMlEemOU89mRgVhCg" base_Property="_rRKD4aMlEemOU89mRgVhCg" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_rRMgIKMlEemOU89mRgVhCg" base_StructuralFeature="_rRKD4aMlEemOU89mRgVhCg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_riY90KMlEemOU89mRgVhCg" base_Property="_rRSmwKMlEemOU89mRgVhCg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_riaL8KMlEemOU89mRgVhCg" base_StructuralFeature="_rRSmwKMlEemOU89mRgVhCg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_3FUQkKP4EemKe7OQLCUMsw" base_Property="_3C85EKP4EemKe7OQLCUMsw" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_3FWFwKP4EemKe7OQLCUMsw" base_StructuralFeature="_3C85EKP4EemKe7OQLCUMsw" partOfObjectKey="1" isInvariant="true" unit="s"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_NOcq4KP5EemKe7OQLCUMsw" base_Property="_NOcD0KP5EemKe7OQLCUMsw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_NOegEKP5EemKe7OQLCUMsw" base_StructuralFeature="_NOcD0KP5EemKe7OQLCUMsw" partOfObjectKey="1" isInvariant="true" unit="s"/>
+  <OpenModel_Profile:Experimental xmi:id="_iSsSkAYWEeqSPKw09tfNVg" base_Element="_ecdn4AYWEeqSPKw09tfNVg"/>
+  <OpenModel_Profile:Experimental xmi:id="_o9QtIAYWEeqSPKw09tfNVg" base_Element="_k76XkAYWEeqSPKw09tfNVg"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_vUbtwAYaEeqSPKw09tfNVg" base_Property="_ww5H8F9WEemkV8c3A5D8-A"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_xiCNwAYaEeqSPKw09tfNVg" base_Property="_ugxfcV9WEemkV8c3A5D8-A"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_0VLq0AYaEeqSPKw09tfNVg" base_Property="_JjQ_8l9YEemkV8c3A5D8-A"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_2wFnAAYaEeqSPKw09tfNVg" base_Property="_QD6AMII7EemBzPOx3Tebww"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_49UTkAYaEeqSPKw09tfNVg" base_Property="_H0kbwF9TEemkV8c3A5D8-A"/>
+  <OpenModel_Profile:Specify xmi:id="_m8pqoA1FEeqqRqGDdjHRpQ" base_Abstraction="_j7K2oA1FEeqqRqGDdjHRpQ">
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:LogicalTerminationPoint:LogicalTerminationPoint/CoreModel:LogicalTerminationPoint:LayerProtocol</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_qFoi4A1HEeqYiPKOUYVdIg" base_StructuralFeature="_pychIA1HEeqYiPKOUYVdIg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_qFpxAA1HEeqYiPKOUYVdIg" base_Property="_pychIA1HEeqYiPKOUYVdIg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_0Bo5AA1HEeqYiPKOUYVdIg" base_StructuralFeature="_0Bl1sA1HEeqYiPKOUYVdIg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0Bo5AQ1HEeqYiPKOUYVdIg" base_Property="_0Bl1sA1HEeqYiPKOUYVdIg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_6em8cA1HEeqYiPKOUYVdIg" base_StructuralFeature="_6ejSEA1HEeqYiPKOUYVdIg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_6enjgA1HEeqYiPKOUYVdIg" base_Property="_6ejSEA1HEeqYiPKOUYVdIg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-OHUEA1HEeqYiPKOUYVdIg" base_StructuralFeature="_-OE30A1HEeqYiPKOUYVdIg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_-OH7IA1HEeqYiPKOUYVdIg" base_Property="_-OE30A1HEeqYiPKOUYVdIg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_pyb6EA1HEeqYiPKOUYVdIg" base_Property="_pyaE4A1HEeqYiPKOUYVdIg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_pyar8A1HEeqYiPKOUYVdIg" base_StructuralFeature="_pyaE4A1HEeqYiPKOUYVdIg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0BlOoA1HEeqYiPKOUYVdIg" base_Property="_0BiyYQ1HEeqYiPKOUYVdIg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_0BjZcA1HEeqYiPKOUYVdIg" base_StructuralFeature="_0BiyYQ1HEeqYiPKOUYVdIg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_6eirAA1HEeqYiPKOUYVdIg" base_Property="_6egOwQ1HEeqYiPKOUYVdIg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_6eg10A1HEeqYiPKOUYVdIg" base_StructuralFeature="_6egOwQ1HEeqYiPKOUYVdIg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_-OEQwA1HEeqYiPKOUYVdIg" base_Property="_-OCbkg1HEeqYiPKOUYVdIg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-ODCoA1HEeqYiPKOUYVdIg" base_StructuralFeature="_-OCbkg1HEeqYiPKOUYVdIg" isInvariant="true"/>
 </xmi:XMI>

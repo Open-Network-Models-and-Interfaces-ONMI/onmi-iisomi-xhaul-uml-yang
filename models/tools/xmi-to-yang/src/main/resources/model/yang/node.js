@@ -96,7 +96,9 @@ Node.prototype.buildChild = function (att, type) {
             obj.isleafRef = att.isleafRef;
             break;
         case "container":
+            
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config,att.isOrdered, att.support, att.status, att.fileName);
+            
             if (att.isUses) {
                 obj.buildUses(att);
             }
@@ -218,7 +220,7 @@ Node.prototype.writeNode = function (layer) {
         //keep literal names as they are in UML file
         //var name = this.nodeType + " " + Util.typeifyName(this.name);
         var name = this.nodeType + " " + this.name;
-       // console.info("node.js\t"+name);
+       
     }
     if(!this.description ){
         this.description = "none";
@@ -444,6 +446,7 @@ Node.prototype.writeNode = function (layer) {
             presence+
             descript + PRE + "}\r\n";
     }
+    
     return s;
 };
 

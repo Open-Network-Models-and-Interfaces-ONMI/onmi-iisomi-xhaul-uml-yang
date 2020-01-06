@@ -163,15 +163,7 @@ Class.prototype.buildAttribute = function(att){
     var type;
     var isLeaf;
 
-    // [sko] TODO: Remove, when not needed anymore.
-    if (att.attributes().name=="_occupyingFru"){
-    // if(att.attributes().name=="_controlPort"){   
-        console.info("ObjectClass: att\t"+JSON.stringify(att.attributes()));
-        console.info("objectclass - isLeafRef "+att.attributes().isLeafRef);
-        console.info("ObjectClass - Type\t"+att['type']);
-    }
-
-    
+        
     
     if(att.attributes().type){
         type = att.attributes().type;
@@ -250,7 +242,7 @@ Class.prototype.buildOperate = function(para){
 
     // [sko] TODO: remove, when not needed anymore
     if(para.attributes().type =="_nYoCou-3Eea2l9FuDSKfDQ"){
-        console.info("ObjectClass: para.attributes().type \t"+para.attributes().type);
+       // console.info("ObjectClass: para.attributes().type \t"+para.attributes().type);
     }
     if(para.attributes().type){
         type = para.attributes().type;
