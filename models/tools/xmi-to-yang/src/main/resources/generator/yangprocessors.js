@@ -356,7 +356,7 @@ module.exports = {
                                     ele[i].attribute[j].type = typeMapping[ele[i].attribute[j].type];
                                 }
                                 //console.debug("yangprocessors-didn't find the class");
-<<<<<<< HEAD
+
                                 // assigin yang types - eidtey by Waseem Sattar
                                 switch (ele[i].attribute[j].name.toLowerCase()) {
                                     case "timestamp":
@@ -382,23 +382,7 @@ module.exports = {
 
                                   }
                                 
-                                /*
-                                  if (ele[i].attribute[j].name.toLowerCase()==="timestamp" || "periodendtime") {
-                                    ele[i].attribute[j].type = "yang:date-and-time";
-                                       
-                                } if (ele[i].attribute[j].name.toLowerCase()==="objectclass" || "namebinding" || "allomorphs" || "packages"){
-                                    ele[i].attribute[j].type = "yang:object-identifier";
-                                }                              
-=======
-                                // if (ele[i].attribute[j].name.toLowerCase()==="timestamp") {
-                                //     ele[i].attribute[j].type = "yang:date-and-time";
-                                       
-                                // }
->>>>>>> 3b10c6265d9026f44ce5cb7a1f73a0fd9d02cf1c
-                                else{
-                                    console.info("Type not found, 'string' used instead.", ele[i].attribute[j].type, typeMapping[ele[i].attribute[j].type]);
-                                    ele[i].attribute[j].type = "string";
-                                }*/
+                               
                             }
                         }
                        

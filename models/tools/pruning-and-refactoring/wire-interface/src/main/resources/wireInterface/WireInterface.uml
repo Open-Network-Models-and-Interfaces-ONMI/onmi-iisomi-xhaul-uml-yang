@@ -118,26 +118,12 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_TXrfgl-IEemI8ps-yiNc8Q" name="Diagrams"/>
-    <packagedElement xmi:type="uml:Package" xmi:id="_8rWo4PsUEemTQ-N8diAjnA" name="ExtentedCoreEnumerations">
-      <packagedElement xmi:type="uml:Enumeration" xmi:id="__Jm0APsUEemTQ-N8diAjnA" name="LayerProtocolNameType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_EBzSAPsVEemTQ-N8diAjnA" annotatedElement="__Jm0APsUEemTQ-N8diAjnA">
-          <body>A controlled list of LayerProtocol names.</body>
-        </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="_ezxfsPsVEemTQ-N8diAjnA">
-          <general xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_MbUkMIQ4EeiXzpgfQWpR-Q"/>
-        </generalization>
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_GF5QsPsVEemTQ-N8diAjnA" name="LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER"/>
-      </packagedElement>
-    </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_TXrfg1-IEemI8ps-yiNc8Q" name="Imports">
       <packageImport xmi:type="uml:PackageImport" xmi:id="_TXrfhF-IEemI8ps-yiNc8Q">
         <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
       </packageImport>
       <packageImport xmi:type="uml:PackageImport" xmi:id="_HK0nkJ2CEemRh9ZwWhYdUw">
         <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
-      </packageImport>
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_rKhs8PpEEemgbedqj_WsFg">
-        <importedPackage xmi:type="uml:Model" href="../IETF%20Datatypes/IetfYangTypes.uml#d4e1"/>
       </packageImport>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_TXrfhl-IEemI8ps-yiNc8Q" name="Interfaces"/>
@@ -1345,7 +1331,6 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_iYyEwAYcEeqOqJBr3I3kOA" date="2019-11-22" version="2.0.0-tsp.191114.1510" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wireInterface/issues" reference="https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_maT90PsWEemTQ-N8diAjnA" date="2019-10-30" version="2.0.0-tsp.191030.1420" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wireInterface/issues" reference="https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_oQI7QJ2FEemRh9ZwWhYdUw" date="2019-07-11" version="2.0.0-tsp.190711.1215" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wireInterface/issues" reference="https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_maT90PsWEemTQ-N8diAjnA" date="2019-10-30" version="2.0.0-tsp.191030.1420" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wireInterface/issues" reference="https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_TXwYAF-IEemI8ps-yiNc8Q" base_Element="_TXrfn1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xAyCQGHAEembqusQnCFcag" base_Property="_w-AbimHAEembqusQnCFcag" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
@@ -1666,7 +1651,6 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_tFIyAPmgEemb6rnYsTgHUg" base_Property="_tFEgkPmgEemb6rnYsTgHUg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_tFFusPmgEemb6rnYsTgHUg" base_StructuralFeature="_tFEgkPmgEemb6rnYsTgHUg" isInvariant="true"/>
   <OpenModel_Profile:Experimental xmi:id="_sEegwPsVEemTQ-N8diAjnA" base_Element="__Jm0APsUEemTQ-N8diAjnA"/>
-<<<<<<< HEAD
   <OpenModel_Profile:Experimental xmi:id="_12LkwACOEeqxM4q7eCEJJQ" base_Element="_8rWo4PsUEemTQ-N8diAjnA"/>
   <OpenModel_Profile:PassedByReference xmi:id="_XVyyEAYUEeqSaM-gnHsFJw" base_Property="_gFYkMWHYEemHSrFFady1vg"/>
   <OpenModel_Profile:PassedByReference xmi:id="_Y-Io4AYUEeqSaM-gnHsFJw" base_Property="_zWclM2HYEemHSrFFady1vg"/>
@@ -1687,6 +1671,4 @@ NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1
   <OpenModel_Profile:OpenModelAttribute xmi:id="_kB2agA1SEeqtkbEisXB1iA" base_StructuralFeature="_kB1zcg1SEeqtkbEisXB1iA" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_i-6W0A1SEeqtkbEisXB1iA" base_Property="_i-2scA1SEeqtkbEisXB1iA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_i-3TgA1SEeqtkbEisXB1iA" base_StructuralFeature="_i-2scA1SEeqtkbEisXB1iA" isInvariant="true"/>
-=======
->>>>>>> 3b10c6265d9026f44ce5cb7a1f73a0fd9d02cf1c
 </xmi:XMI>

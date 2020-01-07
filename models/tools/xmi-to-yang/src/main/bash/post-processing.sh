@@ -78,7 +78,7 @@ profile=(
   [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
 );
 
-<<<<<<< HEAD
+
 #echo "copying ietf yang"$DIR 
 #cd $DIR
 #cp ../../ietf-yang-types@2013-07-15.yang $DIR
@@ -92,8 +92,7 @@ cd $DIR
 cp ../../ietf-yang-types@2013-07-15.yang $DIR
 cd .
   
-=======
->>>>>>> 3b10c6265d9026f44ce5cb7a1f73a0fd9d02cf1c
+
 for yang in $DIR/*.yang
 do
 	echo "Post processing $yang"
