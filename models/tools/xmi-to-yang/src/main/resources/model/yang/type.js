@@ -91,6 +91,7 @@ type.prototype.writeNode = function (layer) {
     } else {
         name = "type " + Util.typeifyName(this.name);
     }
+        
    /* if (this.name !== "enumeration") {
         name += ";";
     }*/
@@ -99,6 +100,12 @@ type.prototype.writeNode = function (layer) {
         s = "{ fraction-digits 3; }";
     } else if (this.path || this.range || this.length || this.children.length){
         s = " {\r\n";
+        var tmpmust="";
+        if(this.path){
+           tmpmust= this.path.split("path ");
+            s += PRE + "\t";
+            s += Util.yangifyName(this.path) + ";\r\n";
+        }
         if(this.name == "leafref"){
             s += "\t\t\t\t\trequire-instance false;\r\n";
         }     
@@ -110,7 +117,7 @@ type.prototype.writeNode = function (layer) {
 
         if(this.description){
             this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-            s += PRE + "\tdescription \"" + this.description + "\";\r\n";
+            s += PRE + "description\t\n\t\t\t\t  \""  + this.description + "\";\r\n";
         }
         if (this.children.length) {
             if(typeof this.children[0] === 'object'){                //enum
@@ -124,20 +131,21 @@ type.prototype.writeNode = function (layer) {
                 });
             }
         }
-        //console.info("type.js - path\t"+this.path);
-        var tmpmust="";
-        if(this.path){
-           tmpmust= this.path.split("path ");
-            s += PRE + "\t";
-            s += Util.yangifyName(this.path) + ";\r\n";
-        }
+        
+        
 
         s = s + PRE + "}";
     }
     else{
         s=";";
     }
-    s = PRE + name + s + "\r\n";
+    
+    if(name.includes('int')){
+        s = "\t\t\t\t"+name + ";" + "\r\n";   
+    }else{
+         s = PRE + name + s + "\r\n";
+    }
+    
     return s;
 
 };

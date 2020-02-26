@@ -73,7 +73,7 @@ uses.prototype.writeNode = function(layer){
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r+\n+/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
-        descript = PRE + "\tdescription \"" + this.description + "\";\r\n";
+        descript = PRE + "description\t\n\t\t\t  \"" + this.description + "\";\r\n";
     }
     var feature = "";
     if(this["if-feature"]){
@@ -83,6 +83,9 @@ uses.prototype.writeNode = function(layer){
         feature +
         descript +
         PRE + "}\r\n";
+
+        
+
     return s;
 };
 

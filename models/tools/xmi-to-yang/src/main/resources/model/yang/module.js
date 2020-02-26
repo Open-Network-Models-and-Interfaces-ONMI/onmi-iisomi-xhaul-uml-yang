@@ -56,7 +56,7 @@ Module.prototype.writeNode = function (store,layer) {
     if(!this.organization){
         this.organization = "ONF (Open Networking Foundation) IMP Working Group";
     }
-    org = PRE + "\torganization \"" + this.organization + "\";\r\n";
+    org = PRE + "\torganization \r\n\t\t \"" + this.organization + "\";\r\n";
     var contact = "";
     if(!this.contact){
         this.contact += "WG Web\: <https://www.opennetworking.org/technical-communities/areas/services/>\r\n";
@@ -68,7 +68,7 @@ Module.prototype.writeNode = function (store,layer) {
     }
     //this.contact == "" || !this.contact ? contact = "" : contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
-    contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
+    contact = PRE + "\tcontact \r\n\t\t\"" + this.contact + "\";\r\n";
     var revision_stmt = "";
 
     if (!this.revision) {
@@ -120,9 +120,12 @@ Module.prototype.writeNode = function (store,layer) {
         /*revision += "\r\ndescription \"" + this.revision.description + "\";";
         revision += "\r\nreference \"" + this.revision.reference + "\";";*/
     }
+    
     revision = revision.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     revis = PRE + "\trevision " + revis + " {" + revision + "\r\n\t" + PRE + "}\r\n";
     //this.revision !== "" && this.revision ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
+    
+    
     revision_stmt = revision_stmt + revis;
     }
     var description;
@@ -133,7 +136,7 @@ Module.prototype.writeNode = function (store,layer) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
     }
-    description = PRE + "\tdescription \"" + this.description + "\";\r\n";
+    description = PRE + "description\n\t\t\"" + this.description + "\";\r\n";
     var st = "";
     var sub;
     if (this.children) {
@@ -161,9 +164,11 @@ Module.prototype.writeNode = function (store,layer) {
             store.augment[aa].client = store.augment[aa].client.replace(/-t$/g,"");
             store.augment[aa].client = Util.typeifyName(store.augment[aa].client);
             augment += "    augment \"" + store.augment[aa].supplier + "\"{\r" + "        uses " + store.augment[aa].client + ";\r" +
-                "        description \"" + store.augment[aa].description + "\";\r" +"    }\r";
+                "        description \r\n\t\t" + store.augment[aa].description + ";\r" +"    }\r";
         }
     }
+   
+
     st = PRE + name + " {\r\n" +
         yangVersion +
         namespace +
@@ -175,6 +180,8 @@ Module.prototype.writeNode = function (store,layer) {
         revision_stmt +
         augment+
         st + "}\r\n";
-    return st;
+    
+    
+        return st;
 };
 module.exports = Module;

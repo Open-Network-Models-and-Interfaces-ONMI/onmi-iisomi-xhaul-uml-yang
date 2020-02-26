@@ -73,6 +73,7 @@ var transformers = {
         }
     },
     transClazz:function(openModelnotification,obj,node,global,nodeType,store){
+        
         var props = {};
 
         if(node.nodeType == "notification"){

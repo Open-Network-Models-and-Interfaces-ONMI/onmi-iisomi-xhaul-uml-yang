@@ -13,26 +13,70 @@
 var Type = require('./type.js');
 var Util = require('./util.js');
 
-function leaf_list(name, id, config, descrip, maxele, minele, type, isOrdered, feature, status, fileName) {
+function leaf_list(name, id, config,value,descrip, maxele, minele, type, isOrdered, feature, status, fileName, store) {
     this.name = Util.yangifyName(name);
     this.id = id;
     this.config = config;
+    this.defaultValue = value;
     this.description = descrip;
     this.status = status;
     this["ordered-by"] = isOrdered;
     this["max-elements"] = maxele;
-    this["min-elements"] = minele;this.type
+    this["min-elements"] = minele;
     this["if-feature"] = feature;
     this.type = type;
     this.units = this.type.units;
-    this.fileName;
+    this.fileName=fileName;
+    this.store=store;
 }
+
+
 leaf_list.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
     while (k-- > 0) {
         PRE += '\t';
     }
+
+    //compare defaultValue with the literalID
+    var defvalue = "";
+    
+    if(this.store){
+        var regexunderscore = /^_/;
+         
+        if(regexunderscore.test(this.defaultValue)){
+            var matchfound = false;
+    
+            for(j=0; j<this.store.literals.length;j++){
+                
+                valLiterals = this.store.literals[j];
+                
+                if(this.defaultValue==valLiterals.literalId.toString()){
+                    this.defaultValue = valLiterals.literalName;
+                    matchfound=true;
+                    break;
+                }
+            }
+            if(!matchfound){
+                if (typeof this.type == "string"){
+                    var localtype = this.type ? this.type : "string";
+                    localtype = Util.typeifyName(localtype);
+                    localtype=localtype.toString().replace(/-/g,"_");
+                    localtype=localtype.toUpperCase();
+                    this.defaultValue=localtype;
+                    
+                }
+            }
+        }
+    }   
+
+    if(typeof this.defaultValue == 'number'){
+        defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
+    }else {
+        defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
+    }
+
+    
 
     var name = "leaf-list " + this.name;
     var config = this.config === false ? PRE + "\tconfig false;\r\n" : "";
@@ -47,7 +91,8 @@ leaf_list.prototype.writeNode = function (layer) {
 
 
     }
-    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";" : "";
+    descript = this.description ? PRE + "\tdescription \t\n\t\t\t\t \"" + this.description + "\";\r\n" : "";
+    
     
     var feature = "";
     if(this["if-feature"]){
@@ -73,7 +118,7 @@ leaf_list.prototype.writeNode = function (layer) {
     }
     var type = this.type ? this.type : "string";
     
-    //console.info("leaf-list.js - intial type\t"+JSON.stringify(this.type));
+    
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
         
@@ -94,17 +139,50 @@ leaf_list.prototype.writeNode = function (layer) {
     }else{
         units = "";
     }
-    
+     // if the type contains leafref and config is not false. then construct the must attribute. - by Waseem
+   if(type.indexOf('leafref') > -1 && (config===null || config==='') ){
+   
+        var regx2 = /\".*\"/g;
+        var subtype = "";
+        var lastoccurance = "";
+        subtype = String(type.match(regx2));
+        
+        if(subtype!=""){
+            //get the last occurance of attribute in the string 
+            var regxlastoccurance = /\/[^\/]+$/g;
+            var prestring = "";
+            //lastoccurance = type.match(regxlastoccurance);
+            lastoccurance = String(type.match(regxlastoccurance)).substr();
+            var lastoccurancesubstring = lastoccurance.substr(lastoccurance.indexOf('\:'), lastoccurance.length );
+            
+            //if the string not containg uuid
+            if(lastoccurancesubstring.indexOf("uuid")==-1){ 
+                lastoccurancesubstring=lastoccurancesubstring.replace(/\:/, ' ');
+                
+                prestring = "["+lastoccurancesubstring.replace(/\";+\s+\}/g, ' ').trim()+"=current()]"; 
+            
+                subtype = String(subtype.replace(/\/[^\/]+$/g,prestring));
+                subtype = subtype.replace("\"", '');
+                
+
+                //get path from the type attribute and use with "must" attribute
+                type += "\t\t\t\tmust  'boolean\("+ subtype+ ")\';\r\n";
+            }
+        }
+       
+    }
     var s = PRE + name + " {\r\n" +
         feature +
         type +
         units +
+        defvalue +
         config +
         minele +
         maxele +
         order +
         status +
         descript + PRE + "}\r\n";
+        console.info("leaf-list.js defaultValue "+defvalue);
     return s;
 };
 module.exports = leaf_list;

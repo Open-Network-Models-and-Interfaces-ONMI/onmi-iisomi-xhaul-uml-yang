@@ -106,7 +106,7 @@ rpc.prototype.writeNode = function (layer) {
                 this.description = "Lifecycle : " + this.status;
             }
             else{
-                this.description += "\r\n"+"Lifecycle : " + this.status;
+                this.description += "\r\n\t\t\t\t"+"Lifecycle : " + this.status;
             }
             break;
         case "current":
@@ -124,7 +124,7 @@ rpc.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
     }
-    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    this.description ? descript = PRE + "description\t\n\t\t\t\t  \"" + this.description + "\";\r\n" : descript = "";
     var feature = "";
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";

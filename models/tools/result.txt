@@ -1,0 +1,566 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mReactor Build Order:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] ONAP :: uml-to-yang                                                [pom]
+[[1;34mINFO[m] ONAP :: pruning-and-factoring                                      [pom]
+[[1;34mINFO[m] ONAP :: core-model                                                 [jar]
+[[1;34mINFO[m] ONAP :: air-interface                                              [jar]
+[[1;34mINFO[m] ONAP :: hybrid-mw-structure                                        [jar]
+[[1;34mINFO[m] ONAP :: pure-ethernet-structure                                    [jar]
+[[1;34mINFO[m] ONAP :: ethernet-container                                         [jar]
+[[1;34mINFO[m] ONAP :: tdm-container                                              [jar]
+[[1;34mINFO[m] ONAP :: wire-interface                                             [jar]
+[[1;34mINFO[m] ONAP :: mac-interface                                              [jar]
+[[1;34mINFO[m] ONAP :: ip-interface                                               [jar]
+[[1;34mINFO[m] ONAP :: wred-profile                                               [jar]
+[[1;34mINFO[m] ONAP :: qos-profile                                                [jar]
+[[1;34mINFO[m] ONAP :: l3vpn-profile                                              [jar]
+[[1;34mINFO[m] ONAP :: co-channel-profile                                         [jar]
+[[1;34mINFO[m] ONAP :: xmi-to-yang                                                [jar]
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------< [0;36morg.onap.umltools:uml-to-yang[0;1m >--------------------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: uml-to-yang 0.0.1                                [1/16][m
+[[1;34mINFO[m] [1m--------------------------------[ pom ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36muml-to-yang[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------------< [0;36morg.onap.umltools:pruning-and-factoring[0;1m >---------------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: pruning-and-factoring 0.0.1                      [2/16][m
+[[1;34mINFO[m] [1m--------------------------------[ pom ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mpruning-and-factoring[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m---------< [0;36morg.onap.umltools.pruning-and-factoring:core-model[0;1m >---------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: core-model 0.0.1                                 [3/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mcore-model[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/core-model/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mcore-model[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/core-model/src/main/resources/onf-core-information-model-v1.4/CoreModel.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mcore-model[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 47 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mcore-model[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/core-model/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mcore-model[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------< [0;36morg.onap.umltools.pruning-and-factoring:air-interface[0;1m >--------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: air-interface 0.0.1                              [4/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mair-interface[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/air-interface/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mair-interface[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/air-interface/src/main/resources/airInterface/AirInterface.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mair-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mair-interface[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/air-interface/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mair-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----< [0;36morg.onap.umltools.pruning-and-factoring:hybrid-mw-structure[0;1m >-----[m
+[[1;34mINFO[m] [1mBuilding ONAP :: hybrid-mw-structure 0.0.1                        [5/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mhybrid-mw-structure[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mhybrid-mw-structure[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources/HybridMwStructure/HybridMwStructure.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mhybrid-mw-structure[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mhybrid-mw-structure[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mhybrid-mw-structure[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--< [0;36morg.onap.umltools.pruning-and-factoring:pure-ethernet-structure[0;1m >---[m
+[[1;34mINFO[m] [1mBuilding ONAP :: pure-ethernet-structure 0.0.1                    [6/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mpure-ethernet-structure[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/pure-ethernet-structure/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mpure-ethernet-structure[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/pure-ethernet-structure/src/main/resources/pureEthernetStructure/PureEthernetStructure.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mpure-ethernet-structure[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mpure-ethernet-structure[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/pure-ethernet-structure/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mpure-ethernet-structure[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----< [0;36morg.onap.umltools.pruning-and-factoring:ethernet-container[0;1m >-----[m
+[[1;34mINFO[m] [1mBuilding ONAP :: ethernet-container 0.0.1                         [7/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36methernet-container[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/ethernet-container/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36methernet-container[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/ethernet-container/src/main/resources/EthernetContainer/EthernetContainer.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36methernet-container[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36methernet-container[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/ethernet-container/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36methernet-container[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------< [0;36morg.onap.umltools.pruning-and-factoring:tdm-container[0;1m >--------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: tdm-container 0.0.1                              [8/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mtdm-container[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/tdm-container/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mtdm-container[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/tdm-container/src/main/resources/tdmContainer/TdmContainer.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mtdm-container[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mtdm-container[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/tdm-container/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mtdm-container[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------< [0;36morg.onap.umltools.pruning-and-factoring:wire-interface[0;1m >-------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: wire-interface 0.0.1                             [9/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mwire-interface[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/wire-interface/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mwire-interface[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/wire-interface/src/main/resources/wireInterface/WireInterface.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mwire-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mwire-interface[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/wire-interface/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mwire-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------< [0;36morg.onap.umltools.pruning-and-factoring:mac-interface[0;1m >--------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: mac-interface 0.0.1                             [10/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mmac-interface[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/mac-interface/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mmac-interface[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/mac-interface/src/main/resources/MacInterface/MacInterface.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mmac-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mmac-interface[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/mac-interface/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mmac-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------< [0;36morg.onap.umltools.pruning-and-factoring:ip-interface[0;1m >--------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: ip-interface 0.0.1                              [11/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mip-interface[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/ip-interface/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mip-interface[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/ip-interface/src/main/resources/IpInterface/IpInterface.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mip-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mip-interface[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/ip-interface/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mip-interface[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------< [0;36morg.onap.umltools.pruning-and-factoring:wred-profile[0;1m >--------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: wred-profile 0.0.1                              [12/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mwred-profile[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/wred-profile/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mwred-profile[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/wred-profile/src/main/resources/WredProfile/WredProfile.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mwred-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mwred-profile[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/wred-profile/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mwred-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------< [0;36morg.onap.umltools.pruning-and-factoring:qos-profile[0;1m >---------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: qos-profile 0.0.1                               [13/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mqos-profile[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/qos-profile/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mqos-profile[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/qos-profile/src/main/resources/QosProfile/QosProfile.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mqos-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mqos-profile[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/qos-profile/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mqos-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------< [0;36morg.onap.umltools.pruning-and-factoring:l3vpn-profile[0;1m >--------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: l3vpn-profile 0.0.1                             [14/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36ml3vpn-profile[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/l3vpn-profile/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36ml3vpn-profile[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/l3vpn-profile/src/main/resources/L3vpnProfile/L3vpnProfile.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36ml3vpn-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36ml3vpn-profile[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/l3vpn-profile/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36ml3vpn-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----< [0;36morg.onap.umltools.pruning-and-factoring:co-channel-profile[0;1m >-----[m
+[[1;34mINFO[m] [1mBuilding ONAP :: co-channel-profile 0.0.1                        [15/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mco-channel-profile[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/co-channel-profile/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mxml-maven-plugin:1.0.1:transform[m [1m(default)[m @ [36mco-channel-profile[0;1m ---[m
+[[1;34mINFO[m] Transforming file: /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/co-channel-profile/src/main/resources/CoChannelProfile/CoChannelProfile.uml
+[[1;34mINFO[m] Transformed 1 file(s).
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mco-channel-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mco-channel-profile[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/wasimsattar/workspace/5G-xHaul/models/tools/pruning-and-refactoring/co-channel-profile/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-resources)[m @ [36mco-channel-profile[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------< [0;36morg.onap.umltools:xmi-to-yang[0;1m >--------------------[m
+[[1;34mINFO[m] [1mBuilding ONAP :: xmi-to-yang 0.0.1                               [16/16][m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.1.0:clean[m [1m(default-clean)[m @ [36mxmi-to-yang[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mexec-maven-plugin:1.6.0:exec[m [1m(install-uml-to-yang)[m @ [36mxmi-to-yang[0;1m ---[m
+/home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang
+└── xmi2yang-tool@2.0.0 
+
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mxmi-to-yang[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 97 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.0:compile[m [1m(default-compile)[m @ [36mxmi-to-yang[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:copy-resources[m [1m(copy-standard-yang)[m @ [36mxmi-to-yang[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 2 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mexec-maven-plugin:1.6.0:exec[m [1m(converting-uml)[m @ [36mxmi-to-yang[0;1m ---[m
+------------------------
+Project Directory: /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target
+Configuration Path: /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/src/main/resources/project/config.json
+Yang Output Path: /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang
+------------------------
+[App] Processing the following files:  AirInterface.pnr.uml,CoChannelProfile.pnr.uml,CoreModel.pnr.uml,EthernetContainer.pnr.uml,HybridMwStructure.pnr.uml,IpInterface.pnr.uml,L3vpnProfile.pnr.uml,MacInterface.pnr.uml,PureEthernetStructure.pnr.uml,QosProfile.pnr.uml,TdmContainer.pnr.uml,WireInterface.pnr.uml,WredProfile.pnr.uml
+[Config] AirInterface.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/AirInterface.pnr.uml read successfully!
+[Parse] Parse AirInterface.pnr.uml successfully!
+[Config] CoChannelProfile.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/CoChannelProfile.pnr.uml read successfully!
+[Parse] Parse CoChannelProfile.pnr.uml successfully!
+[Config] CoreModel.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/CoreModel.pnr.uml read successfully!
+Warning!
+[Parse] Parse CoreModel.pnr.uml successfully!
+[Config] EthernetContainer.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/EthernetContainer.pnr.uml read successfully!
+[Parse] Parse EthernetContainer.pnr.uml successfully!
+[Config] HybridMwStructure.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/HybridMwStructure.pnr.uml read successfully!
+[Parse] Parse HybridMwStructure.pnr.uml successfully!
+[Config] IpInterface.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/IpInterface.pnr.uml read successfully!
+[Parse] Parse IpInterface.pnr.uml successfully!
+[Config] L3vpnProfile.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/L3vpnProfile.pnr.uml read successfully!
+[Parse] Parse L3vpnProfile.pnr.uml successfully!
+[Config] MacInterface.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/MacInterface.pnr.uml read successfully!
+[Parse] Parse MacInterface.pnr.uml successfully!
+[Config] PureEthernetStructure.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/PureEthernetStructure.pnr.uml read successfully!
+[Parse] Parse PureEthernetStructure.pnr.uml successfully!
+[Config] QosProfile.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/QosProfile.pnr.uml read successfully!
+[Parse] Parse QosProfile.pnr.uml successfully!
+[Config] TdmContainer.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/TdmContainer.pnr.uml read successfully!
+[Parse] Parse TdmContainer.pnr.uml successfully!
+[Config] WireInterface.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/WireInterface.pnr.uml read successfully!
+[Parse] Parse WireInterface.pnr.uml successfully!
+[Config] WredProfile.pnr.uml No Config Match, Using Config:  tsp
+[Parse] /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/../pruning-and-refactoring/target/WredProfile.pnr.uml read successfully!
+[Parse] Parse WredProfile.pnr.uml successfully!
+[Builders] xmi translate to yang successfully!
+leaf-list.js defaultValue 				default "-1";
+
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/air-interface.yang
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/co-channel-profile.yang
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/core-model.yang
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/ethernet-container.yang
+leaf-list.js defaultValue 				default "Supported alarms not yet defined.";
+
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/hybrid-mw-structure.yang
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/ip-interface.yang
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/l-3vpn-profile.yang
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/mac-interface.yang
+leaf-list.js defaultValue 				default "Supported alarms not yet defined.";
+
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/pure-ethernet-structure.yang
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/qos-profile.yang
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/tdm-container.yang
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 				default "-1";
+
+leaf-list.js defaultValue 				default "-1";
+
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 				default "Supported alarms not yet defined.";
+
+leaf-list.js defaultValue 				default "false";
+
+leaf-list.js defaultValue 
+leaf-list.js defaultValue 				default "-1";
+
+leaf-list.js defaultValue 				default "false";
+
+leaf-list.js defaultValue 				default "99";
+
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/wire-interface.yang
+[parser] writing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/wred-profile.yang
+[App] write sucessful!
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mexec-maven-plugin:1.6.0:exec[m [1m(post-processing)[m @ [36mxmi-to-yang[0;1m ---[m
+copying ietf yang /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/air-interface.yang
+index: air-interface
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/co-channel-profile.yang
+index: co-channel-profile
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/core-model.yang
+index: core-model
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/ethernet-container.yang
+index: ethernet-container
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/hybrid-mw-structure.yang
+index: hybrid-mw-structure
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/ietf-inet-types@2013-07-15.yang
+index: ietf-inet-types@2013-07-15
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/ietf-yang-types@2013-07-15.yang
+index: ietf-yang-types@2013-07-15
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/ip-interface.yang
+index: ip-interface
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/l-3vpn-profile.yang
+index: l-3vpn-profile
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/mac-interface.yang
+index: mac-interface
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/pure-ethernet-structure.yang
+index: pure-ethernet-structure
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/qos-profile.yang
+index: qos-profile
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/tdm-container.yang
+index: tdm-container
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/wire-interface.yang
+index: wire-interface
+Post processing /home/wasimsattar/workspace/5G-xHaul/models/tools/xmi-to-yang/target/yang/wred-profile.yang
+index: wred-profile
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+unix2dos
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mReactor Summary for ONAP :: uml-to-yang 0.0.1:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] ONAP :: uml-to-yang ................................ [1;32mSUCCESS[m [  0.205 s]
+[[1;34mINFO[m] ONAP :: pruning-and-factoring ...................... [1;32mSUCCESS[m [  0.017 s]
+[[1;34mINFO[m] ONAP :: core-model ................................. [1;32mSUCCESS[m [  5.799 s]
+[[1;34mINFO[m] ONAP :: air-interface .............................. [1;32mSUCCESS[m [  0.369 s]
+[[1;34mINFO[m] ONAP :: hybrid-mw-structure ........................ [1;32mSUCCESS[m [  0.151 s]
+[[1;34mINFO[m] ONAP :: pure-ethernet-structure .................... [1;32mSUCCESS[m [  0.174 s]
+[[1;34mINFO[m] ONAP :: ethernet-container ......................... [1;32mSUCCESS[m [  0.187 s]
+[[1;34mINFO[m] ONAP :: tdm-container .............................. [1;32mSUCCESS[m [  0.168 s]
+[[1;34mINFO[m] ONAP :: wire-interface ............................. [1;32mSUCCESS[m [  0.139 s]
+[[1;34mINFO[m] ONAP :: mac-interface .............................. [1;32mSUCCESS[m [  0.148 s]
+[[1;34mINFO[m] ONAP :: ip-interface ............................... [1;32mSUCCESS[m [  0.137 s]
+[[1;34mINFO[m] ONAP :: wred-profile ............................... [1;32mSUCCESS[m [  0.103 s]
+[[1;34mINFO[m] ONAP :: qos-profile ................................ [1;32mSUCCESS[m [  0.146 s]
+[[1;34mINFO[m] ONAP :: l3vpn-profile .............................. [1;32mSUCCESS[m [  0.135 s]
+[[1;34mINFO[m] ONAP :: co-channel-profile ......................... [1;32mSUCCESS[m [  0.118 s]
+[[1;34mINFO[m] ONAP :: xmi-to-yang ................................ [1;32mSUCCESS[m [ 41.977 s]
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  50.303 s
+[[1;34mINFO[m] Finished at: 2020-02-26T12:26:23+01:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m

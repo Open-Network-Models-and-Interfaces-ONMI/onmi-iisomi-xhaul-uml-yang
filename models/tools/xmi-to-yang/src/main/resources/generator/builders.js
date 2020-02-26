@@ -50,7 +50,8 @@ var builders = {
         
         if(general.class2.key.length !== 0){
             props.keyLength = general.class2.key instanceof Array ? general.class2.key.length : 1;
-            for(var i = 0; i < props.keyLength; i++){
+            
+            for(var i=0; i<=props.keyLength-1;  i++){
            
                 // the following lines are commented out,  to get more than one partOfObjectKey under one class.
 
@@ -59,54 +60,63 @@ var builders = {
                     props.newkeyid = props.keyLength === 1 ? general.class2.keyid : general.class2.keyid[i];
                     props.newkeyvalue = props.keyLength === 1 ? general.class2.keyvalue : general.class2.keyvalue[i];
                 */
-                props.newkey = general.class2.key[i];
-                props.newkeyid = general.class2.keyid[i];
-                props.keyLength = general.class2.keyvalue[i];
                
+               
+               
+                //props.newkey = general.class2.key[i];
+                //props.newkeyid = general.class2.keyid[i];
+                //props.newkeyvalue=general.class2.keyvalue[i];
                 // This part seems to make no sense, commented out by Waseem
                 
-                /*
+                
                     if(general.class2.key instanceof Array){
-                        props.newkey = general.class2.key[0];
-                        props.newkeyid = general.class2.keyid[0];
-                        props.newkeyvalue = general.class2.keyvalue[0];
+                        props.newkey = general.class2.key[i];
+                        props.newkeyid = general.class2.keyid[i];
+                        props.newkeyvalue = general.class2.keyvalue[i];
                     }
 
-                */
+                
 
-                for(var j = 0; j < general.class1.key.length; j++){
-                    if(props.newkeyid === general.class1.keyid[j]){
-                        break;
-                    }
-                }
-                if(j === general.class1.key.length){
+                //for(var j = 0; j < general.class1.key.length; j++){
+                //    if(props.newkeyid === general.class1.keyid[j]){
+                //        break;
+                //    }
+                //}
+                //if(j === general.class1.key.length){
                     general.class1.key.push(props.newkey);
                     general.class1.keyid.push(props.newkeyid);
-                    general.class1.keyvalue.push(props.newkeyvalue);
+                    general.class1.keyvalue.push(props.newkeyvalue );
                     builders.inherit(general.class1, props.newkey, props.newkeyid, props.newkeyvalue, store);
-                }
-
+                //}
+               
             }
+            
         }
     },
     inherit:function(Class, key, keyid, keyvalue, store){
+        
         for(var i = 0; i < store.generalization.length; i++){
             var item = store.generalization[i];
+            
+        
             if(item.class2.id === Class.id && item.class2.fileName === Class.fileName){
-                for(var j = 0; j < item.class1.key.length; j++){
-                    if(keyid === item.class1.keyid[j]){
-                        break;
-                    }
-                }
-                if(j === item.class1.key.length){
+               
+                //for(var j = 0; j < item.class1.key.length; j++){
+                  //  if(keyid === item.class1.keyid[j]){
+                    //    break;
+                    //}
+               // }*/
+               //if(j === item.class1.key.length){
+
+               
                     item.class1.key.push(key);
                     item.class1.keyid.push(keyid);
                     item.class1.keyvalue.push(keyvalue);
 
-                    builders.inherit(item.class1, key, keyid, keyvalue, store);
+                   // builders.inherit(item.class1, key, keyid, keyvalue, store);
                 }
             }
-        }
+        //}
     },
     addPath:function(id, Class, pflag, store){
         var path,

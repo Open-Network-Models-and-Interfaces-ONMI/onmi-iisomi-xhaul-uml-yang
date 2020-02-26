@@ -26,7 +26,8 @@ var store = {
     extendedComposite:[],
     rootElement:[],
     generalization:[],
-    augment:[]
+    augment:[],
+    literals:[]
 };
 
 var yangProcessors = require("../generator/yangprocessors"),
@@ -154,6 +155,7 @@ function parseModule(file){
                             }
                             break;
                         case "Obsolete":
+                            
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){

@@ -32,18 +32,25 @@ Package.prototype.writeNode = function (layer) {
     var k = layer;
     while (k-- > 0) {
         PRE += '\t';
-    }
+    }this
 
     if(this.name.toLowerCase() === "typedefinitions"){
-        var name1 = "/****************************************\r\n* typedef statements\r\n**************************************/";
-        var name2 = "/*********************************************\r\n* grouping statements for complex data types\r\n*******************************************/";
-
+        
+        var regex = /(layer.protocol.name.type.*|profile.name.type.*)/i;
         var mychildren1 = new Array();
         var mychildren2 = new Array();
         var children1 = "";
         var children2 = "";
-
+        var name1="";
+        var name2="";
+       
         for (var i = 0; i < this.children.length; i++) {
+             
+            if (!regex.test(this.children[i].name)){
+                name1 = "/****************************************\r\n* typedef statements\r\n**************************************/";
+                name2 = "/*********************************************\r\n* grouping statements for complex data types\r\n*******************************************/";
+            }
+
             if(this.children[i].nodeType == "typedef"){
                 mychildren1.push(this.children[i]);
             }else{
@@ -70,53 +77,61 @@ Package.prototype.writeNode = function (layer) {
             "\r\n";
         return s;
     }
+    
+    
 
     if(this.name.toLowerCase() === "definitionsofreferences") {
         var name = "/********************************************\r\n* grouping statements for object references\r\n********************************************/";//changed
     }else if(this.name.toLowerCase() === "objectclasses"){
         var name = "/****************************************\r\n* grouping statements for object classes\r\n**************************************/";//changed
-    }else{
-        var name = "/****************************************\r\n* package " + this.name + "\r\n**************************************/";
+    }else if(this.name.toLowerCase() === "explanatoryonly" || this.name.toLowerCase() === "extentedcoreenumerations") {
+        var name=" ";
+    } else{
+            var name = "/****************************************\r\n* package " + this.name + "\r\n**************************************/";
     }
-    name = name.replace(/\r\n/g, '\r\n' + PRE);
-    var descript;
-    if(!this.description){
-        this.description = "none";
+    if(name){
+        name = name.replace(/\r\n/g, '\r\n' + PRE);
+    
+        var descript;
+        if(!this.description){
+            this.description = "none";
+        }
+        if (typeof this.description == 'string') {
+            this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
+            this.description = this.description.replace(/\"/g,"\'");
+        }
+        descript = this.description ? PRE + "description\t\n\t\t\t\t  \"" + this.description + "\";\r\n" : "";
     }
-    if (typeof this.description == 'string') {
-        this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
-        this.description = this.description.replace(/\"/g,"\'");
-    }
-    descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
-    var children = "";
-    var sub;
-    if (this.children) {
-        for (var i = 0; i < this.children.length; i++) {
+    
+        var children = "";
+        var sub;
+        if (this.children) {
+            for (var i = 0; i < this.children.length; i++) {
+                if(sub){
+                    this.children[i - 1] = this.children[i];
+                }
+                if(this.children[i].name == "Interfaces"){
+                    sub = this.children[i];
+                }
+            }
             if(sub){
-                this.children[i - 1] = this.children[i];
-            }
-            if(this.children[i].name == "Interfaces"){
-                sub = this.children[i];
-            }
-        }
-        if(sub){
-            this.children[this.children.length - 1] = sub;
+                this.children[this.children.length - 1] = sub;
 
+            }
+            this.children.map(function(child) {
+                children += child.writeNode(layer + 1);
+            });
         }
-        this.children.map(function(child) {
-            children += child.writeNode(layer + 1);
-        });
-    }
-    var uses = "";
-    this.uses.map(function(use){
-        uses += PRE + "\tuses " + use.name + ";\r\n";
-    });
-    var s = PRE + Util.yangifyName(name) + " \r\n" +
-        children +
-        Util.yangifyName(uses) +
+        var uses = "";
+        this.uses.map(function(use){
+         uses += PRE + "\tuses " + use.name + ";\r\n";
+     });
+        var s = PRE + Util.yangifyName(name) + " \r\n" +
+            children +
+         Util.yangifyName(uses) +
         //descript +
         "\r\n";
-    return s;
-
+        return s;
+    
 };
 module.exports = Package;

@@ -1,0 +1,41 @@
+{
+    "tsp": {},
+    "onf": {
+      "namespace": "urn:onf:yang:",
+      "organization": "Open Networking Foundation (ONF)",
+      "contact": "ONF",
+      "withSuffix": false,
+      "revision": [
+        {
+          "date": "2019-05-25",
+          "description": "Test project to check UML-to-YANG tool.",
+          "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
+        }
+      ]
+    },
+    "tapi": {
+      "namespace": "urn:onf:params:xml:ns:yang:",
+      "prefix": {
+        "tapi-common": "com",
+        "tapi-topology": "top",
+        "tapi-connectivity": "con",
+        "tapi-path-computation": "pat",
+        "tapi-virtual-network": "vnw",
+        "tapi-notification": "not",
+        "tapi-oam": "oam",
+        "tapi-odu": "odu",
+        "tapi-och": "och",
+        "test": "test"
+      },
+      "withSuffix": false,
+      "organization": "ONF (Open Networking Foundation) IMP Working Group",
+      "contact": "WG Web: <https://www.open{[]}networking.org/technical-communities/areas/services/> \n WG List: mailto: <wg list name>@opennetworking.org>, \n.WG Chair: your-WG-chair<mailto:your-WG-chair@example.com> \nEditor: your-name<mailto:your-email@example.com>",
+      "revision": [
+        {
+          "date": "2017-11-13",
+          "description": "Test revision",
+          "reference": "Papyrus"
+        }
+      ]
+    }
+  }

@@ -26,7 +26,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.status=status;
     this["max-elements"] = maxEle;
     this["min-elements"] = minEle;
-    this.defaultValue = undefined;
+    this.defaultValue = "";
     this["ordered-by"] = isOrdered;
     this["if-feature"] = feature;
     this.config = config;
@@ -37,28 +37,19 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.presence=undefined;
     this.withSuffix=false;
     this.isleafRef=undefined;
+    this.type="";
+    this.store="";
 }
 
-Node.prototype.buildChild = function (att, type) {
+
+
+Node.prototype.buildChild = function (att, type, store) {
+    //this.defaultValue=att.defaultValue;
+    this.store=store;
     if(type == "leaf" || type == "leaf-list"){
         //translate the "integer" to "uint32"
         var t;
-        /*if(typeof att.type == "object"){
-         t = att.type.name;
-         }else if(typeof type == "string"){
-         t = att.type;
-         }
-         switch(t){
-         case "integer":
-         att.type = "uint64";
-         break;
-         default:
-         break;
-         }*/
         if(att.type && typeof att.type == "object"){
-            // if(att.type.name == "integer"){
-            //     att.type.name = "uint64";
-            // }
             if(att.type.name == "integer"){
                 if (att.bitLength) {
                     att.type.length = att.bitLength.replace(/[^0-9]/g, '');
@@ -72,16 +63,19 @@ Node.prototype.buildChild = function (att, type) {
     }
     var obj;
     //create a subnode by "type"
+    
     switch (type) {
+        
+
         case "leaf":
-            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName);
+            obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName, this.store);
             break;
         case "enumeration":
-            obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att, att.support, att.status, att.fileName);
+            obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att, att.support, att.status, att.fileName, this.store);
             obj = att;
-            break;
+           break;
         case "leaf-list":
-            obj = new leaf_list(att.name, att.id, att.config, att.description, att['max-elements'], att['min-elements'], att.type, att.isOrdered, att.support, att.status, att.fileName);
+            obj = new leaf_list(att.name, att.id, att.config, att.defaultValue, att.description, att['max-elements'], att['min-elements'], att.type, att.isOrdered, att.support, att.status, att.fileName, this.store);
             break;
         case "list":
             obj = new Node(att.name, att.description, att.nodeType, att['max-elements'], att['min-elements'], att.id, att.config, att.isOrdered, att.support, att.status, att.fileName);
@@ -153,7 +147,7 @@ Node.prototype.writeNode = function (layer) {
                 this.description = "Lifecycle : " + this.status;
             }
             else{
-                this.description += "\r\n" + "Lifecycle : " + this.status;
+                this.description += "\r\n\t\t\t\t" + "Lifecycle : " + this.status;
             }
             break;
         case "current":
@@ -210,18 +204,21 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base") { // [sko] also typedef must be yangified: && this.nodeType !== "typedef") {
+    
+    if(this.nodeType != "enum" && this.nodeType != "identity"  && this.nodeType != "base") { // [sko] also typedef must be yangified: && this.nodeType !== "typedef") {
         var name = this.nodeType + " " + Util.yangifyName(this.name);
+        
     //}else if(this.nodeType == "base" ){
         //this.name+="-id";
         //var name = this.nodeType + " " + Util.typeifyName(this.name);
-    }else{
-        //this.name = this.name.replace(/\_+/g,'-');
-        //keep literal names as they are in UML file
-        //var name = this.nodeType + " " + Util.typeifyName(this.name);
+    }else if(this.name === "LAYER_PROTOCOL_NAME_TYPE" || this.name === "LAYER_PROTOCOL_NAME_TYPE_LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER"){
+        return "";
+     }else{
         var name = this.nodeType + " " + this.name;
        
-    }
+     }
+    
+    //return "";
     if(!this.description ){
         this.description = "none";
     }
@@ -231,13 +228,13 @@ Node.prototype.writeNode = function (layer) {
 
     }
 
-     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+     this.description ? descript = PRE + "\tdescription\t\n\t\t\t\t\"" + this.description + "\";\r\n" : descript = "";
 
     /*if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*!/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
     }
-    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    this.description ? descript = PRE + "description \"" + this.description + "\";\r\n" : descript = "";
   */
     if(this.presence) {
         presence =PRE +  this.presence ? PRE + "\tpresence \"" + this.presence + "\";\r\n" : "";
@@ -256,21 +253,20 @@ Node.prototype.writeNode = function (layer) {
 
     var maxele;
     var minele;
-    var defvalue;
+    
     var conf = "";
     var Key = "";
-
+   
+    var defvalue = "";
+    
     if(typeof this.defaultValue == 'number'){
         defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
-    }else {
+    }else{
         defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
+        //console.info("node.js "+ JSON.stringify(this));
     }
 
-    /*if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
-     conf = PRE + "\tconfig " + this.config + ";\r\n";
-     } else {
-     conf = "";
-     }*/
+    
     if((this.nodeType === "container" || this.nodeType === "list")&&(this.config === false)){
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
@@ -304,11 +300,11 @@ Node.prototype.writeNode = function (layer) {
                         var myUses = this.uses.split(":");
                         myKey[i]=Util.yangifyName(myUses[myUses.length-1].replace("ref",""))+this.key[i];
                     }
-                    Key = PRE + "\tkey '" + myKey.join(" ") + "';\r\n";
+                    Key = PRE + "\tkey \"" + myKey.join(" ") + "\";\r\n";
                 } else if (this.key.indexOf('uuid') !== -1) {
                     Key = PRE + "\tkey 'uuid';\r\n";
                 } else {
-                    Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
+                    Key = PRE + "\tkey \"" + this.key.join(" ") + "\";\r\n";
                 }
             }
         }else{
@@ -432,6 +428,7 @@ Node.prototype.writeNode = function (layer) {
         s = PRE + name + ";\r\n";
     }else
     {
+        
         s = PRE + name + " {\r\n" +
             feature +
             Key +
@@ -446,8 +443,14 @@ Node.prototype.writeNode = function (layer) {
             presence+
             descript + PRE + "}\r\n";
     }
-    
-    return s;
+      
+    var regex = /(layer.protocol.name.type|layer.protocol.name.type.layer.protocol.name.type|profile.name.type|profile.name.type.profile.name.type)/i;
+    //var regex = /(layer.protocol.name.type|profile.name.type)/i;
+    if (regex.test(name)){
+       return "";
+    }else{
+        return s;
+    }
 };
 
 module.exports = Node;

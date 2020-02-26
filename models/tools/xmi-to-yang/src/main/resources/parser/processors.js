@@ -132,7 +132,8 @@ var processors = {
                 id:undefined,
                 r:undefined
             });
-
+            
+            
             obj['ownedAttribute'].array ? props.len = obj['ownedAttribute'].array.length : props.len = 1;
             for (var i = 0; i < props.len; i++) {
                 props.len == 1 ? props.att = obj['ownedAttribute'] : props.att = obj['ownedAttribute'].array[i];
@@ -180,6 +181,7 @@ var processors = {
         },
         node:{
             enum:function(props,obj,node,global,store){
+                
                 if(node.isLeaf == true){
                     node.buildEnum(obj);
                     store.Typedef.push(node);
@@ -199,13 +201,18 @@ var processors = {
                     var nodeI = new yangModels.Node(global.name,"","identity");
                   
                     nodeI.fileName=node.fileName;
-
+                    
                     store.Identity.push(nodeI);
                     var vals = {
                         enumComment:undefined,
                         enumValue:undefined,
+                        enumId:undefined,
                         enumNode:undefined,
                         literal:obj["ownedLiteral"]
+                    };
+                    var literals ={
+                        literalId:undefined,
+                        literalName:undefined
                     };
 
                     if(!vals.literal){
@@ -214,8 +221,16 @@ var processors = {
 
                     if (vals.literal.array) {
                         for (var i = 0; i < vals.literal.array.length; i++) {
+                            var literals ={
+                                literalId:undefined,
+                                literalName:undefined
+                            };
+
+                            vals.enumId = vals.literal.array[i].attributes()["xmi:id"];
                             vals.enumValue = vals.literal.array[i].attributes().name;
+                            literals.literalId = vals.enumId;
                             vals.enumComment = "";
+
                             if(vals.literal.array[i]["ownedComment"]){
                                 if (vals.literal.array[i]["ownedComment"].array) {
                                     vals.enumComment = vals.literal.array[i]["ownedComment"].array[0].body.text();
@@ -228,17 +243,27 @@ var processors = {
                             }
                             vals.enumValue=global.name+"_"+vals.enumValue;
                             vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g, '_');
-                            vals.enumNode = new yangModels.Node(vals.enumValue, vals.enumComment, "identity");
+                            literals.literalName = vals.enumValue;
+                            store.literals.push(literals);
 
+                            vals.enumNode = new yangModels.Node(vals.enumValue, vals.enumComment, "identity","","",vals.enumId);
                             var baseNode = new yangModels.Node(global.name, "", "base");
-                            vals.enumNode.fileName = node.fileName;
                             
+                            vals.enumNode.fileName = node.fileName;
                             vals.enumNode.children.push(baseNode);
                             store.Identity.push(vals.enumNode);
-                           // console.info("processors - store.identity\n"+JSON.stringify(store.Identity));    
+                            
+                           
                         }
                     } else {
+                        var literals ={
+                            literalId:undefined,
+                            literalName:undefined
+                        };
+
                         vals.enumValue = vals.literal.attributes().name;
+                        literals.literalId=vals.literal.attributes()["xmi:id"];
+                        
                         if(vals.literal["ownedComment"]){
                             vals.enumComment = "";
                             if (vals.literal["ownedComment"].array) {
@@ -256,15 +281,14 @@ var processors = {
                         }
                         vals.enumValue=global.name+"_"+vals.enumValue;
                         vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g,'_');
+                        literals.literalName = vals.enumValue;
+                        store.literals.push(literals);
+
                         vals.enumNode = new yangModels.Node(vals.enumValue, vals.enumComment, "identity");
-                        
                         var baseNode=new yangModels.Node(global.name, "", "base");
-                        
                         vals.enumNode.fileName = node.fileName;
                         vals.enumNode.children.push(baseNode);
-
-                        //console.info("\nprocessors.js - ELSE vals.enumNode :\t"+vals.enumNode);
-
+                        
                         store.Identity.push(vals.enumNode);
                     }
                 }

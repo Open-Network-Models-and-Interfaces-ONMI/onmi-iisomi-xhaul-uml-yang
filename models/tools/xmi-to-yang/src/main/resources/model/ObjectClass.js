@@ -62,6 +62,7 @@ Class.prototype.buildEnum = function(obj) {
         // More than one enumerated value
         for (var i = 0; i < literal.array.length; i++) {
             enumValue = literal.array[i].attributes().name;
+            node.literalname.push(enumValue);
             //enumValue = "enum " + literal.array[i].attributes().name;
             enumComment = "";
             if(literal.array[i]["ownedComment"]){
@@ -237,9 +238,9 @@ Class.prototype.buildOperate = function(para){
     var id;
     var input = [];
     var output = [];
-    var id = para.attributes()['xmi:id'];
+    var id = para.attributes()['xmi:id'].trim();
     var name = para.attributes().name;
-
+    
     // [sko] TODO: remove, when not needed anymore
     if(para.attributes().type =="_nYoCou-3Eea2l9FuDSKfDQ"){
        // console.info("ObjectClass: para.attributes().type \t"+para.attributes().type);

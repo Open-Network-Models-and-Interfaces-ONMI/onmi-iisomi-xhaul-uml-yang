@@ -112,7 +112,7 @@ module.exports = {
                 }
 
                 for (var j = 0; j < ele[i].attribute.length; j++) {
-                    obj.buildChild(ele[i].attribute[j], "enumeration");
+                    obj.buildChild(ele[i].attribute[j], "enumeration", store);
                 }
 
             }
@@ -272,11 +272,11 @@ module.exports = {
                                     var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath, store.openModelStatement[ele[i].fileName].prefix);
                                     if (i == k) {
                                         if (clazz.instancePath[0] == "/") {
-                                            ele[i].attribute[j].type = "leafref+path '" + yangPathStatement + "'";
+                                            ele[i].attribute[j].type = "leafref+path \"" + yangPathStatement + "\"";
 
                                         }
                                         else {
-                                            ele[i].attribute[j].type = "leafref+path '/" + yangPathStatement + "'";
+                                            ele[i].attribute[j].type = "leafref+path \"/" + yangPathStatement + "\"";
                                         }
                                         if (clazz.isAbstract) {
                                             ele[i].attribute[j].type = "string";
@@ -298,9 +298,9 @@ module.exports = {
                                     else {
                                         if (ele[i].attribute[j].isleafRef) {
                                             if (clazz.instancePath[0] === "/") {
-                                                ele[i].attribute[j].type = "leafref+path '" + yangPathStatement + "'";
+                                                ele[i].attribute[j].type = "leafref+path \"" + yangPathStatement + "\"";
                                             } else {
-                                                ele[i].attribute[j].type = "leafref+path '/" + yangPathStatement + "'";
+                                                ele[i].attribute[j].type = "leafref+path \"/" + yangPathStatement + "\"";
                                             }
 
                                             if (ele[i].attribute[j].nodeType === "list") {
@@ -358,34 +358,20 @@ module.exports = {
                                 //console.debug("yangprocessors-didn't find the class");
 
                                 // assigin yang types - eidtey by Waseem Sattar
-                                switch (ele[i].attribute[j].name.toLowerCase()) {
-                                    case "timestamp":
-                                        ele[i].attribute[j].type = "yang:date-and-time";
-                                      break;
-                                    case "periodendtime":
-                                        ele[i].attribute[j].type = "yang:date-and-time";
-                                      break;
-                                      case "objectclass":
-                                        ele[i].attribute[j].type = "yang:object-identifier";
-                                      break;
-                                    case "namebinding":
-                                        ele[i].attribute[j].type = "yang:object-identifier";
-                                      break;
-                                    case "allomorphs":
-                                        ele[i].attribute[j].type = "yang:object-identifier";
-                                      break;
-                                    case "packages":
-                                        ele[i].attribute[j].type = "yang:object-identifier";
-                                      break;
-                                   default:
-                                        ele[i].attribute[j].type = "string";
-
-                                  }
-                                
-                               
+                                var attValue=ele[i].attribute[j].name.toLowerCase();
+                                var regex=/time/;
+                                var regex1=/object|namebinding|packages|allomorphs/;
+                                if(regex.test(attValue)){
+                                    ele[i].attribute[j].type = "yang:date-and-time";
+                                }else if(regex1.test(attValue)){
+                                    ele[i].attribute[j].type = "yang:object-identifier";
+                                }else{
+                                    ele[i].attribute[j].type = "string";
+                                }
                             }
                         }
                        
+                        
                         if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
                             ele[i].attribute[j].type = new yangModels.Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
                         } else if (ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list") {
@@ -398,7 +384,7 @@ module.exports = {
                                 if (ele[i].attribute[j].type.range.indexOf('*') !== -1) {
                                     ele[i].attribute[j].type.range = this.range.replace('*', "max");
                                 }
-                                ele[i].attribute[j].description += "\r\nrange of type : " + ele[i].attribute[j].type.range;
+                                ele[i].attribute[j].description += "\r\n\t\t\t\trange of type : " + ele[i].attribute[j].type.range;
                                 ele[i].attribute[j].type.range = undefined;
                                 console.warn("Warning: The range of id = \"" + ele[i].attribute[j].type.id + "\"doesn't match the RFC 6020! We will put this range into description. Please recheck it.");
                             } else {
@@ -556,7 +542,7 @@ module.exports = {
                                 ele[i].attribute[j].keyvalue = clazz.keyvalue;
                                 
                             }
-                            obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
+                            obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType, store);//create the subnode to obj
                         }
                     }
                 }
@@ -565,9 +551,9 @@ module.exports = {
             if(ele[i].nodeType === "typedef"){
                 obj.nodeType = "typedef";
                 if(ele[i].attribute[0]){
-                    obj.buildChild(ele[i].attribute[0], "typedef");
+                    obj.buildChild(ele[i].attribute[0], "typedef", store);
                 }else{
-                    obj.buildChild(ele[i], "typedef");
+                    obj.buildChild(ele[i], "typedef", store);
                 }
             }
             //create "rpc"
@@ -656,7 +642,7 @@ module.exports = {
                                 }
                                 if(i === k){
                                     var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath.split(":")[1], store.openModelStatement[ele[i].fileName].prefix)
-                                    pValue.type = "leafref+path '/" + yangPathStatement + "'";
+                                    pValue.type = "leafref+path \"/" + yangPathStatement + "\"";
                                     if(clazz.isGrouping){
                                         pValue.type = "string";
                                     }
@@ -709,7 +695,7 @@ module.exports = {
                             pValue.type = "string";
                         }
                     }
-                    obj.buildChild(pValue, pValue.nodeType, pValue.rpcType);
+                    obj.buildChild(pValue, pValue.nodeType, pValue.rpcType, store);
                 }
             }
 

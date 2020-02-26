@@ -10,7 +10,8 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-var basicType = ["boolean", "integer", "real", "string", "unlimitedNatural"];
+var basicType = ["boolean", "integer", "real", "string", "unlimitedNatural", "instancevalue"];
+var Util=require('./yang/util.js');
 function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, fileName){
     this.id = id;
     this.name = name;
@@ -41,15 +42,32 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
 
 ownedAttribute.prototype.giveValue = function(obj){
     var value;
+    
     if(obj.defaultValue){
+        
         if(!obj.defaultValue.value){
-            value = obj.defaultValue.attributes().value ? obj.defaultValue.attributes().value : null;
-            /*if(obj.defaultValue.attributes().value){
+            
+            if(typeof obj.defaultValue.attributes().value==="undefined"){
+                
+                if(this.type==="boolean"){ 
+                    value="false";
+                }else if(this.type==="integer"){ 
+                    value="0";
+                }else{
+                    
+                    if(obj.defaultValue.attributes()['xmi:type']=="uml:InstanceValue"){
+                        value=obj.defaultValue.attributes().instance;
+                    }else{
+                        value = obj.defaultValue.attributes().value;
+                    }
+                    
+                    
+                }
+            }else{
+                //value = obj.defaultValue.attributes().value ? obj.defaultValue.attributes().value : null;
                 value = obj.defaultValue.attributes().value;
             }
-            else{
-                value = null;
-            }*/
+            
         }else{
             value = obj.defaultValue.value.attributes()['xsi:nil'];
         }
@@ -60,9 +78,10 @@ ownedAttribute.prototype.giveValue = function(obj){
     else{
         value = null;
     }
-    if(value != "NA"){
-        this.defaultValue = value;
-    }
+    
+    
+
+    this.defaultValue = value;
     this['min-elements'] = obj.lowerValue ? obj.lowerValue.attributes().value : null;
     this['max-elements'] = obj.upperValue ? obj.upperValue.attributes().value : null;
 };
