@@ -153,6 +153,7 @@ leaf_list.prototype.writeNode = function (layer) {
             var prestring = "";
             //lastoccurance = type.match(regxlastoccurance);
             lastoccurance = String(type.match(regxlastoccurance)).substr();
+            lastoccurance=lastoccurance.replace("require\-instance false;", "");
             var lastoccurancesubstring = lastoccurance.substr(lastoccurance.indexOf('\:'), lastoccurance.length );
             
             //if the string not containg uuid
