@@ -38,6 +38,11 @@ namespace=(
   [wire-interface]=wire-interface-2-0
   [wred-profile]=wred-profile-1-0
   [co-channel-profile]=co-channel-profile-1-0
+  [vlan-fc]=vlan-fc-1-0
+  [vlan-fd]=vlan-fd-1-0
+  [ltp-augment]=ltp-augment-1-0
+  [mac-fc]=mac-fc-1-0
+  [mac-fd]=mac-fd-1-0
 );
 
 declare -A fileversions
@@ -56,6 +61,11 @@ fileversions=(
   [wire-interface]=wire-interface-2-0
   [wred-profile]=wred-profile-1-0
   [co-channel-profile]=co-channel-profile-1-0
+  [vlan-fc]=vlan-fc-1-0
+  [vlan-fd]=vlan-fd-1-0
+  [ltp-augment]=ltp-augment-1-0
+  [mac-fc]=mac-fc-1-0
+  [mac-fd]=mac-fd-1-0
 );
 
 
@@ -71,7 +81,11 @@ layer=(
   [pure-ethernet-structure]=LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER
   [tdm-container]=LAYER_PROTOCOL_NAME_TYPE_TDM_CONTAINER_LAYER
   [wire-interface]=LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER
-  
+  [vlan-fc]=LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER
+  [vlan-fd]=LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER
+  [ltp-augment]=LAYER_PROTOCOL_NAME_TYPE_LTP_LAYER
+  [mac-fc]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
+  [mac-fd]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
 );
 
 declare -A profile
@@ -132,6 +146,20 @@ do
 
   # find/replace in hybrid-microwave-structure
   sed -i -e "s/\/hybrid-mw-structure:hybrid-mw-structure-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+  # find/replace in vlan-fc
+  sed -i -e "s/\/vlan-fc:vlan-fc-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+
+   # find/replace in vlan-fd
+  sed -i -e "s/\/vlan-fd:vlan-fd-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+
+   # find/replace in ltp-augment
+  sed -i -e "s/\/ltp-augment:ltp-augment-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+
+    # find/replace in mac-fc
+  sed -i -e "s/\/mac-fc:mac-fc-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+    
+    # find/replace in mac-fd
+  sed -i -e "s/\/mac-fd:mac-fd-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
   # find/replace in wire-interface
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
@@ -158,6 +186,24 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   # find/replace in 
 
  find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
+ identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
+ replace=" $identity \n $find \n $when";
+ #replace=" $find \n $when";
+ sed -i -e "s/$find/$replace/g" $yang;
+
+  # find/replace in
+
+ find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\"{";
+ identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
+ replace=" $identity \n $find \n $when";
+ #replace=" $find \n $when";
+ sed -i -e "s/$find/$replace/g" $yang;
+
+  # find/replace in
+
+ find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\"{";
  identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
  when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
  replace=" $identity \n $find \n $when";
@@ -208,6 +254,7 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   find="prefix ietf-yang-types";
   replace="prefix yang";
   sed -i -e "s/$find/$replace/g" $yang;
+
   
   mv $filename ${fileversions[$index]}".yang"; 
 done

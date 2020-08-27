@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="VlanFc" URI="">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_EcKowL0aEemxAM_DWydfXQ" annotatedElement="_Imk30GyUEee0HrHFgb9oqw">
+      <body>Technology specific Forwarding Construct for VLANs according to IEEE 802.1Q-2018.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTEuEFE6Eembl8KFq0LDlA" name="Associations">
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_l4LYIOhKEeq19cX9yhEXnw" client="_odj6ALUwEemP0vs_3-grtw">
+        <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Constraint" xmi:id="_fLOigOhLEeq19cX9yhEXnw" name="When" constrainedElement="_l4LYIOhKEeq19cX9yhEXnw">
+        <specification xmi:type="uml:LiteralString" xmi:id="_fLQXsOhLEeq19cX9yhEXnw" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER'"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_zAJvALUwEemP0vs_3-grtw" memberEnd="_zAVVMLUwEemP0vs_5-grtw _zAdRALUwEemP0vs_3-grtw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zAS48LUwEemP0vs_3-grtw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zATgALUwEemP0vs_3-grtw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_zAdRALUwEemP0vs_3-grtw" name="vlanFclpspec" type="_odj6ALUwEemP0vs_3-grtw" association="_zAJvALUwEemP0vs_3-grtw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_eTEuEVE6Eembl8KFq0LDlA" memberEnd="_eTT-o1E6Eembl8KFq0LDlA _eTEuFFE6Eembl8KFq0LDlA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eTEuElE6Eembl8KFq0LDlA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTEuE1E6Eembl8KFq0LDlA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_eTEuFFE6Eembl8KFq0LDlA" name="vlanFc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_eTEuEVE6Eembl8KFq0LDlA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_eTEuFVE6Eembl8KFq0LDlA" memberEnd="_eTT-pFE6Eembl8KFq0LDlA _eTEuGFE6Eembl8KFq0LDlA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eTEuFlE6Eembl8KFq0LDlA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTEuF1E6Eembl8KFq0LDlA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_eTEuGFE6Eembl8KFq0LDlA" name="vlanFc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_eTEuFVE6Eembl8KFq0LDlA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_4G6rMNcMEeqLY8ATpKxGjw" memberEnd="_4HAKwNcMEeqLY8ATpKxGjw _4HBY4NcMEeqLY8ATpKxGjw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4G-8oNcMEeqLY8ATpKxGjw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4G-8odcMEeqLY8ATpKxGjw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_4HBY4NcMEeqLY8ATpKxGjw" name="vlanfc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_4G6rMNcMEeqLY8ATpKxGjw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_28wa8NWoEeqMhvIKSP0iJw" memberEnd="_284WwNWoEeqMhvIKSP0iJw _287aENWoEeqMhvIKSP0iJw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2816gNWoEeqMhvIKSP0iJw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_282hkNWoEeqMhvIKSP0iJw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_287aENWoEeqMhvIKSP0iJw" name="objectcreationnotification" type="_FL_WQNWoEeqMhvIKSP0iJw" association="_28wa8NWoEeqMhvIKSP0iJw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sqKAUNaFEeqMhvIKSP0iJw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sqR8INaFEeqMhvIKSP0iJw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_4WX5QNWoEeqMhvIKSP0iJw" memberEnd="_4WZHYtWoEeqMhvIKSP0iJw _4Wa8kdWoEeqMhvIKSP0iJw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4WZHYNWoEeqMhvIKSP0iJw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4WZHYdWoEeqMhvIKSP0iJw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_4Wa8kdWoEeqMhvIKSP0iJw" name="objectdeletionnotification" type="_FMBygNWoEeqMhvIKSP0iJw" association="_4WX5QNWoEeqMhvIKSP0iJw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rJfe0NaFEeqMhvIKSP0iJw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rJoBsNaFEeqMhvIKSP0iJw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_5iixcNWoEeqMhvIKSP0iJw" memberEnd="_5ijYgtWoEeqMhvIKSP0iJw _5ikmodWoEeqMhvIKSP0iJw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5ijYgNWoEeqMhvIKSP0iJw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5ijYgdWoEeqMhvIKSP0iJw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_5ikmodWoEeqMhvIKSP0iJw" name="attributevaluechangednotification" type="_FMCZk9WoEeqMhvIKSP0iJw" association="_5iixcNWoEeqMhvIKSP0iJw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_psofQNaFEeqMhvIKSP0iJw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pstXwNaFEeqMhvIKSP0iJw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_6iYd0NWoEeqMhvIKSP0iJw" memberEnd="_6iZE4tWoEeqMhvIKSP0iJw _6ia6ENWoEeqMhvIKSP0iJw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6iZE4NWoEeqMhvIKSP0iJw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6iZE4dWoEeqMhvIKSP0iJw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_6ia6ENWoEeqMhvIKSP0iJw" name="problemnotification" type="_FMEOwNWoEeqMhvIKSP0iJw" association="_6iYd0NWoEeqMhvIKSP0iJw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_njCVgNaFEeqMhvIKSP0iJw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_njPw4NaFEeqMhvIKSP0iJw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTPGIFE6Eembl8KFq0LDlA" name="Diagrams"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_YXXEMMNiEemn99Bv5eK4Cg" name="ExtentedCoreEnumerations">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_s9W30MNiEemn99Bv5eK4Cg" name="LayerProtocolNameType">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_s9W30cNiEemn99Bv5eK4Cg" annotatedElement="_s9W30MNiEemn99Bv5eK4Cg">
+          <body>A controlled list of LayerProtocol names.</body>
+        </ownedComment>
+        <generalization xmi:type="uml:Generalization" xmi:id="_a_MOwNWmEeqMhvIKSP0iJw">
+          <general xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_MbUkMIQ4EeiXzpgfQWpR-Q"/>
+        </generalization>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_m3fQUMNjEemn99Bv5eK4Cg" name="LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTRiYFE6Eembl8KFq0LDlA" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_EIUbEGqZEemhHpL8kAIrbQ">
+        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+      </packageImport>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_5LiY8NWjEeqMhvIKSP0iJw">
+        <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTSwgFE6Eembl8KFq0LDlA" name="Interfaces"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTTXkFE6Eembl8KFq0LDlA" name="Notifications">
+      <packagedElement xmi:type="uml:Signal" xmi:id="_FL_WQNWoEeqMhvIKSP0iJw" name="ObjectCreationNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FL_WQdWoEeqMhvIKSP0iJw" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FL_WQtWoEeqMhvIKSP0iJw" annotatedElement="_FL_WQdWoEeqMhvIKSP0iJw">
+            <body>Counts object creation notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_FL_WQ9WoEeqMhvIKSP0iJw" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FL_WRNWoEeqMhvIKSP0iJw" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FL_WRdWoEeqMhvIKSP0iJw" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_284WwNWoEeqMhvIKSP0iJw" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_28wa8NWoEeqMhvIKSP0iJw">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FL_WR9WoEeqMhvIKSP0iJw" name="objectType" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FL_WSNWoEeqMhvIKSP0iJw" value="Type of created object not specified."/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Signal" xmi:id="_FMBygNWoEeqMhvIKSP0iJw" name="ObjectDeletionNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMBygdWoEeqMhvIKSP0iJw" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMBygtWoEeqMhvIKSP0iJw" annotatedElement="_FMBygdWoEeqMhvIKSP0iJw">
+            <body>Counts object deletion notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_FMByg9WoEeqMhvIKSP0iJw" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMByhNWoEeqMhvIKSP0iJw" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FMByhdWoEeqMhvIKSP0iJw" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_4WZHYtWoEeqMhvIKSP0iJw" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_4WX5QNWoEeqMhvIKSP0iJw">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Signal" xmi:id="_FMCZk9WoEeqMhvIKSP0iJw" name="AttributeValueChangedNotification">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_FMCZlNWoEeqMhvIKSP0iJw">
+          <body>To be sent when an attribute has changed and one or more controllers have to update their data.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMCZldWoEeqMhvIKSP0iJw" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMCZltWoEeqMhvIKSP0iJw" annotatedElement="_FMCZldWoEeqMhvIKSP0iJw">
+            <body>Counts attribute value changed notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_FMCZl9WoEeqMhvIKSP0iJw" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMCZmNWoEeqMhvIKSP0iJw" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FMCZmdWoEeqMhvIKSP0iJw" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_5ijYgtWoEeqMhvIKSP0iJw" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_5iixcNWoEeqMhvIKSP0iJw">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMCZm9WoEeqMhvIKSP0iJw" name="attributeName" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMCZnNWoEeqMhvIKSP0iJw" annotatedElement="_FMCZm9WoEeqMhvIKSP0iJw">
+            <body>Name of the attribute that has been changed.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FMCZndWoEeqMhvIKSP0iJw" value="Attribute name not specified."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMCZntWoEeqMhvIKSP0iJw" name="newValue" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMCZn9WoEeqMhvIKSP0iJw" annotatedElement="_FMCZntWoEeqMhvIKSP0iJw">
+            <body>Attribute value converted to a string (xml, json, ...)</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FMCZoNWoEeqMhvIKSP0iJw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FMCZodWoEeqMhvIKSP0iJw" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FMCZotWoEeqMhvIKSP0iJw" value="New value not specified."/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Signal" xmi:id="_FMEOwNWoEeqMhvIKSP0iJw" name="ProblemNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMEOwdWoEeqMhvIKSP0iJw" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMEOwtWoEeqMhvIKSP0iJw" annotatedElement="_FMEOwdWoEeqMhvIKSP0iJw">
+            <body>Counts problem notifications</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_FMEOw9WoEeqMhvIKSP0iJw" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMEOxNWoEeqMhvIKSP0iJw" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FMEOxdWoEeqMhvIKSP0iJw" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_6iZE4tWoEeqMhvIKSP0iJw" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_6iYd0NWoEeqMhvIKSP0iJw">
+          <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMEOx9WoEeqMhvIKSP0iJw" name="problem" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMEOyNWoEeqMhvIKSP0iJw" annotatedElement="_FMEOx9WoEeqMhvIKSP0iJw">
+            <body>Name of the problem according to *Capability::supportedAlarmList</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_FMEOydWoEeqMhvIKSP0iJw" value="Problem name not specified."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FMEOytWoEeqMhvIKSP0iJw" name="severity" type="_7NYm8NaKEeqLY8ATpKxGjw" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_FMEOy9WoEeqMhvIKSP0iJw" annotatedElement="_FMEOytWoEeqMhvIKSP0iJw">
+            <body>Severity of the problem according to VlanFc::VlanFcConfiguration::problemSeverityList</body>
+          </ownedComment>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_H0EaoNaLEeqLY8ATpKxGjw" type="_7NYm8NaKEeqLY8ATpKxGjw" instance="_7NYm89aKEeqLY8ATpKxGjw"/>
+        </ownedAttribute>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTT-oFE6Eembl8KFq0LDlA" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Class" xmi:id="_odj6ALUwEemP0vs_3-grtw" name="VlanFcSpec">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_AFwwQL56Eemj8sLhiejUhA" annotatedElement="_odj6ALUwEemP0vs_3-grtw">
+          <body>Represents the VLAN, which is configured on the C-VLAN or S-VLAN Component. Name in ieee802-dot1q-bridge.yang: vlan.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_zAVVMLUwEemP0vs_5-grtw" name="_vlanFc_Pac" type="_eTT-olE6Eembl8KFq0LDlA" aggregation="composite" association="_zAJvALUwEemP0vs_3-grtw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eTT-olE6Eembl8KFq0LDlA" name="VlanFc_Pac">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-o1E6Eembl8KFq0LDlA" name="_vlanFcCapability" type="_eTT-qVE6Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_eTEuEVE6Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-pFE6Eembl8KFq0LDlA" name="_vlanFcConfiguration" type="_eTT-v1E6Eembl8KFq0LDlA" aggregation="composite" association="_eTEuFVE6Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_4HAKwNcMEeqLY8ATpKxGjw" name="_vlanFcCurrentProblems" type="_qvh6sNcJEeqLY8ATpKxGjw" isReadOnly="true" aggregation="composite" association="_4G6rMNcMEeqLY8ATpKxGjw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eTT-qVE6Eembl8KFq0LDlA" name="VlanFcCapability">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_06522754Eemj8sLhiejUhA" name="supportedSubLayerProtocolNameList" type="_EqKB0LUzEemWW757xUxUvA" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_06523L54Eemj8sLhiejUhA" annotatedElement="_06522754Eemj8sLhiejUhA">
+            <body>Lists the supported kinds of Components (implicitly defines the Ethertypes of the VLAN headers, which can be forwarded).</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_06523b54Eemj8sLhiejUhA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_06523r54Eemj8sLhiejUhA" value="*"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_h3QhcMKDEemb_ZdBqK8Yig" type="_EqKB0LUzEemWW757xUxUvA" instance="_DKRiQLhoEemsfcwHLUCxfw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_LOdTIMKEEemb_ZdBqK8Yig" name="adminShutDownIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LOdTIcKEEemb_ZdBqK8Yig" annotatedElement="_LOdTIMKEEemb_ZdBqK8Yig">
+            <body>true = Manual switching on and off of the forwarding construct without deleting it (underlying OSI network layers are also not affected) is available.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_LOdTIsKEEemb_ZdBqK8Yig"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_lAIwYNaEEeqMhvIKSP0iJw" name="supportedAlarmList" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_lAIwYdaEEeqMhvIKSP0iJw" annotatedElement="_lAIwYNaEEeqMhvIKSP0iJw">
+            <body>Available alarms to be listed.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lAIwYtaEEeqMhvIKSP0iJw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lAIwY9aEEeqMhvIKSP0iJw" value="*"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_R02x0NaFEeqMhvIKSP0iJw" value="Supported Alarms not yet defined."/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eTT-v1E6Eembl8KFq0LDlA" name="VlanFcConfiguration">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_066eLL54Eemj8sLhiejUhA" name="fcName" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_066eLb54Eemj8sLhiejUhA" annotatedElement="_066eLL54Eemj8sLhiejUhA">
+            <body>Description of the VLAN, could be a name, could be a number. Free text of up to 32 letters to be filled by the operator. Name in ieee802-dot1q-bridge.yang: name.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_066eLr54Eemj8sLhiejUhA" value="Interface name not yet defined."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_066eL754Eemj8sLhiejUhA" name="fcIsOn" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_066eML54Eemj8sLhiejUhA" annotatedElement="_066eL754Eemj8sLhiejUhA">
+            <body>Only effective if (adminShutDownIsAvail==true). true = Activation of the forwarding of frames with this VLAN ID. false = De-activation of the ForwardingConstruct without deleting it (underlying OSI network layers are not affected).</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_066eMb54Eemj8sLhiejUhA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_066eNr54Eemj8sLhiejUhA" name="subLayerProtocolName" type="_EqKB0LUzEemWW757xUxUvA" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_066eN754Eemj8sLhiejUhA" annotatedElement="_066eNr54Eemj8sLhiejUhA">
+            <body>Type of VLAN (e.g. C-VLAN, S-VLAN), respectively Ethertype, which is forwarded.</body>
+          </ownedComment>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_066eOL54Eemj8sLhiejUhA" type="_EqKB0LUzEemWW757xUxUvA" instance="_DKRiQLhoEemsfcwHLUCxfw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_UCFWzL3QEemm_Yk7AwSxsg" name="vlanId">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_nALqwL6sEemj8sLhiejUhA" annotatedElement="_UCFWzL3QEemm_Yk7AwSxsg">
+            <body>The VLAN ID, which identifies the frames to be forwarded. Range '1..4094 | 4096..4294967295'. Name in ieee802-dot1q-bridge.yang: vid.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_D7pXYMKFEemb_ZdBqK8Yig" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_hA9TINaGEeqv7pBYeHiOaw" name="problemKindSeverityList" type="_kcV04NaGEeqv7pBYeHiOaw" isOrdered="true" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_hA9TIdaGEeqv7pBYeHiOaw" annotatedElement="_hA9TINaGEeqv7pBYeHiOaw">
+            <body>Severity of the problem to be configured.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hA9TItaGEeqv7pBYeHiOaw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hA9TI9aGEeqv7pBYeHiOaw" value="*"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_qvh6sNcJEeqLY8ATpKxGjw" name="VlanFcCurrentProblems">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_qvh6sdcJEeqLY8ATpKxGjw" name="currentProblemList" type="_mrDjMNcKEeqLY8ATpKxGjw" isUnique="false" isReadOnly="true">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qvh6stcJEeqLY8ATpKxGjw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qvh6s9cJEeqLY8ATpKxGjw" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_qvh6tNcJEeqLY8ATpKxGjw" name="numberOfCurrentProblems" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_qvh6tdcJEeqLY8ATpKxGjw" annotatedElement="_qvh6tNcJEeqLY8ATpKxGjw">
+            <body>Number of alarms, which are currently active on this interface.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_qvh6ttcJEeqLY8ATpKxGjw" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_qvh6t9cJEeqLY8ATpKxGjw" name="timeOfLatestChange" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_qvh6uNcJEeqLY8ATpKxGjw" annotatedElement="_qvh6t9cJEeqLY8ATpKxGjw">
+            <body>Date and time when the list of alarms has been changed for the last time.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_qvh6udcJEeqLY8ATpKxGjw" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_eTT-9lE6Eembl8KFq0LDlA" name="SuperClasses">
+        <packagedElement xmi:type="uml:Class" xmi:id="_Ue2G4NcJEeqLY8ATpKxGjw" name="CurrentProblem" isAbstract="true">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Ue2G4dcJEeqLY8ATpKxGjw" name="sequenceNumber" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_Ue2G4tcJEeqLY8ATpKxGjw" annotatedElement="_Ue2G4dcJEeqLY8ATpKxGjw">
+              <body>Unique sequence number of the current problem object.</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Ue2G49cJEeqLY8ATpKxGjw" name="timestamp" isUnique="false" isReadOnly="true">
+            <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_Ue2G5NcJEeqLY8ATpKxGjw" value="2010-11-20T14:00:00+01:00"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Ue2G5dcJEeqLY8ATpKxGjw" name="problemSeverity" type="_7NYm8NaKEeqLY8ATpKxGjw" isUnique="false" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_Ue2G5tcJEeqLY8ATpKxGjw" annotatedElement="_Ue2G5dcJEeqLY8ATpKxGjw">
+              <body>Severity of the alarm.</body>
+            </ownedComment>
+            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_h9vU8NcJEeqLY8ATpKxGjw" type="_7NYm8NaKEeqLY8ATpKxGjw" instance="_7NYm99aKEeqLY8ATpKxGjw"/>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eThaAFE6Eembl8KFq0LDlA" name="Rules"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTiBEFE6Eembl8KFq0LDlA" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_EqKB0LUzEemWW757xUxUvA" name="SubLayerProtoclNameType">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_EqKB0bUzEemWW757xUxUvA" annotatedElement="_EqKB0LUzEemWW757xUxUvA">
+          <body>Represents the type of Component. Name in ieee802-dot1q-bridge.yang: type-of-component.</body>
+        </ownedComment>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_EqKB0rUzEemWW757xUxUvA" name="C_VLAN_COMPONENT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_EqKB07UzEemWW757xUxUvA" annotatedElement="_EqKB0rUzEemWW757xUxUvA">
+            <body>Base identity for a C-VLAN component. Name in ieee802-dot1q-bridge.yang: c-vlan-component.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_EqKB1LUzEemWW757xUxUvA" name="S_VLAN_COMPONENT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_EqKB1bUzEemWW757xUxUvA" annotatedElement="_EqKB1LUzEemWW757xUxUvA">
+            <body>Base identity for a S-VLAN component. Name in ieee802-dot1q-bridge.yang: s-vlan-component.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_EqKB1rUzEemWW757xUxUvA" name="D_BRIDGE_COMPONENT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_EqKB17UzEemWW757xUxUvA" annotatedElement="_EqKB1rUzEemWW757xUxUvA">
+            <body>Base identity for a VLAN unaware component. Name in ieee802-dot1q-bridge.yang: d-bridge-component.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_EqKB2LUzEemWW757xUxUvA" name="EDGE_RELAY_COMPONENT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_EqKB2bUzEemWW757xUxUvA" annotatedElement="_EqKB2LUzEemWW757xUxUvA">
+            <body>Base identity for an EVB station ER component. Name in ieee802-dot1q-bridge.yang: edge-relay-component. </body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_DKRiQLhoEemsfcwHLUCxfw" name="NOT_YET_DEFINED"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_mrDjMNcKEeqLY8ATpKxGjw" name="VlanFcCurrentProblemType">
+        <generalization xmi:type="uml:Generalization" xmi:id="_GHvMgNcLEeqLY8ATpKxGjw" general="_Ue2G4NcJEeqLY8ATpKxGjw"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_mrEKQNcKEeqLY8ATpKxGjw" name="problemName" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_mrEKQdcKEeqLY8ATpKxGjw" annotatedElement="_mrEKQNcKEeqLY8ATpKxGjw">
+            <body>Name of the alarm according to VlanFc::VlanFcCapability::supportedAlarmList.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_mrEKQtcKEeqLY8ATpKxGjw" value="Problem name not specified."/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_bmxmHGanEemaCpXjwie7xQ" name="SuperTypes">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_7NYm8NaKEeqLY8ATpKxGjw" name="SeverityType">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_7NYm8daKEeqLY8ATpKxGjw" annotatedElement="_7NYm8NaKEeqLY8ATpKxGjw">
+            <body>According to ITU-T M.3160</body>
+          </ownedComment>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7NYm8taKEeqLY8ATpKxGjw" name="NON_ALARMED"/>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7NYm89aKEeqLY8ATpKxGjw" name="WARNING"/>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7NYm9NaKEeqLY8ATpKxGjw" name="MINOR"/>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7NYm9daKEeqLY8ATpKxGjw" name="MAJOR"/>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7NYm9taKEeqLY8ATpKxGjw" name="CRITICAL"/>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7NYm99aKEeqLY8ATpKxGjw" name="NOT_YET_DEFINED"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_kcV04NaGEeqv7pBYeHiOaw" name="ProblemKindSeverityType">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_kcV04daGEeqv7pBYeHiOaw" name="problemKindName">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_kcV04taGEeqv7pBYeHiOaw" annotatedElement="_kcV04daGEeqv7pBYeHiOaw">
+              <body>Name of the alarm according to supportedAlarmList</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_kcV049aGEeqv7pBYeHiOaw" name="problemKindSeverity" type="_7NYm8NaKEeqLY8ATpKxGjw" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_kcV05NaGEeqv7pBYeHiOaw" annotatedElement="_kcV049aGEeqv7pBYeHiOaw">
+              <body>Severity of this type of alarm.</body>
+            </ownedComment>
+            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_TLXqENaLEeqLY8ATpKxGjw" type="_7NYm8NaKEeqLY8ATpKxGjw" instance="_7NYm99aKEeqLY8ATpKxGjw"/>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_zf_HAFFWEembl8KFq0LDlA" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Usage" xmi:id="_TbzrkLU9EemsfcwHLUCxfw" client="_eTT-v1E6Eembl8KFq0LDlA" supplier="_eTPGIFE6Eembl8KFq0LDlA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_K8b2ELU-EemsfcwHLUCxfw" client="_eTT-qVE6Eembl8KFq0LDlA" supplier="_EqKB0LUzEemWW757xUxUvA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_T3-1QNaHEeqv7pBYeHiOaw" client="_eTT-v1E6Eembl8KFq0LDlA" supplier="_kcV04NaGEeqv7pBYeHiOaw"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_zJnvYNaLEeqLY8ATpKxGjw" client="_kcV04NaGEeqv7pBYeHiOaw" supplier="_7NYm8NaKEeqLY8ATpKxGjw"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_q5bysNcLEeqLY8ATpKxGjw" client="_Ue2G4NcJEeqLY8ATpKxGjw" supplier="_7NYm8NaKEeqLY8ATpKxGjw"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_T52cENcMEeqLY8ATpKxGjw" client="_qvh6sNcJEeqLY8ATpKxGjw" supplier="_mrDjMNcKEeqLY8ATpKxGjw"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoSVJEemK9ptdIxz6GQ" key="Version" value="0.0.10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoiVJEemK9ptdIxz6GQ" key="Comment" value="Made OpenInterfaceModelClass stereotype obsolete.&#xD;&#xA;Made OpenInterfaceModelAttribute::attributeValueChangeNotification property obsolete.&#xD;&#xA;NotificationDefinition enumeration no longer used.&#xD;&#xA;BITS removed from Encoding enumeration.&#xD;&#xA;BitDefinition data type deleted.&#xD;&#xA;Optional Bit stereotype (extending the Property meta class) added.&#xD;&#xA;Optional Bits stereotype (extending the DataType meta class) added."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpCVJEemK9ptdIxz6GQ" key="Date" value="2018-09-17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i3v9sCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i6wOYCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8J8kCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kSVJEemK9ptdIxz6GQ" key="Version" value="0.2.17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kiVJEemK9ptdIxz6GQ" key="Comment" value="Editorial corrections in the description of OpenModelAttribute::partOfObjectKey and Reference."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lCVJEemK9ptdIxz6GQ" key="Date" value="2018-12-12"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6w1cCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i8gh4CVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8qS4CVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4SVJEemK9ptdIxz6GQ" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4iVJEemK9ptdIxz6GQ" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4yVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5CVJEemK9ptdIxz6GQ" key="Date" value="2017-08-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5SVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8hwACVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:vlan-fc" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It describes the VLAN according to IEEE 802.1Q-2018." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="VlanFc@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_aY_qAMKMEemr4OXp2KHCTg" date="2020-08-26" version="1.0.0-tsp.200826.0740" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_dms6sOC2EeqzHOWRQ70bQw" date="2019-08-19" version="1.0.0-tsp.190819.1625" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/vlanFd/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+  </OpenModel_Profile:OpenModelStatement>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTFVIFE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuFFE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MFE6Eembl8KFq0LDlA" base_Property="_eTEuFFE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTF8MVE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuGFE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MlE6Eembl8KFq0LDlA" base_Property="_eTEuGFE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTVz11E6Eembl8KFq0LDlA" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVz2FE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTbTYFE6Eembl8KFq0LDlA" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTbTYVE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_3T3BQFFWEembl8KFq0LDlA" base_Element="_zf_HAFFWEembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_odkhELUwEemP0vs_3-grtw" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_odj6ALUwEemP0vs_3-grtw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_odnkYLUwEemP0vs_3-grtw" base_Class="_odj6ALUwEemP0vs_3-grtw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_zAV8QLUwEemP0vs_3-grtw" base_Property="_zAVVMLUwEemP0vs_5-grtw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zAXKYLUwEemP0vs_3-grtw" base_StructuralFeature="_zAVVMLUwEemP0vs_5-grtw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_zAd4ELUwEemP0vs_3-grtw" base_Property="_zAdRALUwEemP0vs_3-grtw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zAefILUwEemP0vs_3-grtw" base_StructuralFeature="_zAdRALUwEemP0vs_3-grtw"/>
+  <OpenModel_Profile:Obsolete xmi:id="_HOqJALj9EemsfcwHLUCxfw" base_Element="_TbzrkLU9EemsfcwHLUCxfw"/>
+  <OpenModel_Profile:Obsolete xmi:id="_IkJVQLj9EemsfcwHLUCxfw" base_Element="_K8b2ELU-EemsfcwHLUCxfw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTVMwlE6Eembl8KFq0LDlA" base_Property="_eTT-o1E6Eembl8KFq0LDlA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTVMwVE6Eembl8KFq0LDlA" base_StructuralFeature="_eTT-o1E6Eembl8KFq0LDlA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTVMxFE6Eembl8KFq0LDlA" base_Property="_eTT-pFE6Eembl8KFq0LDlA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTVMw1E6Eembl8KFq0LDlA" base_StructuralFeature="_eTT-pFE6Eembl8KFq0LDlA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVMwFE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-olE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTUlsFE6Eembl8KFq0LDlA" base_Class="_eTT-olE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_UCb7U73QEemm_Yk7AwSxsg" base_Property="_UCFWzL3QEemm_Yk7AwSxsg" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO" bitLength="LENGTH_64_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UCb7Ur3QEemm_Yk7AwSxsg" base_StructuralFeature="_UCFWzL3QEemm_Yk7AwSxsg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_06-vU754Eemj8sLhiejUhA" base_Property="_06522754Eemj8sLhiejUhA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_06-vUr54Eemj8sLhiejUhA" base_StructuralFeature="_06522754Eemj8sLhiejUhA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_07BLlb54Eemj8sLhiejUhA" base_Property="_066eLL54Eemj8sLhiejUhA" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_07BLlL54Eemj8sLhiejUhA" base_StructuralFeature="_066eLL54Eemj8sLhiejUhA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_07BLl754Eemj8sLhiejUhA" base_Property="_066eL754Eemj8sLhiejUhA" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_07BLlr54Eemj8sLhiejUhA" base_StructuralFeature="_066eL754Eemj8sLhiejUhA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_LOd6MMKEEemb_ZdBqK8Yig" base_StructuralFeature="_LOdTIMKEEemb_ZdBqK8Yig" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_LOfIUMKEEemb_ZdBqK8Yig" base_Property="_LOdTIMKEEemb_ZdBqK8Yig" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_07ByqL54Eemj8sLhiejUhA" base_Property="_066eNr54Eemj8sLhiejUhA" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_07Byp754Eemj8sLhiejUhA" base_StructuralFeature="_066eNr54Eemj8sLhiejUhA" isInvariant="true"/>
+  <OpenModel_Profile:Experimental xmi:id="_LNyJYMNjEemn99Bv5eK4Cg" base_Element="_s9W30MNiEemn99Bv5eK4Cg"/>
+  <OpenModel_Profile:Reference xmi:id="_7_KOQMphEemuYqm-mxDKeA" base_Element="_UCFWzL3QEemm_Yk7AwSxsg" reference="12.10.2 of IEEE Std 802.1Q-2018"/>
+  <OpenModel_Profile:Reference xmi:id="_AHD3wMpiEemuYqm-mxDKeA" base_Element="_066eLL54Eemj8sLhiejUhA" reference="12.10.2 of IEEE Std 802.1Q-2018"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_FL_9UNWoEeqMhvIKSP0iJw" base_Signal="_FL_WQNWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMAkYNWoEeqMhvIKSP0iJw" base_Property="_FL_WQdWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMAkYdWoEeqMhvIKSP0iJw" base_StructuralFeature="_FL_WQdWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMAkYtWoEeqMhvIKSP0iJw" base_Property="_FL_WRNWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMAkY9WoEeqMhvIKSP0iJw" base_StructuralFeature="_FL_WRNWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMAkZtWoEeqMhvIKSP0iJw" base_Property="_FL_WR9WoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMBLcNWoEeqMhvIKSP0iJw" base_StructuralFeature="_FL_WR9WoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_FMByh9WoEeqMhvIKSP0iJw" base_Signal="_FMBygNWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMByiNWoEeqMhvIKSP0iJw" base_Property="_FMBygdWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMByidWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMBygdWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMByitWoEeqMhvIKSP0iJw" base_Property="_FMByhNWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMCZkNWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMByhNWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_FMDAoNWoEeqMhvIKSP0iJw" base_Signal="_FMCZk9WoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMDAodWoEeqMhvIKSP0iJw" base_Property="_FMCZldWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMDAotWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMCZldWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMDAo9WoEeqMhvIKSP0iJw" base_Property="_FMCZmNWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMDApNWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMCZmNWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMDnsdWoEeqMhvIKSP0iJw" base_Property="_FMCZm9WoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMDnstWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMCZm9WoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMDns9WoEeqMhvIKSP0iJw" base_Property="_FMCZntWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMDntNWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMCZntWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_FMEOzdWoEeqMhvIKSP0iJw" base_Signal="_FMEOwNWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FME10NWoEeqMhvIKSP0iJw" base_Property="_FMEOwdWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FME10dWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMEOwdWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FME10tWoEeqMhvIKSP0iJw" base_Property="_FMEOxNWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FME109WoEeqMhvIKSP0iJw" base_StructuralFeature="_FMEOxNWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMFc4NWoEeqMhvIKSP0iJw" base_Property="_FMEOx9WoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMFc4dWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMEOx9WoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMGD8NWoEeqMhvIKSP0iJw" base_Property="_FMEOytWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FMGD8dWoEeqMhvIKSP0iJw" base_StructuralFeature="_FMEOytWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_28490NWoEeqMhvIKSP0iJw" base_Property="_284WwNWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_286zANWoEeqMhvIKSP0iJw" base_StructuralFeature="_284WwNWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_288oMNWoEeqMhvIKSP0iJw" base_Property="_287aENWoEeqMhvIKSP0iJw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_288oMdWoEeqMhvIKSP0iJw" base_StructuralFeature="_287aENWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4WZucNWoEeqMhvIKSP0iJw" base_Property="_4WZHYtWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4Wa8kNWoEeqMhvIKSP0iJw" base_StructuralFeature="_4WZHYtWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4WdY0NWoEeqMhvIKSP0iJw" base_Property="_4Wa8kdWoEeqMhvIKSP0iJw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4Wd_4NWoEeqMhvIKSP0iJw" base_StructuralFeature="_4Wa8kdWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5ij_kNWoEeqMhvIKSP0iJw" base_Property="_5ijYgtWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_5ikmoNWoEeqMhvIKSP0iJw" base_StructuralFeature="_5ijYgtWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5imb0NWoEeqMhvIKSP0iJw" base_Property="_5ikmodWoEeqMhvIKSP0iJw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_5inC4NWoEeqMhvIKSP0iJw" base_StructuralFeature="_5ikmodWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_6iZr8NWoEeqMhvIKSP0iJw" base_Property="_6iZE4tWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_6iaTANWoEeqMhvIKSP0iJw" base_StructuralFeature="_6iZE4tWoEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_6ibhINWoEeqMhvIKSP0iJw" base_Property="_6ia6ENWoEeqMhvIKSP0iJw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_6icIMNWoEeqMhvIKSP0iJw" base_StructuralFeature="_6ia6ENWoEeqMhvIKSP0iJw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_lAJXcNaEEeqMhvIKSP0iJw" base_Property="_lAIwYNaEEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_lAJ-gNaEEeqMhvIKSP0iJw" base_StructuralFeature="_lAIwYNaEEeqMhvIKSP0iJw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_hFspMNaGEeqv7pBYeHiOaw" base_Property="_hA9TINaGEeqv7pBYeHiOaw" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_hFyv0NaGEeqv7pBYeHiOaw" base_StructuralFeature="_hA9TINaGEeqv7pBYeHiOaw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_kcWb8NaGEeqv7pBYeHiOaw" base_Property="_kcV04daGEeqv7pBYeHiOaw" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kcXqENaGEeqv7pBYeHiOaw" base_StructuralFeature="_kcV04daGEeqv7pBYeHiOaw" partOfObjectKey="1" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_kcXqEdaGEeqv7pBYeHiOaw" base_Property="_kcV049aGEeqv7pBYeHiOaw" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kcXqEtaGEeqv7pBYeHiOaw" base_StructuralFeature="_kcV049aGEeqv7pBYeHiOaw"/>
+  <OpenModel_Profile:Obsolete xmi:id="_le_vQNaHEeqv7pBYeHiOaw" base_Element="_T3-1QNaHEeqv7pBYeHiOaw"/>
+  <OpenModel_Profile:Obsolete xmi:id="_H8ycUNaMEeqLY8ATpKxGjw" base_Element="_zJnvYNaLEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_Ue2t8NcJEeqLY8ATpKxGjw" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_Ue2G4NcJEeqLY8ATpKxGjw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Ue3VANcJEeqLY8ATpKxGjw" base_Class="_Ue2G4NcJEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Ue3VAdcJEeqLY8ATpKxGjw" base_Property="_Ue2G4dcJEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Ue3VAtcJEeqLY8ATpKxGjw" base_StructuralFeature="_Ue2G4dcJEeqLY8ATpKxGjw" partOfObjectKey="1" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Ue3VA9cJEeqLY8ATpKxGjw" base_Property="_Ue2G49cJEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Ue38ENcJEeqLY8ATpKxGjw" base_StructuralFeature="_Ue2G49cJEeqLY8ATpKxGjw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Ue38EdcJEeqLY8ATpKxGjw" base_Property="_Ue2G5dcJEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Ue38EtcJEeqLY8ATpKxGjw" base_StructuralFeature="_Ue2G5dcJEeqLY8ATpKxGjw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_qvihwNcJEeqLY8ATpKxGjw" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_qvh6sNcJEeqLY8ATpKxGjw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_qvjI0NcJEeqLY8ATpKxGjw" base_Class="_qvh6sNcJEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_qvjI0dcJEeqLY8ATpKxGjw" base_Property="_qvh6sdcJEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_qvjI0tcJEeqLY8ATpKxGjw" base_StructuralFeature="_qvh6sdcJEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_qvjv4NcJEeqLY8ATpKxGjw" base_Property="_qvh6tNcJEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_qvjv4dcJEeqLY8ATpKxGjw" base_StructuralFeature="_qvh6tNcJEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_qvjv4tcJEeqLY8ATpKxGjw" base_Property="_qvh6t9cJEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_qvjv49cJEeqLY8ATpKxGjw" base_StructuralFeature="_qvh6t9cJEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_mrEKQ9cKEeqLY8ATpKxGjw" base_Property="_mrEKQNcKEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_mrFYYNcKEeqLY8ATpKxGjw" base_StructuralFeature="_mrEKQNcKEeqLY8ATpKxGjw" isInvariant="true"/>
+  <OpenModel_Profile:Obsolete xmi:id="_nOdgUNcMEeqLY8ATpKxGjw" base_Element="_q5bysNcLEeqLY8ATpKxGjw"/>
+  <OpenModel_Profile:Obsolete xmi:id="_oai48NcMEeqLY8ATpKxGjw" base_Element="_T52cENcMEeqLY8ATpKxGjw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4HAKwdcMEeqLY8ATpKxGjw" base_Property="_4HAKwNcMEeqLY8ATpKxGjw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4HAx0NcMEeqLY8ATpKxGjw" base_StructuralFeature="_4HAKwNcMEeqLY8ATpKxGjw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4HBY4dcMEeqLY8ATpKxGjw" base_Property="_4HBY4NcMEeqLY8ATpKxGjw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4HBY4tcMEeqLY8ATpKxGjw" base_StructuralFeature="_4HBY4NcMEeqLY8ATpKxGjw"/>
+  <OpenModel_Profile:Reference xmi:id="_Xx2Y8ObREeqVt6mT-qPajQ" base_Element="_odj6ALUwEemP0vs_3-grtw" reference="12.10.2 of IEEE Std 802.1Q-2018"/>
+  <OpenModel_Profile:Specify xmi:id="_qMjXYOhKEeq19cX9yhEXnw" base_Abstraction="_l4LYIOhKEeq19cX9yhEXnw">
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:ForwardingDomain:ForwardingDomain/CoreModel:ForwardingDomain:Fc</target>
+  </OpenModel_Profile:Specify>
+</xmi:XMI>
