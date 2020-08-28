@@ -38,7 +38,7 @@
   <modules>
     <!-- don't remove the core-model, in case of other modules have a dependency to the core-model-->
     <module>core-model</module>
-    <!--module>air-interface</module>
+    <module>air-interface</module>
     <module>hybrid-mw-structure</module> 
     <module>pure-ethernet-structure</module>
     <module>ethernet-container</module>
@@ -49,11 +49,11 @@
     <module>wred-profile</module>
     <module>qos-profile</module>
     <module>l3vpn-profile</module>
-    <module>co-channel-profile</module-->
-    <!--module>vlan-fc</module-->
-    <!--module>vlan-fd</module-->
-    <!--module>ltp-augment</module-->
-    <!--module>mac-fc</module-->
+    <module>co-channel-profile</module>
+    <module>vlan-fc</module>
+    <module>vlan-fd</module>
+    <module>ltp-augment</module>
+    <module>mac-fc</module>
     <module>mac-fd</module>
     <!-- <module>test-model</module>  -->
   </modules>
