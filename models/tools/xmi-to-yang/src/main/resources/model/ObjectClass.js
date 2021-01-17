@@ -240,7 +240,6 @@ Class.prototype.buildOperate = function(para){
     var output = [];
     var id = para.attributes()['xmi:id'].trim();
     var name = para.attributes().name;
-    
     // [sko] TODO: remove, when not needed anymore
     if(para.attributes().type =="_nYoCou-3Eea2l9FuDSKfDQ"){
        // console.info("ObjectClass: para.attributes().type \t"+para.attributes().type);

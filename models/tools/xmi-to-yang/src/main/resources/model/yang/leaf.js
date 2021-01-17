@@ -109,13 +109,10 @@ config false;
     
     var type = "";
     var simpletype="";
-  
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
-        
     } else if (typeof this.type == "string") {
         if (this.type.split("+")[0] == "leafref") {
-            
             type = PRE + "\ttype leafref {\r\n require-instance false;\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
         } else {
             type = PRE + "\ttype " + Util.typeifyName(this.type) + ";\r\n";

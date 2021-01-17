@@ -151,7 +151,6 @@ module.exports = {
                     }
                 }
             }
-
             //deal with the ele whose "nodeType" is "grouping"
             if(ele[i].nodeType == "grouping" || ele[i].nodeType == "notification"){
                 //create the "children" of object node(obj);
@@ -270,7 +269,7 @@ module.exports = {
                                     ele[i].attribute[j].keyid = clazz.keyid;
                                     ele[i].attribute[j].keyvalue = clazz.keyvalue;
                                     var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath, store.openModelStatement[ele[i].fileName].prefix);
-                                    if (i == k) {
+					if (i == k) {
                                         if (clazz.instancePath[0] == "/") {
                                             ele[i].attribute[j].type = "leafref+path \"" + yangPathStatement + "\"";
 
@@ -379,7 +378,7 @@ module.exports = {
                         }
 
                         if (ele[i].attribute[j].type.range) {
-                            var regex = /[^0-9/./*]/;
+                            var regex = /[^0-9/./\*]/;
                             if (regex.test(ele[i].attribute[j].type.range) === true) {
                                 if (ele[i].attribute[j].type.range.indexOf('*') !== -1) {
                                     ele[i].attribute[j].type.range = this.range.replace('*', "max");
@@ -558,9 +557,7 @@ module.exports = {
             }
             //create "rpc"
             if(ele[i].nodeType === "rpc"){
-
                 for (var j = 0; j < ele[i].attribute.length; j++) {
-
                     if(ele[i].attribute[j].nodeType == "list" || ele[i].attribute[j].nodeType == "container"){
                         for (var k = 0; k < store.Class.length; k++) {
                             var rpcclazz = store.Class[k];
@@ -627,6 +624,7 @@ module.exports = {
 
                             if(oma.passedByReference){
                                 ele[i].attribute[j].isleafRef = true;
+				ele[i].attribute[j].nodeType = "leaf";
                             }
                             break;
                         }
@@ -654,6 +652,16 @@ module.exports = {
                                     }
                                     break;
                                 } else {
+				    if (ele[i].attribute[j].isleafRef) {
+					    var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath, store.openModelStatement[ele[i].fileName].prefix)
+					    if (clazz.instancePath[0] === "/") {
+                                                ele[i].attribute[j].type = "leafref+path \"" + yangPathStatement + "\"";
+                                            } else {
+                                                ele[i].attribute[j].type = "leafref+path \"/" + yangPathStatement + "\"";
+                                            }
+                                            break;
+                                        }
+                                    else {
                                     var Gname;
                                     clazz.Gname ? Gname = clazz.Gname : Gname = clazz.name;
                                     if (ele[i].fileName === clazz.fileName) {
@@ -682,12 +690,10 @@ module.exports = {
                                         pValue.key = clazz.key;
                                         pValue.keyid = clazz.keyid;
                                         pValue.keyvalue = clazz.keyvalue;
-
-                                        
-
                                         break;
-                                    }
-                                }
+                                    } 
+				   }
+			        }
                             }
                         }
                         if(k === store.Class.length){
@@ -695,6 +701,9 @@ module.exports = {
                             pValue.type = "string";
                         }
                     }
+		    if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
+                            ele[i].attribute[j].type = new yangModels.Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
+                        }
                     obj.buildChild(pValue, pValue.nodeType, pValue.rpcType, store);
                 }
             }

@@ -4691,7 +4691,7 @@ May represent connector on a backplane that takes Field Replaceable Units or a c
             <ownedAttribute xmi:type="uml:Property" xmi:id="_X1q3Qj-QEeaRI-H69PghuA" name="_occupyingFru" type="_8SXNej-HEeaRI-H69PghuA" aggregation="shared" association="_X1qQMD-QEeaRI-H69PghuA">
               <ownedComment xmi:type="uml:Comment" xmi:id="_rR5jEFfREearRtXLY7gquw" annotatedElement="_X1q3Qj-QEeaRI-H69PghuA">
                 <body>The FRU that is occupying the holder. &#xD;
-A holder may be unoccupied. &#xD;
+A holder may be unoccupied in reality, but always an abstract equipment object exists.&#xD;
 An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qmEbMD-QEeaRI-H69PghuA"/>

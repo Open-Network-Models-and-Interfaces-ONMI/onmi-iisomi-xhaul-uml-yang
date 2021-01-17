@@ -38,6 +38,7 @@ namespace=(
   [wire-interface]=wire-interface-2-0
   [wred-profile]=wred-profile-1-0
   [co-channel-profile]=co-channel-profile-1-0
+  [vlan-interface]=vlan-interface-1-0
   [vlan-fc]=vlan-fc-1-0
   [vlan-fd]=vlan-fd-1-0
   [ltp-augment]=ltp-augment-1-0
@@ -61,6 +62,7 @@ fileversions=(
   [wire-interface]=wire-interface-2-0
   [wred-profile]=wred-profile-1-0
   [co-channel-profile]=co-channel-profile-1-0
+  [vlan-interface]=vlan-interface-1-0
   [vlan-fc]=vlan-fc-1-0
   [vlan-fd]=vlan-fd-1-0
   [ltp-augment]=ltp-augment-1-0
@@ -81,6 +83,7 @@ layer=(
   [pure-ethernet-structure]=LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER
   [tdm-container]=LAYER_PROTOCOL_NAME_TYPE_TDM_CONTAINER_LAYER
   [wire-interface]=LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER
+  [vlan-interface]=LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER
   [vlan-fc]=LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER
   [vlan-fd]=LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER
   [ltp-augment]=LAYER_PROTOCOL_NAME_TYPE_LTP_LAYER
@@ -146,6 +149,9 @@ do
 
   # find/replace in hybrid-microwave-structure
   sed -i -e "s/\/hybrid-mw-structure:hybrid-mw-structure-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+   # find/replace in vlan-interface
+  sed -i -e "s/\/vlan-interface:vlan-interface-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+
   # find/replace in vlan-fc
   sed -i -e "s/\/vlan-fc:vlan-fc-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
@@ -184,6 +190,10 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
 
 
   # find/replace in 
+ find="leaf occupying-fru {";
+ when="mandatory \"true\";";
+ replace="$find\n\t\t\t$when";
+ sed -i -e "s/$find/$replace/g" $yang;
 
  find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
  identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
@@ -195,18 +205,18 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   # find/replace in
 
  find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\"{";
- identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
- when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
- replace=" $identity \n $find \n $when";
+ #identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'vlan-interface:${layer[$index]}')\";"
+ replace=" $find \n $when";
  #replace=" $find \n $when";
  sed -i -e "s/$find/$replace/g" $yang;
 
   # find/replace in
 
  find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\"{";
- identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
- when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
- replace=" $identity \n $find \n $when";
+ #identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'vlan-interface:${layer[$index]}')\";"
+ replace=" $find \n $when";
  #replace=" $find \n $when";
  sed -i -e "s/$find/$replace/g" $yang;
 
@@ -237,6 +247,16 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   replace="import core-model-1-4";
   sed -i -e "s/$find/$replace/g" $yang;
 
+  ## imports
+  find="import vlan-interface";
+  replace="import vlan-interface-1-0";
+  sed -i -e "s/$find/$replace/g" $yang;
+  
+  ## imports
+  find="import mac-interface";
+  replace="import mac-interface-1-0";
+  sed -i -e "s/$find/$replace/g" $yang;
+  
   find="import implementation-common-data-types";
   replace="import ietf-yang-types";
   sed -i -e "s/$find/$replace/g" $yang;
@@ -254,7 +274,11 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   find="prefix ietf-yang-types";
   replace="prefix yang";
   sed -i -e "s/$find/$replace/g" $yang;
-
+  
+  ## prefix yang
+  find="uint-64";
+  replace="uint64";
+  sed -i -e "s/$find/$replace/g" $yang;
   
   mv $filename ${fileversions[$index]}".yang"; 
 done

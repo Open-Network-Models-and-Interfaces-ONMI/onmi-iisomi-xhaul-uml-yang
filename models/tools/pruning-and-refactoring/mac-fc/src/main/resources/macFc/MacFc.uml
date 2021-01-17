@@ -5,8 +5,7 @@
       <body>Technology specific amendment to the ForwardingConstruct class for documenting entries in the MAC forwarding table according to IEEE 802.1 .</body>
     </ownedComment>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTEuEFE6Eembl8KFq0LDlA" name="Associations">
-      <packagedElement xmi:type="uml:Constraint" xmi:id="_STsN8LUyEemWW757xUxUvA" name="When">
-        <constrainedElement xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+      <packagedElement xmi:type="uml:Constraint" xmi:id="_STsN8LUyEemWW757xUxUvA" name="When" constrainedElement="_Cv98kNWkEeqMhvIKSP0iJw">
         <specification xmi:type="uml:LiteralString" xmi:id="_STvRQLUyEemWW757xUxUvA" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER'"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Abstraction" xmi:id="_Cv98kNWkEeqMhvIKSP0iJw" client="_odj6ALUwEemP0vs_3-grtw">
@@ -97,6 +96,9 @@
       </packageImport>
       <packageImport xmi:type="uml:PackageImport" xmi:id="_5LiY8NWjEeqMhvIKSP0iJw">
         <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_DkQPUOkjEeqFrZJqsW3VFw">
+        <importedPackage xmi:type="uml:Model" href="../MacInterface_1.0.0-tsp.d.t/MacInterface.uml#_Imk30GyUEee0HrHFgb9oqw"/>
       </packageImport>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTSwgFE6Eembl8KFq0LDlA" name="Interfaces"/>
@@ -196,7 +198,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_FMEOytWoEeqMhvIKSP0iJw" name="severity" type="_7NYm8NaKEeqLY8ATpKxGjw" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_FMEOy9WoEeqMhvIKSP0iJw" annotatedElement="_FMEOytWoEeqMhvIKSP0iJw">
-            <body>Severity of the problem according to VlanFc::VlanFcConfiguration::problemSeverityList</body>
+            <body>Severity of the problem according to *Configuration::problemSeverityList</body>
           </ownedComment>
           <defaultValue xmi:type="uml:InstanceValue" xmi:id="_H0EaoNaLEeqLY8ATpKxGjw" type="_7NYm8NaKEeqLY8ATpKxGjw" instance="_7NYm89aKEeqLY8ATpKxGjw"/>
         </ownedAttribute>
@@ -243,7 +245,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_066eL754Eemj8sLhiejUhA" name="fcIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_066eML54Eemj8sLhiejUhA" annotatedElement="_066eL754Eemj8sLhiejUhA">
-            <body>Only effective if (adminShutDownIsAvail==true). true = Activation of the forwarding of frames with this VLAN ID. false = De-activation of the ForwardingConstruct without deleting it (underlying OSI network layers are not affected).</body>
+            <body>Only effective if (adminShutDownIsAvail==true). true = Activation of the forwarding of frames. false = De-activation of the ForwardingConstruct without deleting it (underlying OSI network layers are not affected).</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_066eMb54Eemj8sLhiejUhA"/>
@@ -372,7 +374,7 @@
         <generalization xmi:type="uml:Generalization" xmi:id="_GHvMgNcLEeqLY8ATpKxGjw" general="_Ue2G4NcJEeqLY8ATpKxGjw"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_mrEKQNcKEeqLY8ATpKxGjw" name="problemName" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_mrEKQdcKEeqLY8ATpKxGjw" annotatedElement="_mrEKQNcKEeqLY8ATpKxGjw">
-            <body>Name of the alarm according to VlanFc::VlanFcCapability::supportedAlarmList.</body>
+            <body>Name of the alarm according to *Capability::supportedAlarmList.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_mrEKQtcKEeqLY8ATpKxGjw" value="Problem name not specified."/>
@@ -456,7 +458,7 @@
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:mac-fc" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It describes an entry into the MAC forwarding table similar to IEEE 802.1Q-2018." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="MacFc@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_aY_qAMKMEemr4OXp2KHCTg" date="2020-08-26" version="1.0.0-tsp.200826.0750" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/macFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_aY_qAMKMEemr4OXp2KHCTg" date="2020-08-26" version="1.0.0-tsp.200826.0750" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/macFc/issues" reference="https://github.com/openBackhaul/macFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eTFVIFE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuFFE6Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MFE6Eembl8KFq0LDlA" base_Property="_eTEuFFE6Eembl8KFq0LDlA"/>
@@ -488,7 +490,7 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_LOfIUMKEEemb_ZdBqK8Yig" base_Property="_LOdTIMKEEemb_ZdBqK8Yig" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:Experimental xmi:id="_LNyJYMNjEemn99Bv5eK4Cg" base_Element="_s9W30MNiEemn99Bv5eK4Cg"/>
   <OpenModel_Profile:Specify xmi:id="_EU-LgNWkEeqMhvIKSP0iJw" base_Abstraction="_Cv98kNWkEeqMhvIKSP0iJw">
-    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:ForwardingDomain:ForwardingDomain/CoreModel:ForwardingDomain:ForwardingConstruct</target>
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:ForwardingDomain:ForwardingDomain/CoreModel:ForwardingDomain:Fc</target>
   </OpenModel_Profile:Specify>
   <OpenModel_Profile:OpenModelNotification xmi:id="_FL_9UNWoEeqMhvIKSP0iJw" base_Signal="_FL_WQNWoEeqMhvIKSP0iJw"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FMAkYNWoEeqMhvIKSP0iJw" base_Property="_FL_WQdWoEeqMhvIKSP0iJw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
