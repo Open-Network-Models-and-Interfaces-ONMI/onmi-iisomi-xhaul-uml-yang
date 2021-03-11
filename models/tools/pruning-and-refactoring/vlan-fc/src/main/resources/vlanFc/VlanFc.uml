@@ -29,12 +29,6 @@
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_eTEuGFE6Eembl8KFq0LDlA" name="vlanFc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_eTEuFVE6Eembl8KFq0LDlA"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_KcNbYFWcEeufo8l3kgcg6A" memberEnd="_KcS68FWcEeufo8l3kgcg6A _KcUwIFWcEeufo8l3kgcg6A">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KcP3oFWcEeufo8l3kgcg6A" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KcRs0FWcEeufo8l3kgcg6A" key="nature" value="UML_Nature"/>
-        </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_KcUwIFWcEeufo8l3kgcg6A" name="vlanfc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_KcNbYFWcEeufo8l3kgcg6A"/>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_28wa8NWoEeqMhvIKSP0iJw" memberEnd="_284WwNWoEeqMhvIKSP0iJw _287aENWoEeqMhvIKSP0iJw">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2816gNWoEeqMhvIKSP0iJw" source="org.eclipse.papyrus">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_282hkNWoEeqMhvIKSP0iJw" key="nature" value="UML_Nature"/>
@@ -77,27 +71,45 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTSwgFE6Eembl8KFq0LDlA" name="Interfaces">
       <packagedElement xmi:type="uml:Interface" xmi:id="_-nVfIFWbEeufo8l3kgcg6A" name="VlanFcOperations">
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_JmdCoFWdEeufo8l3kgcg6A" name="addVlanInterface">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_oE9KgGYGEeu6--L3qu9qkw" annotatedElement="_-nVfIFWbEeufo8l3kgcg6A">
+          <body>Group of operations, which are effective on an already existing VLAN (VlanFc).</body>
+        </ownedComment>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_JmdCoFWdEeufo8l3kgcg6A" name="createVlanFcPort">
           <ownedComment xmi:type="uml:Comment" xmi:id="_JmdCoVWdEeufo8l3kgcg6A" annotatedElement="_JmdCoFWdEeufo8l3kgcg6A">
-            <body>Adds an additional VLAN interface of the same sub layer protocol to this VLAN. The reference of the to be connected VLAN interface must be provided as an input.</body>
+            <body>Adds a VLAN interface of the same sub layer to an already existing VLAN (VlanFc). The references of the VLAN (VlanFc) and the to be connected VLAN interface must be provided as input. The following error-messages are to be send, if the operation would fail: #[onf:Referenced object is invalid.]#, if the referenced ForwardingConstruct or LogicalTerminationPoint does not exist or does not belong to the VLAN layer and same sub layer (e.g. C-VLAN or S-VLAN). #[onf:VLAN interface cannot be added.]#, if the referenced VLAN interface cannot be added to the referenced VLAN (VlanFc).</body>
           </ownedComment>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ktqEAFWeEeufo8l3kgcg6A" name="_additionalVlanInterface">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_bzKUYFpjEeu8PNIPzKY3QQ" name="_affectedVlanFc">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_bzKUYVpjEeu8PNIPzKY3QQ" annotatedElement="_bzKUYFpjEeu8PNIPzKY3QQ">
+              <body>Reference of the VLAN (VlanFc), which shall connect the additional VLAN interface (LTP).</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ktqEAFWeEeufo8l3kgcg6A" name="_associatedVlanInterface">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ktqEAVWeEeufo8l3kgcg6A" annotatedElement="_ktqEAFWeEeufo8l3kgcg6A">
-              <body>Reference of the VLAN interface, which is to be added to this VLAN.</body>
+              <body>Reference of the VLAN interface (LTP), which shall be connected with the VLAN (VlanFc).</body>
             </ownedComment>
             <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
           </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_LJ044FWoEeufo8l3kgcg6A" name="_createdVlanFcPort" direction="return" effect="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_LJ044FWoEeufo8l3kgcg6A" name="_createdVlanFcPort" direction="out" effect="read">
             <ownedComment xmi:type="uml:Comment" xmi:id="_LJ044VWoEeufo8l3kgcg6A" annotatedElement="_LJ044FWoEeufo8l3kgcg6A">
-              <body>Reference of the VlanFcPort (either newly created or already existing) that is connecting the VLAN interface, which has been provided as input, with this VLAN.</body>
+              <body>localId of the VlanFcPort (either newly created or already existing) that is connecting the VLAN interface (LTP) with the VLAN (VlanFc).</body>
             </ownedComment>
-            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_b_lUAFYgEeOVGaP4lO41SQ"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
         </ownedOperation>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_mhzFsFWfEeufo8l3kgcg6A" name="removeVlanInterface">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_mhzFsFWfEeufo8l3kgcg6A" name="deleteVlanFcPort">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_mCI9MGYREeu6--L3qu9qkw" annotatedElement="_mhzFsFWfEeufo8l3kgcg6A">
+            <body>Removes a VLAN interface from an existing VLAN (VlanFc). The references of the VLAN (VlanFc) and the to be disconnected VLAN interface must be provided as input. The following error-messages are to be send, if the operation would fail: #[onf:Referenced object is invalid.]#, if the referenced ForwardingConstruct or LogicalTerminationPoint does not exist or does not belong to the VLAN layer and same sub layer (e.g. C-VLAN or S-VLAN). #[onf:VLAN interface cannot be disconnected.]#, if the referenced VLAN interface cannot be removed from the referenced VLAN (VlanFc).</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_3Kk8AFpkEeu8PNIPzKY3QQ" name="_affectedVlanFc">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_3Kk8AVpkEeu8PNIPzKY3QQ" annotatedElement="_3Kk8AFpkEeu8PNIPzKY3QQ">
+              <body>Reference of the VLAN (VlanFc), which shall no longer be connected with the VLAN interface (LTP), which is also provided as input.</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+          </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_mhzFsVWfEeufo8l3kgcg6A" name="_obsoleteVlanInterface" effect="delete">
             <ownedComment xmi:type="uml:Comment" xmi:id="_mhzFslWfEeufo8l3kgcg6A" annotatedElement="_mhzFsVWfEeufo8l3kgcg6A">
-              <body>Reference of the VLAN interface, which is to be removed from the VLAN.</body>
+              <body>Reference of the VLAN interface (LTP), which shall no longer be connected with the VLAN (VlanFc), which is also provided as input.</body>
             </ownedComment>
             <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
           </ownedParameter>
@@ -187,7 +199,6 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_eTT-olE6Eembl8KFq0LDlA" name="VlanFc_Pac">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-o1E6Eembl8KFq0LDlA" name="_vlanFcCapability" type="_eTT-qVE6Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_eTEuEVE6Eembl8KFq0LDlA"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-pFE6Eembl8KFq0LDlA" name="_vlanFcConfiguration" type="_eTT-v1E6Eembl8KFq0LDlA" aggregation="composite" association="_eTEuFVE6Eembl8KFq0LDlA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_KcS68FWcEeufo8l3kgcg6A" name="_vlanFcOperations" type="_-nVfIFWbEeufo8l3kgcg6A" isReadOnly="true" aggregation="composite" association="_KcNbYFWcEeufo8l3kgcg6A"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_eTT-qVE6Eembl8KFq0LDlA" name="VlanFcCapability">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_06522754Eemj8sLhiejUhA" name="supportedSubLayerProtocolNameList" type="_EqKB0LUzEemWW757xUxUvA" isUnique="false" isReadOnly="true">
@@ -205,7 +216,7 @@
             <body>Description of the VLAN, could be a name, could be a number. Free text of up to 32 letters to be filled by the operator. Name in ieee802-dot1q-bridge.yang: name.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_066eLr54Eemj8sLhiejUhA" value="Interface name not yet defined."/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_YqmgoFpmEeu8PNIPzKY3QQ" value="VLAN name not yet defined."/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_066eNr54Eemj8sLhiejUhA" name="subLayerProtocolName" type="_EqKB0LUzEemWW757xUxUvA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_066eN754Eemj8sLhiejUhA" annotatedElement="_066eNr54Eemj8sLhiejUhA">
@@ -310,6 +321,7 @@
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:vlan-fc" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It describes the VLAN according to IEEE 802.1Q-2018." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="VlanFc@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_lbziQFpmEeu8PNIPzKY3QQ" date="2021-02-07" version="1.0.0-tsp.210207.0850" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_S_lNIE9mEeuMcsI2Mw3f8Q" date="2021-01-05" version="1.0.0-tsp.210105.1630" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_aY_qAMKMEemr4OXp2KHCTg" date="2020-08-26" version="1.0.0-tsp.200826.0740" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_dms6sOC2EeqzHOWRQ70bQw" date="2019-08-19" version="1.0.0-tsp.190819.1625" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/vlanFd/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
@@ -388,10 +400,6 @@
   <OpenModel_Profile:Obsolete xmi:id="_VIbNIE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp0U9fEeuMcsI2Mw3f8Q"/>
   <OpenModel_Profile:Obsolete xmi:id="_VIcbQE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp1E9fEeuMcsI2Mw3f8Q"/>
   <OpenModel_Profile:OpenModelInterface xmi:id="_-nWtQFWbEeufo8l3kgcg6A" base_Interface="_-nVfIFWbEeufo8l3kgcg6A"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_KcS68VWcEeufo8l3kgcg6A" base_Property="_KcS68FWcEeufo8l3kgcg6A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_KcUJEFWcEeufo8l3kgcg6A" base_StructuralFeature="_KcS68FWcEeufo8l3kgcg6A" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_KcUwIVWcEeufo8l3kgcg6A" base_Property="_KcUwIFWcEeufo8l3kgcg6A"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_KcUwIlWcEeufo8l3kgcg6A" base_StructuralFeature="_KcUwIFWcEeufo8l3kgcg6A"/>
   <OpenModel_Profile:OpenModelOperation xmi:id="_JmeQwFWdEeufo8l3kgcg6A" base_Operation="_JmdCoFWdEeufo8l3kgcg6A" isAtomic="true"/>
   <OpenModel_Profile:OpenModelParameter xmi:id="_ktqrEFWeEeufo8l3kgcg6A" base_Parameter="_ktqEAFWeEeufo8l3kgcg6A"/>
   <OpenModel_Profile:PassedByReference xmi:id="_0NFmcFWeEeufo8l3kgcg6A" base_Parameter="_ktqEAFWeEeufo8l3kgcg6A"/>
@@ -399,5 +407,8 @@
   <OpenModel_Profile:OpenModelParameter xmi:id="_mhzswFWfEeufo8l3kgcg6A" base_Parameter="_mhzFsVWfEeufo8l3kgcg6A"/>
   <OpenModel_Profile:PassedByReference xmi:id="_tMQLgFWfEeufo8l3kgcg6A" base_Parameter="_mhzFsVWfEeufo8l3kgcg6A"/>
   <OpenModel_Profile:OpenModelParameter xmi:id="_LJ044lWoEeufo8l3kgcg6A" base_Parameter="_LJ044FWoEeufo8l3kgcg6A"/>
-  <OpenModel_Profile:PassedByReference xmi:id="_OPV4UFWoEeufo8l3kgcg6A" base_Parameter="_LJ044FWoEeufo8l3kgcg6A"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_bzK7cFpjEeu8PNIPzKY3QQ" base_Parameter="_bzKUYFpjEeu8PNIPzKY3QQ"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_u1qU8FpjEeu8PNIPzKY3QQ" base_Parameter="_bzKUYFpjEeu8PNIPzKY3QQ"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_3KljEFpkEeu8PNIPzKY3QQ" base_Parameter="_3Kk8AFpkEeu8PNIPzKY3QQ"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_RcjbAFplEeu8PNIPzKY3QQ" base_Parameter="_3Kk8AFpkEeu8PNIPzKY3QQ"/>
 </xmi:XMI>

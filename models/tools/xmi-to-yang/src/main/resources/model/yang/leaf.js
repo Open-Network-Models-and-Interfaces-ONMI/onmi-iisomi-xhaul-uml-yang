@@ -132,7 +132,7 @@ config false;
         units = "";
     }
 
-    // if the type contains leafref and config is not false. then construct the must attribute. - by Waseem
+   // if the type contains leafref and config is not false. then construct the must attribute. - by Waseem
    if(type.indexOf('leafref') > -1 && (config==null || config=='') ){
     
         var regx2 = /\".*\"/g;
@@ -151,7 +151,8 @@ config false;
             var lastoccurancesubstring = lastoccurance.substr(lastoccurance.indexOf('\:'), lastoccurance.length );
             
             //if the string not containg uuid
-            if(lastoccurancesubstring.indexOf("uuid")==-1){ 
+            if(lastoccurancesubstring.indexOf("uuid")==-1 && lastoccurancesubstring.indexOf("local-id")==-1
+	    && lastoccurancesubstring.indexOf("serial-number")==-1){ 
                 lastoccurancesubstring=lastoccurancesubstring.replace(/\:/, ' ');
                 prestring = "["+lastoccurancesubstring.replace(/\";+\s+\}/g, ' ').trim()+"=current()]"; 
             
@@ -160,8 +161,20 @@ config false;
                 
 
                 //get path from the type attribute and use with "must" attribute
+		type += "\t\t\t\tmust  'deref(.) = current()';\r\n";
+                type = type.replace("path","pathmust");
+            }else if(lastoccurancesubstring.indexOf("uuid")==-1 && lastoccurancesubstring.indexOf("local-id")==-1)
+        	{
+		lastoccurancesubstring=lastoccurancesubstring.replace(/\:/, ' ');
+                prestring = "["+lastoccurancesubstring.replace(/\";+\s+\}/g, ' ').trim()+"=current()]";
+
+                subtype = String(subtype.replace(/\/[^\/]+$/g,prestring));
+                subtype = subtype.replace("\"", '');
+
+
+                //get path from the type attribute and use with "must" attribute
                 type += "\t\t\t\tmust  'boolean\("+ subtype+ ")\';\r\n";
-            }
+		}
         }
        
     }

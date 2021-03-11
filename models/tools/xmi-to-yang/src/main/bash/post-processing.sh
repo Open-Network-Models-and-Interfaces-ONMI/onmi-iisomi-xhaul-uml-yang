@@ -44,6 +44,7 @@ namespace=(
   [ltp-augment]=ltp-augment-1-0
   [mac-fc]=mac-fc-1-0
   [mac-fd]=mac-fd-1-0
+  [firmware]=firmware-1-0
 );
 
 declare -A fileversions
@@ -68,6 +69,7 @@ fileversions=(
   [ltp-augment]=ltp-augment-1-0
   [mac-fc]=mac-fc-1-0
   [mac-fd]=mac-fd-1-0
+  [firmware]=firmware-1-0
 );
 
 
@@ -89,6 +91,7 @@ layer=(
   [ltp-augment]=LAYER_PROTOCOL_NAME_TYPE_LTP_LAYER
   [mac-fc]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
   [mac-fd]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
+  [firmware]=COMMON_LAYER
 );
 
 declare -A profile
@@ -274,10 +277,28 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   find="prefix ietf-yang-types";
   replace="prefix yang";
   sed -i -e "s/$find/$replace/g" $yang;
-  
+
+  ## path deref inclusion
+  sed -i -e "s/pathmust \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/path \"\/core-model:control-construct\/core-model:logical-termination-point[core-model:uuid = current()\/..\/..\/..\/..\/core-model:uuid]\/core-model:layer-protocol[core-model:local-id = current()\/..\/..\/..\/core-model:local-id]/g" $yang
+ 
+  ## prefix yang
+  find="protocl";
+  replace="protocol";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  ## prefix yang
+  find="PROTOCL";
+  replace="PROTOCOL";
+  sed -i -e "s/$find/$replace/g" $yang;
+
   ## prefix yang
   find="uint-64";
   replace="uint64";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  ## find/replace firmware
+  find="firmware:firmware-collection";
+  replace="core-model:control-construct";
   sed -i -e "s/$find/$replace/g" $yang;
   
   mv $filename ${fileversions[$index]}".yang"; 
