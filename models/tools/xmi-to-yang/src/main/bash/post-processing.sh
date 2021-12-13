@@ -281,14 +281,18 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   ## path deref inclusion
   sed -i -e "s/pathmust \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/path \"\/core-model:control-construct\/core-model:logical-termination-point[core-model:uuid = current()\/..\/..\/..\/..\/core-model:uuid]\/core-model:layer-protocol[core-model:local-id = current()\/..\/..\/..\/core-model:local-id]/g" $yang
  
-  ## prefix yang
-  find="protocl";
-  replace="protocol";
+  ## Removing the text "changeinpmeostprocessing" added to the prune-and-refactor-core-model.xslt to the typedef layerProtocolNameType and profileNameType
+  find="namxx";
+  replace="name";
   sed -i -e "s/$find/$replace/g" $yang;
 
-  ## prefix yang
-  find="PROTOCL";
-  replace="PROTOCOL";
+  find="NAMXX";
+  replace="NAME";
+  sed -i -e "s/$find/$replace/g" $yang;
+  
+  ## Removing the text "changeinpmeostprocessing" added to the prune-and-refactor-core-model.xslt to the typedef layerProtocolNameType and profileNameType
+  find="local-id local-id";
+  replace="local-id";
   sed -i -e "s/$find/$replace/g" $yang;
 
   ## prefix yang

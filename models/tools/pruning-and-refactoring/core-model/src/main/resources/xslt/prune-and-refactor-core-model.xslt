@@ -210,8 +210,9 @@
       </ownedComment>
       <packagedElement xmi:type="uml:Package" xmi:id="core-model-type-definitions" name="TypeDefinitions">
         <xsl:apply-templates select="//packagedElement[@xmi:type='uml:Package' and @name='TypeDefinitions']/node()"/>
-        <!-- add Type ProfileNameType -->
-        <packagedElement xmi:type="uml:Enumeration" xmi:id="_jMtRsKInEem1L6jqz3rbgg" name="ProfileNameType" isAbstract="true">
+	<!-- add Type ProfileNameType -->
+	<!-- Temporary fix.. modifying the name of the attribute and changing it back to the original name in postprocessing script because of design complexity -->
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_jMtRsKInEem1L6jqz3rbgg" name="ProfileNamxxType" isAbstract="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_jMt4wKInEem1L6jqz3rbgg" annotatedElement="_jMtRsKInEem1L6jqz3rbgg">
             <body>A controlled list of Profile names.</body>
           </ownedComment>
@@ -392,10 +393,11 @@
   </xsl:template>
   <!-- 
     Rename extensible ENUM LayerprotocolName to LayerProtocolNameType  -->
+  <!-- Temporary fix.. concatenated the string changeinpostprocessing to the attribute name and removing the same in postprocessing script because of design complexity -->
   <xsl:template match="packagedElement[@name = 'LayerProtocolName']" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
-      <xsl:attribute name="name">LayerProtocolNameType</xsl:attribute>
+      <xsl:attribute name="name">LayerProtocolNamxxType</xsl:attribute>
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
   </xsl:template>
@@ -438,7 +440,9 @@
 
       <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:extensible-network-function" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
         <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
-
+        <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-11-27" date="2019-11-27" version="v1.4" description="Package equipment-specification has been deleted,&#xA;
+       because of wrong key statements and overall grouping never applied.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
+        <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-11-22" date="2019-11-22" version="v1.4" description="Module name and name space changed to core-model-1-4.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-07-09" date="2019-07-09" version="v1.4" description="Corrected version derived from ONF-TR-512 v1.4&#xA;
        - Type of LayerProtocol/layerProtocolName simplfied to LayerProtocolNameType &#xA;
        - Type of Profile/profileName changed to ProfileNameType (same concept as for layerProtocolName &#xA;
@@ -574,4 +578,47 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template> 
+
+  <!-- To change the datatype of physical-port-reference from string to leafref to point to a instance in the equipment list -->
+  <xsl:template match="ownedAttribute[@xmi:id = '_RLDi4BieEeSh8KVgZCMyDw' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="type">_8SXNej-HEeaRI-H69PghuA</xsl:attribute>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:attribute name="association">_X1qQMD-QEeaRI-H69PghuA</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- To include the literal NONE to the enumeration ROUTE_SELECTION_REASON, so that it will generate the identity ROUTE_SELECTION_REASON_NONE   -->
+  <xsl:template match="packagedElement[@name='RouteSelectionReason']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_cswHkCi-EeaGGvAxxSe1uA1" name="NONE">
+              <ownedComment xmi:type="uml:Comment" xmi:id="_lFJX8GnPEeaBUOurxzA2sw1" annotatedElement="_cswHkCi-EeaGGvAxxSe1uA1">
+                <body>No reason</body>
+              </ownedComment>
+            </ownedLiteral>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+ </xsl:template>
+ <!-- To include the literal NONE to the enumeration SWITCH_STATE_REASON, so that it will generate the identity SWITCH_STATE_REASON_NONE   -->
+ <xsl:template match="packagedElement[@name='SwitchStateReason']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_zRKlICi9EeaGGvAxxSe1uA1" name="NONE">
+              <ownedComment xmi:type="uml:Comment" xmi:id="_zRKlICi9EeaGGvAxxSe1uA2" annotatedElement="_zRKlICi9EeaGGvAxxSe1uA1">
+                <body>No reason</body>
+              </ownedComment>
+            </ownedLiteral>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+ </xsl:template>
+ <!-- To change the comment of the attribute occupying-fru  -->
+  <xsl:template match="ownedComment[@xmi:id='_rR5jEFfREearRtXLY7gquw']">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_rR5jEFfREearRtXLY7gquw" annotatedElement="_X1q3Qj-QEeaRI-H69PghuA">
+                <body>The FRU that is occupying the holder. &#xD;
+A holder may be unoccupied.&#xD;
+An FRU may occupy more than one holder (using or blocking are intentionally not distinguished here).</body>
+              </ownedComment>
+  </xsl:template>
 </xsl:stylesheet>

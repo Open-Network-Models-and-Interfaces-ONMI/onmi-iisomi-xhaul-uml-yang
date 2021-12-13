@@ -25,7 +25,8 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.uses = [];
     this.status=status;
     this["max-elements"] = maxEle;
-    this["min-elements"] = minEle;
+    if(minEle != 0){
+    this["min-elements"] = minEle;}
     this.defaultValue = "";
     this["ordered-by"] = isOrdered;
     this["if-feature"] = feature;
