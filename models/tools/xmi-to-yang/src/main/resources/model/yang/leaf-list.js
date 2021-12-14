@@ -157,8 +157,7 @@ leaf_list.prototype.writeNode = function (layer) {
             var lastoccurancesubstring = lastoccurance.substr(lastoccurance.indexOf('\:'), lastoccurance.length );
             
             //if the string not containg uuid
-            if(lastoccurancesubstring.indexOf("uuid")==-1 && lastoccurancesubstring.indexOf("local-id")==-1
-            && lastoccurancesubstring.indexOf("serial-number")==-1){ 
+            if(lastoccurancesubstring.indexOf("uuid")==-1 && lastoccurancesubstring.indexOf("serial-number")==-1){ 
                 lastoccurancesubstring=lastoccurancesubstring.replace(/\:/, ' ');
                 
                 prestring = "["+lastoccurancesubstring.replace(/\";+\s+\}/g, ' ').trim()+"=current()]"; 

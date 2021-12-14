@@ -93,7 +93,8 @@
   <!-- imports -->
   <xsl:import href="./global-functions.xslt"/>
   <!-- output defintions -->
-  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" use-character-maps="cmap"/>
+  <xsl:strip-space elements="*"/>
   <!-- key definitions -->
   <xsl:key name="openAttributeRef" match="OpenModel_Profile:OpenModelAttribute" use="@xmi:id"/>
   <xsl:key name="ownedAttributeRef" match="ownedAttribute" use="@xmi:id"/>
@@ -616,9 +617,13 @@
  <!-- To change the comment of the attribute occupying-fru  -->
   <xsl:template match="ownedComment[@xmi:id='_rR5jEFfREearRtXLY7gquw']">
       <ownedComment xmi:type="uml:Comment" xmi:id="_rR5jEFfREearRtXLY7gquw" annotatedElement="_X1q3Qj-QEeaRI-H69PghuA">
-                <body>The FRU that is occupying the holder. &#xD;
-A holder may be unoccupied.&#xD;
+                <body>The FRU that is occupying the holder.
+A holder may be unoccupied.
 An FRU may occupy more than one holder (using or blocking are intentionally not distinguished here).</body>
               </ownedComment>
-  </xsl:template>
+      </xsl:template>
+   <!-- To remove the charecter &#xD; from all the ownedComment body -->
+   <xsl:character-map name="cmap">
+        <xsl:output-character character="&#xD;" string=""/>
+    </xsl:character-map>
 </xsl:stylesheet>
