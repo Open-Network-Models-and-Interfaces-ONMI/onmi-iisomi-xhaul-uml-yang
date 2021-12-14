@@ -625,5 +625,57 @@ An FRU may occupy more than one holder (using or blocking are intentionally not 
    <!-- To remove the charecter &#xD; from all the ownedComment body -->
    <xsl:character-map name="cmap">
         <xsl:output-character character="&#xD;" string=""/>
-    </xsl:character-map>
+</xsl:character-map>
+
+<!-- changing encapsulated-fc from container to leafref -->
+
+<xsl:template match="ownedAttribute[@xmi:id = '_6W86MHXEEeeqyuooNTTDCg' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+ </xsl:template>
+<!-- changing coordinated-fc from container to leafref -->
+<xsl:template match="ownedAttribute[@xmi:id = '_QRnFkdv0EeaL7dYp0KdCwA' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+</xsl:template>
+<!-- changing _configurationAndSwitchControl from container to leafref -->
+<xsl:template match="ownedAttribute[@xmi:id = '_1EKuQJo5EeOyHKqw-cQ_eg' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+</xsl:template>
+
+<!-- changing _internalConfigurationAndSwitchControl from container to leafref -->
+<xsl:template match="ownedAttribute[@xmi:id = '_tbetAJ4HEeOO3om500DFKg' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+</xsl:template>
+
+<!-- changing _encapsulatedCasc from container to leafref -->
+<xsl:template match="ownedAttribute[@xmi:id = '_UJ_6IXXIEeeqyuooNTTDCg' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+</xsl:template>
+<!-- changing _configuration-and-switch-control in layerprotocol from container to leafref -->
+<xsl:template match="ownedAttribute[@xmi:id = '_d6vwsMQhEeWlWIVxswb46A' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+</xsl:template>
 </xsl:stylesheet>
