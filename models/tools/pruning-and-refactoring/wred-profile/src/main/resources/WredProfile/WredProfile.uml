@@ -114,28 +114,28 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_vMy8AGgqEemHIN8XirGEHw" name="dropProbabilityAtThresholdLowIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_vMzjEGgqEemHIN8XirGEHw" annotatedElement="_vMy8AGgqEemHIN8XirGEHw">
-            <body>1 = It is possible to set a drop probability at the lower threshold.</body>
+            <body>true = It is possible to set a drop probability at the lower threshold.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_vMzjEWgqEemHIN8XirGEHw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Scm2MFhoEemxftnYxSWtbw" name="gentleWredIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Scm2MVhoEemxftnYxSWtbw" annotatedElement="_Scm2MFhoEemxftnYxSWtbw">
-            <body>1 = The device allows activating a linear increase of drop probability between dropProbabilityAtThresholdHigh and 100% at thresholdGentle (usually drop probability jumps to 100% at thresholdHigh).</body>
+            <body>true = The device allows activating a linear increase of drop probability between dropProbabilityAtThresholdHigh and 100% at thresholdGentle (usually drop probability jumps to 100% at thresholdHigh).</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_Scm2MlhoEemxftnYxSWtbw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_uY1rYGdtEemdnIp_r4TiRA" name="sensitivitySettingIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_uY1rYWdtEemdnIp_r4TiRA" annotatedElement="_uY1rYGdtEemdnIp_r4TiRA">
-            <body>1 = It is possible to set the sensitivity for the burst size.</body>
+            <body>true = It is possible to set the sensitivity for the burst size.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_uY1rYmdtEemdnIp_r4TiRA"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_2-rJIFhhEemxftnYxSWtbw" name="coloringIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_2-rJIVhhEemxftnYxSWtbw" annotatedElement="_2-rJIFhhEemxftnYxSWtbw">
-            <body>1 = The device allows marking exceeding packets yellow instead of immediately discarding them.</body>
+            <body>true = The device allows marking exceeding packets yellow instead of immediately discarding them.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_2-rJIlhhEemxftnYxSWtbw"/>
@@ -158,7 +158,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_eGPDsGgqEemHIN8XirGEHw" name="dropProbabilityAtThresholdLow" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_eGPDsWgqEemHIN8XirGEHw" annotatedElement="_eGPDsGgqEemHIN8XirGEHw">
-            <body>Only relevant if (dropProbabilityAtLowThresholdIsAvail==1). Defines the probability (as a percentage) of an incoming packet getting dropped when the content of the queue reaches the low threshold.</body>
+            <body>Only relevant if (dropProbabilityAtLowThresholdIsAvail==true). Defines the probability (as a percentage) of an incoming packet getting dropped when the content of the queue reaches the low threshold.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_eGPDsmgqEemHIN8XirGEHw" value="-1"/>
@@ -179,28 +179,28 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_5_kqIFhoEemxftnYxSWtbw" name="gentleWredIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_5_kqIVhoEemxftnYxSWtbw" annotatedElement="_5_kqIFhoEemxftnYxSWtbw">
-            <body>Only relevant if (gentleWredIsAvail==1). 1 = The drop probability is linear increasing between dropProbabilityAtThresholdHigh and 100% at thresholdGentle (otherwise drop probability jumps to 100% at thresholdHigh).</body>
+            <body>Only relevant if (gentleWredIsAvail==true). true = The drop probability is linear increasing between dropProbabilityAtThresholdHigh and 100% at thresholdGentle (otherwise drop probability jumps to 100% at thresholdHigh).</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_5_kqIlhoEemxftnYxSWtbw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_AfZjgILKEemiSv4WzL0VTA" name="thresholdGentle" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_AfZjgYLKEemiSv4WzL0VTA" annotatedElement="_AfZjgILKEemiSv4WzL0VTA">
-            <body>Only relevant if (gentleWredIsAvail==1) AND (gentleWredIsOn==1). Defines the 100% dropping threshold for gentle WRED in Byte.  When average queue content reaches or exceeds this value, incoming packets get dropped with 100% probability.</body>
+            <body>Only relevant if (gentleWredIsAvail==true) AND (gentleWredIsOn==true). Defines the 100% dropping threshold for gentle WRED in Byte.  When average queue content reaches or exceeds this value, incoming packets get dropped with 100% probability.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_AfZjgoLKEemiSv4WzL0VTA" value="-1"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_iSkqYFUoEem5ec_9KiA7Yg" name="sensitivity" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_iSkqYVUoEem5ec_9KiA7Yg" annotatedElement="_iSkqYFUoEem5ec_9KiA7Yg">
-            <body>Only relevant if (sensitivitySettingIsAvail==1). Defines how sensitive WRED reacts on traffic burst. low values = WRED reacts quickly and is sensitive to short bursts. high values = WRED reacts slowly on short bursts, which could result in buffer overflow and tail drop. Values between 0 and 15.</body>
+            <body>Only relevant if (sensitivitySettingIsAvail==true). Defines how sensitive WRED reacts on traffic burst. low values = WRED reacts quickly and is sensitive to short bursts. high values = WRED reacts slowly on short bursts, which could result in buffer overflow and tail drop. Values between 0 and 15.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_iSkqYlUoEem5ec_9KiA7Yg" value="-1"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_TA1MUFhiEemxftnYxSWtbw" name="coloringIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_TA1MUVhiEemxftnYxSWtbw" annotatedElement="_TA1MUFhiEemxftnYxSWtbw">
-            <body>Only relevant if (colloringIsAvail==1). 1 = Exceeding packets are marked yellow instead of being immediately discarded.</body>
+            <body>Only relevant if (colloringIsAvail==true). true = Exceeding packets are marked yellow instead of being immediately discarded.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_TA1MUlhiEemxftnYxSWtbw"/>
@@ -262,8 +262,9 @@
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:wred-profile" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It defines a WRED (Weighted Random Early Detection) profile class, which instances can be referenced by multiple interface instances." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:wred-profile" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It defines a WRED (Weighted Random Early Detection) profile class, which instances can be referenced by multiple interface instances." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_uZDooKSIEemZx_PrWGDYjw" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="WredProfile@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_hVpCgLBQEeyyJKfJP0ZKLQ" date="2022-03-30" version="1.0.0-tsp.220330.1950" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wredProfile/issues" reference="https://github.com/openBackhaul/wredProfile/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_FQBFwD66Eeq9Udjnf0qcrQ" date="2020-01-24" version="1.0.0-tsp.200124.1610" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wredProfile/issues" reference="https://github.com/openBackhaul/wredProfile/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_pFj5QKSJEemZx_PrWGDYjw" date="2019-07-12" version="1.0.0-tsp.190712.1150" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/wredProfile/issues" reference="https://github.com/openBackhaul/wredProfile/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>

@@ -62,6 +62,18 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_g2erYOCgEeqMCqOBPciD4g" value="*"/>
         </ownedEnd>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_XXQIoBCgEeyGRNDBDnougA" memberEnd="_XXUaEBCgEeyGRNDBDnougA _XXagsBCgEeyGRNDBDnougA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XXSk4BCgEeyGRNDBDnougA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XXTL8BCgEeyGRNDBDnougA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_XXagsBCgEeyGRNDBDnougA" name="mactableentrytype" type="_Lj6dcBCgEeyGRNDBDnougA" association="_XXQIoBCgEeyGRNDBDnougA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_OzklcBCiEeyGRNDBDnougA" name="_interface" memberEnd="_OzlMghCiEeyGRNDBDnougA _Ozo24BCiEeyGRNDBDnougA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OzlMgBCiEeyGRNDBDnougA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_OzlMgRCiEeyGRNDBDnougA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_Ozo24BCiEeyGRNDBDnougA" name="mactableentrytype" type="_Lj6dcBCgEeyGRNDBDnougA" association="_OzklcBCiEeyGRNDBDnougA"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTPGIFE6Eembl8KFq0LDlA" name="Diagrams"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTRiYFE6Eembl8KFq0LDlA" name="Imports">
@@ -71,11 +83,23 @@
       <packageImport xmi:type="uml:PackageImport" xmi:id="_w8ljgLUqEemqQo738iJlXw">
         <importedPackage xmi:type="uml:Package" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_oGqilVLNEeO75dO39GbF8Q"/>
       </packageImport>
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_oljRcAMyEeuCNPadGtBbkg">
-        <importedPackage xmi:type="uml:Model" href="../MacInterface_1.0.0-tsp.d.t/MacInterface.uml#_Imk30GyUEee0HrHFgb9oqw"/>
-      </packageImport>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_eTSwgFE6Eembl8KFq0LDlA" name="Interfaces"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTSwgFE6Eembl8KFq0LDlA" name="Interfaces">
+      <packagedElement xmi:type="uml:Interface" xmi:id="_0YyYcBCQEeyGRNDBDnougA" name="MacFdOperations">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_xhOngBF3EeyaPcGr1Mw91g" annotatedElement="_0YyYcBCQEeyGRNDBDnougA">
+          <body>Group of operations, which are effective on the MAC switch.</body>
+        </ownedComment>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ErZtgBCgEeyGRNDBDnougA" name="provideLearnedMacAddresses">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_A_c40BCjEeyGRNDBDnougA" name="macTableEntryList" type="_Lj6dcBCgEeyGRNDBDnougA" isUnique="false" direction="out">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_A_c40RCjEeyGRNDBDnougA" annotatedElement="_A_c40BCjEeyGRNDBDnougA">
+              <body>List of MAC address table entries.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KB_3YBCjEeyGRNDBDnougA"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KCIaQBCjEeyGRNDBDnougA" value="*"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTTXkFE6Eembl8KFq0LDlA" name="Notifications">
       <packagedElement xmi:type="uml:Signal" xmi:id="_54DZ0OCdEeqMCqOBPciD4g" name="ObjectCreationNotification">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_54DZ0eCdEeqMCqOBPciD4g" name="counter" isUnique="false" isReadOnly="true">
@@ -162,7 +186,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-pVE6Eembl8KFq0LDlA" name="_macFdStatus" type="_eTT-11E6Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_eTEuGVE6Eembl8KFq0LDlA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_eTT-qVE6Eembl8KFq0LDlA" name="MacFdCapability">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_UCFWP73QEemm_Yk7AwSxsg" name="maximumNumberOfEntries" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_UCFWP73QEemm_Yk7AwSxsg" name="supportedMaximumNumberOfEntries" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_UCFWQL3QEemm_Yk7AwSxsg" annotatedElement="_UCFWP73QEemm_Yk7AwSxsg">
             <body>The maximum number of entries that can be held in the FDB. Name in ieee802-dot1q-bridge.yang: size.</body>
           </ownedComment>
@@ -193,6 +217,13 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_I6Z9cuYqEeqUFatI90V5fw" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_I6Z9c-YqEeqUFatI90V5fw" value="1"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_I6Z9dOYqEeqUFatI90V5fw" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Jf5nQK6hEeydAckXfW2M8g" name="maximumNumberOfEntries" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Jf5nQa6hEeydAckXfW2M8g" annotatedElement="_Jf5nQK6hEeydAckXfW2M8g">
+            <body>Number of entries in the forwarding table shall be limited to this value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Jf5nQq6hEeydAckXfW2M8g" value="-1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_eTT-11E6Eembl8KFq0LDlA" name="MacFdStatus">
@@ -235,6 +266,34 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_eThaAFE6Eembl8KFq0LDlA" name="Rules"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTiBEFE6Eembl8KFq0LDlA" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_Lj6dcBCgEeyGRNDBDnougA" name="MacTableEntryType">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_XXUaEBCgEeyGRNDBDnougA" name="_affectedMacFd" isUnique="false" isReadOnly="true" aggregation="shared" association="_XXQIoBCgEeyGRNDBDnougA">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_rFMS4BCgEeyGRNDBDnougA" annotatedElement="_XXUaEBCgEeyGRNDBDnougA">
+            <body>Reference to the MAC switch, which is holding the MAC address table that is containing this entry.</body>
+          </ownedComment>
+          <type xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_oGql-FLNEeO75dO39GbF8Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_TdArMBChEeyGRNDBDnougA" name="macAddress" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_TdArMRChEeyGRNDBDnougA" annotatedElement="_TdArMBChEeyGRNDBDnougA">
+            <body>MAC address that can be reached on the referenced interface.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP9yQ_ZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_TdArMhChEeyGRNDBDnougA" value="00:00:00:00:00:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_BTDmwBCiEeyGRNDBDnougA" name="vlanId" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_BTDmwRCiEeyGRNDBDnougA" annotatedElement="_BTDmwBCiEeyGRNDBDnougA">
+            <body>VLAN, in which the MAC address can be reached at the referenced interface. If VLAN bridging would be deactivated, this value should be 0.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_BTDmwhCiEeyGRNDBDnougA" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OzlMghCiEeyGRNDBDnougA" name="_egressLtp" isUnique="false" isReadOnly="true" aggregation="shared" association="_OzklcBCiEeyGRNDBDnougA">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_tN_ggBCiEeyGRNDBDnougA" annotatedElement="_OzlMghCiEeyGRNDBDnougA">
+            <body>MAC interface that connects the MAC address.</body>
+          </ownedComment>
+          <type xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
+        </ownedAttribute>
+      </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_bmxmHGanEemaCpXjwie7xQ" name="SuperTypes">
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_nxTlQFFJEembl8KFq0LDlA" name="FdStatusType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlQVFJEembl8KFq0LDlA" annotatedElement="_nxTlQFFJEembl8KFq0LDlA">
@@ -242,50 +301,45 @@
           </ownedComment>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlQlFJEembl8KFq0LDlA" name="UP">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlQ1FJEembl8KFq0LDlA" annotatedElement="_nxTlQlFJEembl8KFq0LDlA">
-              <body>Ready to pass packets.</body>
+              <body>Ready to pass packets. It is expected that the LogicalTerminationPoint::operationalState attribute is expressing this logical layer being available for use (means: ENABLED), while this value occurs.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlRFFJEembl8KFq0LDlA" name="DOWN">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlRVFJEembl8KFq0LDlA" annotatedElement="_nxTlRFFJEembl8KFq0LDlA">
-              <body>The interface does not pass any packets.</body>
+              <body>The interface does not pass any packets. It is expected that the LogicalTerminationPoint::operationalState attribute is expressing this logical layer being NOT available for use (means: DISABLED), while this value occurs.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlRlFJEembl8KFq0LDlA" name="TESTING">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlR1FJEembl8KFq0LDlA" annotatedElement="_nxTlRlFJEembl8KFq0LDlA">
-              <body>In some test mode.  No operational packets can be passed.</body>
+              <body>In some test mode.  No operational packets can be passed. It is expected that the LogicalTerminationPoint::operationalState attribute is expressing this logical layer being NOT available for use (means: DISABLED), while this value occurs.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlSFFJEembl8KFq0LDlA" name="UNKNOWN">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlSVFJEembl8KFq0LDlA" annotatedElement="_nxTlSFFJEembl8KFq0LDlA">
-              <body>Status cannot be determined for some reason.</body>
+              <body>Status cannot be determined for some reason. While this value occurs, the LogicalTerminationPoint::operationalState attribute, which is expressing the availability of the logical layer for being used, might have either ENABLED or DISABLED as value.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlSlFJEembl8KFq0LDlA" name="DORMANT">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlS1FJEembl8KFq0LDlA" annotatedElement="_nxTlSlFJEembl8KFq0LDlA">
-              <body>Waiting for some external event.</body>
+              <body>Waiting for some external event. It is expected that the LogicalTerminationPoint::operationalState attribute is expressing this logical layer being available for use (means: ENABLED), while this value occurs.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlTFFJEembl8KFq0LDlA" name="NOT_PRESENT">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlTVFJEembl8KFq0LDlA" annotatedElement="_nxTlTFFJEembl8KFq0LDlA">
-              <body>Some component (typically hardware) is missing.</body>
+              <body>Some component (typically hardware) is missing. It is expected that the LogicalTerminationPoint::operationalState attribute is expressing this logical layer being NOT available for use (means: DISABLED), while this value occurs.</body>
             </ownedComment>
           </ownedLiteral>
-          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlTlFJEembl8KFq0LDlA" name="LOWER_LAYER_DOWN">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlT1FJEembl8KFq0LDlA" annotatedElement="_nxTlTlFJEembl8KFq0LDlA">
-              <body>Down due to state of lower-layer interface(s).</body>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlUlFJEembl8KFq0LDlA" name="NOT_YET_DEFINED">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_vxfykK6kEeydAckXfW2M8g" annotatedElement="_nxTlUlFJEembl8KFq0LDlA">
+              <body>While this value occurs, the LogicalTerminationPoint::operationalState attribute, which is expressing the availability of the logical layer for being used, might have either ENABLED or DISABLED as value.</body>
             </ownedComment>
           </ownedLiteral>
-          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlUFFJEembl8KFq0LDlA" name="ADMIN_DOWN">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_nxTlUVFJEembl8KFq0LDlA" annotatedElement="_nxTlUFFJEembl8KFq0LDlA">
-              <body>Down due to configuration.</body>
-            </ownedComment>
-          </ownedLiteral>
-          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nxTlUlFJEembl8KFq0LDlA" name="NOT_YET_DEFINED"/>
         </packagedElement>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_zf_HAFFWEembl8KFq0LDlA" name="ExplanatoryOnly">
       <packagedElement xmi:type="uml:Usage" xmi:id="_Og0lMFFZEembl8KFq0LDlA" client="_eTPGIFE6Eembl8KFq0LDlA" supplier="_eTPGIFE6Eembl8KFq0LDlA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_PMEIgBCjEeyGRNDBDnougA" client="_eTPGIFE6Eembl8KFq0LDlA" supplier="_Lj6dcBCgEeyGRNDBDnougA"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
@@ -327,8 +381,9 @@
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:mac-fd" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ForwardingDomain class of the ONF Core IM. It describes potential forwarding (Ethernet Switch) according to IEEE 802.1 ." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:mac-fd" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ForwardingDomain class of the ONF Core IM. It describes potential forwarding (Ethernet Switch) according to IEEE 802.1 ." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="MacFd@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_lPnn4K6nEeydAckXfW2M8g" date="2023-03-28" version="1.0.0-tsp.220328.1700" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/macFd/issues" reference="https://github.com/openBackhaul/macFd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_JcnUgMKkEemRrZmP0wD-nw" date="2020-10-16" version="1.0.0-tsp.201016.1350" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/macFd/issues" reference="https://github.com/openBackhaul/macFd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eTFVIFE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuFFE6Eembl8KFq0LDlA"/>
@@ -359,11 +414,11 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_UCNR0r3QEemm_Yk7AwSxsg" base_Property="_UCFWPb3QEemm_Yk7AwSxsg" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_UCNR0b3QEemm_Yk7AwSxsg" base_StructuralFeature="_UCFWPb3QEemm_Yk7AwSxsg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_UCN44b3QEemm_Yk7AwSxsg" base_Property="_UCFWP73QEemm_Yk7AwSxsg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_UCN44L3QEemm_Yk7AwSxsg" base_StructuralFeature="_UCFWP73QEemm_Yk7AwSxsg" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UCN44L3QEemm_Yk7AwSxsg" base_StructuralFeature="_UCFWP73QEemm_Yk7AwSxsg" isInvariant="true" unit="entry"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_UCOf8L3QEemm_Yk7AwSxsg" base_Property="_UCFWQ73QEemm_Yk7AwSxsg" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_UCN45L3QEemm_Yk7AwSxsg" base_StructuralFeature="_UCFWQ73QEemm_Yk7AwSxsg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_iaxGAb6EEemj8sLhiejUhA" base_Property="_iawe8L6EEemj8sLhiejUhA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_iaxGAL6EEemj8sLhiejUhA" base_StructuralFeature="_iawe8L6EEemj8sLhiejUhA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_iaxGAL6EEemj8sLhiejUhA" base_StructuralFeature="_iawe8L6EEemj8sLhiejUhA" unit="entry"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTbTYVE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_eTbTYFE6Eembl8KFq0LDlA" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVz2FE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
@@ -406,10 +461,10 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Sz6IgOCgEeqMCqOBPciD4g" base_Property="_Sz5hcOCgEeqMCqOBPciD4g"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Sz6vkOCgEeqMCqOBPciD4g" base_StructuralFeature="_Sz5hcOCgEeqMCqOBPciD4g"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rL5b0OaaEeqUFatI90V5fw" base_Property="_rL3moOaaEeqUFatI90V5fw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_rL4NsOaaEeqUFatI90V5fw" base_StructuralFeature="_rL3moOaaEeqUFatI90V5fw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_rL4NsOaaEeqUFatI90V5fw" base_StructuralFeature="_rL3moOaaEeqUFatI90V5fw" unit="entry"/>
   <OpenModel_Profile:Reference xmi:id="_rMAJgOaaEeqUFatI90V5fw" base_Element="_rL3moOaaEeqUFatI90V5fw" reference="12.7 of IEEE Std 802.1Q-2018 and 8.8.3 of IEEE Std 802.1Q-2018"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_-F2kYOaaEeqUFatI90V5fw" base_Property="_-FzhEOaaEeqUFatI90V5fw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_-F0vMOaaEeqUFatI90V5fw" base_StructuralFeature="_-FzhEOaaEeqUFatI90V5fw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-F0vMOaaEeqUFatI90V5fw" base_StructuralFeature="_-FzhEOaaEeqUFatI90V5fw" unit="registration"/>
   <OpenModel_Profile:Reference xmi:id="_-F8rAOaaEeqUFatI90V5fw" base_Element="_-FzhEOaaEeqUFatI90V5fw" reference="12.7 of IEEE Std 802.1Q-2018 and 8.8.4 of IEEE Std 802.1Q-2018"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_B3gEoMKhEemvQeH3vILmhQ" base_Property="_B3ePcMKhEemvQeH3vILmhQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_B3e2gMKhEemvQeH3vILmhQ" base_StructuralFeature="_B3ePcMKhEemvQeH3vILmhQ"/>
@@ -419,4 +474,27 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_I6byoOYqEeqUFatI90V5fw" base_Property="_I6Z9cOYqEeqUFatI90V5fw" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_I6akgOYqEeqUFatI90V5fw" base_StructuralFeature="_I6Z9cOYqEeqUFatI90V5fw" unit="s"/>
   <OpenModel_Profile:Reference xmi:id="_u2WAYOayEeqUFatI90V5fw" base_Element="_I6Z9cOYqEeqUFatI90V5fw" reference="12.7 of IEEE Std 802.1Q-2018 and 8.8.3 of IEEE Std 802.1Q-2018"/>
+  <OpenModel_Profile:OpenModelInterface xmi:id="_0dtUsBCQEeyGRNDBDnougA" base_Interface="_0YyYcBCQEeyGRNDBDnougA"/>
+  <OpenModel_Profile:OpenModelOperation xmi:id="_EraUkBCgEeyGRNDBDnougA" base_Operation="_ErZtgBCgEeyGRNDBDnougA" isOperationIdempotent="true" isAtomic="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XXVBIBCgEeyGRNDBDnougA" base_Property="_XXUaEBCgEeyGRNDBDnougA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XXVoMBCgEeyGRNDBDnougA" base_StructuralFeature="_XXUaEBCgEeyGRNDBDnougA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XsPhMBCgEeyGRNDBDnougA" base_Property="_XXagsBCgEeyGRNDBDnougA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XsRWYBCgEeyGRNDBDnougA" base_StructuralFeature="_XXagsBCgEeyGRNDBDnougA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_TdBSQBChEeyGRNDBDnougA" base_Property="_TdArMBChEeyGRNDBDnougA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_TdB5UBChEeyGRNDBDnougA" base_StructuralFeature="_TdArMBChEeyGRNDBDnougA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_BTGDABCiEeyGRNDBDnougA" base_Property="_BTDmwBCiEeyGRNDBDnougA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_64_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_BTH4MBCiEeyGRNDBDnougA" base_StructuralFeature="_BTDmwBCiEeyGRNDBDnougA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_OzlzkBCiEeyGRNDBDnougA" base_Property="_OzlMghCiEeyGRNDBDnougA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OzmaoBCiEeyGRNDBDnougA" base_StructuralFeature="_OzlMghCiEeyGRNDBDnougA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Ozpd8BCiEeyGRNDBDnougA" base_Property="_Ozo24BCiEeyGRNDBDnougA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Ozpd8RCiEeyGRNDBDnougA" base_StructuralFeature="_Ozo24BCiEeyGRNDBDnougA"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_A_df4BCjEeyGRNDBDnougA" base_Parameter="_A_c40BCjEeyGRNDBDnougA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_M6pPsBF4EeyaPcGr1Mw91g" base_Element="_PMEIgBCjEeyGRNDBDnougA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Jf_G0K6hEeydAckXfW2M8g" base_Property="_Jf5nQK6hEeydAckXfW2M8g" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Jf61YK6hEeydAckXfW2M8g" base_StructuralFeature="_Jf5nQK6hEeydAckXfW2M8g" unit="entry"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_LTwfoK6jEeydAckXfW2M8g" base_Property="_XXUaEBCgEeyGRNDBDnougA"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_TIoKIK6jEeydAckXfW2M8g" base_Property="_OzlMghCiEeyGRNDBDnougA"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_csHAoK6lEeydAckXfW2M8g" base_Property="_Sz3FMuCgEeqMCqOBPciD4g"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_d87IQK6lEeydAckXfW2M8g" base_Property="_RjlJEuCgEeqMCqOBPciD4g"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_fkb4oK6lEeydAckXfW2M8g" base_Property="_PsTeYOCgEeqMCqOBPciD4g"/>
 </xmi:XMI>

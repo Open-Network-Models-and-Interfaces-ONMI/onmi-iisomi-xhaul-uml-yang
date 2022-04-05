@@ -38,13 +38,17 @@ namespace=(
   [wire-interface]=wire-interface-2-0
   [wred-profile]=wred-profile-1-0
   [co-channel-profile]=co-channel-profile-1-0
+  [policing-profile]=policing-profile-1-0
+  [scheduler-profile]=scheduler-profile-1-0
   [vlan-interface]=vlan-interface-1-0
   [vlan-fc]=vlan-fc-1-0
   [vlan-fd]=vlan-fd-1-0
   [ltp-augment]=ltp-augment-1-0
   [mac-fc]=mac-fc-1-0
   [mac-fd]=mac-fd-1-0
-  [firmware]=firmware-1-0
+  [firmware]=firmware-1-0  
+  [backup-and-restore]=backup-and-restore-1-0 
+  [synchronization]=synchronization-1-0
 );
 
 declare -A fileversions
@@ -59,6 +63,8 @@ fileversions=(
   [mac-interface]=mac-interface-1-0
   [pure-ethernet-structure]=pure-ethernet-structure-2-0
   [qos-profile]=qos-profile-1-0
+  [policing-profile]=policing-profile-1-0
+  [scheduler-profile]=scheduler-profile-1-0
   [tdm-container]=tdm-container-2-0
   [wire-interface]=wire-interface-2-0
   [wred-profile]=wred-profile-1-0
@@ -70,6 +76,8 @@ fileversions=(
   [mac-fc]=mac-fc-1-0
   [mac-fd]=mac-fd-1-0
   [firmware]=firmware-1-0
+  [backup-and-restore]=backup-and-restore-1-0
+  [synchronization]=synchronization-1-0
 );
 
 
@@ -92,6 +100,8 @@ layer=(
   [mac-fc]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
   [mac-fd]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
   [firmware]=COMMON_LAYER
+  [backup-and-restore]=COMMON_LAYER
+  [synchronization]=LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER
 );
 
 declare -A profile
@@ -100,6 +110,8 @@ profile=(
   [qos-profile]=PROFILE_NAME_TYPE_QOS_PROFILE
   [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
   [co-channel-profile]=PROFILE_NAME_TYPE_CO_CHANNEL_PROFILE
+  [policing-profile]=PROFILE_NAME_TYPE_POLICING_PROFILE
+  [scheduler-profile]=PROFILE_NAME_TYPE_SCHEDULER_PROFILE
 );
 
 
@@ -173,6 +185,13 @@ do
   # find/replace in wire-interface
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
   sed -i -e "s/\/wire-interface:wire-interface-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+  find=".pnr";
+  replace="";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  find="uses sync-protection-spec;";
+  replace="when \"derived-from-or-self(/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:layer-protocol-name, 'sync-model:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-protection-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
 
   # find/replace wred
   find="co-channel-profile\.pnr:co-channel-profile-pac";
@@ -209,7 +228,7 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
 
  find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\"{";
  #identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
- when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'vlan-interface:${layer[$index]}')\";"
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'mac-interface:${layer[$index]}')\";"
  replace=" $find \n $when";
  #replace=" $find \n $when";
  sed -i -e "s/$find/$replace/g" $yang;
@@ -218,7 +237,7 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
 
  find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\"{";
  #identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
- when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'vlan-interface:${layer[$index]}')\";"
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'mac-interface:${layer[$index]}')\";"
  replace=" $find \n $when";
  #replace=" $find \n $when";
  sed -i -e "s/$find/$replace/g" $yang;
@@ -313,6 +332,11 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
 
   ## find/replace firmware
   find="firmware:firmware-collection";
+  replace="core-model:control-construct";
+  sed -i -e "s/$find/$replace/g" $yang;
+  
+  ## find/replace backup-and-restore
+  find="backup-and-restore:backup-and-restore-cc-spec";
   replace="core-model:control-construct";
   sed -i -e "s/$find/$replace/g" $yang;
   

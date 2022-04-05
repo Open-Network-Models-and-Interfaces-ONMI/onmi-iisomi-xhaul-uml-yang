@@ -157,7 +157,14 @@ leaf_list.prototype.writeNode = function (layer) {
             var lastoccurancesubstring = lastoccurance.substr(lastoccurance.indexOf('\:'), lastoccurance.length );
             
             //if the string not containg uuid
-            if(lastoccurancesubstring.indexOf("uuid")==-1 && lastoccurancesubstring.indexOf("serial-number")==-1){ 
+	    console.log("Prahtiba " + name);
+	    if(name.includes("encompassed-clock") ||  name.includes("phase-aligned-clock")){
+	     type = type.replace("/g:synch-ltp-spec/g:","/core-model:control-construct/core-model:logical-termination-point/synchronization:embedded-clock");   
+	    }else if(name.includes("embedded-clock")){
+		    console.log("prathiba inside logic" + type);
+	     type = type.replace("/core-model:logical-termination-point/core-model:peer-ltp/core-model:embedded-clock/core-model:local-id,name","/core-model:control-construct/synchronization:clock-collection/synchronization:clock/synchronization:local-id");
+	    }
+	    else if(lastoccurancesubstring.indexOf("uuid")==-1 && lastoccurancesubstring.indexOf("serial-number")==-1){ 
                 lastoccurancesubstring=lastoccurancesubstring.replace(/\:/, ' ');
                 
                 prestring = "["+lastoccurancesubstring.replace(/\";+\s+\}/g, ' ').trim()+"=current()]"; 

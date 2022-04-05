@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="SchedulerProfile" URI="">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_PedjcKI9Eem31MmnPfrwaQ" annotatedElement="_Imk30GyUEee0HrHFgb9oqw">
+      <body>Technology specific definition for scheduler profiles that can be referenced by multiple interface instances.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgAV-HEemI8ps-yiNc8Q" name="Associations">
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_hjTcELD1Eeyb_6ER6MS4zA" client="_WM_fsKI3Eem31MmnPfrwaQ">
+        <supplier xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_GLc2MJ47Eemkbek818V8NQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Constraint" xmi:id="_38vjQLD1Eeyb_6ER6MS4zA" name="When" constrainedElement="_hjTcELD1Eeyb_6ER6MS4zA">
+        <specification xmi:type="uml:LiteralString" xmi:id="_38wxYLD1Eeyb_6ER6MS4zA" name="constraintSpec" value="profileName='PROFILE_NAME_TYPE_SCHEDULER_PROFILE'"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_xhVaoKI3Eem31MmnPfrwaQ" memberEnd="_xhd9gKI3Eem31MmnPfrwaQ _xhgZwKI3Eem31MmnPfrwaQ">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_xhcIUKI3Eem31MmnPfrwaQ" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_xhcvYKI3Eem31MmnPfrwaQ" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_xhgZwKI3Eem31MmnPfrwaQ" name="schedulerProfileSpec" type="_WM_fsKI3Eem31MmnPfrwaQ" association="_xhVaoKI3Eem31MmnPfrwaQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ENVwPmBvEemiq_YnKFzkFg" name="SchedulerProfileHasCapabilities" memberEnd="_ENVvVmBvEemiq_YnKFzkFg _ENVwQWBvEemiq_YnKFzkFg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ENVwP2BvEemiq_YnKFzkFg" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ENVwQGBvEemiq_YnKFzkFg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_ENVwQWBvEemiq_YnKFzkFg" name="mw_ethernetcontainer_pac" type="_ENVvU2BvEemiq_YnKFzkFg" association="_ENVwPmBvEemiq_YnKFzkFg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_ENVwQmBvEemiq_YnKFzkFg" name="SchedulerProfileHasConfiguration" memberEnd="_ENVvV2BvEemiq_YnKFzkFg _ENVwRWBvEemiq_YnKFzkFg">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ENVwQ2BvEemiq_YnKFzkFg" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ENVwRGBvEemiq_YnKFzkFg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_ENVwRWBvEemiq_YnKFzkFg" name="mw_ethernetcontainer_pac" type="_ENVvU2BvEemiq_YnKFzkFg" association="_ENVwQmBvEemiq_YnKFzkFg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_4RF4ELD0Eeyb_6ER6MS4zA" memberEnd="_4RL-sLD0Eeyb_6ER6MS4zA _4RNM0bD0Eeyb_6ER6MS4zA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4RLXoLD0Eeyb_6ER6MS4zA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4RLXobD0Eeyb_6ER6MS4zA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_4RNM0bD0Eeyb_6ER6MS4zA" name="objectcreationnotification" type="_OljbIKJhEem31MmnPfrwaQ" association="_4RF4ELD0Eeyb_6ER6MS4zA">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-3IX8LD0Eeyb_6ER6MS4zA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-3JmELD0Eeyb_6ER6MS4zA" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_6uknILD0Eeyb_6ER6MS4zA" memberEnd="_6ulOMbD0Eeyb_6ER6MS4zA _6ul1QbD0Eeyb_6ER6MS4zA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6uknIbD0Eeyb_6ER6MS4zA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6ulOMLD0Eeyb_6ER6MS4zA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_6ul1QbD0Eeyb_6ER6MS4zA" name="objectdeletionnotification" type="_OlnFgKJhEem31MmnPfrwaQ" association="_6uknILD0Eeyb_6ER6MS4zA">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-DU8cLD0Eeyb_6ER6MS4zA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-DbqILD0Eeyb_6ER6MS4zA" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgAl-HEemI8ps-yiNc8Q" name="Diagrams"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgA1-HEemI8ps-yiNc8Q" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_viDgBF-HEemI8ps-yiNc8Q">
+        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+      </packageImport>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_qNbEIKJjEemT8Nyuil27qQ">
+        <importedPackage xmi:type="uml:Package" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgBl-HEemI8ps-yiNc8Q" name="Interfaces"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgB1-HEemI8ps-yiNc8Q" name="Notifications">
+      <packagedElement xmi:type="uml:Signal" xmi:id="_OljbIKJhEem31MmnPfrwaQ" name="ObjectCreationNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OljbIaJhEem31MmnPfrwaQ" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_OlkpQKJhEem31MmnPfrwaQ" annotatedElement="_OljbIaJhEem31MmnPfrwaQ">
+            <body>Counts object creation notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_OlkpQaJhEem31MmnPfrwaQ" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OlkpQqJhEem31MmnPfrwaQ" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_OlkpQ6JhEem31MmnPfrwaQ" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_4RL-sLD0Eeyb_6ER6MS4zA" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_4RF4ELD0Eeyb_6ER6MS4zA">
+          <type xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_GLc2MJ47Eemkbek818V8NQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OlkpRaJhEem31MmnPfrwaQ" name="objectType" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_OlkpRqJhEem31MmnPfrwaQ" value="Type of created object not specified."/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Signal" xmi:id="_OlnFgKJhEem31MmnPfrwaQ" name="ObjectDeletionNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OlnFgaJhEem31MmnPfrwaQ" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_OlnFgqJhEem31MmnPfrwaQ" annotatedElement="_OlnFgaJhEem31MmnPfrwaQ">
+            <body>Counts object deletion notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_OlnFg6JhEem31MmnPfrwaQ" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OlnFhKJhEem31MmnPfrwaQ" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_OlnFhaJhEem31MmnPfrwaQ" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_6ulOMbD0Eeyb_6ER6MS4zA" name="_objectIdRef" isReadOnly="true" aggregation="shared" association="_6uknILD0Eeyb_6ER6MS4zA">
+          <type xmi:type="uml:Class" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_GLc2MJ47Eemkbek818V8NQ"/>
+        </ownedAttribute>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgCF-HEemI8ps-yiNc8Q" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Class" xmi:id="_WM_fsKI3Eem31MmnPfrwaQ" name="SchedulerProfileSpec">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_xhd9gKI3Eem31MmnPfrwaQ" name="_schedulerProfile_Pac" type="_ENVvU2BvEemiq_YnKFzkFg" aggregation="composite" association="_xhVaoKI3Eem31MmnPfrwaQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ENVvU2BvEemiq_YnKFzkFg" name="SchedulerProfile_Pac">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_ENVvVmBvEemiq_YnKFzkFg" name="_schedulerProfileCapability" type="_ENVvYGBvEemiq_YnKFzkFg" isReadOnly="true" aggregation="composite" association="_ENVwPmBvEemiq_YnKFzkFg"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_ENVvV2BvEemiq_YnKFzkFg" name="_schedulerProfileConfiguration" type="_ENVvh2BvEemiq_YnKFzkFg" aggregation="composite" association="_ENVwQmBvEemiq_YnKFzkFg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ENVvYGBvEemiq_YnKFzkFg" name="SchedulerProfileCapability">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_zPlNwKxZEeyS05cRzrF6cA" name="schedulerKindConfigurationIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_zPlNwaxZEeyS05cRzrF6cA" annotatedElement="_zPlNwKxZEeyS05cRzrF6cA">
+            <body>This attribute has to be set on 'true', if the kind of scheduler can be configured for a profile, which can be referenced by several interfaces.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_zPlNwqxZEeyS05cRzrF6cA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdwfmB0Eemiq_YnKFzkFg" name="availableQueueList" type="_jIdwt2B0Eemiq_YnKFzkFg" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdwf2B0Eemiq_YnKFzkFg" annotatedElement="_jIdwfmB0Eemiq_YnKFzkFg">
+            <body>List of queues, which are available at the physical interface.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jIdwgGB0Eemiq_YnKFzkFg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jIdwgWB0Eemiq_YnKFzkFg" value="8"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ENVvh2BvEemiq_YnKFzkFg" name="SchedulerProfileConfiguration">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdwhmB0Eemiq_YnKFzkFg" name="queueBehaviorList" type="_jIdw2mB0Eemiq_YnKFzkFg" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdwh2B0Eemiq_YnKFzkFg" annotatedElement="_jIdwhmB0Eemiq_YnKFzkFg">
+            <body>Defines scheduling and dropping behavior of all queues.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jIdwiGB0Eemiq_YnKFzkFg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jIdwiWB0Eemiq_YnKFzkFg" value="8"/>
+        </ownedAttribute>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgCl-HEemI8ps-yiNc8Q" name="Rules"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgC1-HEemI8ps-yiNc8Q" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_jIdwkWB0Eemiq_YnKFzkFg" name="QueueNameType">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwkmB0Eemiq_YnKFzkFg" name="BEST_EFFORT_QUEUE">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_TBShcA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwkmB0Eemiq_YnKFzkFg">
+            <body>QueueNumber=0;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwk2B0Eemiq_YnKFzkFg" name="ASSURED_FORWARDING_QUEUE1">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_UJe4kA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwk2B0Eemiq_YnKFzkFg">
+            <body>QueueNumber=1;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwlGB0Eemiq_YnKFzkFg" name="ASSURED_FORWARDING_QUEUE2">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_VB0OwA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwlGB0Eemiq_YnKFzkFg">
+            <body>QueueNumber=2;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwlWB0Eemiq_YnKFzkFg" name="ASSURED_FORWARDING_QUEUE3">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_WhiVEA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwlWB0Eemiq_YnKFzkFg">
+            <body>QueueNumber=3;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwlmB0Eemiq_YnKFzkFg" name="ASSURED_FORWARDING_QUEUE4">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_XqXlYA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwlmB0Eemiq_YnKFzkFg">
+            <body>QueueNumber=4;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwl2B0Eemiq_YnKFzkFg" name="EXPEDITED_FORWARDING_QUEUE">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_ZLs1QA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwl2B0Eemiq_YnKFzkFg">
+            <body>QueueNumber=5;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwmGB0Eemiq_YnKFzkFg" name="CLASS_SELECTOR_QUEUE6">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_c9x_wA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwmGB0Eemiq_YnKFzkFg">
+            <body>QueueNumber=6;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwmWB0Eemiq_YnKFzkFg" name="CLASS_SELECTOR_QUEUE7">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_eVTMUA3fEeqJFpwd-R6pdQ" annotatedElement="_jIdwmWB0Eemiq_YnKFzkFg">
+            <body>QueueNumber=7;</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwmmB0Eemiq_YnKFzkFg" name="QUEUENAME_NOT_YET_DEFINED"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_jIdwt2B0Eemiq_YnKFzkFg" name="AvailableQueueType">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdwuGB0Eemiq_YnKFzkFg" name="queueName" type="_jIdwkWB0Eemiq_YnKFzkFg" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdwuWB0Eemiq_YnKFzkFg" annotatedElement="_jIdwuGB0Eemiq_YnKFzkFg">
+            <body>Name of the queue.</body>
+          </ownedComment>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdwzmB0Eemiq_YnKFzkFg" name="availableSchedulingKindList" type="_jIdwrWB0Eemiq_YnKFzkFg" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdwz2B0Eemiq_YnKFzkFg" annotatedElement="_jIdwzmB0Eemiq_YnKFzkFg">
+            <body>Lists the available types of scheduling.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jIdw0GB0Eemiq_YnKFzkFg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jIdw0WB0Eemiq_YnKFzkFg" value="*"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_uZum8K9rEeyCUqwF_ozCUA" type="_jIdwrWB0Eemiq_YnKFzkFg" instance="_jIdwtmB0Eemiq_YnKFzkFg"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_jIdwrWB0Eemiq_YnKFzkFg" name="SchedulerKindType">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwrmB0Eemiq_YnKFzkFg" name="STRICT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdwr2B0Eemiq_YnKFzkFg" annotatedElement="_jIdwrmB0Eemiq_YnKFzkFg">
+            <body>Strict Priority</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwsGB0Eemiq_YnKFzkFg" name="WFQ">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdwsWB0Eemiq_YnKFzkFg">
+            <body>Weighted-Fair-Queuing</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="__ukeUILbEem1r8z-Ndbz2g" name="WRR">
+          <ownedComment xmi:type="uml:Comment" xmi:id="__ukeUYLbEem1r8z-Ndbz2g" annotatedElement="__ukeUILbEem1r8z-Ndbz2g">
+            <body>Weighted Round Robin</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Bk9_QILcEem1r8z-Ndbz2g" name="DWRR">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Bk9_QYLcEem1r8z-Ndbz2g" annotatedElement="_Bk9_QILcEem1r8z-Ndbz2g">
+            <body>Deficit Weighted Round Robin</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jIdwtmB0Eemiq_YnKFzkFg" name="NOT_YET_DEFINED"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_jIdw2mB0Eemiq_YnKFzkFg" name="QueueBehaviorType">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdw22B0Eemiq_YnKFzkFg" name="queueName" type="_jIdwkWB0Eemiq_YnKFzkFg" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdw3GB0Eemiq_YnKFzkFg" annotatedElement="_jIdw22B0Eemiq_YnKFzkFg">
+            <body>Name of the queue.</body>
+          </ownedComment>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdw6WB0Eemiq_YnKFzkFg" name="schedulerKind" type="_jIdwrWB0Eemiq_YnKFzkFg" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdw6mB0Eemiq_YnKFzkFg" annotatedElement="_jIdw6WB0Eemiq_YnKFzkFg">
+            <body>Type of scheduler to be used for this queue.</body>
+          </ownedComment>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_jIdw62B0Eemiq_YnKFzkFg" type="_jIdwrWB0Eemiq_YnKFzkFg" instance="_jIdwtmB0Eemiq_YnKFzkFg"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jIdw7GB0Eemiq_YnKFzkFg" name="weighting" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jIdw7WB0Eemiq_YnKFzkFg" annotatedElement="_jIdw7GB0Eemiq_YnKFzkFg">
+            <body>Only relevant if (schedulerKind==WFQ) OR (schedulerKind==DWRR) OR (schedulerKind==WRR). Serving rate for this weighted fair queueing queue as a percentage value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_jIdw7mB0Eemiq_YnKFzkFg" value="-1"/>
+        </ownedAttribute>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_viDgH1-HEemI8ps-yiNc8Q" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Package" xmi:id="_aIFsYA3cEeqJFpwd-R6pdQ" name="ExtentedCoreEnumerations">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_iWbm0A3cEeqJFpwd-R6pdQ" name="ProfileNameType">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_-LOCwA3kEeqJFpwd-R6pdQ" annotatedElement="_iWbm0A3cEeqJFpwd-R6pdQ">
+            <body>A controlled list of Profile names.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_0giawLD4Eeyb_6ER6MS4zA">
+            <general xmi:type="uml:Enumeration" href="../ONF%20CoreMode%20pruned%20and%20refactored%20as%20device%20model/CoreModel.pnr.uml#_jMtRsKInEem1L6jqz3rbgg"/>
+          </generalization>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_mRREsA3cEeqJFpwd-R6pdQ" name="PROFILE_NAME_TYPE_SCHEDULER_PROFILE"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_jIdxBWB0Eemiq_YnKFzkFg" client="_jIdw2mB0Eemiq_YnKFzkFg" supplier="_jIdwkWB0Eemiq_YnKFzkFg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_jIdxCGB0Eemiq_YnKFzkFg" client="_jIdwt2B0Eemiq_YnKFzkFg" supplier="_jIdwkWB0Eemiq_YnKFzkFg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_jIdxCmB0Eemiq_YnKFzkFg" client="_jIdwt2B0Eemiq_YnKFzkFg" supplier="_jIdwrWB0Eemiq_YnKFzkFg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_qdwOcGDhEemaMYhtIMl4rA" client="_viDgAl-HEemI8ps-yiNc8Q" supplier="_jIdwt2B0Eemiq_YnKFzkFg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_Z70PsGDtEemaMYhtIMl4rA" client="_ENVvh2BvEemiq_YnKFzkFg" supplier="_jIdw2mB0Eemiq_YnKFzkFg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_rzCI4GDtEemaMYhtIMl4rA" client="_viDgAl-HEemI8ps-yiNc8Q" supplier="_jIdwrWB0Eemiq_YnKFzkFg"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoSVJEemK9ptdIxz6GQ" key="Version" value="0.0.10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoiVJEemK9ptdIxz6GQ" key="Comment" value="Made OpenInterfaceModelClass stereotype obsolete.&#xD;&#xA;Made OpenInterfaceModelAttribute::attributeValueChangeNotification property obsolete.&#xD;&#xA;NotificationDefinition enumeration no longer used.&#xD;&#xA;BITS removed from Encoding enumeration.&#xD;&#xA;BitDefinition data type deleted.&#xD;&#xA;Optional Bit stereotype (extending the Property meta class) added.&#xD;&#xA;Optional Bits stereotype (extending the DataType meta class) added."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpCVJEemK9ptdIxz6GQ" key="Date" value="2018-09-17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i3v9sCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i6wOYCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8J8kCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kSVJEemK9ptdIxz6GQ" key="Version" value="0.2.17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kiVJEemK9ptdIxz6GQ" key="Comment" value="Editorial corrections in the description of OpenModelAttribute::partOfObjectKey and Reference."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lCVJEemK9ptdIxz6GQ" key="Date" value="2018-12-12"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6w1cCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i8gh4CVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8qS4CVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4SVJEemK9ptdIxz6GQ" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4iVJEemK9ptdIxz6GQ" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4yVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5CVJEemK9ptdIxz6GQ" key="Date" value="2017-08-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5SVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8hwACVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:scheduler-profile" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It defines a scheduler profile class. Its instances can be referenced by multiple interface instances." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_Ig4AEIxhEemB8ZCGu4qmig" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="SchedulerProfile@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_JlojAK55Eey1n8Eb7IhYqA" date="2022-03-31" version="1.0.0-tsp.220331.1800" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/schedulerProfile/issues" reference="https://github.com/openBackhaul/schedulerProfile/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+  </OpenModel_Profile:OpenModelStatement>
+  <OpenModel_Profile:Obsolete xmi:id="_viKNsF-HEemI8ps-yiNc8Q" base_Element="_viDgH1-HEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_ENe4QmBvEemiq_YnKFzkFg" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_ENVvU2BvEemiq_YnKFzkFg"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_ENe4Q2BvEemiq_YnKFzkFg" base_Class="_ENVvU2BvEemiq_YnKFzkFg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_ENffVmBvEemiq_YnKFzkFg" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_ENVvYGBvEemiq_YnKFzkFg"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_ENffV2BvEemiq_YnKFzkFg" base_Class="_ENVvYGBvEemiq_YnKFzkFg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_ENgtdmBvEemiq_YnKFzkFg" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_ENVvh2BvEemiq_YnKFzkFg"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_ENgtd2BvEemiq_YnKFzkFg" base_Class="_ENVvh2BvEemiq_YnKFzkFg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ENmNAmBvEemiq_YnKFzkFg" base_StructuralFeature="_ENVwQWBvEemiq_YnKFzkFg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ENmNA2BvEemiq_YnKFzkFg" base_Property="_ENVwQWBvEemiq_YnKFzkFg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ENmNBGBvEemiq_YnKFzkFg" base_StructuralFeature="_ENVwRWBvEemiq_YnKFzkFg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ENmNBWBvEemiq_YnKFzkFg" base_Property="_ENVwRWBvEemiq_YnKFzkFg"/>
+  <OpenModel_Profile:Obsolete xmi:id="_5NofcGEyEemaMYhtIMl4rA" base_Element="_jIdxBWB0Eemiq_YnKFzkFg"/>
+  <OpenModel_Profile:Obsolete xmi:id="_5yp4EGEyEemaMYhtIMl4rA" base_Element="_jIdxCGB0Eemiq_YnKFzkFg"/>
+  <OpenModel_Profile:Obsolete xmi:id="_7Mpw4GEyEemaMYhtIMl4rA" base_Element="_jIdxCmB0Eemiq_YnKFzkFg"/>
+  <OpenModel_Profile:Obsolete xmi:id="__BwaMGEyEemaMYhtIMl4rA" base_Element="_qdwOcGDhEemaMYhtIMl4rA"/>
+  <OpenModel_Profile:Obsolete xmi:id="__oOkUGEyEemaMYhtIMl4rA" base_Element="_Z70PsGDtEemaMYhtIMl4rA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_Bj1VYGEzEemaMYhtIMl4rA" base_Element="_rzCI4GDtEemaMYhtIMl4rA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIeXh2B0Eemiq_YnKFzkFg" base_Property="_jIdwfmB0Eemiq_YnKFzkFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIeXhmB0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdwfmB0Eemiq_YnKFzkFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIe-mGB0Eemiq_YnKFzkFg" base_Property="_jIdwuGB0Eemiq_YnKFzkFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIe-l2B0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdwuGB0Eemiq_YnKFzkFg" partOfObjectKey="1" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIe-omB0Eemiq_YnKFzkFg" base_Property="_jIdwzmB0Eemiq_YnKFzkFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIe-oWB0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdwzmB0Eemiq_YnKFzkFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIe-kmB0Eemiq_YnKFzkFg" base_Property="_jIdwhmB0Eemiq_YnKFzkFg" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIe-kWB0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdwhmB0Eemiq_YnKFzkFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_WNBU4KI3Eem31MmnPfrwaQ" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_WM_fsKI3Eem31MmnPfrwaQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_WNCjAKI3Eem31MmnPfrwaQ" base_Class="_WM_fsKI3Eem31MmnPfrwaQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xhgZwaI3Eem31MmnPfrwaQ" base_StructuralFeature="_xhgZwKI3Eem31MmnPfrwaQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xhhA0KI3Eem31MmnPfrwaQ" base_Property="_xhgZwKI3Eem31MmnPfrwaQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xhfLoKI3Eem31MmnPfrwaQ" base_Property="_xhd9gKI3Eem31MmnPfrwaQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xhd9gaI3Eem31MmnPfrwaQ" base_StructuralFeature="_xhd9gKI3Eem31MmnPfrwaQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ENe4R2BvEemiq_YnKFzkFg" base_Property="_ENVvVmBvEemiq_YnKFzkFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ENe4RmBvEemiq_YnKFzkFg" base_StructuralFeature="_ENVvVmBvEemiq_YnKFzkFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_ENe4SWBvEemiq_YnKFzkFg" base_Property="_ENVvV2BvEemiq_YnKFzkFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ENe4SGBvEemiq_YnKFzkFg" base_StructuralFeature="_ENVvV2BvEemiq_YnKFzkFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIflpWB0Eemiq_YnKFzkFg" base_Property="_jIdw22B0Eemiq_YnKFzkFg" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIflpGB0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdw22B0Eemiq_YnKFzkFg" partOfObjectKey="1" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIflrWB0Eemiq_YnKFzkFg" base_Property="_jIdw6WB0Eemiq_YnKFzkFg" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIflrGB0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdw6WB0Eemiq_YnKFzkFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jIflr2B0Eemiq_YnKFzkFg" base_Property="_jIdw7GB0Eemiq_YnKFzkFg" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jIflrmB0Eemiq_YnKFzkFg" base_StructuralFeature="_jIdw7GB0Eemiq_YnKFzkFg" isInvariant="true" unit="%"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_OlkpR6JhEem31MmnPfrwaQ" base_Signal="_OljbIKJhEem31MmnPfrwaQ"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_OlnFh6JhEem31MmnPfrwaQ" base_Signal="_OlnFgKJhEem31MmnPfrwaQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Oll3YaJhEem31MmnPfrwaQ" base_Property="_OljbIaJhEem31MmnPfrwaQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Oll3YKJhEem31MmnPfrwaQ" base_StructuralFeature="_OljbIaJhEem31MmnPfrwaQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Oll3Y6JhEem31MmnPfrwaQ" base_Property="_OlkpQqJhEem31MmnPfrwaQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Oll3YqJhEem31MmnPfrwaQ" base_StructuralFeature="_OlkpQqJhEem31MmnPfrwaQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_OlmecaJhEem31MmnPfrwaQ" base_Property="_OlkpRaJhEem31MmnPfrwaQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OlmecKJhEem31MmnPfrwaQ" base_StructuralFeature="_OlkpRaJhEem31MmnPfrwaQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_OlnskaJhEem31MmnPfrwaQ" base_Property="_OlnFgaJhEem31MmnPfrwaQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OlnskKJhEem31MmnPfrwaQ" base_StructuralFeature="_OlnFgaJhEem31MmnPfrwaQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Olnsk6JhEem31MmnPfrwaQ" base_Property="_OlnFhKJhEem31MmnPfrwaQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OlnskqJhEem31MmnPfrwaQ" base_StructuralFeature="_OlnFhKJhEem31MmnPfrwaQ" isInvariant="true"/>
+  <OpenModel_Profile:Obsolete xmi:id="_YaVsMDlBEeqvua7bJFPMSQ" base_Element="_iWbm0A3cEeqJFpwd-R6pdQ"/>
+  <OpenModel_Profile:Obsolete xmi:id="_bKI6UDlBEeqvua7bJFPMSQ" base_Element="_aIFsYA3cEeqJFpwd-R6pdQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_zPlNxKxZEeyS05cRzrF6cA" base_Property="_zPlNwKxZEeyS05cRzrF6cA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zPlNw6xZEeyS05cRzrF6cA" base_StructuralFeature="_zPlNwKxZEeyS05cRzrF6cA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4RL-sbD0Eeyb_6ER6MS4zA" base_Property="_4RL-sLD0Eeyb_6ER6MS4zA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4RNM0LD0Eeyb_6ER6MS4zA" base_StructuralFeature="_4RL-sLD0Eeyb_6ER6MS4zA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4eLR0LD0Eeyb_6ER6MS4zA" base_Property="_4RNM0bD0Eeyb_6ER6MS4zA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_4eL44LD0Eeyb_6ER6MS4zA" base_StructuralFeature="_4RNM0bD0Eeyb_6ER6MS4zA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_6ulOMrD0Eeyb_6ER6MS4zA" base_Property="_6ulOMbD0Eeyb_6ER6MS4zA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_6ul1QLD0Eeyb_6ER6MS4zA" base_StructuralFeature="_6ulOMbD0Eeyb_6ER6MS4zA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_6ul1QrD0Eeyb_6ER6MS4zA" base_Property="_6ul1QbD0Eeyb_6ER6MS4zA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_6ul1Q7D0Eeyb_6ER6MS4zA" base_StructuralFeature="_6ul1QbD0Eeyb_6ER6MS4zA"/>
+  <OpenModel_Profile:Specify xmi:id="_ipm80LD1Eeyb_6ER6MS4zA" base_Abstraction="_hjTcELD1Eeyb_6ER6MS4zA">
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:ProfileCollection:ProfileCollection/CoreModel:ProfileCollection:Profile</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:PassedByReference xmi:id="_6Ol0oLD2Eeyb_6ER6MS4zA" base_Property="_4RL-sLD0Eeyb_6ER6MS4zA"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_75bl0LD2Eeyb_6ER6MS4zA" base_Property="_6ulOMbD0Eeyb_6ER6MS4zA"/>
+</xmi:XMI>
