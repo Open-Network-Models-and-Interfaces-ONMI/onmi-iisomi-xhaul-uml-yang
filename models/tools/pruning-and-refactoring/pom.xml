@@ -40,17 +40,18 @@
     <module>core-model</module>
     <!--module>air-interface</module-->
     <!--module>hybrid-mw-structure</module> 
-    <module>pure-ethernet-structure</module-->
-    <module>ethernet-container</module>
+    <module>pure-ethernet-structure</module>
+    <module>ethernet-container</module>-->
     <!--module>tdm-container</module-->
     <!--module>wire-interface</module-->  
     <!--module>mac-interface</module-->
     <!--module>ip-interface</module>
     <module>wred-profile</module-->
-    <!--module>policing-profile</module-->
-    <module>qos-profile</module>
+    <!--module>policing-profile</module>
+    <module>qos-profile</module>-->
     <!--imodule>l3vpn-profile</module-->
     <!--module>co-channel-profile</module-->
+    <module>scheduler-profile</module>
     <!--module>vlan-interface</module-->
     <!--module>vlan-fc</module>
     <module>vlan-fd</module-->
@@ -58,9 +59,10 @@
     <module>mac-fc</module-->
     <!--module>mac-fd</module-->
     <!--module>test-model</module>
-    <module>firmware</module -->
+    <module>firmware</module>
     <module>backup-and-restore</module>
-    <module>synchronization</module>
+    <module>synchronization</module-->
+    <module>alarms</module>
   </modules>
 
   <licenses>

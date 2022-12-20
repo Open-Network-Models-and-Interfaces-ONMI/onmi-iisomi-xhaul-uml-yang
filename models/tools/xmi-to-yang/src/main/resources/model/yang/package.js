@@ -52,8 +52,10 @@ Package.prototype.writeNode = function (layer) {
             }
 
             if(this.children[i].nodeType == "typedef"){
+              if(this.children[i].name != "instance-identifier"){
                 mychildren1.push(this.children[i]);
-            }else{
+              }
+	    }else{
                 mychildren2.push(this.children[i]);
             }
         }

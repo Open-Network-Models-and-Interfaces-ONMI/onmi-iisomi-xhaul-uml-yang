@@ -49,6 +49,7 @@ namespace=(
   [firmware]=firmware-1-0  
   [backup-and-restore]=backup-and-restore-1-0 
   [synchronization]=synchronization-1-0
+  [alarms]=alarms-1-0
 );
 
 declare -A fileversions
@@ -78,6 +79,7 @@ fileversions=(
   [firmware]=firmware-1-0
   [backup-and-restore]=backup-and-restore-1-0
   [synchronization]=synchronization-1-0
+  [alarms]=alarms-1-0
 );
 
 
@@ -102,6 +104,7 @@ layer=(
   [firmware]=COMMON_LAYER
   [backup-and-restore]=COMMON_LAYER
   [synchronization]=LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER
+  [alarms]=COMMON_LAYER
 );
 
 declare -A profile
