@@ -103,6 +103,7 @@ var creators = {
             assoid:obj.attributes()["xmi:id"],
             strictCom:false,
             extendedCom:false,
+            lifecycleAggregate:false,
             comflag:false,
             name:undefined,
             id:undefined,
@@ -123,6 +124,14 @@ var creators = {
             if(store.extendedComposite[j] == props.assoid){
                 props.extendedCom=true;
                 props.comflag=true;
+                break;
+            }
+        }
+
+        for(var i=0; i < store.lifecycleAggregate.length; i++){
+            if(store.lifecycleAggregate[i] == props.assoid){
+                props.lifecycleAggregate = true;
+                props.comflag = true;
                 break;
             }
         }
@@ -152,7 +161,7 @@ var creators = {
 
                 if(j == store.association.length){
                     forProps.type = "list";
-                    var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue, props.assoid, props.strictCom, props.extendedCom);
+                    var a = new models.Association(forProps.name, forProps.id, forProps.type, forProps.upperValue, forProps.lowerValue, props.assoid, props.strictCom, props.extendedCom,props.lifecycleAggregate);
                     if(obj.ownedRule){
                         var ownedRuleId = obj.ownedRule.attributes()['constrainedElement'];
                     }

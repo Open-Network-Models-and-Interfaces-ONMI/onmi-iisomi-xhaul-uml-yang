@@ -24,6 +24,7 @@ var store = {
     specify:[],
     strictComposite:[],
     extendedComposite:[],
+    lifecycleAggregate:[],
     rootElement:[],
     generalization:[],
     augment:[],
@@ -239,6 +240,14 @@ function parseModule(file){
                                 parsers.parseExtendedCom(obj,store);
                             }
                             break;
+                        case "LifecycleAggregate":
+                            newxmi = xmi[key].array ? xmi[key].array : xmi[key];      
+                            var len = xmi[key].array ? xmi[key].array.length : 1;     
+                            for(var i = 0; i < len; i++){
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                parsers.parseLifecycleAggregate(obj, store);
+                            }
+                            break;                        
                         case "OpenModelStatement":
                             if (!xmi[key].array) {
                               parsers.parseOpenModelStatement(xmi[key], config, store);
