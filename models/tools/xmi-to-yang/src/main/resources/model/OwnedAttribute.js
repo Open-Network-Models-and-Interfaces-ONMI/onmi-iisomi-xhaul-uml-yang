@@ -30,6 +30,7 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
     this.path = undefined;
     this.support = undefined;
     this.isleafRef = true;
+    this.isRequireInstance = false;
     this.isSpecTarget = false;
     this.isSpecReference = false;
     this.isDefinedBySpec = false;

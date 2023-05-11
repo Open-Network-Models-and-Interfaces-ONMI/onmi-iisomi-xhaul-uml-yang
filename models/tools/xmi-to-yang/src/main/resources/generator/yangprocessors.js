@@ -203,6 +203,9 @@ module.exports = {
                                 ele[i].attribute[j]=null;
                                 break;
                             } else {
+                                if (store.association[k].lifecycleAggregate == true) {
+                                    ele[i].attribute[j].isRequireInstance = true;                                
+                                }
                                 //ele[i].attribute[j].isleafRef = true;
                                 if (store.association[k].upperValue > 1 || store.association[k].upperValue == "*") {
                                     ele[i].attribute[j].nodeType == "leaf-list";
@@ -359,7 +362,7 @@ module.exports = {
                                 // assigin yang types - eidtey by Waseem Sattar
                                 var attValue=ele[i].attribute[j].name.toLowerCase();
                                 var regex=/time|date/;
-                                var regex1=/object|namebinding|packages|allomorphs/;
+                                var regex1=/abcd|namebinding|packages|allomorphs/;
                                 if(regex.test(attValue)){
                                     ele[i].attribute[j].type = "yang:date-and-time";
                                 }else if(regex1.test(attValue)){

@@ -360,6 +360,13 @@ var parsers = {
         }
         store.extendedComposite.push(id);
     },
+    parseLifecycleAggregate:function(xmi,store){
+        var id;
+        if(xmi.attributes()["base_Association"]){
+            id = xmi.attributes()["base_Association"];
+        }
+        store.lifecycleAggregate.push(id);
+    },
     parsePackage:function(xmi, filename, store){
         var props = {
             len:undefined,
@@ -526,6 +533,7 @@ module.exports = {
     parseRootElement:parsers.parseRootElement,
     parseStrictCom:parsers.parseStrictCom,
     parseExtendedCom:parsers.parseExtendedCom,
+    parseLifecycleAggregate:parsers.parseLifecycleAggregate,
     parsePackage:parsers.parsePackage,
     parseUmlModel:parsers.parseUmlModel,
     createLifecycle:parsers.createLifecycle,
