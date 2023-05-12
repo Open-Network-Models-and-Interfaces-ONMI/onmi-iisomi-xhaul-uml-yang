@@ -1,0 +1,1048 @@
+module lldp-1-0 {
+  yang-version 1.1;
+  namespace "urn:onf:yang:lldp-1-0";
+  prefix lldp;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import core-model-1-4 {
+    prefix core-model;
+  }
+  import equipment-augment {
+    prefix equipment-augment;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: Lldp@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Technology specific interface definition for Ethernet MAC interfaces according to IEEE 802.1
+
+     Copyright 2022 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2022-03-25 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/llpd/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/llpd/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+  revision 2020-09-03 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/llpd/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/llpd/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+  revision 2020-01-23 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/llpd/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/llpd/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+  revision 2019-07-11 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/llpd/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/llpd/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  augment "/equipment-augment:protocol-collection" {
+    uses lldp;
+    description
+      "none";
+  }
+
+  /****************************************
+   * package notifications
+   **************************************/ 
+
+  notification remote-table-change {
+    uses remote-table-change;
+    description
+      "none";
+  }
+
+  grouping remote-table-change {
+    leaf remote-statistics {
+      type leafref {
+        path "/lldp:lldp/lldp:remote-statistics/lldp:";
+        require-instance false;
+      }
+      config false;
+      description
+        "none";
+    }
+    description
+      "A rem-table-change notification is sent when the value of remote-table-last-change-time changes. It can be utilized by an NMS to trigger LLDP remote systems table maintenance polls.";
+  }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
+  grouping lldp {
+    container remote-statistics {
+      config false;
+      uses remote-statistics;
+      description
+        "LLDP remote operational statistics data.";
+    }
+    container local-system-data {
+      config false;
+      uses local-system-data;
+      description
+        "LLDP local system operational data.";
+    }
+    leaf message-fast-tx {
+      type int16;
+      units "ticks";
+      default "-1";
+      description
+        "Reasonable values: 1..3600. Time interval in timer ticks between transmissions during fast transmission periods (i.e., txFast is non-zero).";
+    }
+    leaf message-tx-hold-multiplier {
+      type int8;
+      default "-1";
+      description
+        "Reasonable values: 2..10. Multiplier of msg-tx-interval.";
+    }
+    leaf message-tx-interval {
+      type int16;
+      units "ticks";
+      default "-1";
+      description
+        "Reasonable values 1..3600. Time interval in timer ticks between transmissions during normal transmission periods (i.e., txFast is zero).";
+    }
+    leaf reinit-delay {
+      type int8;
+      units "second";
+      default "-1";
+      description
+        "Reasonable values 1..10. Amount of delay (in units of seconds) from when admin-status becomes 'disabled' until re-initialization is attempted.";
+    }
+    leaf tx-credit-max {
+      type int8;
+      default "-1";
+      description
+        "Reasonable values 1..10. The maximum number of consecutive LLDPDUs that can be transmitted at any time.";
+    }
+    leaf tx-fast-init {
+      type int8;
+      default "-1";
+      description
+        "Reasonable values 1..8. Initial value for the fast transmitting LLDPPDU.";
+    }
+    leaf notification-interval {
+      type int16;
+      units "second";
+      default "-1";
+      description
+        "Reasonable values 1..3600. Controls the transmission of LLDP notifications.";
+    }
+    list port-list {
+      key "name dest-mac-address";
+      uses port-type;
+      description
+        "LLDP configuration information for a particular port.";
+    }
+    description
+      "Link Layer Discovery Protocol configuration and operational information.";
+  }
+
+  grouping remote-statistics {
+    leaf last-change-time {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The value of sysUpTime object. Name in ieee802-dot1ab-lldp: last-change-time";
+    }
+    leaf remote-inserts {
+      type int32;
+      units "table entries";
+      default "-1";
+      config false;
+      description
+        "The number of times the complete set of information advertised by a particular MSAP has been inserted into tables contained in remote-systems-data and lldpExtensions objects.";
+    }
+    leaf remote-deletes {
+      type int32;
+      units "table entries";
+      default "-1";
+      config false;
+      description
+        "The number of times the complete set of information advertised by a particular MSAP has been deleted from tables contained in remote-systems-data and lldpExtensions objects.";
+    }
+    leaf remote-drops {
+      type int32;
+      units "table entries";
+      default "-1";
+      config false;
+      description
+        "The number of times the complete set of information advertised by a particular MSAP could not be entered into tables contained in remote-systems-data and lldpExtensions objects because of insufficient resources.";
+    }
+    leaf remote-ageouts {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "The number of times the complete set of information advertised by a particular MSAP has been deleted from tables contained in remote-systems-data and lldpExtensions objects because the information timeliness interval has expired.";
+    }
+    description
+      "none";
+  }
+
+  grouping local-system-data {
+    leaf chassis-id-subtype {
+      type chassis-id-subtype-type;
+      default "CHASSIS_ID_SUBTYPE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "The type of encoding used to identify the chassis associated with the local system.";
+    }
+    leaf chassis-id {
+      type string;
+      default "Chassis ID not yet defined.";
+      config false;
+      description
+        "Reasonable length: 1 .. 255. Chassis component associated with the local system. The format of a chassis identifier string. Objects of this type are always used with an associated lldp-chassis-is-subtype object, which identifies the format of the particular lldp-chassis-id object instance. If the associated lldp-chassis-id-subtype object has a value of chassis-component, then the octet string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737) for a chassis component (i.e., an entPhysicalClass value of chassis(3)). If the associated lldp-chassis-id-subtype object has a value of interface-alias, then the octet string identifies a particular instance of the ifAlias object (defined in IETF RFC 2863) for an interface on the containing chassis. If the particular ifAlias object does not contain any values, another chassis identifier type should be used.If the associated lldp-chassis-id-subtype object has a value of port-component, then the octet string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737) for a port or backplane component within the containing chassis. If the associated lldp-chassis-id-subtype object has a value of mac-address, then this string identifies a particular unicast source address (encoded in network byte order and IEEE 802.3 canonical bit order), of a port on the containing chassis as defined in IEEE Std 802-2001. If the associated lldp-chassis-id-subtype object has a value of network-address, then this string identifies a particular network address, encoded in network byte order, associated with one or more ports on the containing chassis. The first octet contains the IANA Address Family Numbers enumeration value for the specific address type, and octets 2 through N contain the network address value in network byte order. If the associated lldp-chassis-id-subtype object has a value of interface-name, then the octet string identifies a particular instance of the ifName object (defined in IETF RFC 2863) for an interface on the containing chassis. If the particular ifName object does not contain any values, another chassis identifier type should be used. If the associated lldp-chassis-id-subtype object has a value of local, then this string identifies a locally assigned Chassis ID.";
+    }
+    leaf system-name {
+      type string;
+      default "System name not yet defined.";
+      config false;
+      description
+        "Reasonable length: 0 .. 255. System name of the local system.";
+    }
+    leaf system-description {
+      type string;
+      default "System description not yet defined.";
+      config false;
+      description
+        "Reasonable length: 0 .. 255. System description of the local system.";
+    }
+    container system-capabilities-supported {
+      config false;
+      uses system-capabilities-map-type;
+      description
+        "System capabilities are supported on the local system.";
+    }
+    container system-capabilities-enabled {
+      config false;
+      uses system-capabilities-map-type;
+      description
+        "System capabilities that are enabled on the local system.";
+    }
+    description
+      "LLDP local system operational data.";
+  }
+
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
+  typedef chassis-id-subtype-type {
+    type identityref {
+      base CHASSIS_ID_SUBTYPE_TYPE;
+    }
+    description
+      "The source of a chassis identifier.";
+  }
+
+  typedef admin-status-type {
+    type identityref {
+      base ADMIN_STATUS_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef address-family-type {
+    type identityref {
+      base ADDRESS_FAMILY_TYPE;
+    }
+    description
+      "Base identity from which identities describing address families are derived.";
+  }
+
+  typedef man-addr-if-subtype-type {
+    type identityref {
+      base MAN_ADDR_IF_SUBTYPE_TYPE;
+    }
+    description
+      "Management address interface subtype.";
+  }
+
+  typedef port-id-subtype-type {
+    type identityref {
+      base PORT_ID_SUBTYPE_TYPE;
+    }
+    description
+      "The source of a particular type of port identifier used in the LLDP YANG module.";
+  }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
+
+  identity CHASSIS_ID_SUBTYPE_TYPE {
+    description
+      "none";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_CHASSIS_COMPONENT {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on the value of entPhysicalAlias object (defined in IETF RFC 2737) for a chassis component (i.e., an entPhysicalClass value of chassis(3))";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_INTERFACE_ALIAS {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on the value of ifAlias object (defined in IETF RFC 2863) for an interface on the containing chassis.";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_PORT_COMPONENT {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on the value of entPhysicalAlias object (defined in IETF RFC 2737) for a port or backplane component (i.e., entPhysicalClass value of port(10) or backplane(4)), within the containing chassis.";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_MAC_ADDRESS {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on the value of a unicast source address (encoded in network byte order and IEEE 802.3 canonical bit order), of a port on the containing chassis as defined in IEEE Std 802-2001.";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_NETWORK_ADDRESS {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on a network address, associated with a particular chassis. The encoded address is actually composed of two fields. The first field is a single octet, representing the IANA AddressFamilyNumbers value for the specific address type, and the second field is the network address value.";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_INTERFACE_NAME {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on the value of ifName object (defined in IETF RFC 2863) for an interface on the containing chassis.";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_LOCAL {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "Represents a chassis identifier based on a locally defined value.";
+  }
+
+  identity CHASSIS_ID_SUBTYPE_TYPE_NOT_YET_DEFINED {
+    base CHASSIS_ID_SUBTYPE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMIN_STATUS_TYPE {
+    description
+      "none";
+  }
+
+  identity ADMIN_STATUS_TYPE_TX_ONLY {
+    base ADMIN_STATUS_TYPE;
+    description
+      "Value 1. Transmit LLDP frames only.";
+  }
+
+  identity ADMIN_STATUS_TYPE_RX_ONLY {
+    base ADMIN_STATUS_TYPE;
+    description
+      "Value 2. Receive LLDP frames only.";
+  }
+
+  identity ADMIN_STATUS_TYPE_TX_AND_RX {
+    base ADMIN_STATUS_TYPE;
+    description
+      "Value 3. Transmit and Receive LLDP frames.";
+  }
+
+  identity ADMIN_STATUS_TYPE_DISABLED {
+    base ADMIN_STATUS_TYPE;
+    description
+      "Value 4. Do Not Transmit or Receive LLDP frames.";
+  }
+
+  identity ADMIN_STATUS_TYPE_NOT_YET_DEFINED {
+    base ADMIN_STATUS_TYPE;
+    description
+      "none";
+  }
+
+  identity ADDRESS_FAMILY_TYPE {
+    description
+      "none";
+  }
+
+  identity ADDRESS_FAMILY_TYPE_IPV4 {
+    base ADDRESS_FAMILY_TYPE;
+    description
+      "This identity represents IPv4 address family.";
+  }
+
+  identity ADDRESS_FAMILY_TYPE_IPV6 {
+    base ADDRESS_FAMILY_TYPE;
+    description
+      "This identity represents IPv6 address family.";
+  }
+
+  identity ADDRESS_FAMILY_TYPE_NOT_YET_DEFINED {
+    base ADDRESS_FAMILY_TYPE;
+    description
+      "none";
+  }
+
+  identity MAN_ADDR_IF_SUBTYPE_TYPE {
+    description
+      "none";
+  }
+
+  identity MAN_ADDR_IF_SUBTYPE_TYPE_UNKNOWN {
+    base MAN_ADDR_IF_SUBTYPE_TYPE;
+    description
+      "Value 1. Interface is not known.";
+  }
+
+  identity MAN_ADDR_IF_SUBTYPE_TYPE_PORT_REF {
+    base MAN_ADDR_IF_SUBTYPE_TYPE;
+    description
+      "Value 2. Interface based on the port-ref MIB object.";
+  }
+
+  identity MAN_ADDR_IF_SUBTYPE_TYPE_SYSTEM_PORT_NUMBER {
+    base MAN_ADDR_IF_SUBTYPE_TYPE;
+    description
+      "Value 3. Interface based on the system port number.";
+  }
+
+  identity MAN_ADDR_IF_SUBTYPE_TYPE_NOT_YET_DEFINED {
+    base MAN_ADDR_IF_SUBTYPE_TYPE;
+    description
+      "none";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE {
+    description
+      "none";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_INTERFACE_ALIAS {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 1. Represents a port identifier based on the ifAlias MIB object, defined in IETF RFC 2863.";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_PORT_COMPONENT {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 2. Represents a port identifier based on the value of entPhysicalAlias (defined in IETF RFC 2737) for a port component (i.e., entPhysicalClass value of port(10)), within the containing chassis.";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_MAC_ADDRESS {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 3. Represents a port identifier based on a unicast source address (encoded in network byte order and IEEE 802.3 canonical bit order), which has been detected by the agent and associated with a particular port (IEEE Std 802-2001).";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_NETWORK_ADDRESS {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 4. Represents a port identifier based on a network address, detected by the agent and associated with a particular port.";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_INTERFACE_NAME {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 5. Represents a port identifier based on the ifName MIB object, defined in IETF RFC 2863.";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_AGENT_CIRCUIT_ID {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 6. Represents a port identifier based on the agent-local identifier of the circuit (defined in RFC 3046), detected by the agent and associated with a particular port.";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_LOCAL {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "Value 7. Represents a port identifier based on a value locally assigned.";
+  }
+
+  identity PORT_ID_SUBTYPE_TYPE_NOT_YET_DEFINED {
+    base PORT_ID_SUBTYPE_TYPE;
+    description
+      "none";
+  }
+
+  grouping system-capabilities-map-type {
+    leaf other {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 0. System has capabilities other than those listed below.";
+    }
+    leaf repeater {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 1. System has repeater capability.";
+    }
+    leaf bridge {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 2. System has bridge capability.";
+    }
+    leaf wlan-access-point {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 3. System has WLAN access point capability.";
+    }
+    leaf router {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 4. System has router capability.";
+    }
+    leaf telephone {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 5. System has telephone capability.";
+    }
+    leaf docsis-cable-device {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 6. System has DOCSIS Cable Device capability (IETF RFC 4639).";
+    }
+    leaf station-only {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 7. System has only station capability.";
+    }
+    leaf cvlan-component {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 8. System has C-VLAN component functionality.";
+    }
+    leaf svlan-component {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 9. System has S-VLAN component functionality.";
+    }
+    leaf two-port-mac-relay {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Position 10. System has Two-port MAC Relay (TPMR) functionality.";
+    }
+    description
+      "This describes system capabilities.";
+  }
+
+  grouping port-type {
+    leaf name {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+        require-instance false;
+      }
+      description
+        "The port name used to identify the port component (contained in the local chassis with the LLDP agent) associated with this entry.";
+    }
+    leaf dest-mac-address {
+      type string;
+      description
+        "Destination MAC address. The ieee:mac-address type has a pattern that allows upper and lower case letters. To avoid issues with string comparison, it is suggested to only use upper case for the letters in the hexadecimal numbers. Implementers using code comparing MAC addresses should note that there is still an issue with a difference between the IETF mac-address definition and the IEEE mac-address definition.";
+    }
+    leaf admin-status {
+      type admin-status-type;
+      default "ADMIN_STATUS_TYPE_NOT_YET_DEFINED";
+      description
+        "Administrative status of the local LLDP agent.";
+    }
+    leaf notification-enable {
+      type boolean;
+      default "false";
+      description
+        "Notification status.";
+    }
+    container tlvs-tx-enable {
+      uses tlvs-tx-enable-bits-type;
+      description
+        "LLDP TLVs whose transmission is allowed on the local LLDP agent by the network management.";
+    }
+    leaf message-fast-tx {
+      type int16;
+      units "ticks";
+      default "-1";
+      description
+        "Reasonable values: 1..3600. Time interval in timer ticks between transmissions during fast transmission periods (i.e., txFast is non-zero).";
+    }
+    leaf message-tx-hold-multiplier {
+      type int8;
+      default "-1";
+      description
+        "Reasonable values: 2..10. Multiplier of msg-tx-interval.";
+    }
+    leaf message-tx-interval {
+      type int16;
+      units "ticks";
+      default "-1";
+      description
+        "Reasonable values 1..3600. Time interval in timer ticks between transmissions during normal transmission periods (i.e., txFast is zero).";
+    }
+    leaf reinit-delay {
+      type int8;
+      units "second";
+      default "-1";
+      description
+        "Reasonable values 1..10. Amount of delay (in units of seconds) from when admin-status becomes 'disabled' until re-initialization is attempted.";
+    }
+    leaf tx-credit-max {
+      type int8;
+      default "-1";
+      description
+        "Reasonable values 1..10. The maximum number of consecutive LLDPDUs that can be transmitted at any time.";
+    }
+    leaf tx-fast-init {
+      type int8;
+      default "-1";
+      description
+        "Reasonable values 1..8. Initial value for the fast transmitting LLDPPDU.";
+    }
+    leaf notification-interval {
+      type int16;
+      units "second";
+      default "-1";
+      description
+        "Reasonable values 1..3600. Controls the transmission of LLDP notifications.";
+    }
+    list management-address-tx-port-list {
+      key "address-subtype man-address";
+      uses management-address-tx-port-type;
+      description
+        "Set of ports (represented as a PortList) on which the local system management address instance will be transmitted.";
+    }
+    leaf port-id-subtype {
+      type port-id-subtype-type;
+      default "PORT_ID_SUBTYPE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Port identifier encoding used in the associated 'port-id' object.";
+    }
+    leaf port-id {
+      type string;
+      default "Port ID not yet defined.";
+      config false;
+      description
+        "Reasonable length: 1 .. 255. Port component associated with a given port in the local system. The format of a port identifier string. Objects of this type are always used with an associated port-id-subtype object, which identifies the format of the particular lldp-port-id object instance. If the associated port-id-subtype object has a value of interface-alias, then the octet string identifies a particular instance of the ifAlias object (defined in IETF RFC 2863). If the particular ifAlias object does not contain any values, another port identifier type should be used. If the associated port-id-subtype object has a value of port-component, then the octet string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737) for a port or backplane component. If the associated port-id-subtype object has a value of mac-address, then this string identifies a particular unicast source address (encoded in network byte order and IEEE 802.3 canonical bit order) associated with the port (IEEE Std 802-2001). If the associated port-id-subtype object has a value of network-address, then this string identifies a network address associated with the port. The first octet contains the IANA AddressFamilyNumbers enumeration value for the specific address type, and octets 2 through N contain the networkAddress address value in network byte order. If the associated port-id-subtype object has a value of interface-name, then the octet string identifies a particular instance of the ifName object (defined in IETF RFC 2863). If the particular ifName object does not contain any values, another port identifier type should be used. If the associated port-id-subtype object has a value of agent-circuit-id, then this string identifies a agent-local identifier of the circuit (defined in RFC 3046). If the associated port-id-subtype object has a value of local, then this string identifies a locally assigned port ID.";
+    }
+    leaf port-desc {
+      type string;
+      default "Port description not yet defined.";
+      config false;
+      description
+        "Reasonable length: 0 .. 255. 802 LAN station's port description associated with the local system.";
+    }
+    container tx-statistics {
+      config false;
+      uses tx-statistics-container-type;
+      description
+        "LLDP frame transmission statistics for a particular port.";
+    }
+    container rx-statistics {
+      config false;
+      uses rx-statistics-container-type;
+      description
+        "LLDP frame reception statistics for a particular port.";
+    }
+    list remote-systems-data-list {
+      key "time-mark remote-index";
+      config false;
+      uses remote-systems-data-type;
+      description
+        "Information about a particular physical network connection.";
+    }
+    description
+      "Link Layer Discovery Protocol configuration and operational information.";
+  }
+
+  grouping tlvs-tx-enable-bits-type {
+    leaf port-desc {
+      type boolean;
+      default "false";
+      description
+        "Position 0. Transmit 'Port Description TLV'.";
+    }
+    leaf sys-name {
+      type boolean;
+      default "false";
+      description
+        "Position 1. Transmit 'System Name TLV'.";
+    }
+    leaf sys-desc {
+      type boolean;
+      default "false";
+      description
+        "Position 2. Transmit 'System Description TLV'.";
+    }
+    leaf sys-cap {
+      type boolean;
+      default "false";
+      description
+        "Position 3. Transmit 'System Capabilities TLV'.";
+    }
+    description
+      "none";
+  }
+
+  grouping management-address-tx-port-type {
+    leaf address-subtype {
+      type address-family-type;
+      description
+        "'Type of address.";
+    }
+    leaf man-address {
+      type string;
+      description
+        "Values have to follow the pattern '[0-9A-F]{2}([0-9A-F]{2}){0,30}'. Management address associated with this TLV.";
+    }
+    leaf tx-enable {
+      type boolean;
+      default "false";
+      description
+        "Transmission enabled status.";
+    }
+    leaf addr-len {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Length of the management address subtype and the management address fields in LLDPDUs transmitted by the local LLDP agent.";
+    }
+    leaf if-subtype {
+      type man-addr-if-subtype-type;
+      default "MAN_ADDR_IF_SUBTYPE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Interface numbering method used for defining the interface number, associated with the local system.";
+    }
+    leaf if-id {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Interface number for the management address component associated with the local system.";
+    }
+    description
+      "Set of ports (represented as a PortList) on which the local system management address instance will be transmitted.";
+  }
+
+  grouping tx-statistics-container-type {
+    leaf total-frames {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "A count of all LLDP frames transmitted through the port.";
+    }
+    leaf total-length-errors {
+      type int32;
+      units "error";
+      default "-1";
+      config false;
+      description
+        "A count of all LLDP length errors detected when constructing LLPDU frames for transmission through the port.";
+    }
+    description
+      "none";
+  }
+
+  grouping rx-statistics-container-type {
+    leaf total-ageouts {
+      type int32;
+      units "ageout";
+      default "-1";
+      config false;
+      description
+        "A count of the times that a neighbor's information is deleted because of rxInfoTTL timer expiration.";
+    }
+    leaf total-discarded-frames {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "A count of all LLDPDUs received and then discarded.";
+    }
+    leaf error-frames {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "A count of all LLDPDUs received at the port with one or more detectable errors.";
+    }
+    leaf total-frames {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "A count of all LLDP frames received at the port.";
+    }
+    leaf total-discarded-tlvs {
+      type int32;
+      units "tlvs";
+      default "-1";
+      config false;
+      description
+        "A count of all TLVs received at the port and discarded for any reason.";
+    }
+    leaf total-unrecognized-tlvs {
+      type int32;
+      units "tlvs";
+      default "-1";
+      config false;
+      description
+        "A count of all TLVs not recognized by the receiving LLDP local agent.";
+    }
+    description
+      "none";
+  }
+
+  grouping remote-systems-data-type {
+    leaf time-mark {
+      type int32;
+      config false;
+      description
+        "A TimeFilter for this entry. Non-negative integer that represents the time, modulo 2^32 (4294967296 decimal), in hundredths of a second between two epochs. In the value set and its semantics, this integer is equivalent to the TimeTicks type of the SMIv2.";
+    }
+    leaf remote-index {
+      type uint32;
+      config false;
+      description
+        "Reasonable values: 1 .. 2147483647. Represents an arbitrary local integer value used to identify a remote system.";
+    }
+    leaf remote-too-many-neighbors {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicates that there are too many neighbors as determined by the variable tooManyNeighbors.";
+    }
+    leaf remote-changes {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicates that there are changes in the remote system's data, as determined by the variable remoteChanges.";
+    }
+    leaf chassis-id-subtype {
+      type chassis-id-subtype-type;
+      default "CHASSIS_ID_SUBTYPE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Identify the chassis associated with the remote system.";
+    }
+    leaf chassis-id {
+      type string;
+      default "Chassis ID not yet defined.";
+      config false;
+      description
+        "Identify the chassis component associated with the remote system. The format of a chassis identifier string. Objects of this type are always used with an associated lldp-chassis-is-subtype object, which identifies the format of the particular lldp-chassis-id object instance. If the associated lldp-chassis-id-subtype object has a value of chassis-component, then the octet string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737) for a chassis component (i.e., an entPhysicalClass value of chassis(3)). If the associated lldp-chassis-id-subtype object has a value of interface-alias, then the octet string identifies a particular instance of the ifAlias object (defined in IETF RFC 2863) for an interface on the containing chassis. If the particular ifAlias object does not contain any values, another chassis identifier type should be used.If the associated lldp-chassis-id-subtype object has a value of port-component, then the octet string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737) for a port or backplane component within the containing chassis. If the associated lldp-chassis-id-subtype object has a value of mac-address, then this string identifies a particular unicast source address (encoded in network byte order and IEEE 802.3 canonical bit order), of a port on the containing chassis as defined in IEEE Std 802-2001. If the associated lldp-chassis-id-subtype object has a value of network-address, then this string identifies a particular network address, encoded in network byte order, associated with one or more ports on the containing chassis. The first octet contains the IANA Address Family Numbers enumeration value for the specific address type, and octets 2 through N contain the network address value in network byte order. If the associated lldp-chassis-id-subtype object has a value of interface-name, then the octet string identifies a particular instance of the ifName object (defined in IETF RFC 2863) for an interface on the containing chassis. If the particular ifName object does not contain any values, another chassis identifier type should be used. If the associated lldp-chassis-id-subtype object has a value of local, then this string identifies a locally assigned Chassis ID.";
+    }
+    leaf port-id-subtype {
+      type port-id-subtype-type;
+      default "PORT_ID_SUBTYPE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "The type of port identifier encoding used in the associated 'port-id' object.";
+    }
+    leaf port-desc {
+      type string;
+      default "Port description not yet defined.";
+      config false;
+      description
+        "Reasonable length: 0 .. 255. Description of the given port associated with the remote system.";
+    }
+    leaf port-id {
+      type string;
+      default "Port ID not yet defined.";
+      config false;
+      description
+        "Port component associated with the remote system. The format of a port identifier string. Objects of this type are always used with an associated port-id-subtype object, which identifies the format of the particular lldp-port-id object instance. If the associated port-id-subtype object has a value of interface-alias, then the octet string identifies a particular instance of the ifAlias object (defined in IETF RFC 2863). If the particular ifAlias object does not contain any values, another port identifier type should be used. If the associated port-id-subtype object has a value of port-component, then the octet string identifies a particular instance of the entPhysicalAlias object (defined in IETF RFC 2737) for a port or backplane component. If the associated port-id-subtype object has a value of mac-address, then this string identifies a particular unicast source address (encoded in network byte order and IEEE 802.3 canonical bit order) associated with the port (IEEE Std 802-2001). If the associated port-id-subtype object has a value of network-address, then this string identifies a network address associated with the port. The first octet contains the IANA AddressFamilyNumbers enumeration value for the specific address type, and octets 2 through N contain the networkAddress address value in network byte order. If the associated port-id-subtype object has a value of interface-name, then the octet string identifies a particular instance of the ifName object (defined in IETF RFC 2863). If the particular ifName object does not contain any values, another port identifier type should be used. If the associated port-id-subtype object has a value of agent-circuit-id, then this string identifies a agent-local identifier of the circuit (defined in RFC 3046). If the associated port-id-subtype object has a value of local, then this string identifies a locally assigned port ID.";
+    }
+    leaf system-name {
+      type string;
+      default "System name not yet defined.";
+      config false;
+      description
+        "Reasonable length: 0 .. 255. System name of the remote system.";
+    }
+    leaf system-description {
+      type string;
+      default "System description not yet defined.";
+      config false;
+      description
+        "Reasonable length: 0 .. 255. System description of the remote system.";
+    }
+    container system-capabilities-supported {
+      config false;
+      uses system-capabilities-map-type;
+      description
+        "Capabilities that are supported on the remote system.";
+    }
+    container system-capabilities-enabled {
+      config false;
+      uses system-capabilities-map-type;
+      description
+        "System capabilities that are enabled on the remote system.";
+    }
+    list management-address-list {
+      key "address-subtype address";
+      config false;
+      uses management-address-type;
+      description
+        "Management address information about a particular chassis component.";
+    }
+    list remote-unknown-tlv-list {
+      key "tlv-type";
+      config false;
+      uses remote-unknown-tlv-type;
+      description
+        "Information about an unrecognized TLV received from a physical network connection. Entries may be created and deleted in this table by the agent, if a physical topology discovery process is active.";
+    }
+    list remote-org-defined-info-list {
+      key "info-identifier info-subtype info-index";
+      config false;
+      uses remote-org-defined-info-type;
+      description
+        "Information about the unrecognized organizationally defined information advertised by the remote system.";
+    }
+    description
+      "none";
+  }
+
+  grouping management-address-type {
+    leaf address-subtype {
+      type address-family-type;
+      config false;
+      description
+        "Management address identifier encoding.";
+    }
+    leaf address {
+      type string;
+      config false;
+      description
+        "Values have to follow the pattern '[0-9A-F]{2}([0-9A-F]{2}){0,30}'. Management address component associated with the remote system.";
+    }
+    leaf if-subtype {
+      type man-addr-if-subtype-type;
+      default "MAN_ADDR_IF_SUBTYPE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Interface numbering method used for defining the interface number, associated with the remote system.";
+    }
+    leaf if-id {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Interface number regarding the management address component associated with the remote system.";
+    }
+    description
+      "none";
+  }
+
+  grouping remote-unknown-tlv-type {
+    leaf tlv-type {
+      type uint8;
+      config false;
+      description
+        "Reasonable values: 9..126. Type of TLV.";
+    }
+    leaf tlv-info {
+      type string;
+      default "TLV info not yet defined.";
+      config false;
+      description
+        "Representation of 0 .. 511 bits. Value extracted from TLV.";
+    }
+    description
+      "none";
+  }
+
+  grouping remote-org-defined-info-type {
+    leaf info-identifier {
+      type uint32;
+      config false;
+      description
+        "Reasonable values: 0 .. 16777215. The Organizationally Unique Identifier (OUI) or Company ID (CID).";
+    }
+    leaf info-subtype {
+      type uint16;
+      config false;
+      description
+        "Reasonable values: 1 .. 255. The subtype of the organizationally defined information received from the remote system.";
+    }
+    leaf info-index {
+      type uint32;
+      config false;
+      description
+        "Reasonable values: 1..2147483647. Arbitrary local integer value.";
+    }
+    leaf remote-info {
+      type string;
+      default "Remote info not yet defined.";
+      config false;
+      description
+        "Representation of 0 .. 507 bits. The organizationally defined information of the remote system.";
+    }
+    description
+      "none";
+  }
+}

@@ -1,0 +1,468 @@
+module equipment-augment-1-0 {
+  yang-version 1.1;
+  namespace "urn:onf:yang:equipment-augment-1-0";
+  prefix equipment-augment;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import core-model-1-4 {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: EquipmentAugment@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Copyright 2022 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2022-02-09 {
+    description
+      "Model for the Transport SDN Introduction at Telefonica Germany.
+       Please view https://github.com/openBackhaul/equipment/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/equipment/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  augment "/core-model:control-construct" {
+    uses control-construct-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:equipment/core-model:connector" {
+    uses connector-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:equipment/core-model:contained-holder" {
+    uses holder-spec;
+    description
+      "none";
+  }
+
+  /****************************************
+   * package associations
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
+  grouping control-construct-spec {
+    container control-construct-pac {
+      uses control-construct-pac;
+      description
+        "none";
+    }
+    container protocol-collection {
+      uses protocol-collection;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping control-construct-pac {
+    leaf external-label {
+      type string;
+      default "External label not yet defined.";
+      description
+        "The externalLabel attribute is for the operator to persistently store an identifier from his documentation inside the device.";
+    }
+    leaf last-config-change-timestamp {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "This attribute reports the timestamp of the last configuration-changed. Configuration changes are AttributeValueChanges, ObjectDeletions and ObjectCreations.";
+    }
+    description
+      "none";
+  }
+
+  grouping connector-spec {
+    container connector-pac {
+      uses connector-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping connector-pac {
+    leaf connector-kind {
+      type connector-kind-type;
+      default "CONNECTOR_KIND_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Kind of physical connector as available at the outside of the device.";
+    }
+    leaf outside-label {
+      type string;
+      default "Label of the position not yet defined.";
+      config false;
+      description
+        "String, which is identifying the physical position of a connector (e.g. RJ45 connector, SFP, IF port) at the outside of the device.";
+    }
+    leaf sequence-id {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "All instances of Connector in the Equipment::connector attribute shall be identifiable by a locally unique 'sequenceId'. The 'sequenceId' should be unique for the list of Connector objects of the Equipment object. Gaps in the sequence would be legal.";
+    }
+    description
+      "none";
+  }
+
+  grouping holder-spec {
+    container holder-pac {
+      uses holder-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping holder-pac {
+    leaf vendor-label {
+      type string;
+      default "Vendor label not yet defined.";
+      config false;
+      description
+        "Identifier of the holder according to the currently valid, official documentation of the equipment.";
+    }
+    leaf outside-label {
+      type string;
+      default "Label of the position not yet defined.";
+      config false;
+      description
+        "Label, which is printed at the outside of the device for identifying the physical position e.g. of a board inside the device.";
+    }
+    leaf sequence-id {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "All instances of Holder in the Equipment::containedHolder attribute shall be identifiable by a unique 'sequenceId'. The 'sequenceId' should be unique for the list of Holder objects of the Equipment object. Gaps in the sequence would be legal.";
+    }
+    description
+      "none";
+  }
+
+  grouping protocol-collection {
+    description
+      "Attachment point for protocols such as LLDP and similar.";
+  }
+
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
+  typedef connector-kind-type {
+    type identityref {
+      base CONNECTOR_KIND_TYPE;
+    }
+    description
+      "If required, this identity shall be referenced as a base identity for identities representing individual connector types as they are supported by the individual device. The additional identities referencing the CONNECTOR_KIND_TYPE shall be provided by vendors in a separate YANG module.";
+  }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
+
+  identity CONNECTOR_KIND_TYPE {
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_SC {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Subscriber Connector";
+  }
+
+  identity CONNECTOR_KIND_TYPE_FIBRE_CHANNEL_STYLE_1 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Copper connector";
+  }
+
+  identity CONNECTOR_KIND_TYPE_FIBRE_CHANNEL_STYLE_2 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Copper connector";
+  }
+
+  identity CONNECTOR_KIND_TYPE_BNC {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Bayonet/Threaded Neill-Concelman";
+  }
+
+  identity CONNECTOR_KIND_TYPE_FC {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Fibre Channel coax headers";
+  }
+
+  identity CONNECTOR_KIND_TYPE_FIBER_JACK {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_LC {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Lucent Connector";
+  }
+
+  identity CONNECTOR_KIND_TYPE_MT_RJ {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Mechanical Transfer - Registered Jack";
+  }
+
+  identity CONNECTOR_KIND_TYPE_MU {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Multiple Optical";
+  }
+
+  identity CONNECTOR_KIND_TYPE_SG {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_OPTICAL_PIGTAIL {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_MPO1x12 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Multifiber Parallel Optic";
+  }
+
+  identity CONNECTOR_KIND_TYPE_MPO2x16 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "Multifiber Parallel Optic";
+  }
+
+  identity CONNECTOR_KIND_TYPE_HSSDC_II {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "High Speed Serial Data Connector";
+  }
+
+  identity CONNECTOR_KIND_TYPE_COPPER_PIGTAIL {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_RJ45 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "8P8C, according to Clause 3 and Figures 1 through 5 of IEC 60603-7";
+  }
+
+  identity CONNECTOR_KIND_TYPE_NO_SEPERABLE_CONNECTOR {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_MXC2x16 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_ST {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "according to IEC 60874-10:1992, also often called BFOC/2.5";
+  }
+
+  identity CONNECTOR_KIND_TYPE_SMA {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_N {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_DIN_1.0_2.3 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_SCSI_50_PIN_1.27MM_PITCH {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_SCSI_FEMALE_68_PIN {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_D_SUB_FEMALE_15_PIN {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_RS-422 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_RS-232 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_RS-485 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_MDR68 {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_TNC {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity CONNECTOR_KIND_TYPE_NOT_YET_DEFINED {
+    base CONNECTOR_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity EQUIPMENT_CATEGORY {
+    description
+      "none";
+  }
+
+  identity EQUIPMENT_CATEGORY_BACKPLANE {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is some sort of device for aggregating and forwarding networking traffic, such as a shared backplane in a modular ethernet switch.  Note that an implementation may model a backplane as a single physical component, which is actually implemented as multiple discrete physical components (within a chassis or stack).";
+  }
+
+  identity EQUIPMENT_CATEGORY_POWER_UNIT {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is a power-supplying component.";
+  }
+
+  identity EQUIPMENT_CATEGORY_BATTERY {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is some sort of battery.";
+  }
+
+  identity EQUIPMENT_CATEGORY_FAN {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is a fan or other heat-reduction component.";
+  }
+
+  identity EQUIPMENT_CATEGORY_CENTRAL_PROCESSING_UNIT {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is some sort of central processing unit.";
+  }
+
+  identity EQUIPMENT_CATEGORY_STORAGE_DRIVE {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is some sort of component with data storage capability as its main functionality, e.g., hard disk drive (HDD), solid-state device (SSD), solid-state hybrid drive (SSHD), object storage device (OSD), or other.";
+  }
+
+  identity EQUIPMENT_CATEGORY_SENSOR {
+    base EQUIPMENT_CATEGORY;
+    description
+      "This identity is applicable if the hardware class is some sort of sensor, such as a temperature sensor within a router chassis.";
+  }
+
+  identity EQUIPMENT_CATEGORY_MODEM {
+    base EQUIPMENT_CATEGORY;
+    description
+      "Modulator-demodulator for converting digital data into analog signals for transmission and vice versa.";
+  }
+
+  identity EQUIPMENT_CATEGORY_PORT_EXPANSION_BOARD {
+    base EQUIPMENT_CATEGORY;
+    description
+      "A port expansion board is an add-on hardware component that increases the number of available physical connectors and logical interfaces.";
+  }
+
+  identity EQUIPMENT_CATEGORY_OUTDOOR_UNIT {
+    base EQUIPMENT_CATEGORY;
+    description
+      "Externally mounted hardware component that contains a radio frequency (RF) transceiver. The outdoor unit communicates with the indoor unit (IDU) via an IF interface.";
+  }
+
+  identity EQUIPMENT_CATEGORY_FULL_OUTDOOR_UNIT {
+    base EQUIPMENT_CATEGORY;
+    description
+      "Device that contains at least one pair of modem and radio frequency (RF) transceiver and might also contain switching functionality. The full outdoor unit provides payload interfaces (e.g. according to IEEE 802.3) for communicating with diverse kinds of devices.";
+  }
+
+  identity EQUIPMENT_CATEGORY_NOT_YET_DEFINED {
+    base EQUIPMENT_CATEGORY;
+    description
+      "none";
+  }
+
+  typedef equipment-category {
+    type identityref {
+      base EQUIPMENT_CATEGORY;
+    }
+    description
+      "none";
+  }
+}

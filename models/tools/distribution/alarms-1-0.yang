@@ -1,602 +1,662 @@
 module alarms-1-0 {
-    yang-version 1.1;        namespace "urn:onf:yang:alarms-1-0";
-    prefix alarms;
-    import ietf-yang-types {
-        prefix yang;
+  yang-version 1.1;
+  namespace "urn:onf:yang:alarms-1-0";
+  prefix alarms;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import core-model-1-4 {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: Alarms@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Copyright 2022 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2022-03-02 {
+    description
+      "Model for the Transport SDN Introduction at Telefonica Germany.
+       Please view https://github.com/openBackhaul/alarms/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/alarms/tree/tsi: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  augment "/core-model:control-construct" {
+    uses alarm-spec;
+    description
+      "none";
+  }
+
+  /****************************************
+   * package notifications
+   **************************************/ 
+
+  notification attribute-value-changed-notification {
+    uses attribute-value-changed-notification;
+    description
+      "none";
+  }
+
+  grouping attribute-value-changed-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts attribute value changed notifications.";
     }
-    import core-model-1-4 {
-        prefix core-model;
+    leaf referenced-severity-configuration-identifier {
+      type string;
+      config false;
+      description
+        "none";
     }
-    organization 
-         "openBackhaul.com proposal to Open Networking Foundation (ONF)";
-    contact 
-        "WG Web : https://github.com/openBackhaul/Overview
-        WG List: Alarms@openBackhaul.com
-        Editor : Thorsten Heinze
-        Email  : Thorsten.Heinze@openBackhaul.com";
-description
-        "Copyright 2022 openBackhaul.com
-        
-        Licensed under the Apache License, Version 2.0 (the 'License');
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-        http://www.apache.org/licenses/LICENSE-2.0
-        Unless required by applicable law or agreed to in writing, software
-        distributed under the License is distributed on an 'AS IS' BASIS,
-        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        See the License for the specific language governing permissions and
-        limitations under the License.";
-    revision 2022-03-02 {
-        description "Model for the Transport SDN Introduction at Telefonica Germany.
-Please view https://github.com/openBackhaul/alarms/issues for changes.";
-        reference "https://github.com/openBackhaul/alarms/tree/tsi: Model definition
-        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+    leaf attribute-name {
+      type string;
+      default "Attribute name not specified.";
+      config false;
+      description
+        "Name of the attribute that has been changed.";
     }
-    augment "/core-model:control-construct"{        uses alarm-spec;        description 
-        none;    }    /****************************************
-    * package notifications
-    **************************************/ 
-        notification attribute-value-changed-notification {
-            uses attribute-value-changed-notification;
-            description    
-                "none";
-        }
-        grouping attribute-value-changed-notification {
-            leaf counter {
-                type int32;
-                default "-1";
-                config false;
-                description    
-                    "Counts attribute value changed notifications.";
-            }
-            leaf referenced-severity-configuration-identifier {
-                type string;
-                config false;
-                description    
-                    "none";
-            }
-            leaf attribute-name {
-                type string;
-                default "Attribute name not specified.";
-                config false;
-                description    
-                    "Name of the attribute that has been changed.";
-            }
-            leaf new-value {
-                type string;
-                default "New value not specified.";
-                config false;
-                description    
-                    "Attribute value converted to a string (xml, json, ...)";
-            }
-            leaf timestamp {
-                type yang:date-and-time;
-                default "2010-11-20T14:00:00+01:00";
-                config false;
-                description    
-                    "none";
-            }
-            description    
-                "To be sent when an attribute has changed and one or more controllers have to update their data.";
-        }
-        notification alarm-event-notification {
-            uses alarm-event-notification;
-            description    
-                "none";
-        }
-        grouping alarm-event-notification {
-            leaf alarm-event-sequence-number {
-                type uint32;
-                config false;
-                description    
-                    "Identifier of the records of raised and cleared alarms.";
-            }
-            leaf alarm-type-id {
-                type alarm-type-id-type;
-                config false;
-                description    
-                    "This leaf and the leaf alarm-type-qualifier together provides a unique identification of the alarm type.";
-            }
-            leaf alarm-type-qualifier {
-                type string;
-                config false;
-                description    
-                    "This leaf is used when the alarm-type-id leaf cannot uniquely identify the alarm type.  Normally, this is not the case, and this leaf is the empty string.";
-            }
-            leaf resource {
-                type instance-identifier;
-                config false;
-                description    
-                    "Concrete resource causing this alarm notification.";
-            }
-            leaf problem-severity {
-                type severity-and-cleared-type;
-                default "SEVERITY_AND_CLEARED_TYPE_NOT_YET_DEFINED";
-                config false;
-                description    
-                    "Severity of the alarm, but also indication about the alarm being cleared.";
-            }
-            leaf timestamp {
-                type yang:date-and-time;
-                default "2010-11-20T14:00:00+01:00";
-                config false;
-                description    
-                    "The time-stamp when this alarm event occured.";
-            }
-            description    
-                "none";
-        }
+    leaf new-value {
+      type string;
+      default "New value not specified.";
+      config false;
+      description
+        "Attribute value converted to a string (xml, json, ...)";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    description
+      "To be sent when an attribute has changed and one or more controllers have to update their data.";
+  }
 
-    /****************************************
-    * grouping statements for object classes
-    **************************************/ 
-        grouping alarm-spec {
-            container alarm-pac {
-                uses alarm-pac;
-                description    
-                "none";
-            }
-            description    
-                "none";
-        }
-        grouping alarm-pac {
-            container alarm-capability {
-                config false;
-                uses alarm-capability;
-                description    
-                "none";
-            }
-            container alarm-configuration {
-                uses alarm-configuration;
-                description    
-                "none";
-            }
-            container current-alarms {
-                config false;
-                uses current-alarms;
-                description    
-                "none";
-            }
-            container alarm-event-records {
-                config false;
-                uses alarm-event-records;
-                description    
-                "none";
-            }
-            description    
-                "none";
-        }
-        grouping alarm-capability {
-            list alarm-inventory-list {
-                key "alarm-type-id alarm-type-qualifier";
-                config false;
-                uses alarm-kind-type;
-                description    
-                "This alarm-inventory list contains all types of alarms, which are available at the device.";
-            }
-            description    
-                "none";
-        }
-        grouping alarm-configuration {
-            list severity-configuration-list {
-                key "severity-configuration-identifier";
-                uses severity-configuration-type;
-                description    
-                "This severity-configuration list contains all severity levels, which are currently configured at the device.";
-            }
-            description    
-                "none";
-        }
-        grouping current-alarms {
-            list current-alarm-list {
-                key "current-alarm-identifier";
-                config false;
-                uses current-alarm-type;
-                description    
-                "Number of currently active alarms in the device.";
-            }
-            leaf number-of-current-alarms {
-                type int16;
-                units "alarms";
-                default "-1";
-                config false;
-                description    
-                    "This object shows the total number of currently active alarms in the system.";
-            }
-            leaf time-of-latest-change {
-                type yang:date-and-time;
-                default "2010-11-20T14:00:00+01:00";
-                config false;
-                description    
-                    "Date and time of the last time an alarm has either been raised or cleared.";
-            }
-            description    
-                "none";
-        }
-        grouping alarm-event-records {
-            list alarm-event-record-list {
-                key "alarm-event-sequence-number";
-                config false;
-                uses alarm-event-record-type;
-                description    
-                "This alarm-event list contains all events recorded by the device.";
-            }
-            leaf number-of-alarm-event-records {
-                type int16;
-                units "records";
-                default "-1";
-                config false;
-                description    
-                    "Number of alarm-events recorded by the device.";
-            }
-            leaf time-of-latest-change {
-                type yang:date-and-time;
-                default "2010-11-20T14:00:00+01:00";
-                config false;
-                description    
-                    "Date and time when the last alarm-event has been recorded.";
-            }
-            description    
-                "none";
-        }
+  notification alarm-event-notification {
+    uses alarm-event-notification;
+    description
+      "none";
+  }
 
-/****************************************
-* typedef statements
-**************************************/ 
-        typedef alarm-type-id-type {
-            type identityref {
-                base ALARM_TYPE_ID_TYPE;
-            }
-            description    
-                "none";
-        }
-        typedef alarm-category-type {
-            type identityref {
-                base ALARM_CATEGORY_TYPE;
-            }
-            description    
-                "none";
-        }
-        typedef severity-and-cleared-type {
-            type identityref {
-                base SEVERITY_AND_CLEARED_TYPE;
-            }
-            description    
-                "According to ITU-T M.3160";
-        }
+  grouping alarm-event-notification {
+    leaf alarm-event-sequence-number {
+      type uint32;
+      config false;
+      description
+        "Identifier of the records of raised and cleared alarms.";
+    }
+    leaf alarm-type-id {
+      type alarm-type-id-type;
+      config false;
+      description
+        "This leaf and the leaf alarm-type-qualifier together provides a unique identification of the alarm type.";
+    }
+    leaf alarm-type-qualifier {
+      type string;
+      config false;
+      description
+        "This leaf is used when the alarm-type-id leaf cannot uniquely identify the alarm type.  Normally, this is not the case, and this leaf is the empty string.";
+    }
+    leaf resource {
+      type instance-identifier;
+      config false;
+      description
+        "Concrete resource causing this alarm notification.";
+    }
+    leaf problem-severity {
+      type severity-and-cleared-type;
+      default "SEVERITY_AND_CLEARED_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Severity of the alarm, but also indication about the alarm being cleared.";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The time-stamp when this alarm event occured.";
+    }
+    description
+      "none";
+  }
 
-/*********************************************
-* grouping statements for complex data types
-*******************************************/ 
-        identity ALARM_TYPE_ID_TYPE {
-            description    
-                "none";
-        }
-        identity ALARM_CATEGORY_TYPE {
-            description    
-                "none";
-        }
-        identity ALARM_CATEGORY_TYPE_OTHER {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "None of the below.";
-        }
-        identity ALARM_CATEGORY_TYPE_COMMUNICATIONS_ALARM {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An alarm of this type is principally associated with the procedures and/or processes required to convey information from one point to another.";
-        }
-        identity ALARM_CATEGORY_TYPE_QUALITY_OF_SERVICE_ALARM {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An alarm of this type is principally associated with a degradation in the quality of a service.";
-        }
-        identity ALARM_CATEGORY_TYPE_PROCESSING_ERROR_ALARM {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An alarm of this type is principally associated with a software or processing fault.";
-        }
-        identity ALARM_CATEGORY_TYPE_EQUIPMENT_ALARM {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An alarm of this type is principally associated with an equipment fault.";
-        }
-        identity ALARM_CATEGORY_TYPE_ENVIRONMENTAL_ALARM {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An alarm of this type is principally associated with a condition relating to an enclosure in which the equipment resides.";
-        }
-        identity ALARM_CATEGORY_TYPE_INTEGRITY_VIOLATION {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An indication that information may have been illegally modified, inserted or deleted.";
-        }
-        identity ALARM_CATEGORY_TYPE_OPERATIONAL_VIOLATION {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An indication that the provision of the requested service was not possible due to the unavailability, malfunction or incorrect invocation of the service.";
-        }
-        identity ALARM_CATEGORY_TYPE_PHYSICAL_VIOLATION {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An indication that a physical resource has been violated in a way that suggests a security attack.";
-        }
-        identity ALARM_CATEGORY_TYPE_SECURITY_SERVICE_OR_MECHANISM_VIOLATION {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An indication that a security attack has been detected by a security service or mechanism.";
-        }
-        identity ALARM_CATEGORY_TYPE_TIME_DOMAIN_VIOLATION {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "An indication that an event has occurred at an unexpected or prohibited time.";
-        }
-        identity ALARM_CATEGORY_TYPE_NOT_YET_DEFINED {
-            base ALARM_CATEGORY_TYPE;
-            description    
-                "none";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE {
-            description    
-                "none";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_INDETERMINATE {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "Indicates that the severity level could not be determined. This level SHOULD be avoided.";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_WARNING {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "This severity level indicates the detection of a potential or impending service affecting fault, before any significant effects have been felt. Action should be taken to further diagnose (if necessary) and correct the problem in order to prevent it from becoming a more serious service affecting fault.";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_MINOR {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "This severity level indicates the existence of a non-service affecting fault condition and that corrective action should be taken in order to prevent a more serious (for example, service affecting) fault. Such a severity can be reported, for example, when the detected alarm condition is not currently degrading the capacity of the resource.";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_MAJOR {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "This severity level indicates that a service affecting condition has developed and an urgent corrective action is required. Such a severity can be reported, for example, when there is a severe degradation in the capability of the resource and its full capability must be restored.";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_CRITICAL {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "This severity level indicates that a service affecting condition has occurred and an immediate corrective action is required. Such a severity can be reported, for example, when a resource becomes totally out of service and its capability must be restored.";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_CLEARED {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "This value indicates that the alarm is no longer active.";
-        }
-        identity SEVERITY_AND_CLEARED_TYPE_NOT_YET_DEFINED {
-            base SEVERITY_AND_CLEARED_TYPE;
-            description    
-                "none";
-        }
-        identity SEVERITY_TYPE {
-            description    
-                "none";
-        }
-        identity SEVERITY_TYPE_INDETERMINATE {
-            base SEVERITY_TYPE;
-            description    
-                "Indicates that the severity level could not be determined. This level SHOULD be avoided.";
-        }
-        identity SEVERITY_TYPE_WARNING {
-            base SEVERITY_TYPE;
-            description    
-                "This severity level indicates the detection of a potential or impending service affecting fault, before any significant effects have been felt. Action should be taken to further diagnose (if necessary) and correct the problem in order to prevent it from becoming a more serious service affecting fault.";
-        }
-        identity SEVERITY_TYPE_MINOR {
-            base SEVERITY_TYPE;
-            description    
-                "This severity level indicates the existence of a non-service affecting fault condition and that corrective action should be taken in order to prevent a more serious (for example, service affecting) fault. Such a severity can be reported, for example, when the detected alarm condition is not currently degrading the capacity of the resource.";
-        }
-        identity SEVERITY_TYPE_MAJOR {
-            base SEVERITY_TYPE;
-            description    
-                "This severity level indicates that a service affecting condition has developed and an urgent corrective action is required. Such a severity can be reported, for example, when there is a severe degradation in the capability of the resource and its full capability must be restored.";
-        }
-        identity SEVERITY_TYPE_CRITICAL {
-            base SEVERITY_TYPE;
-            description    
-                "This severity level indicates that a service affecting condition has occurred and an immediate corrective action is required. Such a severity can be reported, for example, when a resource becomes totally out of service and its capability must be restored.";
-        }
-        identity SEVERITY_TYPE_NOT_YET_DEFINED {
-            base SEVERITY_TYPE;
-            description    
-                "none";
-        }
-        /****************************************
-        * package super-types
-        **************************************/ 
-            typedef severity-type {
-                type identityref {
-                    base SEVERITY_TYPE;
-                }
-                description    
-                "According to ITU-T M.3160";
-            }
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
-        grouping alarm-kind-type {
-            leaf alarm-type-id {
-                type alarm-type-id-type;
-                description    
-                    "The statically defined alarm type identifier for this possible alarm.";
-            }
-            leaf alarm-type-qualifier {
-                type string;
-                description    
-                    "The optionally defined alarm type identifier for this possible alarm.";
-            }
-            leaf will-clear {
-                type boolean;
-                default "false";
-                config false;
-                description    
-                    "This attribute tells the operator, whether the alarm will be automatically cleared when the correct corrective action has been taken.";
-            }
-            leaf description {
-                type string;
-                default "Not yet defined.";
-                config false;
-                description    
-                    "A description of the possible alarm. It should include information on possible underlying root causes and corrective actions.";
-            }
-            leaf alarm-category {
-                type alarm-category-type;
-                default "ALARM_CATEGORY_TYPE_NOT_YET_DEFINED";
-                config false;
-                description    
-                    "The X.733/X.736 event type for this alarm.";
-            }
-            leaf probable-cause {
-                type int16;
-                default "-1";
-                config false;
-                description    
-                    "If the value of the alarm-category attribute is chosen from ITU-T X.733, values 1-57 of this attribute have to be applied according to ITU-T X.721 section 14.2. If the value of the alarm-category attribute is chosen from ITU-T X.736, values 1-18 of this attribute have to be applied according to ITU-T X.721 section 14.2. If probable-cause and alarm-category cannot be mapped to those defined in ITU-T X.733 and ITU-T X.736, then the default value shall be represented in this attribute. In such case, the probable-cause-string attribute might be used.";
-            }
-            leaf probable-cause-string {
-                type string;
-                default "Not yet defined.";
-                config false;
-                description    
-                    "The user friendly string matching the probable cause integer value. The string should match the X.733 enumeration.";
-            }
-            leaf specific-problem {
-                type string;
-                default "Not yet defined.";
-                config false;
-                description    
-                    "This parameter, when present, identifies further refinements to the probable-cause of the alarm. This parameter qualifies the chosen probable-cause and may be used by the managed object class definer to specify a set of identifiers for use inmanaged object classes.";
-            }
-            description    
-                "none";
-        }
-        grouping severity-configuration-type {
-            leaf severity-configuration-identifier {
-                type string;
-                description    
-                    "Identifier of the data set of a severity configuration.";
-            }
-            leaf alarm-type-id {
-                type alarm-type-id-type;
-                config false;
-                description    
-                    "The alarm type identifier to match.";
-            }
-            leaf alarm-type-qualifier {
-                type string;
-                config false;
-                description    
-                    "The optionally defined alarm type identifier for this possible alarm.";
-            }
-            leaf-list resource-list {
-                type string;
-                config false;
-                min-elements 1;
-                description     
-                 "One or several xpath expressions describing individual resources or types of resources that a subject to the severity definition.";
-            }
-            leaf resource-group-description {
-                type string;
-                config false;
-                description    
-                    "Label that describes the group of ressources or ressource types that are subject to this severity configuration.";
-            }
-            leaf-list severity-level-list {
-                type severity-type;
-                default "SEVERITY_TYPE_NOT_YET_DEFINED";
-                description     
-                 "Specifies the configured severity level(s) for the matching alarm. If the alarm has several severity levels, the list shall be given in rising severity order. Example: Assume a high-utilization alarm type with two thresholds with the system-default severity levels of threshold1 = warning and threshold2 = minor. Setting this list to (minor, major) will assign the severity levels as threshold1 = minor and threshold2 = major.";
-            }
-            description    
-                "This list is used to override the system default alarm severity levels.";
-        }
-        grouping current-alarm-type {
-            leaf current-alarm-identifier {
-                type string;
-                description    
-                    "none";
-            }
-            leaf alarm-type-id {
-                type alarm-type-id-type;
-                config false;
-                description    
-                    "This attribute and the alarm-type-qualifier attribute together provides a unique identification of the alarm type.";
-            }
-            leaf alarm-type-qualifier {
-                type string;
-                config false;
-                description    
-                    "This attribute is used whenever the alarm-type-id attribute cannot uniquely identify the type of alarm. Usually, this is not required and this leaf is an empty string.";
-            }
-            leaf resource {
-                type instance-identifier;
-                config false;
-                description    
-                    "Concrete resource affected by this alarm.";
-            }
-            leaf alarm-severity {
-                type severity-type;
-                default "SEVERITY_TYPE_NOT_YET_DEFINED";
-                config false;
-                description    
-                    "Severity of the alarm.";
-            }
-            leaf timestamp {
-                type yang:date-and-time;
-                default "2010-11-20T14:00:00+01:00";
-                config false;
-                description    
-                    "Time when this alarm occurred. This represents the first time the alarm appeared; it can also represent that the alarm re-appeared after a purge.";
-            }
-            description    
-                "none";
-        }
-        grouping alarm-event-record-type {
-            leaf alarm-event-sequence-number {
-                type uint32;
-                description    
-                    "Identifier of the records of raised and cleared alarms.";
-            }
-            leaf alarm-type-id {
-                type alarm-type-id-type;
-                config false;
-                description    
-                    "This attribute and the alarm-type-qualifier attribute together provides a unique identification of the alarm type.";
-            }
-            leaf alarm-type-qualifier {
-                type string;
-                config false;
-                description    
-                    "This attribute is used when the alarm-type-id attribute does not suffice for uniquely identifying the alarm type.";
-            }
-            leaf resource {
-                type instance-identifier;
-                config false;
-                description    
-                    "Concrete resource affected by this alarm event.";
-            }
-            leaf alarm-severity {
-                type severity-and-cleared-type;
-                default "SEVERITY_AND_CLEARED_TYPE_NOT_YET_DEFINED";
-                config false;
-                description    
-                    "Severity of the alarm, but also indication about the alarm being cleared.";
-            }
-            leaf timestamp {
-                type yang:date-and-time;
-                default "2010-11-20T14:00:00+01:00";
-                config false;
-                description    
-                    "The time-stamp when this alarm event occured.";
-            }
-            description    
-                "none";
-        }
+  grouping alarm-spec {
+    container alarm-pac {
+      uses alarm-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
 
+  grouping alarm-pac {
+    container alarm-capability {
+      config false;
+      uses alarm-capability;
+      description
+        "none";
+    }
+    container alarm-configuration {
+      uses alarm-configuration;
+      description
+        "none";
+    }
+    container current-alarms {
+      config false;
+      uses current-alarms;
+      description
+        "none";
+    }
+    container alarm-event-records {
+      config false;
+      uses alarm-event-records;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping alarm-capability {
+    list alarm-inventory-list {
+      key "alarm-type-id alarm-type-qualifier";
+      config false;
+      uses alarm-kind-type;
+      description
+        "This alarm-inventory list contains all types of alarms, which are available at the device.";
+    }
+    description
+      "none";
+  }
+
+  grouping alarm-configuration {
+    list severity-configuration-list {
+      key "severity-configuration-identifier";
+      uses severity-configuration-type;
+      description
+        "This severity-configuration list contains all severity levels, which are currently configured at the device.";
+    }
+    description
+      "none";
+  }
+
+  grouping current-alarms {
+    list current-alarm-list {
+      key "current-alarm-identifier";
+      config false;
+      uses current-alarm-type;
+      description
+        "Number of currently active alarms in the device.";
+    }
+    leaf number-of-current-alarms {
+      type int16;
+      units "alarms";
+      default "-1";
+      config false;
+      description
+        "This object shows the total number of currently active alarms in the system.";
+    }
+    leaf time-of-latest-change {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "Date and time of the last time an alarm has either been raised or cleared.";
+    }
+    description
+      "none";
+  }
+
+  grouping alarm-event-records {
+    list alarm-event-record-list {
+      key "alarm-event-sequence-number";
+      config false;
+      uses alarm-event-record-type;
+      description
+        "This alarm-event list contains all events recorded by the device.";
+    }
+    leaf number-of-alarm-event-records {
+      type int16;
+      units "records";
+      default "-1";
+      config false;
+      description
+        "Number of alarm-events recorded by the device.";
+    }
+    leaf time-of-latest-change {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "Date and time when the last alarm-event has been recorded.";
+    }
+    description
+      "none";
+  }
+
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
+  typedef alarm-type-id-type {
+    type identityref {
+      base ALARM_TYPE_ID_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef alarm-category-type {
+    type identityref {
+      base ALARM_CATEGORY_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef severity-and-cleared-type {
+    type identityref {
+      base SEVERITY_AND_CLEARED_TYPE;
+    }
+    description
+      "According to ITU-T M.3160";
+  }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
+
+  identity ALARM_TYPE_ID_TYPE {
+    description
+      "none";
+  }
+
+  identity ALARM_CATEGORY_TYPE {
+    description
+      "none";
+  }
+
+  identity ALARM_CATEGORY_TYPE_OTHER {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "None of the below.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_COMMUNICATIONS_ALARM {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An alarm of this type is principally associated with the procedures and/or processes required to convey information from one point to another.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_QUALITY_OF_SERVICE_ALARM {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An alarm of this type is principally associated with a degradation in the quality of a service.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_PROCESSING_ERROR_ALARM {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An alarm of this type is principally associated with a software or processing fault.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_EQUIPMENT_ALARM {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An alarm of this type is principally associated with an equipment fault.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_ENVIRONMENTAL_ALARM {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An alarm of this type is principally associated with a condition relating to an enclosure in which the equipment resides.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_INTEGRITY_VIOLATION {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An indication that information may have been illegally modified, inserted or deleted.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_OPERATIONAL_VIOLATION {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An indication that the provision of the requested service was not possible due to the unavailability, malfunction or incorrect invocation of the service.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_PHYSICAL_VIOLATION {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An indication that a physical resource has been violated in a way that suggests a security attack.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_SECURITY_SERVICE_OR_MECHANISM_VIOLATION {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An indication that a security attack has been detected by a security service or mechanism.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_TIME_DOMAIN_VIOLATION {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "An indication that an event has occurred at an unexpected or prohibited time.";
+  }
+
+  identity ALARM_CATEGORY_TYPE_NOT_YET_DEFINED {
+    base ALARM_CATEGORY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_INDETERMINATE {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "Indicates that the severity level could not be determined. This level SHOULD be avoided.";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_WARNING {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "This severity level indicates the detection of a potential or impending service affecting fault, before any significant effects have been felt. Action should be taken to further diagnose (if necessary) and correct the problem in order to prevent it from becoming a more serious service affecting fault.";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_MINOR {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "This severity level indicates the existence of a non-service affecting fault condition and that corrective action should be taken in order to prevent a more serious (for example, service affecting) fault. Such a severity can be reported, for example, when the detected alarm condition is not currently degrading the capacity of the resource.";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_MAJOR {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "This severity level indicates that a service affecting condition has developed and an urgent corrective action is required. Such a severity can be reported, for example, when there is a severe degradation in the capability of the resource and its full capability must be restored.";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_CRITICAL {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "This severity level indicates that a service affecting condition has occurred and an immediate corrective action is required. Such a severity can be reported, for example, when a resource becomes totally out of service and its capability must be restored.";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_CLEARED {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "This value indicates that the alarm is no longer active.";
+  }
+
+  identity SEVERITY_AND_CLEARED_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_AND_CLEARED_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_INDETERMINATE {
+    base SEVERITY_TYPE;
+    description
+      "Indicates that the severity level could not be determined. This level SHOULD be avoided.";
+  }
+
+  identity SEVERITY_TYPE_WARNING {
+    base SEVERITY_TYPE;
+    description
+      "This severity level indicates the detection of a potential or impending service affecting fault, before any significant effects have been felt. Action should be taken to further diagnose (if necessary) and correct the problem in order to prevent it from becoming a more serious service affecting fault.";
+  }
+
+  identity SEVERITY_TYPE_MINOR {
+    base SEVERITY_TYPE;
+    description
+      "This severity level indicates the existence of a non-service affecting fault condition and that corrective action should be taken in order to prevent a more serious (for example, service affecting) fault. Such a severity can be reported, for example, when the detected alarm condition is not currently degrading the capacity of the resource.";
+  }
+
+  identity SEVERITY_TYPE_MAJOR {
+    base SEVERITY_TYPE;
+    description
+      "This severity level indicates that a service affecting condition has developed and an urgent corrective action is required. Such a severity can be reported, for example, when there is a severe degradation in the capability of the resource and its full capability must be restored.";
+  }
+
+  identity SEVERITY_TYPE_CRITICAL {
+    base SEVERITY_TYPE;
+    description
+      "This severity level indicates that a service affecting condition has occurred and an immediate corrective action is required. Such a severity can be reported, for example, when a resource becomes totally out of service and its capability must be restored.";
+  }
+
+  identity SEVERITY_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  /****************************************
+   * package super-types
+   **************************************/ 
+
+  typedef severity-type {
+    type identityref {
+      base SEVERITY_TYPE;
+    }
+    description
+      "According to ITU-T M.3160";
+  }
+
+  grouping alarm-kind-type {
+    leaf alarm-type-id {
+      type alarm-type-id-type;
+      description
+        "The statically defined alarm type identifier for this possible alarm.";
+    }
+    leaf alarm-type-qualifier {
+      type string;
+      description
+        "The optionally defined alarm type identifier for this possible alarm.";
+    }
+    leaf will-clear {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "This attribute tells the operator, whether the alarm will be automatically cleared when the correct corrective action has been taken.";
+    }
+    leaf description {
+      type string;
+      default "Not yet defined.";
+      config false;
+      description
+        "A description of the possible alarm. It should include information on possible underlying root causes and corrective actions.";
+    }
+    leaf alarm-category {
+      type alarm-category-type;
+      default "ALARM_CATEGORY_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "The X.733/X.736 event type for this alarm.";
+    }
+    leaf probable-cause {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "If the value of the alarm-category attribute is chosen from ITU-T X.733, values 1-57 of this attribute have to be applied according to ITU-T X.721 section 14.2. If the value of the alarm-category attribute is chosen from ITU-T X.736, values 1-18 of this attribute have to be applied according to ITU-T X.721 section 14.2. If probable-cause and alarm-category cannot be mapped to those defined in ITU-T X.733 and ITU-T X.736, then the default value shall be represented in this attribute. In such case, the probable-cause-string attribute might be used.";
+    }
+    leaf probable-cause-string {
+      type string;
+      default "Not yet defined.";
+      config false;
+      description
+        "The user friendly string matching the probable cause integer value. The string should match the X.733 enumeration.";
+    }
+    leaf specific-problem {
+      type string;
+      default "Not yet defined.";
+      config false;
+      description
+        "This parameter, when present, identifies further refinements to the probable-cause of the alarm. This parameter qualifies
+         the chosen probable-cause and may be used by the managed object class definer to specify a set of identifiers for use in
+         managed object classes.";
+    }
+    description
+      "none";
+  }
+
+  grouping severity-configuration-type {
+    leaf severity-configuration-identifier {
+      type string;
+      description
+        "Identifier of the data set of a severity configuration.";
+    }
+    leaf alarm-type-id {
+      type alarm-type-id-type;
+      config false;
+      description
+        "The alarm type identifier to match.";
+    }
+    leaf alarm-type-qualifier {
+      type string;
+      config false;
+      description
+        "The optionally defined alarm type identifier for this possible alarm.";
+    }
+    leaf-list resource-list {
+      type string;
+      config false;
+      min-elements 1;
+      description
+        "One or several xpath expressions describing individual resources or types of resources that a subject to the severity definition.";
+    }
+    leaf resource-group-description {
+      type string;
+      config false;
+      description
+        "Label that describes the group of ressources or ressource types that are subject to this severity configuration.";
+    }
+    leaf-list severity-level-list {
+      type severity-type;
+      default "SEVERITY_TYPE_NOT_YET_DEFINED";
+      description
+        "Specifies the configured severity level(s) for the matching alarm. If the alarm has several severity levels, the list shall be given in rising severity order. Example: Assume a high-utilization alarm type with two thresholds with the system-default severity levels of threshold1 = warning and threshold2 = minor. Setting this list to (minor, major) will assign the severity levels as threshold1 = minor and threshold2 = major.";
+    }
+    description
+      "This list is used to override the system default alarm severity levels.";
+  }
+
+  grouping current-alarm-type {
+    leaf current-alarm-identifier {
+      type string;
+      description
+        "none";
+    }
+    leaf alarm-type-id {
+      type alarm-type-id-type;
+      config false;
+      description
+        "This attribute and the alarm-type-qualifier attribute together provides a unique identification of the alarm type.";
+    }
+    leaf alarm-type-qualifier {
+      type string;
+      config false;
+      description
+        "This attribute is used whenever the alarm-type-id attribute cannot uniquely identify the type of alarm. Usually, this is not required and this leaf is an empty string.";
+    }
+    leaf resource {
+      type instance-identifier;
+      config false;
+      description
+        "Concrete resource affected by this alarm.";
+    }
+    leaf alarm-severity {
+      type severity-type;
+      default "SEVERITY_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Severity of the alarm.";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "Time when this alarm occurred. This represents the first time the alarm appeared; it can also represent that the alarm re-appeared after a purge.";
+    }
+    description
+      "none";
+  }
+
+  grouping alarm-event-record-type {
+    leaf alarm-event-sequence-number {
+      type uint32;
+      description
+        "Identifier of the records of raised and cleared alarms.";
+    }
+    leaf alarm-type-id {
+      type alarm-type-id-type;
+      config false;
+      description
+        "This attribute and the alarm-type-qualifier attribute together provides a unique identification of the alarm type.";
+    }
+    leaf alarm-type-qualifier {
+      type string;
+      config false;
+      description
+        "This attribute is used when the alarm-type-id attribute does not suffice for uniquely identifying the alarm type.";
+    }
+    leaf resource {
+      type instance-identifier;
+      config false;
+      description
+        "Concrete resource affected by this alarm event.";
+    }
+    leaf alarm-severity {
+      type severity-and-cleared-type;
+      default "SEVERITY_AND_CLEARED_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Severity of the alarm, but also indication about the alarm being cleared.";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The time-stamp when this alarm event occured.";
+    }
+    description
+      "none";
+  }
 }

@@ -135,7 +135,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_e9fuolE7Eembl8KFq0LDlA" name="RemoteStatistics">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_FaUsoD3bEeq-jKgAyfeWBw" name="lastChangeTime" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_FaUsoT3bEeq-jKgAyfeWBw" annotatedElement="_FaUsoD3bEeq-jKgAyfeWBw">
-            <body>The value of sysUpTime object. Name in ieee802-dot1ab-lldp: last-change-time</body>
+            <body>Date and time of the latest change. Name in ieee802-dot1ab-lldp: last-change-time</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_FaUsoj3bEeq-jKgAyfeWBw" value="2010-11-20T14:00:00+01:00"/>
@@ -521,7 +521,7 @@
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_bpMwUOJ-Ee2_X-xlkZVq0A" name="ManagementAddressTxPortType">
         <ownedComment xmi:type="uml:Comment" xmi:id="_SyIzkOJ_Ee2_X-xlkZVq0A" annotatedElement="_bpMwUOJ-Ee2_X-xlkZVq0A">
-          <body>Set of ports (represented as a PortList) on which the local system management address instance will be transmitted.</body>
+          <body> controls selection of LLDP management address TLV instances to be transmitted on individual port/destination address pairs.</body>
         </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_r5CmkOJ_Ee2_X-xlkZVq0A" name="addressSubtype" type="_ER3uMOMmEe2kEr5xFi3dzA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_adcc8OKAEe2_X-xlkZVq0A" annotatedElement="_r5CmkOJ_Ee2_X-xlkZVq0A">
@@ -530,9 +530,9 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_iikxAOKAEe2_X-xlkZVq0A" name="manAddress" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_iikxAeKAEe2_X-xlkZVq0A" annotatedElement="_iikxAOKAEe2_X-xlkZVq0A">
-            <body>Values have to follow the pattern '[0-9A-F]{2}([0-9A-F]{2}){0,30}'. Management address associated with this TLV.</body>
+            <body>Management address associated with this TLV.</body>
           </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <type xmi:type="uml:DataType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_3VHAAvZaEeWhRf3FikFX5w"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_CwZjYOKBEe2_X-xlkZVq0A" name="txEnable" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_CwZjYeKBEe2_X-xlkZVq0A" annotatedElement="_CwZjYOKBEe2_X-xlkZVq0A">
@@ -814,9 +814,9 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_hTYjkOKMEe2_X-xlkZVq0A" name="address" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_hTYjkeKMEe2_X-xlkZVq0A" annotatedElement="_hTYjkOKMEe2_X-xlkZVq0A">
-            <body>Values have to follow the pattern '[0-9A-F]{2}([0-9A-F]{2}){0,30}'. Management address component associated with the remote system.</body>
+            <body>Management address component associated with the remote system.</body>
           </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <type xmi:type="uml:DataType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_3VHAAvZaEeWhRf3FikFX5w"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_qJ87oOKMEe2_X-xlkZVq0A" name="ifSubtype" type="_glcmoOMoEe2kEr5xFi3dzA" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_qJ87oeKMEe2_X-xlkZVq0A" annotatedElement="_qJ87oOKMEe2_X-xlkZVq0A">
@@ -874,6 +874,12 @@
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_6Om8YO5QEe2-X84SWQeIUA" value="Remote info not yet defined."/>
         </ownedAttribute>
       </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_Sq3BAO_fEe2FnpNXamwz-Q" client="_bpMwUOJ-Ee2_X-xlkZVq0A">
+        <supplier xmi:type="uml:DataType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_3VHAAvZaEeWhRf3FikFX5w"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_blxGgO_fEe2FnpNXamwz-Q" client="_EBOREOKMEe2_X-xlkZVq0A">
+        <supplier xmi:type="uml:DataType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_3VHAAvZaEeWhRf3FikFX5w"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_7AnhsFFoEembl8KFq0LDlA" name="ExplanatoryOnly">
       <packagedElement xmi:type="uml:Usage" xmi:id="_CP_XQOJ8Ee2_X-xlkZVq0A" client="_O9ATUN-FEe2wY74R1o5n4Q" supplier="_sh3GsFn7EemLHrBn5FkI8A"/>
@@ -897,7 +903,7 @@
       <packagedElement xmi:type="uml:Usage" xmi:id="_oGzcQONJEe2kEr5xFi3dzA" client="_l4-n8OKHEe2_X-xlkZVq0A" supplier="_fFdW0OK1Ee2_X-xlkZVq0A"/>
       <packagedElement xmi:type="uml:Usage" xmi:id="_31dGcONJEe2kEr5xFi3dzA" client="_l4-n8OKHEe2_X-xlkZVq0A" supplier="_fFdW0OK1Ee2_X-xlkZVq0A"/>
       <packagedElement xmi:type="uml:Usage" xmi:id="_bP_FYONKEe2kEr5xFi3dzA" client="_EBOREOKMEe2_X-xlkZVq0A" supplier="_ER3uMOMmEe2kEr5xFi3dzA"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_W1OU0ONLEe2kEr5xFi3dzA" client="_EBOREOKMEe2_X-xlkZVq0A" supplier="_glcmoOMoEe2kEr5xFi3dzA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_W1OU0ONLEe2kEr5xFi3dzA" client="_e9d5cFE7Eembl8KFq0LDlA" supplier="_glcmoOMoEe2kEr5xFi3dzA"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
@@ -939,12 +945,9 @@
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:mac-interface" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing Ethernet MAC interfaces according to IEEE 802.1." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:lldp" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing LLDP and reading LLDP information according to IEEE Std 802.1AB-2016." copyright="Copyright 2023 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_tJVNAJ5wEemxJoxK-03g3w" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="Lldp@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_D0vQAKOEEeyg9Z72WBodCw" date="2022-03-25" version="1.0.0-tsp.220325.1200" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/llpd/issues" reference="https://github.com/openBackhaul/llpd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_5_PwcD3aEeq-jKgAyfeWBw" date="2020-09-03" version="1.0.0-tsp.200903.2045" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/llpd/issues" reference="https://github.com/openBackhaul/llpd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_ZPeRMJ5xEemxJoxK-03g3w" date="2020-01-23" version="1.0.0-tsp.200123.1415" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/llpd/issues" reference="https://github.com/openBackhaul/llpd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_s4WHgKRZEeynqq2A08RsNA" date="2019-07-11" version="1.0.0-tsp.190711.1725" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/llpd/issues" reference="https://github.com/openBackhaul/llpd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_D0vQAKOEEeyg9Z72WBodCw" date="2023-05-11" version="1.0.0-tsp.230511.1420" description="Model for Transport SDN at Telefonica Germany." changeLog="https://github.com/openBackhaul/llpd/issues" reference="https://github.com/openBackhaul/llpd/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_e9cEQFE7Eembl8KFq0LDlA" base_StructuralFeature="_e9bdNFE7Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_e9crUFE7Eembl8KFq0LDlA" base_Property="_e9bdNFE7Eembl8KFq0LDlA"/>
@@ -1244,7 +1247,7 @@
   <OpenModel_Profile:Reference xmi:id="_yaMg4OmaEe2p1N5JfzUKzw" base_Element="_yZ_skOmaEe2p1N5JfzUKzw" reference="9.2.5.19 of IEEE Std 802.1AB-2016"/>
   <OpenModel_Profile:Reference xmi:id="_yaNH8OmaEe2p1N5JfzUKzw" base_Element="_yaDW8OmaEe2p1N5JfzUKzw" reference="9.2.5.7 of IEEE Std 802.1AB-2016"/>
   <OpenModel_Profile:Specify xmi:id="_YzMHoO_TEe2KvpAw7wU5zg" base_Abstraction="_HNxJEO_TEe2KvpAw7wU5zg">
-    <target>/EquipmentAugment:ProtocolCollection:ProtocolCollection</target>
+    <target>/CoreModel:ControlConstruct:ControlConstruct/EquipmentAugment:ProtocolCollection:ProtocolCollection</target>
   </OpenModel_Profile:Specify>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_PkOy0O_VEe2KvpAw7wU5zg" base_Property="_PkOLwO_VEe2KvpAw7wU5zg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_PkPZ4O_VEe2KvpAw7wU5zg" base_StructuralFeature="_PkOLwO_VEe2KvpAw7wU5zg" isInvariant="true"/>

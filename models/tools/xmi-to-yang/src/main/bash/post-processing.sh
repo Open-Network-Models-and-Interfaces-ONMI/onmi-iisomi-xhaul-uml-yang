@@ -288,6 +288,11 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   replace="import mac-interface-1-0";
   sed -i -e "s/$find/$replace/g" $yang;
   
+   ## imports
+  find="import equipment-augment";
+  replace="import equipment-augment-1-0";
+  sed -i -e "s/$find/$replace/g" $yang;
+
   find="import implementation-common-data-types";
   replace="import ietf-yang-types";
   sed -i -e "s/$find/$replace/g" $yang;
@@ -348,6 +353,12 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   find="backup-and-restore:backup-and-restore-cc-spec";
   replace="core-model:control-construct";
   sed -i -e "s/$find/$replace/g" $yang;
+  
+  ## find/replace lldp remote-statistics leafref path
+  find="\"\/lldp:lldp\/lldp:remote-statistics\/lldp:";
+  replace="\"\/core-model:control-construct\/equipment-augment:protocol-collection\/lldp:remote-statistics\/lldp:last-change-time";
+  sed -i -e "s/$find/$replace/g" $yang;
+
   
   mv $filename ${fileversions[$index]}".yang"; 
 done
