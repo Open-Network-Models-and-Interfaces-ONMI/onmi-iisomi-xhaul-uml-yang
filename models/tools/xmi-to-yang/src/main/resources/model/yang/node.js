@@ -38,6 +38,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
     this.presence=undefined;
     this.withSuffix=false;
     this.isleafRef=undefined;
+    this.isRequireInstance=undefined;
     this.type="";
     this.store="";
 }
@@ -70,6 +71,12 @@ Node.prototype.buildChild = function (att, type, store) {
 
         case "leaf":
             obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName, this.store);
+            if(att.isRequireInstance){
+                obj.isRequireInstance = att.isRequireInstance;
+                obj.type.isRequireInstance = att.isRequireInstance;
+            }if(att["min-elements"] && att["min-elements"] > 0){
+                obj.isMandatory = true;
+            }
             break;
         case "enumeration":
             obj = new leaf(this.name, att.id, att.config, att.defaultValue, att.description, att, att.support, att.status, att.fileName, this.store);

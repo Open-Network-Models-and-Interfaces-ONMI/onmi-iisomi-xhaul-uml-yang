@@ -203,6 +203,9 @@ module.exports = {
                                 ele[i].attribute[j]=null;
                                 break;
                             } else {
+                                if (store.association[k].lifecycleAggregate == true) {
+                                    ele[i].attribute[j].isRequireInstance = true;                                
+                                }
                                 //ele[i].attribute[j].isleafRef = true;
                                 if (store.association[k].upperValue > 1 || store.association[k].upperValue == "*") {
                                     ele[i].attribute[j].nodeType == "leaf-list";

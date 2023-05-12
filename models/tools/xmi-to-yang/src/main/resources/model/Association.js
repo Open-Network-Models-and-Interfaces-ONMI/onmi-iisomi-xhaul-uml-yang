@@ -10,7 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function association(name, id, nodetype, upperValue, lowerValue,assoid,strictCom,extendedCom){
+function association(name, id, nodetype, upperValue, lowerValue,assoid,strictCom,extendedCom,lifecycleAggregate){
     this.name = name;
     this.id = id;
     this.nodeType = nodetype;
@@ -19,6 +19,7 @@ function association(name, id, nodetype, upperValue, lowerValue,assoid,strictCom
     this.assoid=assoid;
     this.strictCom=strictCom;
     this.extendedCom=extendedCom;
+    this.lifecycleAggregate=lifecycleAggregate;
     this.constraint=undefined;
     this.memberEnd=undefined;
 }

@@ -106,6 +106,12 @@ config false;
     }else{
         defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
     }
+
+    var mandatory = "";
+    if(this.isMandatory){   
+    if(!this.defaultValue)     
+    mandatory = PRE + "\tmandatory true;\r\n";
+    }
     
     var type = "";
     var simpletype="";
@@ -113,7 +119,11 @@ config false;
         type = this.type.writeNode(layer + 1);
     } else if (typeof this.type == "string") {
         if (this.type.split("+")[0] == "leafref") {
-            type = PRE + "\ttype leafref {\r\n require-instance false;\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
+            if(this.isRequireInstance){
+                type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
+            }else{
+                type = PRE + "\ttype leafref {\r\n require-instance false;\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
+            }
         } else {
             type = PRE + "\ttype " + Util.typeifyName(this.type) + ";\r\n";
         }
@@ -179,12 +189,15 @@ config false;
        
     }
 
+    
+
     var s = PRE + name + " {\r\n" +
         feature +
         type +
         units +
         defvalue +
         config +
+        mandatory +
         status +
         descript + PRE + "}\r\n";
         return s;

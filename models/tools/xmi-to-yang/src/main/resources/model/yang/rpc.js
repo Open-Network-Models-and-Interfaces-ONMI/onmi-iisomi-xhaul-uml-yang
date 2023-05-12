@@ -44,6 +44,12 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
     switch (type) {
         case "leaf":
             obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName);
+            if(att.isRequireInstance){
+                obj.isRequireInstance = att.isRequireInstance;
+                obj.type.isRequireInstance = att.isRequireInstance;
+            }if(att["min-elements"] && att["min-elements"] > 0){
+                obj.isMandatory = true;
+            }
             break;
         case "enumeration":
             obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att, att.support, att.status, att.fileName);
