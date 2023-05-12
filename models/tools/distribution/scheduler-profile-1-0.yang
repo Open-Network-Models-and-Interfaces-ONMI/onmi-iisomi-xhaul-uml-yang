@@ -1,0 +1,322 @@
+module scheduler-profile-1-0 {
+    yang-version 1.1;        namespace "urn:onf:yang:scheduler-profile-1-0";
+    prefix scheduler-profile;
+    import ietf-yang-types {
+        prefix yang;
+    }
+    import core-model-1-4 {
+        prefix core-model;
+    }
+    organization 
+         "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+    contact 
+        "WG Web : https://github.com/openBackhaul/Overview
+        WG List: SchedulerProfile@openBackhaul.com
+        Editor : Thorsten Heinze
+        Email  : Thorsten.Heinze@openBackhaul.com";
+description
+        "Technology specific definition for scheduler profiles that can be referenced by multiple interface instances.
+        
+        Copyright 2022 openBackhaul.com
+        
+        Licensed under the Apache License, Version 2.0 (the 'License');
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an 'AS IS' BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.";
+    revision 2022-03-31 {
+        description "Model for the Transport SDN Pilot at Telefonica Germany
+Please view https://github.com/openBackhaul/schedulerProfile/issues for changes.";
+        reference "https://github.com/openBackhaul/schedulerProfile/tree/tsp: Model definition
+        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+    }
+     identity PROFILE_NAME_TYPE_SCHEDULER_PROFILE {
+ base core-model:PROFILE_NAME_TYPE; 
+ description "none"; 
+}
+ 
+ augment "/core-model:control-construct/core-model:profile-collection/core-model:profile"{ 
+ when "derived-from-or-self(./core-model:profile-name, 'scheduler-profile:PROFILE_NAME_TYPE_SCHEDULER_PROFILE')";        uses scheduler-profile-spec;        description 
+        none;    }    /****************************************
+    * package notifications
+    **************************************/ 
+        notification object-creation-notification {
+            uses object-creation-notification;
+            description    
+                "none";
+        }
+        grouping object-creation-notification {
+            leaf counter {
+                type int32;
+                default "-1";
+                config false;
+                description    
+                    "Counts object creation notifications.";
+            }
+            leaf timestamp {
+                type yang:date-and-time;
+                default "2010-11-20T14:00:00+01:00";
+                config false;
+                description    
+                    "none";
+            }
+            leaf object-id-ref {
+                type leafref {
+                    path "/core-model:control-construct/core-model:profile-collection/core-model:profile/core-model:uuid";
+                    require-instance false;
+                }
+                config false;
+                description    
+                    "none";
+            }
+            leaf object-type {
+                type string;
+                default "Type of created object not specified.";
+                config false;
+                description    
+                    "none";
+            }
+            description    
+                "none";
+        }
+        notification object-deletion-notification {
+            uses object-deletion-notification;
+            description    
+                "none";
+        }
+        grouping object-deletion-notification {
+            leaf counter {
+                type int32;
+                default "-1";
+                config false;
+                description    
+                    "Counts object deletion notifications.";
+            }
+            leaf timestamp {
+                type yang:date-and-time;
+                default "2010-11-20T14:00:00+01:00";
+                config false;
+                description    
+                    "none";
+            }
+            leaf object-id-ref {
+                type leafref {
+                    path "/core-model:control-construct/core-model:profile-collection/core-model:profile/core-model:uuid";
+                    require-instance false;
+                }
+                config false;
+                description    
+                    "none";
+            }
+            description    
+                "none";
+        }
+
+    /****************************************
+    * grouping statements for object classes
+    **************************************/ 
+        grouping scheduler-profile-spec {
+            container scheduler-profile-pac {
+                uses scheduler-profile-pac;
+                description    
+                "none";
+            }
+            description    
+                "none";
+        }
+        grouping scheduler-profile-pac {
+            container scheduler-profile-capability {
+                config false;
+                uses scheduler-profile-capability;
+                description    
+                "none";
+            }
+            container scheduler-profile-configuration {
+                uses scheduler-profile-configuration;
+                description    
+                "none";
+            }
+            description    
+                "none";
+        }
+        grouping scheduler-profile-capability {
+            leaf scheduler-kind-configuration-is-avail {
+                type boolean;
+                default "false";
+                config false;
+                description    
+                    "This attribute has to be set on 'true', if the kind of scheduler can be configured for a profile, which can be referenced by several interfaces.";
+            }
+            list available-queue-list {
+                key "queue-name";
+                config false;
+                min-elements 1;
+                max-elements 8;
+                uses available-queue-type;
+                description    
+                "List of queues, which are available at the physical interface.";
+            }
+            description    
+                "none";
+        }
+        grouping scheduler-profile-configuration {
+            list queue-behavior-list {
+                key "queue-name";
+                min-elements 1;
+                max-elements 8;
+                uses queue-behavior-type;
+                description    
+                "Defines scheduling and dropping behavior of all queues.";
+            }
+            description    
+                "none";
+        }
+
+/****************************************
+* typedef statements
+**************************************/ 
+        typedef queue-name-type {
+            type identityref {
+                base QUEUE_NAME_TYPE;
+            }
+            description    
+                "none";
+        }
+        typedef scheduler-kind-type {
+            type identityref {
+                base SCHEDULER_KIND_TYPE;
+            }
+            description    
+                "none";
+        }
+
+/*********************************************
+* grouping statements for complex data types
+*******************************************/ 
+        identity QUEUE_NAME_TYPE {
+            description    
+                "none";
+        }
+        identity QUEUE_NAME_TYPE_BEST_EFFORT_QUEUE {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=0;";
+        }
+        identity QUEUE_NAME_TYPE_ASSURED_FORWARDING_QUEUE1 {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=1;";
+        }
+        identity QUEUE_NAME_TYPE_ASSURED_FORWARDING_QUEUE2 {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=2;";
+        }
+        identity QUEUE_NAME_TYPE_ASSURED_FORWARDING_QUEUE3 {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=3;";
+        }
+        identity QUEUE_NAME_TYPE_ASSURED_FORWARDING_QUEUE4 {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=4;";
+        }
+        identity QUEUE_NAME_TYPE_EXPEDITED_FORWARDING_QUEUE {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=5;";
+        }
+        identity QUEUE_NAME_TYPE_CLASS_SELECTOR_QUEUE6 {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=6;";
+        }
+        identity QUEUE_NAME_TYPE_CLASS_SELECTOR_QUEUE7 {
+            base QUEUE_NAME_TYPE;
+            description    
+                "QueueNumber=7;";
+        }
+        identity QUEUE_NAME_TYPE_QUEUENAME_NOT_YET_DEFINED {
+            base QUEUE_NAME_TYPE;
+            description    
+                "none";
+        }
+        identity SCHEDULER_KIND_TYPE {
+            description    
+                "none";
+        }
+        identity SCHEDULER_KIND_TYPE_STRICT {
+            base SCHEDULER_KIND_TYPE;
+            description    
+                "Strict Priority";
+        }
+        identity SCHEDULER_KIND_TYPE_WFQ {
+            base SCHEDULER_KIND_TYPE;
+            description    
+                "Weighted-Fair-Queuing";
+        }
+        identity SCHEDULER_KIND_TYPE_WRR {
+            base SCHEDULER_KIND_TYPE;
+            description    
+                "Weighted Round Robin";
+        }
+        identity SCHEDULER_KIND_TYPE_DWRR {
+            base SCHEDULER_KIND_TYPE;
+            description    
+                "Deficit Weighted Round Robin";
+        }
+        identity SCHEDULER_KIND_TYPE_NOT_YET_DEFINED {
+            base SCHEDULER_KIND_TYPE;
+            description    
+                "none";
+        }
+        grouping available-queue-type {
+            leaf queue-name {
+                type queue-name-type;
+                config false;
+                description    
+                    "Name of the queue.";
+            }
+            leaf-list available-scheduling-kind-list {
+                type scheduler-kind-type;
+                default "SCHEDULER_KIND_TYPE_NOT_YET_DEFINED";
+                config false;
+                description     
+                 "Lists the available types of scheduling.";
+            }
+            description    
+                "none";
+        }
+        grouping queue-behavior-type {
+            leaf queue-name {
+                type queue-name-type;
+                description    
+                    "Name of the queue.";
+            }
+            leaf scheduler-kind {
+                type scheduler-kind-type;
+                default "SCHEDULER_KIND_TYPE_NOT_YET_DEFINED";
+                description    
+                    "Type of scheduler to be used for this queue.";
+            }
+            leaf weighting {
+                type int8;
+                units "%";
+                default "-1";
+                description    
+                    "Only relevant if (schedulerKind==WFQ) OR (schedulerKind==DWRR) OR (schedulerKind==WRR). Serving rate for this weighted fair queueing queue as a percentage value.";
+            }
+            description    
+                "none";
+        }
+
+      
+          
+
+
+}

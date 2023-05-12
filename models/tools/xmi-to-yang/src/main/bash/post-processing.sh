@@ -50,6 +50,8 @@ namespace=(
   [backup-and-restore]=backup-and-restore-1-0 
   [synchronization]=synchronization-1-0
   [alarms]=alarms-1-0
+  [lldp]=lldp-1-0
+  [equipment-augment]=equipment-augment-1-0
 );
 
 declare -A fileversions
@@ -80,6 +82,8 @@ fileversions=(
   [backup-and-restore]=backup-and-restore-1-0
   [synchronization]=synchronization-1-0
   [alarms]=alarms-1-0
+  [lldp]=lldp-1-0
+  [equipment-augment]=equipment-augment-1-0
 );
 
 
@@ -105,6 +109,8 @@ layer=(
   [backup-and-restore]=COMMON_LAYER
   [synchronization]=LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER
   [alarms]=COMMON_LAYER
+  [lldp]=COMMON_LAYER
+  [equipment-augment]=COMMON_LAYER
 );
 
 declare -A profile
@@ -353,7 +359,7 @@ cd .
 for yang in $DIR/*.yang
 do
   echo "unix2dos"
-  pyang -f yang -p $DIR -o $yang $yang
+  /usr/local/bin/pyang -f yang -p $DIR -o $yang $yang
   unix2dos $yang
 done
 

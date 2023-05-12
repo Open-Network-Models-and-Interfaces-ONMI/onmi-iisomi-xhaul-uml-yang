@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="EquipmentAugment" URI="">
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdIV9LEemkV8c3A5D8-A" name="Associations">
+      <packagedElement xmi:type="uml:Package" xmi:id="_b16RkLmfEey2D7O503HJuw" name="ControlConstruct">
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_400IYMxMEey0dfWldGNn3Q" client="_jip60LmfEey2D7O503HJuw">
+          <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_Vuh_EJmhEeWTOvbfd7_4-A"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_5lECELmfEey2D7O503HJuw" memberEnd="_5lECE7mfEey2D7O503HJuw _5lEpILmfEey2D7O503HJuw">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5lECEbmfEey2D7O503HJuw" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5lECErmfEey2D7O503HJuw" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_5lEpILmfEey2D7O503HJuw" name="controlconstructspec" type="_jip60LmfEey2D7O503HJuw" association="_5lECELmfEey2D7O503HJuw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_oPMoQO9HEe2u8ugAjAaHPQ" memberEnd="_oPPrkO9HEe2u8ugAjAaHPQ _oPVLIO9HEe2u8ugAjAaHPQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oPOdcO9HEe2u8ugAjAaHPQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_oPPEgO9HEe2u8ugAjAaHPQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_oPVLIO9HEe2u8ugAjAaHPQ" name="controlconstructspec" type="_jip60LmfEey2D7O503HJuw" association="_oPMoQO9HEe2u8ugAjAaHPQ"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_eEww0MxNEey0dfWldGNn3Q" name="Equipment"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_tViioLdZEey0ipTvALwdYw" name="Connector">
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_EIiC4MxOEey0dfWldGNn3Q" client="_8yPmYLdHEey0ipTvALwdYw">
+          <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_8SXNcD-HEeaRI-H69PghuA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_Qsl08LdIEey0ipTvALwdYw" memberEnd="_Qso4QLdIEey0ipTvALwdYw _Qsr7kLdIEey0ipTvALwdYw">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QsnqILdIEey0ipTvALwdYw" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QsnqIbdIEey0ipTvALwdYw" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_Qsr7kLdIEey0ipTvALwdYw" name="connectorspec" type="_8yPmYLdHEey0ipTvALwdYw" association="_Qsl08LdIEey0ipTvALwdYw"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Gj9oALdcEey0ipTvALwdYw" name="Holder">
+        <packagedElement xmi:type="uml:Abstraction" xmi:id="_S_3DgMxOEey0dfWldGNn3Q" client="_SrxHULdcEey0ipTvALwdYw">
+          <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_8SXNjj-HEeaRI-H69PghuA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_e5-JkLdcEey0ipTvALwdYw" memberEnd="_e5-Jk7dcEey0ipTvALwdYw _e5-JlrdcEey0ipTvALwdYw">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_e5-JkbdcEey0ipTvALwdYw" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_e5-JkrdcEey0ipTvALwdYw" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_e5-JlrdcEey0ipTvALwdYw" name="holderspec" type="_SrxHULdcEey0ipTvALwdYw" association="_e5-JkLdcEey0ipTvALwdYw"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_vvPk8LdZEey0ipTvALwdYw" name="Swappability"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdPl9LEemkV8c3A5D8-A" name="Diagrams">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_9trBkLlwEey2D7O503HJuw">
+        <body>Decided in equipment issue#19</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdP19LEemkV8c3A5D8-A" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_nzCdQF9LEemkV8c3A5D8-A">
+        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+      </packageImport>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_eOqRsA1DEeqqRqGDdjHRpQ">
+        <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdQl9LEemkV8c3A5D8-A" name="Interfaces"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdQ19LEemkV8c3A5D8-A" name="Notifications"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdRF9LEemkV8c3A5D8-A" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Package" xmi:id="_nzCdfF9LEemkV8c3A5D8-A" name="SuperClasses"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_jip60LmfEey2D7O503HJuw" name="ControlConstructSpec">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_5lECE7mfEey2D7O503HJuw" name="_controlConstruct_Pac" type="_jirI8bmfEey2D7O503HJuw" aggregation="composite" association="_5lECELmfEey2D7O503HJuw"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_oPPrkO9HEe2u8ugAjAaHPQ" name="protocolCollection" type="_ee4kwO9HEe2u8ugAjAaHPQ" aggregation="composite" association="_oPMoQO9HEe2u8ugAjAaHPQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_jirI8bmfEey2D7O503HJuw" name="ControlConstruct_Pac">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_5RSnMMyHEeyELIdQIsEZKg" name="externalLabel" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_7HIHcMyHEeyELIdQIsEZKg" annotatedElement="_5RSnMMyHEeyELIdQIsEZKg">
+            <body>The externalLabel attribute is for the operator to persistently store an identifier from his documentation inside the device.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_CAAq0MyIEeyELIdQIsEZKg" value="External label not yet defined."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_xDqnENhoEe2jHKSBQPFw1w" name="lastConfigChangeTimestamp" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_xDqnEdhoEe2jHKSBQPFw1w" annotatedElement="_xDqnENhoEe2jHKSBQPFw1w">
+            <body>This attribute reports the timestamp of the last configuration-changed. Configuration changes are AttributeValueChanges, ObjectDeletions and ObjectCreations.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_xDqnEthoEe2jHKSBQPFw1w" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_8yPmYLdHEey0ipTvALwdYw" name="ConnectorSpec">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Qso4QLdIEey0ipTvALwdYw" name="_connector_Pac" type="_MuUokLdIEey0ipTvALwdYw" aggregation="composite" association="_Qsl08LdIEey0ipTvALwdYw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_MuUokLdIEey0ipTvALwdYw" name="Connector_Pac">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_nP9UMLdIEey0ipTvALwdYw" name="connectorKind" type="_ptUugLdIEey0ipTvALwdYw" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_14ibEOgEEeymG6rxlNRq9Q" annotatedElement="_nP9UMLdIEey0ipTvALwdYw">
+            <body>Kind of physical connector as available at the outside of the device.</body>
+          </ownedComment>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_Z6wYMLdJEey0ipTvALwdYw" type="_ptUugLdIEey0ipTvALwdYw" instance="_Lf8UcLdJEey0ipTvALwdYw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_TTBIkLpREeyCPfG68nnBOw" name="outsideLabel" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_TTBIkbpREeyCPfG68nnBOw" annotatedElement="_TTBIkLpREeyCPfG68nnBOw">
+            <body>String, which is identifying the physical position of a connector (e.g. RJ45 connector, SFP, IF port) at the outside of the device.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_bnansLpREeyCPfG68nnBOw" value="Label of the position not yet defined."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Gxyi4LlwEey2D7O503HJuw" name="sequenceId" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Gxyi4blwEey2D7O503HJuw" annotatedElement="_Gxyi4LlwEey2D7O503HJuw">
+            <body>All instances of Connector in the Equipment::connector attribute shall be identifiable by a locally unique 'sequenceId'. The 'sequenceId' should be unique for the list of Connector objects of the Equipment object. Gaps in the sequence would be legal.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gxyi4rlwEey2D7O503HJuw" value="-1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_SrxHULdcEey0ipTvALwdYw" name="HolderSpec">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e5-Jk7dcEey0ipTvALwdYw" name="_holder_Pac" type="_SrxHVrdcEey0ipTvALwdYw" aggregation="composite" association="_e5-JkLdcEey0ipTvALwdYw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_SrxHVrdcEey0ipTvALwdYw" name="Holder_Pac">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_D21d8LddEey0ipTvALwdYw" name="vendorLabel" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_D21d8bddEey0ipTvALwdYw" annotatedElement="_D21d8LddEey0ipTvALwdYw">
+            <body>Identifier of the holder according to the currently valid, official documentation of the equipment.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_D21d8rddEey0ipTvALwdYw" value="Vendor label not yet defined."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jI4x4LpNEeyCPfG68nnBOw" name="outsideLabel" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jI4x4bpNEeyCPfG68nnBOw" annotatedElement="_jI4x4LpNEeyCPfG68nnBOw">
+            <body>Label, which is printed at the outside of the device for identifying the physical position e.g. of a board inside the device.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_jI4x4rpNEeyCPfG68nnBOw" value="Label of the position not yet defined."/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_H_NqMLluEey2D7O503HJuw" name="sequenceId" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_H_NqMbluEey2D7O503HJuw" annotatedElement="_H_NqMLluEey2D7O503HJuw">
+            <body>All instances of Holder in the Equipment::containedHolder attribute shall be identifiable by a unique 'sequenceId'. The 'sequenceId' should be unique for the list of Holder objects of the Equipment object. Gaps in the sequence would be legal.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_H_NqMrluEey2D7O503HJuw" value="-1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ee4kwO9HEe2u8ugAjAaHPQ" name="ProtocolCollection">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_T57i0O9IEe2u8ugAjAaHPQ" annotatedElement="_ee4kwO9HEe2u8ugAjAaHPQ">
+          <body>Attachment point for protocols such as LLDP and similar.</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdg19LEemkV8c3A5D8-A" name="Rules"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdhF9LEemkV8c3A5D8-A" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_ptUugLdIEey0ipTvALwdYw" name="ConnectorKindType">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_SommoP0NEeyGatLRxruhAQ" annotatedElement="_ptUugLdIEey0ipTvALwdYw">
+          <body>If required, this identity shall be referenced as a base identity for identities representing individual connector types as they are supported by the individual device. The additional identities referencing the CONNECTOR_KIND_TYPE shall be provided by vendors in a separate YANG module.</body>
+        </ownedComment>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LflvILdJEey0ipTvALwdYw" name="SC">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LflvIbdJEey0ipTvALwdYw" annotatedElement="_LflvILdJEey0ipTvALwdYw">
+            <body>Subscriber Connector</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lfm9QLdJEey0ipTvALwdYw" name="FIBRE_CHANNEL_STYLE_1">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lfm9QbdJEey0ipTvALwdYw" annotatedElement="_Lfm9QLdJEey0ipTvALwdYw">
+            <body>Copper connector</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LfoLYLdJEey0ipTvALwdYw" name="FIBRE_CHANNEL_STYLE_2">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LfoLYbdJEey0ipTvALwdYw" annotatedElement="_LfoLYLdJEey0ipTvALwdYw">
+            <body>Copper connector</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LfoycLdJEey0ipTvALwdYw" name="BNC">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LfoycbdJEey0ipTvALwdYw" annotatedElement="_LfoycLdJEey0ipTvALwdYw">
+            <body>Bayonet/Threaded Neill-Concelman</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LfpZgLdJEey0ipTvALwdYw" name="FC">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LfpZgbdJEey0ipTvALwdYw" annotatedElement="_LfpZgLdJEey0ipTvALwdYw">
+            <body>Fibre Channel coax headers</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lfr1wLdJEey0ipTvALwdYw" name="FIBER_JACK"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lfsc0LdJEey0ipTvALwdYw" name="LC">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lfsc0bdJEey0ipTvALwdYw" annotatedElement="_Lfsc0LdJEey0ipTvALwdYw">
+            <body>Lucent Connector</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lftq8LdJEey0ipTvALwdYw" name="MT_RJ">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lftq8bdJEey0ipTvALwdYw" annotatedElement="_Lftq8LdJEey0ipTvALwdYw">
+            <body>Mechanical Transfer - Registered Jack</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lfu5ELdJEey0ipTvALwdYw" name="MU">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lfu5EbdJEey0ipTvALwdYw" annotatedElement="_Lfu5ELdJEey0ipTvALwdYw">
+            <body>Multiple Optical</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LfwHMLdJEey0ipTvALwdYw" name="SG"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LfwuQLdJEey0ipTvALwdYw" name="OPTICAL_PIGTAIL"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lfx8YLdJEey0ipTvALwdYw" name="MPO1x12">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lfx8YbdJEey0ipTvALwdYw" annotatedElement="_Lfx8YLdJEey0ipTvALwdYw">
+            <body>Multifiber Parallel Optic</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LfzKgLdJEey0ipTvALwdYw" name="MPO2x16">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LfzKgbdJEey0ipTvALwdYw" annotatedElement="_LfzKgLdJEey0ipTvALwdYw">
+            <body>Multifiber Parallel Optic</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf0YoLdJEey0ipTvALwdYw" name="HSSDC_II">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lf0YobdJEey0ipTvALwdYw" annotatedElement="_Lf0YoLdJEey0ipTvALwdYw">
+            <body>High Speed Serial Data Connector</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf1mwLdJEey0ipTvALwdYw" name="COPPER_PIGTAIL"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf204LdJEey0ipTvALwdYw" name="RJ45">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lf204bdJEey0ipTvALwdYw" annotatedElement="_Lf204LdJEey0ipTvALwdYw">
+            <body>8P8C, according to Clause 3 and Figures 1 through 5 of IEC 60603-7</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf4DALdJEey0ipTvALwdYw" name="NO_SEPERABLE_CONNECTOR"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf5RILdJEey0ipTvALwdYw" name="MXC2x16"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf7GULdJEey0ipTvALwdYw" name="ST">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Lf7GUbdJEey0ipTvALwdYw" annotatedElement="_Lf7GULdJEey0ipTvALwdYw">
+            <body>according to IEC 60874-10:1992, also often called BFOC/2.5</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_JUM34Ph_Eeyms-m7Zip1qw" name="SMA"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_KH_FQPh_Eeyms-m7Zip1qw" name="N"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_MllJEPh_Eeyms-m7Zip1qw" name="DIN_1.0_2.3"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_RhbYAPh_Eeyms-m7Zip1qw" name="SCSI_50_PIN_1.27MM_PITCH"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_V3Z5wPh_Eeyms-m7Zip1qw" name="SCSI_FEMALE_68_PIN"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_VoeQcPiAEeyms-m7Zip1qw" name="D_SUB_FEMALE_15_PIN"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Mp8gsPtpEeyVB-pC1JWBGw" name="RS-422"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_OF-Z0PtpEeyVB-pC1JWBGw" name="RS-232"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_P8nLUPtpEeyVB-pC1JWBGw" name="RS-485"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7Ml6EP0KEeyGatLRxruhAQ" name="MDR68"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_9ledAP0KEeyGatLRxruhAQ" name="TNC"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Lf8UcLdJEey0ipTvALwdYw" name="NOT_YET_DEFINED"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdr19LEemkV8c3A5D8-A" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_gb0RkNJbEeqSrZAqSulcGQ" name="EquipmentCategory">
+        <generalization xmi:type="uml:Generalization" xmi:id="_3QO50ImpEeyaS-NvP0hMhQ">
+          <general xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_mMOBgEQvEeasL6dcjI1vEA"/>
+        </generalization>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_fO25wNJcEeqSrZAqSulcGQ" name="BACKPLANE">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_-eGS0N3BEe2PUYgaest_4w" annotatedElement="_fO25wNJcEeqSrZAqSulcGQ">
+            <body>This identity is applicable if the hardware class is some sort of device for aggregating and forwarding networking traffic, such as a shared backplane in a modular ethernet switch.  Note that an implementation may model a backplane as a single physical component, which is actually implemented as multiple discrete physical components (within a chassis or stack).</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_MpcvkImpEeyaS-NvP0hMhQ" name="POWER_UNIT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_zUvt4N3DEe2PUYgaest_4w" annotatedElement="_MpcvkImpEeyaS-NvP0hMhQ">
+            <body>This identity is applicable if the hardware class is a power-supplying component.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_TbK7AImpEeyaS-NvP0hMhQ" name="BATTERY">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_As1l0N3DEe2PUYgaest_4w" annotatedElement="_TbK7AImpEeyaS-NvP0hMhQ">
+            <body>This identity is applicable if the hardware class is some sort of battery.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_YESbMImpEeyaS-NvP0hMhQ" name="FAN">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_slkVkN3CEe2PUYgaest_4w" annotatedElement="_YESbMImpEeyaS-NvP0hMhQ">
+            <body>This identity is applicable if the hardware class is a fan or other heat-reduction component.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Z6AmsImpEeyaS-NvP0hMhQ" name="CENTRAL_PROCESSING_UNIT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LgpGoN3DEe2PUYgaest_4w" annotatedElement="_Z6AmsImpEeyaS-NvP0hMhQ">
+            <body>This identity is applicable if the hardware class is some sort of central processing unit.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_g3pHMImpEeyaS-NvP0hMhQ" name="STORAGE_DRIVE">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_UVoKUN3DEe2PUYgaest_4w" annotatedElement="_g3pHMImpEeyaS-NvP0hMhQ">
+            <body>This identity is applicable if the hardware class is some sort of component with data storage capability as its main functionality, e.g., hard disk drive (HDD), solid-state device (SSD), solid-state hybrid drive (SSHD), object storage device (OSD), or other.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_kUm9UImpEeyaS-NvP0hMhQ" name="SENSOR">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_68OSEN3CEe2PUYgaest_4w" annotatedElement="_kUm9UImpEeyaS-NvP0hMhQ">
+            <body>This identity is applicable if the hardware class is some sort of sensor, such as a temperature sensor within a router chassis.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_pVby4ImpEeyaS-NvP0hMhQ" name="MODEM">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_ngUKkN6UEe26WNIAdBEr7Q" annotatedElement="_pVby4ImpEeyaS-NvP0hMhQ">
+            <body>Modulator-demodulator for converting digital data into analog signals for transmission and vice versa.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rSUWUImpEeyaS-NvP0hMhQ" name="PORT_EXPANSION_BOARD">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_OfBa4N6VEe26WNIAdBEr7Q" annotatedElement="_rSUWUImpEeyaS-NvP0hMhQ">
+            <body>A port expansion board is an add-on hardware component that increases the number of available physical connectors and logical interfaces.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_ua5Q0ImpEeyaS-NvP0hMhQ" name="OUTDOOR_UNIT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_QJIaAN6aEe26WNIAdBEr7Q" annotatedElement="_ua5Q0ImpEeyaS-NvP0hMhQ">
+            <body>Externally mounted hardware component that contains a radio frequency (RF) transceiver. The outdoor unit communicates with the indoor unit (IDU) via an IF interface.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_v2tQ8N6YEe26WNIAdBEr7Q" name="FULL_OUTDOOR_UNIT">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_bP3ocN6bEe26WNIAdBEr7Q" annotatedElement="_v2tQ8N6YEe26WNIAdBEr7Q">
+            <body>Device that contains at least one pair of modem and radio frequency (RF) transceiver and might also contain switching functionality. The full outdoor unit provides payload interfaces (e.g. according to IEEE 802.3) for communicating with diverse kinds of devices.</body>
+          </ownedComment>
+        </ownedLiteral>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LV0dUNJdEeqSrZAqSulcGQ" name="NOT_YET_DEFINED"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_kMEoMImwEeyWPdtQsqUBVw">
+        <client xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_WCZv8Ec9EeasL6dcjI1vEA"/>
+        <supplier xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_mMOBgEQvEeasL6dcjI1vEA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_1wRR8MxPEey0dfWldGNn3Q" client="_MuUokLdIEey0ipTvALwdYw" supplier="_ptUugLdIEey0ipTvALwdYw"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoSVJEemK9ptdIxz6GQ" key="Version" value="0.0.10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoiVJEemK9ptdIxz6GQ" key="Comment" value="Made OpenInterfaceModelClass stereotype obsolete.&#xD;&#xA;Made OpenInterfaceModelAttribute::attributeValueChangeNotification property obsolete.&#xD;&#xA;NotificationDefinition enumeration no longer used.&#xD;&#xA;BITS removed from Encoding enumeration.&#xD;&#xA;BitDefinition data type deleted.&#xD;&#xA;Optional Bit stereotype (extending the Property meta class) added.&#xD;&#xA;Optional Bits stereotype (extending the DataType meta class) added."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpCVJEemK9ptdIxz6GQ" key="Date" value="2018-09-17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i3v9sCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i6wOYCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8J8kCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kSVJEemK9ptdIxz6GQ" key="Version" value="0.2.17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kiVJEemK9ptdIxz6GQ" key="Comment" value="Editorial corrections in the description of OpenModelAttribute::partOfObjectKey and Reference."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lCVJEemK9ptdIxz6GQ" key="Date" value="2018-12-12"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6w1cCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i8gh4CVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8qS4CVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4SVJEemK9ptdIxz6GQ" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4iVJEemK9ptdIxz6GQ" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4yVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5CVJEemK9ptdIxz6GQ" key="Date" value="2017-08-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5SVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8hwACVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_PeB-oDxZEeqT0o6Ne2sibg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PeFpADxZEeqT0o6Ne2sibg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:equipment-augment" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines an augmentation to the ONF Core IM for identifying equipment components of microwave systems." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_DqkpUKMnEemOU89mRgVhCg" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="EquipmentAugment@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_4oPl0Dk7Eeqk76c3V0KfEQ" date="2022-02-09" version="1.0.0-tsi.220209.1545" description="Model for the Transport SDN Introduction at Telefonica Germany." changeLog="https://github.com/openBackhaul/equipment/issues" reference="https://github.com/openBackhaul/equipment/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+  </OpenModel_Profile:OpenModelStatement>
+  <OpenModel_Profile:Obsolete xmi:id="_n3pQUF9LEemkV8c3A5D8-A" base_Element="_nzCdr19LEemkV8c3A5D8-A"/>
+  <OpenModel_Profile:Obsolete xmi:id="_gXxIwImzEeyWPdtQsqUBVw" base_Element="_3QO50ImpEeyaS-NvP0hMhQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_0GyvgMxLEey0dfWldGNn3Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_jip60LmfEey2D7O503HJuw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0GzWkMxLEey0dfWldGNn3Q" base_Property="_5lECE7mfEey2D7O503HJuw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_0G-8wMxLEey0dfWldGNn3Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_jirI8bmfEey2D7O503HJuw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5vdBIcxLEey0dfWldGNn3Q" base_Property="_jI4x4LpNEeyCPfG68nnBOw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="__W-DQMxLEey0dfWldGNn3Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_8yPmYLdHEey0ipTvALwdYw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="__W-qUMxLEey0dfWldGNn3Q" base_Class="_8yPmYLdHEey0ipTvALwdYw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="__W-qUcxLEey0dfWldGNn3Q" base_Property="_Qso4QLdIEey0ipTvALwdYw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__W-qUsxLEey0dfWldGNn3Q" base_StructuralFeature="_Qso4QLdIEey0ipTvALwdYw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="__XAfgMxLEey0dfWldGNn3Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_MuUokLdIEey0ipTvALwdYw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="__XAfgcxLEey0dfWldGNn3Q" base_Class="_MuUokLdIEey0ipTvALwdYw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="__XAfgsxLEey0dfWldGNn3Q" base_Property="_nP9UMLdIEey0ipTvALwdYw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__XAfg8xLEey0dfWldGNn3Q" base_StructuralFeature="_nP9UMLdIEey0ipTvALwdYw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="__XAfhMxLEey0dfWldGNn3Q" base_Property="_Gxyi4LlwEey2D7O503HJuw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__XAfhcxLEey0dfWldGNn3Q" base_StructuralFeature="_Gxyi4LlwEey2D7O503HJuw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="__XAfhsxLEey0dfWldGNn3Q" base_Property="_TTBIkLpREeyCPfG68nnBOw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__XAfh8xLEey0dfWldGNn3Q" base_StructuralFeature="_TTBIkLpREeyCPfG68nnBOw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_B6QfYMxMEey0dfWldGNn3Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_SrxHULdcEey0ipTvALwdYw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_B6RGcMxMEey0dfWldGNn3Q" base_Class="_SrxHULdcEey0ipTvALwdYw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_B6RGccxMEey0dfWldGNn3Q" base_Property="_e5-Jk7dcEey0ipTvALwdYw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_B6RGcsxMEey0dfWldGNn3Q" base_StructuralFeature="_e5-Jk7dcEey0ipTvALwdYw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_B6RtgMxMEey0dfWldGNn3Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_SrxHVrdcEey0ipTvALwdYw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_B6SUkMxMEey0dfWldGNn3Q" base_Class="_SrxHVrdcEey0ipTvALwdYw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_B6SUkcxMEey0dfWldGNn3Q" base_Property="_D21d8LddEey0ipTvALwdYw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_B6SUksxMEey0dfWldGNn3Q" base_StructuralFeature="_D21d8LddEey0ipTvALwdYw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_B6SUk8xMEey0dfWldGNn3Q" base_Property="_H_NqMLluEey2D7O503HJuw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_B6SUlMxMEey0dfWldGNn3Q" base_StructuralFeature="_H_NqMLluEey2D7O503HJuw" isInvariant="true"/>
+  <OpenModel_Profile:Obsolete xmi:id="_uVwvkMxMEey0dfWldGNn3Q" base_Element="_kMEoMImwEeyWPdtQsqUBVw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_wWEacMxMEey0dfWldGNn3Q" base_Property="_5lEpILmfEey2D7O503HJuw"/>
+  <OpenModel_Profile:Specify xmi:id="_6UWogMxMEey0dfWldGNn3Q" base_Abstraction="_400IYMxMEey0dfWldGNn3Q">
+    <target>/CoreModel:ControlConstruct:ControlConstruct</target>
+  </OpenModel_Profile:Specify>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_4jaZ4MxNEey0dfWldGNn3Q" base_Property="_e5-JlrdcEey0ipTvALwdYw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_8TO6kMxNEey0dfWldGNn3Q" base_Property="_Qsr7kLdIEey0ipTvALwdYw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_8TPhoMxNEey0dfWldGNn3Q" base_StructuralFeature="_Qsr7kLdIEey0ipTvALwdYw"/>
+  <OpenModel_Profile:Specify xmi:id="_GgcVcMxOEey0dfWldGNn3Q" base_Abstraction="_EIiC4MxOEey0dfWldGNn3Q">
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:Equipment:Equipment/CoreModel:Equipment:Connector</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:Specify xmi:id="_T-lVkMxOEey0dfWldGNn3Q" base_Abstraction="_S_3DgMxOEey0dfWldGNn3Q">
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:Equipment:Equipment/CoreModel:Equipment:ContainedHolder</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:Obsolete xmi:id="_3ObSAMxPEey0dfWldGNn3Q" base_Element="_1wRR8MxPEey0dfWldGNn3Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5RTOQMyHEeyELIdQIsEZKg" base_Property="_5RSnMMyHEeyELIdQIsEZKg" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_5RSnMcyHEeyELIdQIsEZKg" base_StructuralFeature="_5RSnMMyHEeyELIdQIsEZKg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jZLSIMyMEeyELIdQIsEZKg" base_StructuralFeature="_5lECE7mfEey2D7O503HJuw" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_MEk4UMyOEeyELIdQIsEZKg" base_StructuralFeature="_jI4x4LpNEeyCPfG68nnBOw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_xDrOINhoEe2jHKSBQPFw1w" base_Property="_xDqnENhoEe2jHKSBQPFw1w" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_xDwGoNhoEe2jHKSBQPFw1w" base_StructuralFeature="_xDqnENhoEe2jHKSBQPFw1w"/>
+  <OpenModel_Profile:Reference xmi:id="_G0-QcN29Ee2PUYgaest_4w" base_Element="_fO25wNJcEeqSrZAqSulcGQ" reference="IETF RFC8348"/>
+  <OpenModel_Profile:Reference xmi:id="_Phl68N3AEe2PUYgaest_4w" base_Element="_MpcvkImpEeyaS-NvP0hMhQ" reference="IETF RFC8348"/>
+  <OpenModel_Profile:Reference xmi:id="_RCJHsN3AEe2PUYgaest_4w" base_Element="_TbK7AImpEeyaS-NvP0hMhQ" reference="IETF RFC8348"/>
+  <OpenModel_Profile:Reference xmi:id="_SxygYN3AEe2PUYgaest_4w" base_Element="_YESbMImpEeyaS-NvP0hMhQ" reference="IETF RFC8348"/>
+  <OpenModel_Profile:Reference xmi:id="_U4wM4N3AEe2PUYgaest_4w" base_Element="_Z6AmsImpEeyaS-NvP0hMhQ" reference="IETF RFC8348"/>
+  <OpenModel_Profile:Reference xmi:id="_WfjyoN3AEe2PUYgaest_4w" base_Element="_g3pHMImpEeyaS-NvP0hMhQ" reference="IETF RFC8348"/>
+  <OpenModel_Profile:Reference xmi:id="_Y4IMgN3AEe2PUYgaest_4w" base_Element="_kUm9UImpEeyaS-NvP0hMhQ" reference="IETF RFC8348"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_egrUgO9HEe2u8ugAjAaHPQ" base_Class="_ee4kwO9HEe2u8ugAjAaHPQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_egu-4O9HEe2u8ugAjAaHPQ" base_Class="_ee4kwO9HEe2u8ugAjAaHPQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_oPPrke9HEe2u8ugAjAaHPQ" base_StructuralFeature="_oPPrkO9HEe2u8ugAjAaHPQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_oPQSoO9HEe2u8ugAjAaHPQ" base_Property="_oPPrkO9HEe2u8ugAjAaHPQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_oPVLIe9HEe2u8ugAjAaHPQ" base_StructuralFeature="_oPVLIO9HEe2u8ugAjAaHPQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_oPVLIu9HEe2u8ugAjAaHPQ" base_Property="_oPVLIO9HEe2u8ugAjAaHPQ"/>
+</xmi:XMI>
