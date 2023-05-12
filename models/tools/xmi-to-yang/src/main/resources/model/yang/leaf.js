@@ -106,6 +106,12 @@ config false;
     }else{
         defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
     }
+
+    var mandatory = "";
+    if(this.isMandatory){   
+    if(!this.defaultValue)     
+    mandatory = PRE + "\tmandatory true;\r\n";
+    }
     
     var type = "";
     var simpletype="";
@@ -183,12 +189,15 @@ config false;
        
     }
 
+    
+
     var s = PRE + name + " {\r\n" +
         feature +
         type +
         units +
         defvalue +
         config +
+        mandatory +
         status +
         descript + PRE + "}\r\n";
         return s;
