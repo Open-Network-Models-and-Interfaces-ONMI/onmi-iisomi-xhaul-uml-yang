@@ -353,7 +353,7 @@ cd .
 for yang in $DIR/*.yang
 do
   echo "unix2dos"
-  pyang -f yang -p $DIR -o $yang $yang
+  /usr/local/bin/pyang -f yang -p $DIR -o $yang $yang
   unix2dos $yang
 done
 

@@ -20,4 +20,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 if [ $# -gt 0 ]; then
     DIR=$1;
 fi
-pyang -f tree -p ${DIR} ${DIR}/*.yang
+/usr/local/bin/pyang -f tree -p ${DIR} ${DIR}/*.yang

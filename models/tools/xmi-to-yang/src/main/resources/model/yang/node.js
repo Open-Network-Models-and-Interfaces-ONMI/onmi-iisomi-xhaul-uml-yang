@@ -74,6 +74,8 @@ Node.prototype.buildChild = function (att, type, store) {
             if(att.isRequireInstance){
                 obj.isRequireInstance = att.isRequireInstance;
                 obj.type.isRequireInstance = att.isRequireInstance;
+            }if(att["min-elements"] && att["min-elements"] > 0){
+                obj.isMandatory = true;
             }
             break;
         case "enumeration":
