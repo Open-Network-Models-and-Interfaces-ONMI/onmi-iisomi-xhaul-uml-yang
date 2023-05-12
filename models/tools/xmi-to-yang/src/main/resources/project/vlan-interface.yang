@@ -71,7 +71,9 @@ Please view https://github.com/openBackhaul/vlaninterface/issues for changes.";
                     "none";
             }
             leaf object-id-ref {
-                type string;
+                type leafref {
+                    path "/core-model:network-control-domain/core-model:network-element/core-model:ltp/core-model:";
+                }
                 config false;
                 description    
                     "none";
@@ -107,7 +109,10 @@ Please view https://github.com/openBackhaul/vlaninterface/issues for changes.";
                     "none";
             }
             leaf object-id-ref {
-                type string;
+                type leafref {
+                    path "/core-model:network-control-domain/core-model:network-element/core-model:ltp/core-model:";
+                    require-instance false;
+                }
                 config false;
                 description    
                     "none";
@@ -136,7 +141,9 @@ Please view https://github.com/openBackhaul/vlaninterface/issues for changes.";
                     "none";
             }
             leaf object-id-ref {
-                type string;
+                type leafref {
+                    path "/core-model:network-control-domain/core-model:network-element/core-model:ltp/core-model:";
+                }
                 config false;
                 description    
                     "none";

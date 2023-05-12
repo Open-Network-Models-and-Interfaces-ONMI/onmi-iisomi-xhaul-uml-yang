@@ -73,6 +73,7 @@ Node.prototype.buildChild = function (att, type, store) {
             obj = new leaf(att.name, att.id, att.config, att.defaultValue, att.description, att.type, att.support, att.status, att.fileName, this.store);
             if(att.isRequireInstance){
                 obj.isRequireInstance = att.isRequireInstance;
+                obj.type.isRequireInstance = att.isRequireInstance;
             }
             break;
         case "enumeration":
@@ -106,9 +107,6 @@ Node.prototype.buildChild = function (att, type, store) {
             //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
             obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
             obj.name = obj.getTypeName();
-            if(att.isRequireInstance){
-                obj.isRequireInstance = att.isRequireInstance;
-            }
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');

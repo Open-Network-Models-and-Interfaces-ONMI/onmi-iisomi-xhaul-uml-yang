@@ -107,9 +107,11 @@ type.prototype.writeNode = function (layer) {
             s += Util.yangifyName(this.path) + ";\r\n";
         }
         if(this.name == "leafref"){
-            if(this.isRequireInstance == false || this.isRequireInstance){
+            if(this.isRequireInstance == false || !this.isRequireInstance){
                 s += "\t\t\t\t\trequire-instance false;\r\n";
-            }            
+            }else{
+                console.log("do nothing for" + this)
+            }     
         }     
         var regex  = /[^0-9/./*]/;
         if(this.range){
