@@ -362,7 +362,7 @@ module.exports = {
                                 // assigin yang types - eidtey by Waseem Sattar
                                 var attValue=ele[i].attribute[j].name.toLowerCase();
                                 var regex=/time|date/;
-                                var regex1=/abcd|namebinding|packages|allomorphs/;
+                                var regex1=/object|namebinding|packages|allomorphs/;
                                 if(regex.test(attValue)){
                                     ele[i].attribute[j].type = "yang:date-and-time";
                                 }else if(regex1.test(attValue)){
