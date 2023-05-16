@@ -174,7 +174,7 @@ leaf_list.prototype.writeNode = function (layer) {
                 
 
                 //get path from the type attribute and use with "must" attribute
-		type += "\t\t\t\tmust  'deref(.) = current()';\r\n";
+		//type += "\t\t\t\tmust  'deref(.) = current()';\r\n";
                 type = type.replace("path","pathmust");
             }else if(lastoccurancesubstring.indexOf("uuid")==-1)
 		{
