@@ -441,7 +441,9 @@
 
       <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:extensible-network-function" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
         <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
-        <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-11-27" date="2019-11-27" version="v1.4" description="Package equipment-specification has been deleted,&#xA;
+	 <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2023-06-14" date="2023-06-14" version="v1.4" description="Model for the Transport SDN Pilot at Telefonica Germany.&#xA;
+       Please view https://github.com/openBackhaul/core/issues for changes.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
+	<revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-11-27" date="2019-11-27" version="v1.4" description="Package equipment-specification has been deleted,&#xA;
        because of wrong key statements and overall grouping never applied.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-11-22" date="2019-11-22" version="v1.4" description="Module name and name space changed to core-model-1-4.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-07-09" date="2019-07-09" version="v1.4" description="Corrected version derived from ONF-TR-512 v1.4&#xA;
@@ -581,7 +583,7 @@
   </xsl:template> 
 
   <!-- To change the datatype of physical-port-reference from string to leafref to point to a instance in the equipment list -->
-  <xsl:template match="ownedAttribute[@xmi:id = '_RLDi4BieEeSh8KVgZCMyDw' ]" >
+  <!--xsl:template match="ownedAttribute[@xmi:id = '_RLDi4BieEeSh8KVgZCMyDw' ]" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:attribute name="type">_8SXNej-HEeaRI-H69PghuA</xsl:attribute>
@@ -589,7 +591,7 @@
       <xsl:attribute name="association">_X1qQMD-QEeaRI-H69PghuA</xsl:attribute>
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
-  </xsl:template>
+  </xsl:template-->
   <!-- To include the literal NONE to the enumeration ROUTE_SELECTION_REASON, so that it will generate the identity ROUTE_SELECTION_REASON_NONE   -->
   <xsl:template match="packagedElement[@name='RouteSelectionReason']">
     <xsl:copy>
@@ -611,6 +613,14 @@
                 <body>No reason</body>
               </ownedComment>
             </ownedLiteral>
+<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_zRKlICi9EeaGGvAxxSe1uA6" name="MANUAL">
+            </ownedLiteral>
+<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_zRKlICi9EeaGGvAxxSe1uA3" name="FORCED">              
+            </ownedLiteral>
+<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_zRKlICi9EeaGGvAxxSe1uA4" name="DEGRADE">              
+            </ownedLiteral>
+<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_zRKlICi9EeaGGvAxxSe1uA5" name="FAIL">              
+            </ownedLiteral>
       <xsl:apply-templates select="node() | text()"/>
       </xsl:copy>
  </xsl:template>
@@ -620,6 +630,17 @@
                 <body>The FRU that is occupying the holder.
 A holder may be unoccupied.
 An FRU may occupy more than one holder (using or blocking are intentionally not distinguished here).</body>
+              </ownedComment>
+      </xsl:template>
+
+      <!-- To change the comment of the attribute manufacture-date  -->
+  <xsl:template match="ownedComment[@xmi:id='_mW_OgIM7EeePYJZQb-Dcag']">
+      <ownedComment xmi:type="uml:Comment" xmi:id="__mW_OgIM7EeePYJZQb-Dcag" annotatedElement="_YrPlQEQuEeasL6dcjI1vEA">
+	      <body>This attribute represents the date on which this instance is manufactured. 
+		      The date type is a profile of the ISO 8601 standard for representation of dates using the Gregorian calendar. 
+		      The profile is defined by the full-date production in Section 5.6 of RFC 3339. 
+		      Values shall follow the pattern: ^\\d{4}-\\d{2}-\\d{2}$ . 
+		      Reference: RFC 3339: Date and Time on the Internet: Timestamps.</body>
               </ownedComment>
       </xsl:template>
    <!-- To remove the charecter &#xD; from all the ownedComment body -->
@@ -644,34 +665,57 @@ An FRU may occupy more than one holder (using or blocking are intentionally not 
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
 </xsl:template>
-<!-- changing _configurationAndSwitchControl from container to leafref -->
+<!-- changing _configurationAndSwitchControl from container to leafref >
 <xsl:template match="ownedAttribute[@xmi:id = '_1EKuQJo5EeOyHKqw-cQ_eg' ]" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:attribute name="aggregation">shared</xsl:attribute>
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
-</xsl:template>
+</xsl:template-->
 
-<!-- changing _internalConfigurationAndSwitchControl from container to leafref -->
+<!-- changing _internalConfigurationAndSwitchControl from container to leafref >
 <xsl:template match="ownedAttribute[@xmi:id = '_tbetAJ4HEeOO3om500DFKg' ]" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:attribute name="aggregation">shared</xsl:attribute>
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
-</xsl:template>
+</xsl:template-->
 
-<!-- changing _encapsulatedCasc from container to leafref -->
+<!-- changing _encapsulatedCasc from container to leafref >
 <xsl:template match="ownedAttribute[@xmi:id = '_UJ_6IXXIEeeqyuooNTTDCg' ]" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:attribute name="aggregation">shared</xsl:attribute>
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
-</xsl:template>
-<!-- changing _configuration-and-switch-control in layerprotocol from container to leafref -->
+</xsl:template-->
+<!-- changing _configuration-and-switch-control in layerprotocol from container to leafref >
 <xsl:template match="ownedAttribute[@xmi:id = '_d6vwsMQhEeWlWIVxswb46A' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:attribute name="aggregation">shared</xsl:attribute>
+      <xsl:apply-templates select="node()  | text()"/>
+    </xsl:copy>
+</xsl:template-->
+<!-- To include the comment for the attribute is-hot-swappable  -->
+<xsl:template match="ownedAttribute[@name='isHotSwappable']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+            <ownedComment xmi:type="uml:Comment" xmi:id="_yb3zEEQgEeasL6dcjI1vCC" annotatedElement="_yb3zEEQgEeasL6dcjI1vEA">
+		    <body>This attribute shall be set on true, if the described equipment could be inserted or removed from the running system, + 
+			    (without the need of powering the system down or restarting it) + 
+			    (without being damaged or causing damage to any other element in the system where the equipment is inserted/removed) +
+			    (without causing traffic interruption or an alteration on the performance of other components or parts of the system not directly supported by this equipment.) 
+			    The aforementioned characteristic shall not require any manual change on other components of the system. 
+			    Potential traffic interruption on the interfaces supported by the component, which is being replaced, shall not matter to the value of the is-hot-swappable attribute.</body>
+              </ownedComment>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+</xsl:template>
+<!-- changing _selectedFcPort in fc-switch from list to leafref -->
+<xsl:template match="ownedAttribute[@xmi:id = '_2PdiYI8lEeOw_ste-s6RrA' ]" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:attribute name="aggregation">shared</xsl:attribute>

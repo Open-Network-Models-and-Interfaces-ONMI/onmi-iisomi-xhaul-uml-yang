@@ -83,7 +83,7 @@ ownedAttribute.prototype.giveValue = function(obj){
     
 
     this.defaultValue = value;
-    this['min-elements'] = obj.lowerValue ? obj.lowerValue.attributes().value : null;
+    this['min-elements'] = obj.lowerValue ? (obj.lowerValue.attributes().value ? obj.lowerValue.attributes().value : 0) : null;
     this['max-elements'] = obj.upperValue ? obj.upperValue.attributes().value : null;
 };
 

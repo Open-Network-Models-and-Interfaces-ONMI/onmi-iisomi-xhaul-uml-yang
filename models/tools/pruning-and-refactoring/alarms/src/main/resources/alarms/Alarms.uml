@@ -35,18 +35,6 @@
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_M6flwUE7EeyeFZE6vHB4TA" name="Alarm_Pac" type="_V4SZcEE2EeyeFZE6vHB4TA" association="_M6eXoEE7EeyeFZE6vHB4TA"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_valdEEE4EeyeFZE6vHB4TA" client="_5UoWQEE2EeyeFZE6vHB4TA" supplier="_m4I64EE4EeyeFZE6vHB4TA"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_f87IQEIUEeyNsPXH_7wxzQ" client="_m4I64EE4EeyeFZE6vHB4TA" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_V9-rgEIXEeyNsPXH_7wxzQ" client="_m4I64EE4EeyeFZE6vHB4TA" supplier="_RD2T0EIXEeyNsPXH_7wxzQ"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_4EM6EHSEEey-YPr-ZvpAsw" client="_nzCdPl9LEemkV8c3A5D8-A" supplier="_3hFWIEIUEeyNsPXH_7wxzQ"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_z9yKUFgUEeybQb7BldGfQA" client="_xsXWwFgTEeybQb7BldGfQA" supplier="_Uiwt4FgUEeybQb7BldGfQA"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_ec7yMH-LEeyDQeqq8VQhHA" client="_c4kI0EE3EeyeFZE6vHB4TA" supplier="_xHERoJO5Eey0kdxPKrrdlw"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_A5aYAH-NEeyDQeqq8VQhHA" client="__meyAEE6EeyeFZE6vHB4TA" supplier="_c4kI0EE3EeyeFZE6vHB4TA"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_rdHf8IM5EeyKR7QSbmaikg" client="_Wd8OwEE3EeyeFZE6vHB4TA" supplier="_TnKXcIM5EeyKR7QSbmaikg"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_pUz3QIUIEeytZa58T3hE0A" client="_Uiwt4FgUEeybQb7BldGfQA" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_tCKSwIUIEeytZa58T3hE0A" client="_TnKXcIM5EeyKR7QSbmaikg" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_0dLS0IUIEeytZa58T3hE0A" client="_c4kI0EE3EeyeFZE6vHB4TA" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_5lXToJO5Eey0kdxPKrrdlw" client="_TnKXcIM5EeyKR7QSbmaikg" supplier="_3hFWIEIUEeyNsPXH_7wxzQ"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdPl9LEemkV8c3A5D8-A" name="Diagrams"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdP19LEemkV8c3A5D8-A" name="Imports">
@@ -210,7 +198,11 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_nzCdg19LEemkV8c3A5D8-A" name="Rules"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_EScDcEE-EeyeFZE6vHB4TA" name="TypeDefinitions">
-      <packagedElement xmi:type="uml:Enumeration" xmi:id="_2MqWUEITEeyNsPXH_7wxzQ" name="AlarmTypeIdType"/>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_2MqWUEITEeyNsPXH_7wxzQ" name="AlarmTypeIdType">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8DImQPiFEeyGGaq5g25gIw" annotatedElement="_2MqWUEITEeyNsPXH_7wxzQ">
+          <body>This identity shall be referenced as a base identity for identities representing individual alarm types as they are supported by the individual device. The additional identities referencing the ALARM_TYPE_ID_TYPE shall be provided by vendors in a separate YANG module.</body>
+        </ownedComment>
+      </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_RD2T0EIXEeyNsPXH_7wxzQ" name="AlarmCategoryType">
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_5cfj8EMGEeyffJkW499m4A" name="OTHER">
           <ownedComment xmi:type="uml:Comment" xmi:id="_lVHwkEMHEeyffJkW499m4A" annotatedElement="_5cfj8EMGEeyffJkW499m4A">
@@ -513,7 +505,20 @@
         </packagedElement>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdr19LEemkV8c3A5D8-A" name="ExplanatoryOnly"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdr19LEemkV8c3A5D8-A" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Usage" xmi:id="_valdEEE4EeyeFZE6vHB4TA" client="_5UoWQEE2EeyeFZE6vHB4TA" supplier="_m4I64EE4EeyeFZE6vHB4TA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_f87IQEIUEeyNsPXH_7wxzQ" client="_m4I64EE4EeyeFZE6vHB4TA" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_V9-rgEIXEeyNsPXH_7wxzQ" client="_m4I64EE4EeyeFZE6vHB4TA" supplier="_RD2T0EIXEeyNsPXH_7wxzQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_4EM6EHSEEey-YPr-ZvpAsw" client="_nzCdPl9LEemkV8c3A5D8-A" supplier="_3hFWIEIUEeyNsPXH_7wxzQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_z9yKUFgUEeybQb7BldGfQA" client="_xsXWwFgTEeybQb7BldGfQA" supplier="_Uiwt4FgUEeybQb7BldGfQA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_ec7yMH-LEeyDQeqq8VQhHA" client="_c4kI0EE3EeyeFZE6vHB4TA" supplier="_xHERoJO5Eey0kdxPKrrdlw"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_A5aYAH-NEeyDQeqq8VQhHA" client="__meyAEE6EeyeFZE6vHB4TA" supplier="_c4kI0EE3EeyeFZE6vHB4TA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_rdHf8IM5EeyKR7QSbmaikg" client="_Wd8OwEE3EeyeFZE6vHB4TA" supplier="_TnKXcIM5EeyKR7QSbmaikg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_pUz3QIUIEeytZa58T3hE0A" client="_Uiwt4FgUEeybQb7BldGfQA" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_tCKSwIUIEeytZa58T3hE0A" client="_TnKXcIM5EeyKR7QSbmaikg" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_0dLS0IUIEeytZa58T3hE0A" client="_c4kI0EE3EeyeFZE6vHB4TA" supplier="_2MqWUEITEeyNsPXH_7wxzQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_5lXToJO5Eey0kdxPKrrdlw" client="_TnKXcIM5EeyKR7QSbmaikg" supplier="_3hFWIEIUEeyNsPXH_7wxzQ"/>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoSVJEemK9ptdIxz6GQ" key="Version" value="0.0.10"/>
@@ -560,9 +565,9 @@
       <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:alarms" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology agnostic extension to the ONF Core IM. It is for managing alarms at all kinds of interfaces and equipment." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:alarms" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology agnostic extension to the ONF Core IM. It is for managing alarms at all kinds of interfaces and equipment." copyright="Copyright 2023 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_DqkpUKMnEemOU89mRgVhCg" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="Alarms@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_zw8owKMnEemOU89mRgVhCg" date="2022-03-02" version="1.0.0-tsi.220302.1220" description="Model for the Transport SDN Introduction at Telefonica Germany." changeLog="https://github.com/openBackhaul/alarms/issues" reference="https://github.com/openBackhaul/alarms/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_zw8owKMnEemOU89mRgVhCg" date="2023-06-13" version="1.0.0-tsi.230613.1810" description="Model for the Transport SDN Introduction at Telefonica Germany." changeLog="https://github.com/openBackhaul/alarms/issues" reference="https://github.com/openBackhaul/alarms/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_n3pQUF9LEemkV8c3A5D8-A" base_Element="_nzCdr19LEemkV8c3A5D8-A"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_QHanAEE2EeyeFZE6vHB4TA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_QBC5QEE2EeyeFZE6vHB4TA"/>
@@ -696,4 +701,16 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Rq9qwJZkEeyUYvIdTYRi7g" base_StructuralFeature="_Rq9DsJZkEeyUYvIdTYRi7g" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_u_yWkJoQEeyPyrmCoYRDrA" base_Property="_u_xvgJoQEeyPyrmCoYRDrA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_u_0LwJoQEeyPyrmCoYRDrA" base_StructuralFeature="_u_xvgJoQEeyPyrmCoYRDrA" partOfObjectKey="1" isInvariant="true"/>
+  <OpenModel_Profile:Obsolete xmi:id="_YesqIAoFEe6QXNdN_Yk65Q" base_Element="_valdEEE4EeyeFZE6vHB4TA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_ZqgV8AoFEe6QXNdN_Yk65Q" base_Element="_f87IQEIUEeyNsPXH_7wxzQ"/>
+  <OpenModel_Profile:Obsolete xmi:id="_aozxQAoFEe6QXNdN_Yk65Q" base_Element="_V9-rgEIXEeyNsPXH_7wxzQ"/>
+  <OpenModel_Profile:Obsolete xmi:id="_bedm4AoFEe6QXNdN_Yk65Q" base_Element="_4EM6EHSEEey-YPr-ZvpAsw"/>
+  <OpenModel_Profile:Obsolete xmi:id="_cZmZcAoFEe6QXNdN_Yk65Q" base_Element="_z9yKUFgUEeybQb7BldGfQA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_dYu7MAoFEe6QXNdN_Yk65Q" base_Element="_ec7yMH-LEeyDQeqq8VQhHA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_eVXikAoFEe6QXNdN_Yk65Q" base_Element="_A5aYAH-NEeyDQeqq8VQhHA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_fUJfAAoFEe6QXNdN_Yk65Q" base_Element="_rdHf8IM5EeyKR7QSbmaikg"/>
+  <OpenModel_Profile:Obsolete xmi:id="_gTgDMAoFEe6QXNdN_Yk65Q" base_Element="_pUz3QIUIEeytZa58T3hE0A"/>
+  <OpenModel_Profile:Obsolete xmi:id="_hTZZ8AoFEe6QXNdN_Yk65Q" base_Element="_tCKSwIUIEeytZa58T3hE0A"/>
+  <OpenModel_Profile:Obsolete xmi:id="_iFzHQAoFEe6QXNdN_Yk65Q" base_Element="_0dLS0IUIEeytZa58T3hE0A"/>
+  <OpenModel_Profile:Obsolete xmi:id="_i_ERkAoFEe6QXNdN_Yk65Q" base_Element="_5lXToJO5Eey0kdxPKrrdlw"/>
 </xmi:XMI>

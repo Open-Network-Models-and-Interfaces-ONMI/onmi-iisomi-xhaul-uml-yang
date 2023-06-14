@@ -89,9 +89,15 @@ module.exports = {
             if(config.withSuffix){
                 obj.withSuffix=true;
             }
-
+	    
             //create the object of "typedef"
             if(ele[i].nodeType == "enumeration") {
+		    console.log(ele[i].name);
+		    console.log(ele[i].path);
+		    if(ele[i].path == "ExplanatoryOnly-ExtentedCoreEnumerations"){
+                    delete ele[i];
+                    break;
+                }
                 obj.nodeType = "typedef";
                 if(ele[i].generalization.length > 0){
                     for(var j = 0; j < ele[i].generalization.length; j++) {
@@ -303,6 +309,9 @@ module.exports = {
                                                 ele[i].attribute[j].type = "leafref+path \"" + yangPathStatement + "\"";
                                             } else {
                                                 ele[i].attribute[j].type = "leafref+path \"/" + yangPathStatement + "\"";
+                                            }
+					    if(ele[i].attribute[j].name == "_selectedFcPort"){
+                                                ele[i].attribute[j].type = "leafref+path \"" + "/core-model:control-construct/core-model:forwarding-domain/core-model:fc[uuid = current()/../../uuid]/fc-port/local-id" + "\"";
                                             }
 
                                             if (ele[i].attribute[j].nodeType === "list") {

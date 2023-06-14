@@ -74,7 +74,7 @@ Node.prototype.buildChild = function (att, type, store) {
             if(att.isRequireInstance){
                 obj.isRequireInstance = att.isRequireInstance;
                 obj.type.isRequireInstance = att.isRequireInstance;
-            }if(att["min-elements"] == undefined || (att["min-elements"] && att["min-elements"] > 0)){
+            }if(att["min-elements"] == undefined && att["max-elements"] == undefined){
                 obj.isMandatory = true;
             }
             break;
@@ -452,7 +452,7 @@ Node.prototype.writeNode = function (layer) {
             descript + PRE + "}\r\n";
     }
       
-    var regex = /(layer.protocol.name.type|layer.protocol.name.type.layer.protocol.name.type|profile.name.type|profile.name.type.profile.name.type)/i;
+    var regex = /(protocol.name.typelayer.protocol.name.type|layer.protocol.name.type.layer.protocol.name.type|profile.name.type|profile.name.type.profile.name.type)/i;
     //var regex = /(layer.protocol.name.type|profile.name.type)/i;
     if (regex.test(name)){
        return "";

@@ -219,12 +219,17 @@ do
 #find/replace tdm-container
 sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
-
-  # find/replace in 
+ # find/replace in
  find="leaf occupying-fru {";
  when="mandatory \"true\";";
  replace="$find\n\t\t\t$when";
  sed -i -e "s/$find/$replace/g" $yang;
+
+find="augment \"\/core-model:control-construct\/equipment-augment:protocol-collection\/equipment-augment:protocol\"{";
+when="when \"derived-from-or-self(.\/equipment-augment:protocol-name, 'lldp:PROTOCOL_NAME_TYPE_LLDP')\";"
+replace=" $find \n $when";
+sed -i -e "s/$find/$replace/g" $yang;
+  # find/replace in 
 
  find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
  identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
@@ -358,8 +363,34 @@ sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construc
   find="\"\/lldp:lldp\/lldp:remote-statistics\/lldp:";
   replace="\"\/core-model:control-construct\/equipment-augment:protocol-collection\/lldp:remote-statistics\/lldp:last-change-time";
   sed -i -e "s/$find/$replace/g" $yang;
-
   
+  echo "before the if con"
+  echo $filename
+  if [ $filename == 'equipment-augment.yang' ]
+  then
+	  echo "inside the if condition"
+	  find="identity EQUIPMENT_CATEGORY {";
+	  replace="identity EQUIPMENT_CATEGORY { \n base core-model:EQUIPMENT_CATEGORY;";
+	  sed -i -e "s/$find/$replace/g" $yang;
+  fi
+
+  if [ $filename == 'lldp.yang' ]
+  then
+          echo "inside the if condition"
+          find="identity PROTOCOL_NAME_TYPE {";
+          replace="identity PROTOCOL_NAME_TYPE { \n base equipment-augment:PROTOCOL_NAME_TYPE;";
+          sed -i -e "s/$find/$replace/g" $yang;
+  fi
+
+  find="pathmust"
+  replace="path"
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  ## find/replace lldp remote-statistics leafref path
+  find="\"\/equipment-augment:control-construct-spec\/equipment-augment:protocol-collection\/equipment-augment:protocol\/equipment-augment:uuid";
+  replace="\"\/core-model:control-construct\/equipment-augment:protocol-collection\/equipment-augment:protocol\/equipment-augment:uuid";
+  sed -i -e "s/$find/$replace/g" $yang;
+
   mv $filename ${fileversions[$index]}".yang"; 
 done
 
