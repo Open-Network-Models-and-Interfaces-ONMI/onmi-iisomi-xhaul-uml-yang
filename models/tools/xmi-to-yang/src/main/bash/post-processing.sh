@@ -164,7 +164,10 @@ do
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:uuid/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:uuid/g" $yang
 
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:fc-port\/core-model:local-id/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:fc-port\/core-model:local-id/g" $yang
-
+  # find/replace in synchModel
+   sed -i -e "s/\/synchronization:sync-cc-spec/\/core-model:control-construct/g" $yang
+    # find/replace in synchModel
+   sed -i -e "s/\/synchronization:synch-ltp-spec/\/core-model:control-construct\/core-model:logical-termination-point/g" $yang
   # find/replace in air-interface
   sed -i -e "s/\/air-interface:air-interface-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
@@ -198,8 +201,29 @@ do
   replace="";
   sed -i -e "s/$find/$replace/g" $yang;
 
-  find="uses sync-protection-spec;";
-  replace="when \"derived-from-or-self(/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:layer-protocol-name, 'sync-model:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-protection-spec;";
+  # find/replace for synchronization module
+  find="uses synchronization-clock-spec;";
+  replace="when \"derived-from-or-self(.\/synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses synchronization-clock-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+find="uses ptp-clock-spec;";
+  replace="when \"derived-from-or-self(.\/synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER')\";\n\t\tuses ptp-clock-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+find="uses synch-ltp-spec;";
+  replace="when \"derived-from-or-self(.\/core-model:layer-protocol\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses synch-ltp-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+find="uses sync-protection-spec;";
+  replace="when \"derived-from-or-self(\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-protection-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+find="uses sync-lp-spec;";
+  replace="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-lp-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+find="uses ptp-lp-spec;";
+  replace="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER')\";\n\t\tuses ptp-lp-spec;";
   sed -i -e "s/$find/$replace/g" $yang;
 
   # find/replace wred
@@ -214,16 +238,19 @@ do
   find="co-channel-profile.pnr:co-channel-profile-configuration";
   replace="wred-profile-configuration";
   sed -i -e "s/$find/$replace/g" $yang;
+if [ $filename == 'synchronization.yang' ]
+then
+find="augment \"\/core-model:control-construct\"{";
+identity="identity  LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+when="identity LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+replace=" $identity \n $when \n $find";
+sed -i -e "s/$find/$replace/g" $yang;
+fi
 
 
 #find/replace tdm-container
 sed -i -e "s/\/tdm-container:tdm-container-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
- # find/replace in
- find="leaf occupying-fru {";
- when="mandatory \"true\";";
- replace="$find\n\t\t\t$when";
- sed -i -e "s/$find/$replace/g" $yang;
 
 find="augment \"\/core-model:control-construct\/equipment-augment:protocol-collection\/equipment-augment:protocol\"{";
 when="when \"derived-from-or-self(.\/equipment-augment:protocol-name, 'lldp:PROTOCOL_NAME_TYPE_LLDP')\";"
@@ -231,12 +258,15 @@ replace=" $find \n $when";
 sed -i -e "s/$find/$replace/g" $yang;
   # find/replace in 
 
- find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
- identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
- when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
- replace=" $identity \n $find \n $when";
- #replace=" $find \n $when";
- sed -i -e "s/$find/$replace/g" $yang;
+if [ $filename != 'synchronization.yang' ]
+then
+  find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
+  identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+  when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '$index:${layer[$index]}')\";"
+  replace=" $identity \n $find \n $when";
+  #replace=" $find \n $when";
+  sed -i -e "s/$find/$replace/g" $yang;
+fi
 
   # find/replace in
 

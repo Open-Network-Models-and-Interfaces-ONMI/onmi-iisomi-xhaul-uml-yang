@@ -28,7 +28,8 @@ var store = {
     rootElement:[],
     generalization:[],
     augment:[],
-    literals:[]
+    literals:[],
+    _5GxhaulModelRequireInstanceAtInstanceIdentifier:[]
 };
 
 var yangProcessors = require("../generator/yangprocessors"),
@@ -105,6 +106,14 @@ function parseModule(file){
                 var obj;
                 for(var key in xmi){                            //key:the child node of xmi
                     switch(key.split(":")[1]){
+                        case "_5GxhaulModelAttribute":
+                            newxmi = xmi[key].array ? xmi[key].array : xmi[key];      
+                            var len = xmi[key].array ? xmi[key].array.length : 1;     
+                            for(var i = 0; i < len; i++){
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                parsers.parse5GxhaulModelAttribute(obj, store);
+                            }
+                            break;
                         case "OpenInterfaceModelAttribute":
                         case "OpenModelAttribute":
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];      //newxmi: the array in OpenModel_Profile:OpenModelAttribute

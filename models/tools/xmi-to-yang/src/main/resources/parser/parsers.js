@@ -520,6 +520,12 @@ var parsers = {
     createLifecycle:function(xmi,str,store){
         creators = require('./creators');
         return creators.createLifecycle(xmi,str,store);
+    },
+    parse5GxhaulModelAttribute:function(xmi,store){
+        if(xmi.attributes()["requireInstanceAtInstanceIdentifier"] && xmi.attributes()["requireInstanceAtInstanceIdentifier"] == "false"){
+            let id = xmi.attributes()["base_StructuralFeature"];
+            store._5GxhaulModelRequireInstanceAtInstanceIdentifier.push(id);
+        } 
     }
 };
 
@@ -538,5 +544,6 @@ module.exports = {
     parseUmlModel:parsers.parseUmlModel,
     createLifecycle:parsers.createLifecycle,
     setConfig:setConfig,
-    setCurrentFilename:setCurrentFilename
+    setCurrentFilename:setCurrentFilename,
+    parse5GxhaulModelAttribute:parsers.parse5GxhaulModelAttribute
 };

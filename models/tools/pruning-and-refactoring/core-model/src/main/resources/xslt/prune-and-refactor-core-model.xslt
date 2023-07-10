@@ -722,4 +722,15 @@ An FRU may occupy more than one holder (using or blocking are intentionally not 
       <xsl:apply-templates select="node()  | text()"/>
     </xsl:copy>
 </xsl:template>
+<!--  modify type for manufactureDate - set to String -->
+  <xsl:template match="ownedAttribute[@name = 'manufactureDate' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="*[fn:not(fn:name(.) = 'upperValue')] | @*[fn:not(fn:name(.) = 'type')] | text()"/>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- see issue: https://github.com/openBackhaul/core/issues/30 -->
+  <xsl:template match="lowerValue[@xmi:id='_qmEbMD-QEeaRI-H69PghuA']">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qmEbMD-QEeaRI-H69PghuA" value="1"/>
+  </xsl:template>
 </xsl:stylesheet>

@@ -117,6 +117,13 @@ config false;
     var simpletype="";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
+	if(this.type.name == "InstanceIdentifier"){
+            if(this.type.requireInstanceAtInstanceIdentifier !=undefined &&
+                this.type.requireInstanceAtInstanceIdentifier == false){
+                    type = PRE + '\ttype instance-identifier {\r\n'+
+                    PRE + "\trequire-instance false;\r\n" + PRE + "\t}\r\n";
+                }
+        }
     } else if (typeof this.type == "string") {
         if (this.type.split("+")[0] == "leafref") {
             if(this.isRequireInstance){

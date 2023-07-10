@@ -94,7 +94,7 @@ module.exports = {
             if(ele[i].nodeType == "enumeration") {
 		    console.log(ele[i].name);
 		    console.log(ele[i].path);
-		    if(ele[i].path == "ExplanatoryOnly-ExtentedCoreEnumerations"){
+		    if(ele[i].path == "ExplanatoryOnly-ExtentedCoreEnumerations" || ele[i].path == "ExplanatoryOnly"){
                     delete ele[i];
                     break;
                 }
@@ -176,6 +176,13 @@ module.exports = {
                                 ele[i].attribute[j].type = typeDef.name;
                             }else{
                                 ele[i].attribute[j].type = typeDef.fileName.split('.')[0] + ":" + typeDef.name;
+                            }
+			    if(typeDef.name == "InstanceIdentifier"){
+                                for(var k=0;k < store._5GxhaulModelRequireInstanceAtInstanceIdentifier.length;k++) {
+                                    if(ele[i].attribute[j].id == store._5GxhaulModelRequireInstanceAtInstanceIdentifier[k]){
+                                        ele[i].attribute[j].requireInstanceAtInstanceIdentifier = false;
+                                    }
+                                }
                             }
                         }
                     }
@@ -313,6 +320,11 @@ module.exports = {
 					    if(ele[i].attribute[j].name == "_selectedFcPort"){
                                                 ele[i].attribute[j].type = "leafref+path \"" + "/core-model:control-construct/core-model:forwarding-domain/core-model:fc[uuid = current()/../../uuid]/fc-port/local-id" + "\"";
                                             }
+					    if(ele[i].attribute[j].name == "_embeddedClock"){
+                                                console.log("**********inside embeddedClock*************");
+						console.log(yangPathStatement);
+                                            }
+
 
                                             if (ele[i].attribute[j].nodeType === "list") {
                                                 //ele[i].attribute[j].nodeType = "leaf-list";
