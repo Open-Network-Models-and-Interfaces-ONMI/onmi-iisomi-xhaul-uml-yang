@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="Notifications" URI="">
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdIV9LEemkV8c3A5D8-A" name="Associations"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdPl9LEemkV8c3A5D8-A" name="Diagrams"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdP19LEemkV8c3A5D8-A" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_nzCdQF9LEemkV8c3A5D8-A">
+        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+      </packageImport>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdQl9LEemkV8c3A5D8-A" name="Interfaces"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdQ19LEemkV8c3A5D8-A" name="Notifications">
+      <packagedElement xmi:type="uml:Signal" xmi:id="_P9-_YDDrEe6YypY0HHeRSA" name="ObjectCreationNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P9-_YTDrEe6YypY0HHeRSA" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_P9-_YjDrEe6YypY0HHeRSA" annotatedElement="_P9-_YTDrEe6YypY0HHeRSA">
+            <body>Counts object creation notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_P9-_YzDrEe6YypY0HHeRSA" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P9-_ZDDrEe6YypY0HHeRSA" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_P9-_ZTDrEe6YypY0HHeRSA" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_z7MGIDaUEe6YcIAD59BOnQ" name="objectPath" type="_NuLPADXEEe6WxNaUPX4gBQ" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_z7MGITaUEe6YcIAD59BOnQ" annotatedElement="_z7MGIDaUEe6YcIAD59BOnQ">
+            <body>Path from the top level element (e.g. ControlConstruct) to the object that got created. In YANG, it would be the container or list that got created.</body>
+          </ownedComment>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Signal" xmi:id="_P-J-gDDrEe6YypY0HHeRSA" name="ObjectDeletionNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P-J-gTDrEe6YypY0HHeRSA" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_P-J-gjDrEe6YypY0HHeRSA" annotatedElement="_P-J-gTDrEe6YypY0HHeRSA">
+            <body>Counts object deletion notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_P-J-gzDrEe6YypY0HHeRSA" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P-J-hDDrEe6YypY0HHeRSA" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_P-J-hTDrEe6YypY0HHeRSA" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Sv8tgDXJEe6WxNaUPX4gBQ" name="objectPath" type="_NuLPADXEEe6WxNaUPX4gBQ" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_lgKEMDXJEe6WxNaUPX4gBQ" annotatedElement="_Sv8tgDXJEe6WxNaUPX4gBQ">
+            <body>Path from the top level element (e.g. ControlConstruct) to the object that got deleted. In YANG, it would be the container or list that that got deleted.</body>
+          </ownedComment>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Signal" xmi:id="_P-LzsDDrEe6YypY0HHeRSA" name="AttributeValueChangedNotification">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P-LzsjDrEe6YypY0HHeRSA" name="counter" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_P-LzszDrEe6YypY0HHeRSA" annotatedElement="_P-LzsjDrEe6YypY0HHeRSA">
+            <body>Counts attribute value changed notifications.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_P-LztDDrEe6YypY0HHeRSA" value="-1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P-LztTDrEe6YypY0HHeRSA" name="timestamp" isUnique="false" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_P-LztjDrEe6YypY0HHeRSA" value="2010-11-20T14:00:00+01:00"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_qaI8sFIqEe63LLN8FWzIbA" name="objectPath" type="_NuLPADXEEe6WxNaUPX4gBQ" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_qaI8sVIqEe63LLN8FWzIbA" annotatedElement="_qaI8sFIqEe63LLN8FWzIbA">
+            <body>Path from the top level element (e.g ControlConstruct) to the object that holds the attribute that changed its value. In YANG, it would be the parent data node e.g. container or list that contains the leaf.</body>
+          </ownedComment>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P-LzuDDrEe6YypY0HHeRSA" name="attributeName" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_P-LzuTDrEe6YypY0HHeRSA" annotatedElement="_P-LzuDDrEe6YypY0HHeRSA">
+            <body>Name of the attribute that has changed its value. In YANG, it would be the name of the leaf or leaflist that changed its value.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_lAZOoFb9Ee6QIOD93MP4yw" value="attribute-name-not-yet-defined"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_P-LzuzDrEe6YypY0HHeRSA" name="newValue" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_P-LzvDDrEe6YypY0HHeRSA" annotatedElement="_P-LzuzDrEe6YypY0HHeRSA">
+            <body>Attribute value converted to a string (xml, json, ...)</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_P-LzvTDrEe6YypY0HHeRSA" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_P-LzvjDrEe6YypY0HHeRSA" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_2B2kgFb9Ee6QIOD93MP4yw" value="New value not yet defined."/>
+        </ownedAttribute>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdRF9LEemkV8c3A5D8-A" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Package" xmi:id="_nzCdfF9LEemkV8c3A5D8-A" name="SuperClasses"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdg19LEemkV8c3A5D8-A" name="Rules"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdhF9LEemkV8c3A5D8-A" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_NuLPADXEEe6WxNaUPX4gBQ" name="InstanceIdentifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_TD2TMDXEEe6WxNaUPX4gBQ" annotatedElement="_NuLPADXEEe6WxNaUPX4gBQ">
+          <body>To be translated into the YANG built in datatype instance-identifier.</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nzCdr19LEemkV8c3A5D8-A" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Usage" xmi:id="_u16HkFbDEe68RO92srRUNA" client="_P-LzsDDrEe6YypY0HHeRSA" supplier="_NuLPADXEEe6WxNaUPX4gBQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_wRXY8FbDEe68RO92srRUNA" client="_P-J-gDDrEe6YypY0HHeRSA" supplier="_NuLPADXEEe6WxNaUPX4gBQ"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_xNhfMFbDEe68RO92srRUNA" client="_P9-_YDDrEe6YypY0HHeRSA" supplier="_NuLPADXEEe6WxNaUPX4gBQ"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoSVJEemK9ptdIxz6GQ" key="Version" value="0.0.10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoiVJEemK9ptdIxz6GQ" key="Comment" value="Made OpenInterfaceModelClass stereotype obsolete.&#xD;&#xA;Made OpenInterfaceModelAttribute::attributeValueChangeNotification property obsolete.&#xD;&#xA;NotificationDefinition enumeration no longer used.&#xD;&#xA;BITS removed from Encoding enumeration.&#xD;&#xA;BitDefinition data type deleted.&#xD;&#xA;Optional Bit stereotype (extending the Property meta class) added.&#xD;&#xA;Optional Bits stereotype (extending the DataType meta class) added."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpCVJEemK9ptdIxz6GQ" key="Date" value="2018-09-17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i3v9sCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i6wOYCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8J8kCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kSVJEemK9ptdIxz6GQ" key="Version" value="0.2.17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kiVJEemK9ptdIxz6GQ" key="Comment" value="Editorial corrections in the description of OpenModelAttribute::partOfObjectKey and Reference."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lCVJEemK9ptdIxz6GQ" key="Date" value="2018-12-12"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6w1cCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i8gh4CVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8qS4CVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4SVJEemK9ptdIxz6GQ" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4iVJEemK9ptdIxz6GQ" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4yVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5CVJEemK9ptdIxz6GQ" key="Date" value="2017-08-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5SVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8hwACVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_PeB-oDxZEeqT0o6Ne2sibg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PeFpADxZEeqT0o6Ne2sibg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:notifications" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a generic set of notifications that can be applied to all objects and attributes of the ONF Core IM and its technology-specific extensions." copyright="Copyright 2023 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_DqkpUKMnEemOU89mRgVhCg" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="Notifications@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_En_2APPLEe2WHMSEVIrAmQ" date="2023-09-20" version="1.0.0-tsi.230920.1210" description="Model for the Transport SDN Introduction at Telefonica Germany." changeLog="https://github.com/openBackhaul/notifications/issues" reference="https://github.com/openBackhaul/notifications/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+  </OpenModel_Profile:OpenModelStatement>
+  <OpenModel_Profile:Obsolete xmi:id="_n3pQUF9LEemkV8c3A5D8-A" base_Element="_nzCdr19LEemkV8c3A5D8-A"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_P9_mcDDrEe6YypY0HHeRSA" base_Signal="_P9-_YDDrEe6YypY0HHeRSA"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_P-J-hzDrEe6YypY0HHeRSA" base_Signal="_P-J-gDDrEe6YypY0HHeRSA"/>
+  <OpenModel_Profile:OpenModelNotification xmi:id="_P-LzwDDrEe6YypY0HHeRSA" base_Signal="_P-LzsDDrEe6YypY0HHeRSA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-BboTDrEe6YypY0HHeRSA" base_Property="_P9-_YTDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-BboDDrEe6YypY0HHeRSA" base_StructuralFeature="_P9-_YTDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-MayDDrEe6YypY0HHeRSA" base_Property="_P-LzuzDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-MaxzDrEe6YypY0HHeRSA" base_StructuralFeature="_P-LzuzDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-MaxjDrEe6YypY0HHeRSA" base_Property="_P-LzuDDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-MaxTDrEe6YypY0HHeRSA" base_StructuralFeature="_P-LzuDDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_qaKK0FIqEe63LLN8FWzIbA" base_Property="_qaI8sFIqEe63LLN8FWzIbA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_qaJjwFIqEe63LLN8FWzIbA" base_StructuralFeature="_qaI8sFIqEe63LLN8FWzIbA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-MawjDrEe6YypY0HHeRSA" base_Property="_P-LztTDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-MawTDrEe6YypY0HHeRSA" base_StructuralFeature="_P-LztTDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-MawDDrEe6YypY0HHeRSA" base_Property="_P-LzsjDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-LzwTDrEe6YypY0HHeRSA" base_StructuralFeature="_P-LzsjDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Sv9UkDXJEe6WxNaUPX4gBQ" base_Property="_Sv8tgDXJEe6WxNaUPX4gBQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Sv8tgTXJEe6WxNaUPX4gBQ" base_StructuralFeature="_Sv8tgDXJEe6WxNaUPX4gBQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-KlkTDrEe6YypY0HHeRSA" base_Property="_P-J-hDDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-KlkDDrEe6YypY0HHeRSA" base_StructuralFeature="_P-J-hDDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-J-iTDrEe6YypY0HHeRSA" base_Property="_P-J-gTDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-J-iDDrEe6YypY0HHeRSA" base_StructuralFeature="_P-J-gTDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_z7NUQDaUEe6YcIAD59BOnQ" base_Property="_z7MGIDaUEe6YcIAD59BOnQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_z7MtMDaUEe6YcIAD59BOnQ" base_StructuralFeature="_z7MGIDaUEe6YcIAD59BOnQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_P-BbozDrEe6YypY0HHeRSA" base_Property="_P9-_ZDDrEe6YypY0HHeRSA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P-BbojDrEe6YypY0HHeRSA" base_StructuralFeature="_P9-_ZDDrEe6YypY0HHeRSA" isInvariant="true"/>
+  <OpenModel_Profile:Obsolete xmi:id="_4EJ_0FbDEe68RO92srRUNA" base_Element="_u16HkFbDEe68RO92srRUNA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_40hs0FbDEe68RO92srRUNA" base_Element="_wRXY8FbDEe68RO92srRUNA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_5nfa0FbDEe68RO92srRUNA" base_Element="_xNhfMFbDEe68RO92srRUNA"/>
+</xmi:XMI>

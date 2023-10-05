@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="EthernetContainerFc" URI="">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_EcKowL0aEemxAM_DWydfXQ" annotatedElement="_Imk30GyUEee0HrHFgb9oqw">
+      <body>Technology specific Forwarding Construct for bare Frame Forwarding.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTEuEFE6Eembl8KFq0LDlA" name="Associations">
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_l4LYIOhKEeq19cX9yhEXnw" client="_odj6ALUwEemP0vs_3-grtw">
+        <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Constraint" xmi:id="_fLOigOhLEeq19cX9yhEXnw" name="When" constrainedElement="_l4LYIOhKEeq19cX9yhEXnw">
+        <specification xmi:type="uml:LiteralString" xmi:id="_fLQXsOhLEeq19cX9yhEXnw" name="constraintSpec" value="layerProtocolName='ethernet-container-fc:LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER'"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_zAJvALUwEemP0vs_3-grtw" memberEnd="_zAVVMLUwEemP0vs_5-grtw _zAdRALUwEemP0vs_3-grtw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zAS48LUwEemP0vs_3-grtw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zATgALUwEemP0vs_3-grtw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_zAdRALUwEemP0vs_3-grtw" name="ethernetContainerFclpspec" type="_odj6ALUwEemP0vs_3-grtw" association="_zAJvALUwEemP0vs_3-grtw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_eTEuEVE6Eembl8KFq0LDlA" memberEnd="_eTT-o1E6Eembl8KFq0LDlA _eTEuFFE6Eembl8KFq0LDlA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eTEuElE6Eembl8KFq0LDlA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTEuE1E6Eembl8KFq0LDlA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_eTEuFFE6Eembl8KFq0LDlA" name="ethernetContainerFc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_eTEuEVE6Eembl8KFq0LDlA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_eTEuFVE6Eembl8KFq0LDlA" memberEnd="_eTT-pFE6Eembl8KFq0LDlA _eTEuGFE6Eembl8KFq0LDlA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eTEuFlE6Eembl8KFq0LDlA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTEuF1E6Eembl8KFq0LDlA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_eTEuGFE6Eembl8KFq0LDlA" name="ethernetContainerFc_pac" type="_eTT-olE6Eembl8KFq0LDlA" association="_eTEuFVE6Eembl8KFq0LDlA"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTPGIFE6Eembl8KFq0LDlA" name="Diagrams"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTRiYFE6Eembl8KFq0LDlA" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_EIUbEGqZEemhHpL8kAIrbQ">
+        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+      </packageImport>
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_5LiY8NWjEeqMhvIKSP0iJw">
+        <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTSwgFE6Eembl8KFq0LDlA" name="Interfaces">
+      <packagedElement xmi:type="uml:Interface" xmi:id="_-nVfIFWbEeufo8l3kgcg6A" name="EthernetContainerFcOperations">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_oE9KgGYGEeu6--L3qu9qkw" annotatedElement="_-nVfIFWbEeufo8l3kgcg6A">
+          <body>Group of operations, which are effective on an already existing bare frame forwarding (EthernetContainerFc).</body>
+        </ownedComment>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_JmdCoFWdEeufo8l3kgcg6A" name="addEthernetContainerToFc">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_JmdCoVWdEeufo8l3kgcg6A" annotatedElement="_JmdCoFWdEeufo8l3kgcg6A">
+            <body>Adds another EthernetContainer interface to an existing frame forwarding (EthernetContainerFc). The following error-messages are to be send, if the operation would fail: #[onf:EthernetContainer cannot be added to frame forwarding.]#, e.g. if the hardware does not support modifying the referenced forwarding or the EthernetContainer already belong to another frame forwarding. #[onf:Referenced object is invalid.]#, if the referenced ForwardingConstruct or the referenced LogicalTerminationPoint does not exist or does not belong to the EthernetContainer layer, or the referenced LogicalTerminationPoint is not connected with the EthernetContainerFd that holds the referenced EthernetContainerFc.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_bzKUYFpjEeu8PNIPzKY3QQ" name="_affectedEthernetContainerFc">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_bzKUYVpjEeu8PNIPzKY3QQ" annotatedElement="_bzKUYFpjEeu8PNIPzKY3QQ">
+              <body>Reference to the existing frame forwarding that shall be modified.</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ktqEAFWeEeufo8l3kgcg6A" name="_toBeConnectedEthernetContainer">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_ktqEAVWeEeufo8l3kgcg6A" annotatedElement="_ktqEAFWeEeufo8l3kgcg6A">
+              <body>Reference to the EthernetContainer interface that shall be added to the referenced frame forwarding.</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_mhzFsFWfEeufo8l3kgcg6A" name="removeEthernetContainerFromFc">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_mCI9MGYREeu6--L3qu9qkw" annotatedElement="_mhzFsFWfEeufo8l3kgcg6A">
+            <body>Removes an EthernetContainer interface from an existing frame forwarding (EthernetContainerFc). The following error-messages are to be send, if the operation would fail: #[onf:EthernetContainer cannot be removed from frame forwarding.]#, e.g. if the hardware does not support modifying the referenced forwarding. #[onf:Referenced object is invalid.]#, if the referenced ForwardingConstruct or the referenced LogicalTerminationPoint does not exist or does not belong to the EthernetContainer layer.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_3Kk8AFpkEeu8PNIPzKY3QQ" name="_affectedEthernetContainerFc">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_3Kk8AVpkEeu8PNIPzKY3QQ" annotatedElement="_3Kk8AFpkEeu8PNIPzKY3QQ">
+              <body>Reference to the existing frame forwarding that shall be modified.</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_mhzFsVWfEeufo8l3kgcg6A" name="_toBeDisconnectedEthernetContainer" effect="delete">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_mhzFslWfEeufo8l3kgcg6A" annotatedElement="_mhzFsVWfEeufo8l3kgcg6A">
+              <body>Reference to the EthernetContainer interface that shall be removed from the referenced frame forwarding.</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTTXkFE6Eembl8KFq0LDlA" name="Notifications"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTT-oFE6Eembl8KFq0LDlA" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Class" xmi:id="_odj6ALUwEemP0vs_3-grtw" name="EthernetContainerFcSpec">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_AFwwQL56Eemj8sLhiejUhA" annotatedElement="_odj6ALUwEemP0vs_3-grtw">
+          <body>Represents the frame forwarding, which is configured.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_zAVVMLUwEemP0vs_5-grtw" name="_ethernetContainerFc_Pac" type="_eTT-olE6Eembl8KFq0LDlA" aggregation="composite" association="_zAJvALUwEemP0vs_3-grtw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eTT-olE6Eembl8KFq0LDlA" name="EthernetContainerFc_Pac">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-o1E6Eembl8KFq0LDlA" name="_ethernetContainerFcCapability" type="_eTT-qVE6Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_eTEuEVE6Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_eTT-pFE6Eembl8KFq0LDlA" name="_ethernetContainerFcConfiguration" type="_eTT-v1E6Eembl8KFq0LDlA" aggregation="composite" association="_eTEuFVE6Eembl8KFq0LDlA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eTT-qVE6Eembl8KFq0LDlA" name="EthernetContainerFcCapability">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_8dLt0GKxEe68C6Wd1isKFg" name="addingEthernetContainerToFcIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_8dLt0WKxEe68C6Wd1isKFg" annotatedElement="_8dLt0GKxEe68C6Wd1isKFg">
+            <body>true = It is supported to add another EthernetContainer to an existing EthernetContainerFc.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_8dLt0mKxEe68C6Wd1isKFg"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Q6_10GKyEe68C6Wd1isKFg" name="removingEthernetContainerFromFcIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_Q6_10WKyEe68C6Wd1isKFg" annotatedElement="_Q6_10GKyEe68C6Wd1isKFg">
+            <body>true = It is supported to remove an EthernetContainer from an existing EthernetContainerFc.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_Q6_10mKyEe68C6Wd1isKFg"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eTT-v1E6Eembl8KFq0LDlA" name="EthernetContainerFcConfiguration">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_066eLL54Eemj8sLhiejUhA" name="fcName" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_066eLb54Eemj8sLhiejUhA" annotatedElement="_066eLL54Eemj8sLhiejUhA">
+            <body>Description of the frame forwarding, could be a name, could be a number.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_YqmgoFpmEeu8PNIPzKY3QQ" value="Frame forwarding name not yet defined."/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_eTT-9lE6Eembl8KFq0LDlA" name="SuperClasses"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eThaAFE6Eembl8KFq0LDlA" name="Rules"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_eTiBEFE6Eembl8KFq0LDlA" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:Package" xmi:id="_bmxmHGanEemaCpXjwie7xQ" name="SuperTypes"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_zf_HAFFWEembl8KFq0LDlA" name="ExplanatoryOnly">
+      <packagedElement xmi:type="uml:Package" xmi:id="_VDfp0E9fEeuMcsI2Mw3f8Q" name="ExtentedCoreEnumerations">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_VDfp0U9fEeuMcsI2Mw3f8Q" name="LayerProtocolNameType">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_VDfp0k9fEeuMcsI2Mw3f8Q" annotatedElement="_VDfp0U9fEeuMcsI2Mw3f8Q">
+            <body>A controlled list of LayerProtocol names.</body>
+          </ownedComment>
+          <generalization xmi:type="uml:Generalization" xmi:id="_DB728E9hEeuMcsI2Mw3f8Q">
+            <general xmi:type="uml:Enumeration" href="../OnfModel/CoreModel.uml#_MbUkMIQ4EeiXzpgfQWpR-Q"/>
+          </generalization>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_VDfp1E9fEeuMcsI2Mw3f8Q" name="LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER_LAYER"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoSVJEemK9ptdIxz6GQ" key="Version" value="0.0.10"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoiVJEemK9ptdIxz6GQ" key="Comment" value="Made OpenInterfaceModelClass stereotype obsolete.&#xD;&#xA;Made OpenInterfaceModelAttribute::attributeValueChangeNotification property obsolete.&#xD;&#xA;NotificationDefinition enumeration no longer used.&#xD;&#xA;BITS removed from Encoding enumeration.&#xD;&#xA;BitDefinition data type deleted.&#xD;&#xA;Optional Bit stereotype (extending the Property meta class) added.&#xD;&#xA;Optional Bits stereotype (extending the DataType meta class) added."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXoyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpCVJEemK9ptdIxz6GQ" key="Date" value="2018-09-17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i6VXpSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i3v9sCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i6wOYCVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8J8kCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kSVJEemK9ptdIxz6GQ" key="Version" value="0.2.17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kiVJEemK9ptdIxz6GQ" key="Comment" value="Editorial corrections in the description of OpenModelAttribute::partOfObjectKey and Reference."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8kyVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lCVJEemK9ptdIxz6GQ" key="Date" value="2018-12-12"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8J8lSVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6w1cCVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i8gh4CVJEemK9ptdIxz6GQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8qS4CVJEemK9ptdIxz6GQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4SVJEemK9ptdIxz6GQ" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4iVJEemK9ptdIxz6GQ" key="Comment" value="Metaclasses Property and Stereotype added via &lt;Element Import>."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS4yVJEemK9ptdIxz6GQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5CVJEemK9ptdIxz6GQ" key="Date" value="2017-08-08"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i8qS5SVJEemK9ptdIxz6GQ" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i8hwACVJEemK9ptdIxz6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:ethernet-container-fc" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It describes bare frame forwarding." copyright="Copyright 2023 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="EthernetContainerFc@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_fGaYQLaaEeyq-8HSM8eUuQ" date="2023-10-04" version="1.0.0-tsp.231004.1445" description="Model for the Transport SDN Introduction at Telefonica Germany" changeLog="https://github.com/openBackhaul/ethernetContainerFc/issues" reference="https://github.com/openBackhaul/ethernetContainerFc/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+  </OpenModel_Profile:OpenModelStatement>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTFVIFE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuFFE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MFE6Eembl8KFq0LDlA" base_Property="_eTEuFFE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTF8MVE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuGFE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MlE6Eembl8KFq0LDlA" base_Property="_eTEuGFE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:Obsolete xmi:id="_3T3BQFFWEembl8KFq0LDlA" base_Element="_zf_HAFFWEembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_odkhELUwEemP0vs_3-grtw" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_odj6ALUwEemP0vs_3-grtw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_odnkYLUwEemP0vs_3-grtw" base_Class="_odj6ALUwEemP0vs_3-grtw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_zAV8QLUwEemP0vs_3-grtw" base_Property="_zAVVMLUwEemP0vs_5-grtw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zAXKYLUwEemP0vs_3-grtw" base_StructuralFeature="_zAVVMLUwEemP0vs_5-grtw" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_zAd4ELUwEemP0vs_3-grtw" base_Property="_zAdRALUwEemP0vs_3-grtw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zAefILUwEemP0vs_3-grtw" base_StructuralFeature="_zAdRALUwEemP0vs_3-grtw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTVMwlE6Eembl8KFq0LDlA" base_Property="_eTT-o1E6Eembl8KFq0LDlA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTVMwVE6Eembl8KFq0LDlA" base_StructuralFeature="_eTT-o1E6Eembl8KFq0LDlA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTVMxFE6Eembl8KFq0LDlA" base_Property="_eTT-pFE6Eembl8KFq0LDlA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eTVMw1E6Eembl8KFq0LDlA" base_StructuralFeature="_eTT-pFE6Eembl8KFq0LDlA" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVMwFE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-olE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTUlsFE6Eembl8KFq0LDlA" base_Class="_eTT-olE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_07BLlb54Eemj8sLhiejUhA" base_Property="_066eLL54Eemj8sLhiejUhA" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_07BLlL54Eemj8sLhiejUhA" base_StructuralFeature="_066eLL54Eemj8sLhiejUhA"/>
+  <OpenModel_Profile:Reference xmi:id="_Xx2Y8ObREeqVt6mT-qPajQ" base_Element="_odj6ALUwEemP0vs_3-grtw" reference="12.10.2 of IEEE Std 802.1Q-2018"/>
+  <OpenModel_Profile:Specify xmi:id="_qMjXYOhKEeq19cX9yhEXnw" base_Abstraction="_l4LYIOhKEeq19cX9yhEXnw">
+    <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:ForwardingDomain:ForwardingDomain/CoreModel:ForwardingDomain:Fc</target>
+  </OpenModel_Profile:Specify>
+  <OpenModel_Profile:Obsolete xmi:id="_VIKucE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp0E9fEeuMcsI2Mw3f8Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_VIbNIE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp0U9fEeuMcsI2Mw3f8Q"/>
+  <OpenModel_Profile:Obsolete xmi:id="_VIcbQE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp1E9fEeuMcsI2Mw3f8Q"/>
+  <OpenModel_Profile:OpenModelInterface xmi:id="_-nWtQFWbEeufo8l3kgcg6A" base_Interface="_-nVfIFWbEeufo8l3kgcg6A"/>
+  <OpenModel_Profile:OpenModelOperation xmi:id="_JmeQwFWdEeufo8l3kgcg6A" base_Operation="_JmdCoFWdEeufo8l3kgcg6A" isOperationIdempotent="true" isAtomic="true"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_ktqrEFWeEeufo8l3kgcg6A" base_Parameter="_ktqEAFWeEeufo8l3kgcg6A"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_0NFmcFWeEeufo8l3kgcg6A" base_Parameter="_ktqEAFWeEeufo8l3kgcg6A"/>
+  <OpenModel_Profile:OpenModelOperation xmi:id="_mhzFs1WfEeufo8l3kgcg6A" base_Operation="_mhzFsFWfEeufo8l3kgcg6A" isOperationIdempotent="true" isAtomic="true"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_mhzswFWfEeufo8l3kgcg6A" base_Parameter="_mhzFsVWfEeufo8l3kgcg6A"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_tMQLgFWfEeufo8l3kgcg6A" base_Parameter="_mhzFsVWfEeufo8l3kgcg6A"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_bzK7cFpjEeu8PNIPzKY3QQ" base_Parameter="_bzKUYFpjEeu8PNIPzKY3QQ"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_u1qU8FpjEeu8PNIPzKY3QQ" base_Parameter="_bzKUYFpjEeu8PNIPzKY3QQ"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_3KljEFpkEeu8PNIPzKY3QQ" base_Parameter="_3Kk8AFpkEeu8PNIPzKY3QQ"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_RcjbAFplEeu8PNIPzKY3QQ" base_Parameter="_3Kk8AFpkEeu8PNIPzKY3QQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVz2FE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTVz11E6Eembl8KFq0LDlA" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTbTYVE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTbTYFE6Eembl8KFq0LDlA" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_8dMU4GKxEe68C6Wd1isKFg" base_Property="_8dLt0GKxEe68C6Wd1isKFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_8dNjAGKxEe68C6Wd1isKFg" base_StructuralFeature="_8dLt0GKxEe68C6Wd1isKFg" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Q6_102KyEe68C6Wd1isKFg" base_Property="_Q6_10GKyEe68C6Wd1isKFg" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Q7Ac4GKyEe68C6Wd1isKFg" base_StructuralFeature="_Q6_10GKyEe68C6Wd1isKFg" isInvariant="true"/>
+</xmi:XMI>
