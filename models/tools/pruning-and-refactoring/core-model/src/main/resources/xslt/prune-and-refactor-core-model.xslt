@@ -222,10 +222,12 @@
         <!-- add Type ExternalManagedUniversalId -->
           <packagedElement xmi:type="uml:DataType" xmi:id="_3EHRQJ1WEemVGaFq9YMDhg" name="ExternalManagedUniversalId">
             <ownedAttribute xmi:type="uml:Property" xmi:id="_3EHRQZ1WEemVGaFq9YMDhg" name="managerIdentifier" visibility="public">
-              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+		    <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+		    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3EHRQZ1WEemVGaFq9YMDhi" value="0" />
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_3EHRQp1WEemVGaFq9YMDhg" name="externalManagedUuid">
-              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+		    <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+		    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3EHRQp1WEemVGaFq9YMDhh" value="0" />
             </ownedAttribute>
           </packagedElement>
                 </packagedElement>
@@ -441,7 +443,7 @@
 
       <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:extensible-network-function" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
         <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
-	 <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2023-06-14" date="2023-06-14" version="v1.4" description="Model for the Transport SDN Pilot at Telefonica Germany.&#xA;
+	 <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2023-07-26" date="2023-07-26" version="v1.4" description="Model for the Transport SDN Pilot at Telefonica Germany.&#xA;
        Please view https://github.com/openBackhaul/core/issues for changes.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
 	<revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-11-27" date="2019-11-27" version="v1.4" description="Package equipment-specification has been deleted,&#xA;
        because of wrong key statements and overall grouping never applied.&#xA;" additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
@@ -733,4 +735,592 @@ An FRU may occupy more than one holder (using or blocking are intentionally not 
   <xsl:template match="lowerValue[@xmi:id='_qmEbMD-QEeaRI-H69PghuA']">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qmEbMD-QEeaRI-H69PghuA" value="1"/>
   </xsl:template>
+
+
+
+  <!-- see issue: https://github.com/openBackhaul/core/issues/32 -->
+
+  <!-- To change the name-and-value-authority/uuid to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_VM-4EI31EeO38ZmbECnvbg']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VM-4EI31EeO38ZmbECnvbg" value="0" />
+  </xsl:template>
+
+  <!-- To change the local-id-and-class/local-id to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_yRTdYsDwEeWbqPZwR-Ot6A']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yRTdYsDwEeWbqPZwR-Ot6A" value="0" />
+  </xsl:template>
+
+  <!-- To change the local-id-and-class/class-of-instance to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_F1nxkMDxEeWbqPZwR-Ot6A']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_F1nxkMDxEeWbqPZwR-Ot6B" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the logical-termination-point/ltp-direction to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_TbSEkEDBEeWQeOKbNUpP9A']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TbSEkEDBEeWQeOKbNUpP9A" value="0" />
+  </xsl:template>
+
+  <!-- To change the layer-protocol/termination-state to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_p2YfoGeEEeWmgIwAIZlYKQ']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_p2YfoGeEEeWmgIwAIZlYKR" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the layer-protocol/lpDirection to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_HFnvcEDBEeWQeOKbNUpP9A']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HFnvcEDBEeWQeOKbNUpP9A" value="0" />
+  </xsl:template>
+
+  <!-- To change the layer-protocol-name-and-qualifier/layer-protocol-name to optional-->
+  <!-- handled in the tool regarding this -->
+
+<!-- To change the fd-port/role to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_eVO2UCT7Eee9I5wuRX6wwQ']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eVO2UCT7Eee9I5wuRX6wwQ" value="0" />
+  </xsl:template>
+
+  <!-- To change the fd-port/fd-port-direction to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_fxO6QiT7Eee9I5wuRX6wwQ']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fxO6QiT7Eee9I5wuRX6wwQ" value="0" />
+  </xsl:template>
+
+  <!-- To change the fc-port/is-internal-port to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_CSlIwNViEeWhfIeymCGl5Q']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CSlIwNViEeWhfIeymCGl5R" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the fc-port/role to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_Y9kz4FeGEeOVGaP4lO41SQ']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y9kz4FeGEeOVGaP4lO41SQ" value="0" />
+  </xsl:template>
+
+  <!-- To change the fc-port/fc-port-direction to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_Dd7akEDCEeWQeOKbNUpP9A']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Dd7akEDCEeWQeOKbNUpP9A" value="0" />
+  </xsl:template>
+
+  <!-- To change the fc-switch/hold-off-time to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_oGqn6FLNEeO75dO39GbF8Q']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqn6FLNEeO75dO39GbF8R" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the fc-switch/prot-type to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_oGqn6lLNEeO75dO39GbF8Q']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqn6lLNEeO75dO39GbF8R" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the fc-switch/switch-selection-reason to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_XjsGkCi_EeaGGvAxxSe1uA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XjsGkCi_EeaGGvAxxSe1uB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the fc-switch/wait-to-restore-time to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_oGqn5lLNEeO75dO39GbF8Q']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqn5lLNEeO75dO39GbF8R" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the casc-port/port-role to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_C4GqoNvwEeaL7dYp0KdCwA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C4GqoNvwEeaL7dYp0KdCwB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the casc-port-role-properties/signalling-format to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_WNkx0GCHEeeJH-mSlR-JCw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WNkx0GCHEeeJH-mSlR-JCx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the casc-port-role-properties/monitoring-details to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_kib-kGCHEeeJH-mSlR-JCw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kib-kGCHEeeJH-mSlR-JCx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the casc-port-role-properties/control-details to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_wQGfkGCHEeeJH-mSlR-JCw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wQGfkGCHEeeJH-mSlR-JCx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the name-and-value/value to optional-->
+
+  <!-- To change the clock/run-mode to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_MCMUQHXCEeeqyuooNTTDCg']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MCMUQHXCEeeqyuooNTTDCh" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the equipment-structure/category to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_gLJ28EQvEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gLJ28EQvEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the holder-structure/holder-category to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_r240kERLEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_r240kERLEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the holder-structure/is-captive to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_4XbukERMEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4XbukERMEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the holder-structure/is-guided to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_-1CEIERMEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-1CEIERMEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the holder-structure/is-quantised-space to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_Lj7_sERNEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lj7_sERNEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the connector/connector-type to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_NBXLMEgXEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NBXLMEgXEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the connector/role to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_Y4R7QC8IEeexxefg2F1i1Q']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4R7QC8IEeexxefg2F1i1R" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the connector/orientation to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_r6M6MEQ-EeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_r6M6MEQ-EeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the connector/pin-layout to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_EaxH4kdeEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EaxH4kdeEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the holder/holder-location to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_l6LE4ERTEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_l6LE4ERTEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the position/relative-position to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_U_6mYERXEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_U_6mYERXEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the spatial-properties-of-type/height to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_k_CVUEQyEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k_CVUEQyEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the spatial-properties-of-type/width to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_n6nVoEQyEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n6nVoEQyEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the spatial-properties-of-type/length to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_uIPVgEQyEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uIPVgEQyEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the operator-augmented-equipment-instance/asset-instance-identifier to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_87VIs4M8EeePYJZQb-Dcag']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_87VIs4M8EeePYJZQb-Dcah" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the thermal-rating/thermal-rating-name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_r6BzkGsaEeiRh-lc79MSRw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_r6BzkGsaEeiRh-lc79MSRx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the thermal-rating/maximum-temperature to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_-8q-EGsaEeiRh-lc79MSRw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-8q-EGsaEeiRh-lc79MSRx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the thermal-rating/minimum-temperature to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_fFTHYGsbEeiRh-lc79MSRw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fFTHYGsbEeiRh-lc79MSRx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the power-rating/power-rating-name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_g6bmkGsnEeiRh-lc79MSRw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_g6bmkGsnEeiRh-lc79MSRx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the power-rating/power-rating-value to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_sGvuAGsnEeiRh-lc79MSRw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sGvuAGsnEeiRh-lc79MSRx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the signal-property-rule/signal-property-name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_MjTgEJwzEea1Nbypr6RfLw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MjTgEJwzEea1Nbypr6RfLx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the signal-property-rule/signal-property-value-rule to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_jx5GkJwzEea1Nbypr6RfLw']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jx5GkJwzEea1Nbypr6RfLx" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the metaclass-class/metaclass-class-name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_oIBGkGImEeerc4Zz6ufSeg']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oIBGkGImEeerc4Zz6ufSeh" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the external-managed-universal-id/manager-identifier to optional-->
+  <!--included value in the same pruning file in the section "add Type ExternalManagedUniversalId" -->
+
+  <!-- To change the external-managed-universal-id/external-managed-uuid to optional-->
+  <!--included value in the same pruning file in the section "add Type ExternalManagedUniversalId" -->
+
+  <!-- To change the installed-software-component/name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_JopIgD4sEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JopIgD4sEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the installed-software-component/version to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_KBj-0D4sEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KBj-0D4sEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_xlPEwD4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xlPEwD4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/process-id to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_ubjXAD4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ubjXAD4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/run-state to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_xaU1QD4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xaU1QD4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/priority to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_u54RwD4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_u54RwD4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/invoking-user to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_vUB3ID4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vUB3ID4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/invoking-command to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_v6c98D4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v6c98D4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/time-invoked to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_wyWPQD4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wyWPQD4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the running-software-process/description to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_ydEEoD4pEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ydEEoD4pEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file/size to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_2lnLMD4lEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lnLMD4lEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file/checksum to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_UWPF4D4nEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UWPF4D4nEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file/last-modify-time to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_QdB_sD4nEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QdB_sD4nEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file-system-entry/local-name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_ejfX8D3CEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ejfX8D3CEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file-system-entry/path-name to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_ZbaD0D3CEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZbaD0D3CEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file-system-entry/create-date to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_in2m0D4mEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_in2m0D4mEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file-system-entry/is-read-only to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_A15GoD3CEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_A15GoD3CEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the file-system-entry/is-hidden to optional-->
+  <xsl:template match="ownedAttribute[@xmi:id='_NdUhMD3CEei6HehkJk8P-g']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NdUhMD3CEei6HehkJk8P-h" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- To change the name-and-value/value to optional-->
+  <xsl:template match="lowerValue[@xmi:id='_Z3im4I3uEeO38ZmbECnvbg']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Z3im4I3uEeO38ZmbECnvbg" value="0" />
+  </xsl:template>
+
+  <!-- To change the local-class/local-id to optional-->
+<xsl:template match="lowerValue[@xmi:id='_GzHo0I3wEeO38ZmbECnvbg']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GzHo0I3wEeO38ZmbECnvbg" value="0" />
+</xsl:template>
+
+<!-- To change the equipment-type/type-name to optional-->
+<xsl:template match="ownedAttribute[@xmi:id='_j105QEQsEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j105QEQsEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+</xsl:template>
+
+<!-- To change the equipment-type/version to optional-->
+<xsl:template match="ownedAttribute[@xmi:id='_mig3EEQuEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mig3EEQuEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+</xsl:template>
+
+<!-- To change the equipment-type/model-identifier to optional-->
+<xsl:template match="ownedAttribute[@xmi:id='_oUmxsEQsEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oUmxsEQsEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+</xsl:template>
+
+
+<!-- To change the manufacturer-properties/manufacturer-name to optional-->
+<xsl:template match="ownedAttribute[@xmi:id='_cC-A8EQsEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cC-A8EQsEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+</xsl:template>
+
+<!-- To change the manufacturer-properties/manufacturer-identifier to optional-->
+<xsl:template match="ownedAttribute[@xmi:id='_VTQLMEQtEeasL6dcjI1vEA']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*" />
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VTQLMEQtEeasL6dcjI1vEB" value="0" />
+      <xsl:apply-templates select="node() | text()" />
+    </xsl:copy>
+</xsl:template>
 </xsl:stylesheet>

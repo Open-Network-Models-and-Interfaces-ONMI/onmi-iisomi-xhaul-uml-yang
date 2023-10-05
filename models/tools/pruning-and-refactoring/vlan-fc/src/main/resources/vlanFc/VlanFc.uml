@@ -236,7 +236,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_eThaAFE6Eembl8KFq0LDlA" name="Rules"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_eTiBEFE6Eembl8KFq0LDlA" name="TypeDefinitions">
-      <packagedElement xmi:type="uml:Enumeration" xmi:id="_EqKB0LUzEemWW757xUxUvA" name="SubLayerProtoclNameType">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_EqKB0LUzEemWW757xUxUvA" name="SubLayerProtocolNameType">
         <ownedComment xmi:type="uml:Comment" xmi:id="_EqKB0bUzEemWW757xUxUvA" annotatedElement="_EqKB0LUzEemWW757xUxUvA">
           <body>Represents the type of Component. Name in ieee802-dot1q-bridge.yang: type-of-component.</body>
         </ownedComment>
@@ -265,8 +265,6 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_bmxmHGanEemaCpXjwie7xQ" name="SuperTypes"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_zf_HAFFWEembl8KFq0LDlA" name="ExplanatoryOnly">
-      <packagedElement xmi:type="uml:Usage" xmi:id="_TbzrkLU9EemsfcwHLUCxfw" client="_eTT-v1E6Eembl8KFq0LDlA" supplier="_eTPGIFE6Eembl8KFq0LDlA"/>
-      <packagedElement xmi:type="uml:Usage" xmi:id="_K8b2ELU-EemsfcwHLUCxfw" client="_eTT-qVE6Eembl8KFq0LDlA" supplier="_EqKB0LUzEemWW757xUxUvA"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_VDfp0E9fEeuMcsI2Mw3f8Q" name="ExtentedCoreEnumerations">
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_VDfp0U9fEeuMcsI2Mw3f8Q" name="LayerProtocolNameType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_VDfp0k9fEeuMcsI2Mw3f8Q" annotatedElement="_VDfp0U9fEeuMcsI2Mw3f8Q">
@@ -278,6 +276,8 @@
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_VDfp1E9fEeuMcsI2Mw3f8Q" name="LAYER_PROTOCOL_NAME_TYPE_VLAN_LAYER"/>
         </packagedElement>
       </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_TbzrkLU9EemsfcwHLUCxfw" client="_eTT-v1E6Eembl8KFq0LDlA" supplier="_eTPGIFE6Eembl8KFq0LDlA"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_K8b2ELU-EemsfcwHLUCxfw" client="_eTT-qVE6Eembl8KFq0LDlA" supplier="_EqKB0LUzEemWW757xUxUvA"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_i3sTUCVJEemK9ptdIxz6GQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i6VXoCVJEemK9ptdIxz6GQ" source="PapyrusVersion">
@@ -319,21 +319,18 @@
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:vlan-fc" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It describes the VLAN according to IEEE 802.1Q-2018." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:vlan-fc" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It describes the VLAN according to IEEE 802.1Q-2018." copyright="Copyright 2022 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="VlanFc@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_fGaYQLaaEeyq-8HSM8eUuQ" date="2022-04-07" version="1.0.0-tsp.220407.1950" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_lbziQFpmEeu8PNIPzKY3QQ" date="2021-02-07" version="1.0.0-tsp.210207.0850" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_S_lNIE9mEeuMcsI2Mw3f8Q" date="2021-01-05" version="1.0.0-tsp.210105.1630" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_aY_qAMKMEemr4OXp2KHCTg" date="2020-08-26" version="1.0.0-tsp.200826.0740" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFc/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_dms6sOC2EeqzHOWRQ70bQw" date="2019-08-19" version="1.0.0-tsp.190819.1625" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/vlanFd/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_dms6sOC2EeqzHOWRQ70bQw" date="2019-08-19" version="1.0.0-tsp.190819.1625" description="Model for the Transport SDN Pilot at Telefonica Germany" changeLog="https://github.com/openBackhaul/vlanFd/issues" reference="https://github.com/openBackhaul/vlanFc/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eTFVIFE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuFFE6Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MFE6Eembl8KFq0LDlA" base_Property="_eTEuFFE6Eembl8KFq0LDlA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eTF8MVE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuGFE6Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MlE6Eembl8KFq0LDlA" base_Property="_eTEuGFE6Eembl8KFq0LDlA"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_eTVz11E6Eembl8KFq0LDlA" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVz2FE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_eTbTYFE6Eembl8KFq0LDlA" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTbTYVE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
   <OpenModel_Profile:Obsolete xmi:id="_3T3BQFFWEembl8KFq0LDlA" base_Element="_zf_HAFFWEembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_odkhELUwEemP0vs_3-grtw" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_odj6ALUwEemP0vs_3-grtw"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_odnkYLUwEemP0vs_3-grtw" base_Class="_odj6ALUwEemP0vs_3-grtw"/>
@@ -400,10 +397,10 @@
   <OpenModel_Profile:Obsolete xmi:id="_VIbNIE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp0U9fEeuMcsI2Mw3f8Q"/>
   <OpenModel_Profile:Obsolete xmi:id="_VIcbQE9fEeuMcsI2Mw3f8Q" base_Element="_VDfp1E9fEeuMcsI2Mw3f8Q"/>
   <OpenModel_Profile:OpenModelInterface xmi:id="_-nWtQFWbEeufo8l3kgcg6A" base_Interface="_-nVfIFWbEeufo8l3kgcg6A"/>
-  <OpenModel_Profile:OpenModelOperation xmi:id="_JmeQwFWdEeufo8l3kgcg6A" base_Operation="_JmdCoFWdEeufo8l3kgcg6A" isAtomic="true"/>
+  <OpenModel_Profile:OpenModelOperation xmi:id="_JmeQwFWdEeufo8l3kgcg6A" base_Operation="_JmdCoFWdEeufo8l3kgcg6A" isOperationIdempotent="true" isAtomic="true"/>
   <OpenModel_Profile:OpenModelParameter xmi:id="_ktqrEFWeEeufo8l3kgcg6A" base_Parameter="_ktqEAFWeEeufo8l3kgcg6A"/>
   <OpenModel_Profile:PassedByReference xmi:id="_0NFmcFWeEeufo8l3kgcg6A" base_Parameter="_ktqEAFWeEeufo8l3kgcg6A"/>
-  <OpenModel_Profile:OpenModelOperation xmi:id="_mhzFs1WfEeufo8l3kgcg6A" base_Operation="_mhzFsFWfEeufo8l3kgcg6A" isAtomic="true"/>
+  <OpenModel_Profile:OpenModelOperation xmi:id="_mhzFs1WfEeufo8l3kgcg6A" base_Operation="_mhzFsFWfEeufo8l3kgcg6A" isOperationIdempotent="true" isAtomic="true"/>
   <OpenModel_Profile:OpenModelParameter xmi:id="_mhzswFWfEeufo8l3kgcg6A" base_Parameter="_mhzFsVWfEeufo8l3kgcg6A"/>
   <OpenModel_Profile:PassedByReference xmi:id="_tMQLgFWfEeufo8l3kgcg6A" base_Parameter="_mhzFsVWfEeufo8l3kgcg6A"/>
   <OpenModel_Profile:OpenModelParameter xmi:id="_LJ044lWoEeufo8l3kgcg6A" base_Parameter="_LJ044FWoEeufo8l3kgcg6A"/>
@@ -411,4 +408,11 @@
   <OpenModel_Profile:PassedByReference xmi:id="_u1qU8FpjEeu8PNIPzKY3QQ" base_Parameter="_bzKUYFpjEeu8PNIPzKY3QQ"/>
   <OpenModel_Profile:OpenModelParameter xmi:id="_3KljEFpkEeu8PNIPzKY3QQ" base_Parameter="_3Kk8AFpkEeu8PNIPzKY3QQ"/>
   <OpenModel_Profile:PassedByReference xmi:id="_RcjbAFplEeu8PNIPzKY3QQ" base_Parameter="_3Kk8AFpkEeu8PNIPzKY3QQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTVz2FE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTVz11E6Eembl8KFq0LDlA" base_Class="_eTT-qVE6Eembl8KFq0LDlA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eTbTYVE6Eembl8KFq0LDlA" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_eTbTYFE6Eembl8KFq0LDlA" base_Class="_eTT-v1E6Eembl8KFq0LDlA"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_HRqUMLabEeyk4o9RC9N5eg" base_Property="_284WwNWoEeqMhvIKSP0iJw"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_Ig-nALabEeyk4o9RC9N5eg" base_Property="_4WZHYtWoEeqMhvIKSP0iJw"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_J7So4LabEeyk4o9RC9N5eg" base_Property="_5ijYgtWoEeqMhvIKSP0iJw"/>
 </xmi:XMI>

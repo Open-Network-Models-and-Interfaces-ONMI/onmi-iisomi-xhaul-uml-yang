@@ -84,7 +84,21 @@
         <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
       </packageImport>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_ja3r4l-HEemI8ps-yiNc8Q" name="Interfaces"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ja3r4l-HEemI8ps-yiNc8Q" name="Interfaces">
+      <packagedElement xmi:type="uml:Interface" xmi:id="_pBqrEE2OEe6VPvJyV5BgBg" name="PureEthernetStructureOperations">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_pBqrEU2OEe6VPvJyV5BgBg" name="clearThresholdCrossAlarms">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_pBqrEk2OEe6VPvJyV5BgBg" annotatedElement="_pBqrEU2OEe6VPvJyV5BgBg">
+            <body>Clearing all the currently active threshold cross alarms at the referenced PureEthernetStructure.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_pBqrE02OEe6VPvJyV5BgBg" name="_affectedPureEthernetStructure" isUnique="false">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_pBqrFE2OEe6VPvJyV5BgBg" annotatedElement="_pBqrE02OEe6VPvJyV5BgBg">
+              <body>LogicalTerminationPoint with LayerProtocol::layerProtocolName==LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER</body>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_ja3r41-HEemI8ps-yiNc8Q" name="Notifications">
       <packagedElement xmi:type="uml:Signal" xmi:id="_rQ9FTF-IEemI8ps-yiNc8Q" name="ObjectCreationNotification">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_rQ9FTl-IEemI8ps-yiNc8Q" name="counter" isUnique="false" isReadOnly="true">
@@ -181,7 +195,7 @@
         </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_JPcc4JzhEemX7plL9q9caA" name="performanceMonitoringIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_JPcc4ZzhEemX7plL9q9caA" annotatedElement="_JPcc4JzhEemX7plL9q9caA">
-            <body>1 = Collection and aggregation of performance values is available.</body>
+            <body>true = Collection and aggregation of performance values is available.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_JPcc4pzhEemX7plL9q9caA"/>
@@ -194,13 +208,6 @@
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gitnspzkEemX7plL9q9caA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gitns5zkEemX7plL9q9caA" value="*"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_kU440JzkEemX7plL9q9caA" name="clearingThresholdCrossAlarmsIsOn" isUnique="false">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_kU440ZzkEemX7plL9q9caA" annotatedElement="_kU440JzkEemX7plL9q9caA">
-            <body>Setting this bit is clearing all the currently active threshold cross alarms.</body>
-          </ownedComment>
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_kU440pzkEemX7plL9q9caA"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_rQ9EFF-IEemI8ps-yiNc8Q" name="performanceMonitoringIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_rQ9EFV-IEemI8ps-yiNc8Q" annotatedElement="_rQ9EFF-IEemI8ps-yiNc8Q">
@@ -220,7 +227,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_jYfNgKFvEemzvL4RFb-48A" name="performanceMonitoringIsUp" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_jYfNgaFvEemzvL4RFb-48A" annotatedElement="_jYfNgKFvEemzvL4RFb-48A">
-            <body>1 = Performance values are currently collected and aggregated.</body>
+            <body>true = Performance values are currently collected and aggregated.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_jYfNgqFvEemzvL4RFb-48A"/>
@@ -388,7 +395,6 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_Xst-y5zhEemX7plL9q9caA" annotatedElement="_Xst-ypzhEemX7plL9q9caA">
             <body>Period of the performance data collection.</body>
           </ownedComment>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_VVIm4JziEemX7plL9q9caA" type="_k0gsPGadEemaCpXjwie7xQ" instance="_k0gsQWadEemaCpXjwie7xQ"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_rQ9B-V-IEemI8ps-yiNc8Q" name="SegmentStatusType">
@@ -561,9 +567,9 @@
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:pure-ethernet-structure" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM.&#xD;&#xA;It is for structuring a physical transport resource into a single Ethernet segment." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:pure-ethernet-structure" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM.&#xD;&#xA;It is for structuring a physical transport resource into a single Ethernet segment." copyright="Copyright 2023 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_yNCv4JzuEemX7plL9q9caA" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="PureEthernetStructure@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_qcD1oKuIEeyTv6AUe5SKqA" date="2022-03-24" version="2.0.0-tsp.220324.1645" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_qcD1oKuIEeyTv6AUe5SKqA" date="2023-09-07" version="2.0.0-tsi.230907.1715" description="Model for the Transport SDN introduction at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_8266gD0REeqFusayuL-AOQ" date="2020-01-22" version="2.0.0-tsp.200122.1325" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_9oJdEArSEeqSTfqGBvef3Q" date="2019-11-23" version="2.0.0-tsp.191123.1000" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_UkvY0JzvEemX7plL9q9caA" date="2019-07-08" version="2.0.0-tsp.190708.1345" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
@@ -682,8 +688,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_k0onwGadEemaCpXjwie7xQ" base_StructuralFeature="_k0gsImadEemaCpXjwie7xQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_giu10JzkEemX7plL9q9caA" base_Property="_gitnsJzkEemX7plL9q9caA" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_giwrAJzkEemX7plL9q9caA" base_StructuralFeature="_gitnsJzkEemX7plL9q9caA"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_kU5f4JzkEemX7plL9q9caA" base_Property="_kU440JzkEemX7plL9q9caA" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_kU6G8JzkEemX7plL9q9caA" base_StructuralFeature="_kU440JzkEemX7plL9q9caA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_pryGQGtmEemYRbAOzjCk8w" base_Property="_prw4IGtmEemYRbAOzjCk8w" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_prxfMGtmEemYRbAOzjCk8w" base_StructuralFeature="_prw4IGtmEemYRbAOzjCk8w" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_9ACAEJzoEemX7plL9q9caA" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_9AAx8JzoEemX7plL9q9caA"/>
@@ -732,4 +736,8 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_kEUZAD0QEeqFusayuL-AOQ" base_StructuralFeature="_kER8wD0QEeqFusayuL-AOQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_kEVnIz0QEeqFusayuL-AOQ" base_Property="_kEVnID0QEeqFusayuL-AOQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_kEVnJD0QEeqFusayuL-AOQ" base_StructuralFeature="_kEVnID0QEeqFusayuL-AOQ"/>
+  <OpenModel_Profile:OpenModelInterface xmi:id="_pBr5ME2OEe6VPvJyV5BgBg" base_Interface="_pBqrEE2OEe6VPvJyV5BgBg"/>
+  <OpenModel_Profile:OpenModelOperation xmi:id="_pBsgQE2OEe6VPvJyV5BgBg" base_Operation="_pBqrEU2OEe6VPvJyV5BgBg" isOperationIdempotent="true" isAtomic="true"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_pBsgQU2OEe6VPvJyV5BgBg" base_Parameter="_pBqrE02OEe6VPvJyV5BgBg"/>
+  <OpenModel_Profile:PassedByReference xmi:id="_pB24UE2OEe6VPvJyV5BgBg" base_Parameter="_pBqrE02OEe6VPvJyV5BgBg"/>
 </xmi:XMI>

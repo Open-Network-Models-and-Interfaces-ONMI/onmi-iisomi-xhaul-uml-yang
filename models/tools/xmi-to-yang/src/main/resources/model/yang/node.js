@@ -457,9 +457,10 @@ Node.prototype.writeNode = function (layer) {
             descript + PRE + "}\r\n";
     }
       
-    var regex = /(protocol.name.typelayer.protocol.name.type|layer.protocol.name.type.layer.protocol.name.type|profile.name.type|profile.name.type.profile.name.type)/i;
+    var regex = /(layer.protocol.name.type|layer.protocol.name.type.layer.protocol.name.type|profile.name.type|profile.name.type.profile.name.type)/i;
+	var sublayerRegex = /(sub.layer.protocol.name.type)/i;
     //var regex = /(layer.protocol.name.type|profile.name.type)/i;
-    if (regex.test(name)){
+    if (regex.test(name) && !sublayerRegex.test(name)){
        return "";
     }else{
         return s;

@@ -52,6 +52,9 @@ namespace=(
   [alarms]=alarms-1-0
   [lldp]=lldp-1-0
   [equipment-augment]=equipment-augment-1-0
+  [notifications]=notifications-1-0
+  [ethernet-container-fc]=ethernet-container-fc-1-0
+  [ethernet-container-fd]=ethernet-container-fd-1-0
 );
 
 declare -A fileversions
@@ -84,6 +87,9 @@ fileversions=(
   [alarms]=alarms-1-0
   [lldp]=lldp-1-0
   [equipment-augment]=equipment-augment-1-0
+  [notifications]=notifications-1-0
+  [ethernet-container-fc]=ethernet-container-fc-1-0
+  [ethernet-container-fd]=ethernet-container-fd-1-0
 );
 
 
@@ -111,6 +117,9 @@ layer=(
   [alarms]=COMMON_LAYER
   [lldp]=COMMON_LAYER
   [equipment-augment]=COMMON_LAYER
+  [notifications]=COMMON_LAYER
+  [ethernet-container-fc]=LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER
+  [ethernet-container-fd]=LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER
 );
 
 declare -A profile
@@ -184,6 +193,12 @@ do
 
    # find/replace in vlan-fd
   sed -i -e "s/\/vlan-fd:vlan-fd-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+   
+   # find/replace in ethernet-container-fc
+  sed -i -e "s/\/ethernet-container-fc:ethernet-container-fc-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+
+ # find/replace in ethernet-container-fd
+  sed -i -e "s/\/ethernet-container-fd:ethernet-container-fd-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
    # find/replace in ltp-augment
   sed -i -e "s/\/ltp-augment:ltp-augment-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
@@ -271,9 +286,9 @@ fi
   # find/replace in
 
  find="augment \"\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\"{";
- #identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
- when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'mac-interface:${layer[$index]}')\";"
- replace=" $find \n $when";
+ identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+ when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'ethernet-container-fc:${layer[$index]}')\";"
+ replace=" $identity \n $find \n $when";
  #replace=" $find \n $when";
  sed -i -e "s/$find/$replace/g" $yang;
 
@@ -398,7 +413,6 @@ fi
   echo $filename
   if [ $filename == 'equipment-augment.yang' ]
   then
-	  echo "inside the if condition"
 	  find="identity EQUIPMENT_CATEGORY {";
 	  replace="identity EQUIPMENT_CATEGORY { \n base core-model:EQUIPMENT_CATEGORY;";
 	  sed -i -e "s/$find/$replace/g" $yang;
@@ -406,7 +420,6 @@ fi
 
   if [ $filename == 'lldp.yang' ]
   then
-          echo "inside the if condition"
           find="identity PROTOCOL_NAME_TYPE {";
           replace="identity PROTOCOL_NAME_TYPE { \n base equipment-augment:PROTOCOL_NAME_TYPE;";
           sed -i -e "s/$find/$replace/g" $yang;
