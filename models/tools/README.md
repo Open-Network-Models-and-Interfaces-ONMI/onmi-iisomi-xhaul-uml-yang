@@ -1,3 +1,11 @@
+> # Revision History 
+> Following are the customizations made to the original xmi2yang tool-v1.3 to support ONF Core Information Model and its technology specific extensions ,
+> 1.	Included _**pruning and refactoring**_ mechanism to adapt the ONF Core Information Model as per the MicroWave device requirements.
+> 2.	Added _**PostProcessing script**_ to handle the limitations of the original xmi2yang tool-v1.3 : _Mainly to include augment and when statements for the technology specific extensions of the ONF Core Information Model_.
+> 3.	_**Mandatory sub statements**_ will be included if multiplicity of an attribute is [1] and no default specified  in the UML modelling.
+> 4.	Enhanced the tool to include _**require-instance**_ sub statement for the leafref statement. _As per the UML to YANG Guidelines (TR531) in the section 5.6.1 Mapping of Associations , If a “LifecycleAggregate” openModel_Profile profile is available , then > require-instance statement will not available for the leaf-ref (means its require-instance=true by default)._
+> 5.	In the UML2YANG mapping guidelines , there is no mapping available for indicating the _**“require-instance” property of the instanceIdentifier**_ datatype. So , included a custom profile named “5GxhaulModelProfile” with the > stereotype 5GxhaulModelAttribute /requireInstanceAtInstanceIdentifier to specify the same. (The profile shall be downloaded from here).
+
 # xmi-converter
 
 A project that converts xmi (papyrus uml) into other formats, with focus on yang.
