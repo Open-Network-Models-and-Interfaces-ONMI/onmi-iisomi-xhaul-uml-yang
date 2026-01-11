@@ -164,8 +164,6 @@ Class.prototype.buildAttribute = function(att){
     var type;
     var isLeaf;
 
-        
-    
     if(att.attributes().type){
         type = att.attributes().type;
         isLeaf = false;
@@ -252,7 +250,7 @@ Class.prototype.buildOperate = function(para){
         if (type['xmi:type'] == 'uml:PrimitiveType') {
             isLeaf = true;
             type = type.href.split('#')[1].toLocaleLowerCase() ;
-        } else  if (type['xmi:type'] == 'uml:Class') {
+        } else  if (type['xmi:type'] == 'uml:Class' || type['xmi:type'] == "uml:Enumeration") {
             isLeaf = false;
             type = type.href.split('#')[1] ;
         }

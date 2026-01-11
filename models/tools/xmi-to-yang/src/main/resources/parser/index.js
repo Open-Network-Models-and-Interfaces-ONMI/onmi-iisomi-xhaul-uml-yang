@@ -291,7 +291,6 @@ function parseModule(file){
                             break;
                     }
                 }
-
                 if(flag === 0){
                     console.log("[Parse] " + "Can not find the tag 'uml:Package' or 'uml:Model' of" + file + "! Please check out the xml file");
                 }

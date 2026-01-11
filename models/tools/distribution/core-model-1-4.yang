@@ -31,6 +31,13 @@ module core-model-1-4 {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
+  revision 2023-07-26 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/core/issues for changes.";
+    reference
+      "ONF-TR-512, RFC 6020 and RFC 6087";
+  }
   revision 2019-11-27 {
     description
       "Package equipment-specification has been deleted,
@@ -498,6 +505,30 @@ module core-model-1-4 {
     base SWITCH_STATE_REASON;
     description
       "No reason";
+  }
+
+  identity SWITCH_STATE_REASON_MANUAL {
+    base SWITCH_STATE_REASON;
+    description
+      "none";
+  }
+
+  identity SWITCH_STATE_REASON_FORCED {
+    base SWITCH_STATE_REASON;
+    description
+      "none";
+  }
+
+  identity SWITCH_STATE_REASON_DEGRADE {
+    base SWITCH_STATE_REASON;
+    description
+      "none";
+  }
+
+  identity SWITCH_STATE_REASON_FAIL {
+    base SWITCH_STATE_REASON;
+    description
+      "none";
   }
 
   identity REVERSION_MODE {
@@ -1022,6 +1053,7 @@ module core-model-1-4 {
     }
     leaf layer-protocol-name {
       type layer-protocol-name-type;
+      mandatory true;
       description
         "The name of the LayerProtocol chosen from a controlled list.
          LayerProtocol names include:
@@ -1144,87 +1176,6 @@ module core-model-1-4 {
    * package resilience
    **************************************/ 
 
-  grouping configuration-and-switch-control {
-    leaf switch-rule {
-      type string;
-      description
-        "A sketch of the presence of complex rules governing the switch behavior.";
-    }
-    list fc-switch {
-      key "local-id";
-      uses fc-switch;
-      description
-        "The switch being controlled.";
-    }
-    container control-parameters {
-      uses control-parameters-pac;
-      description
-        "The control parameters to be applied if local parameters are used rather than profiles.";
-    }
-    leaf-list profile-proxy {
-      type string;
-      description
-        "Applied profiles.";
-    }
-    leaf is-frozen {
-      type boolean;
-      default "false";
-      description
-        "Temporarily prevents any switch action to be taken and, as such, freezes the current state.
-         Until the freeze is cleared, additional near-end external commands are rejected and fault condition changes and received APS messages are ignored.
-         All administrative controls of any aspect of protection are rejected.";
-    }
-    leaf is-coordinated-switching-both-ends {
-      type boolean;
-      default "false";
-      description
-        "The C&SC is operating such that switching at both ends of each flow across the FC is coordinated at both ingress and egress ends.";
-    }
-    leaf-list subordinate-control {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:switch-rule";
-        require-instance false;
-      }
-      must 'deref(.) = current()';
-      description
-        "A C&SC that is fully or partially subordinate this C&SC.
-         A peer is considered as partially subordinate in that the peer will respond to requests for action from this C&SC but will also make requests for action to be carried out by this C&SC.
-         Where there is a peer relationship each controller in the peering will see the other controller as subordinate.";
-    }
-    leaf-list encapsulated-casc {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:switch-rule";
-        require-instance false;
-      }
-      must 'deref(.) = current()';
-      description
-        "Where a C&SC is complex it may be decomposed into subordinate C&SC parts.
-         The decomposition is described by the C&SC spec.";
-    }
-    list casc-port {
-      key "uuid";
-      uses casc-port;
-      description
-        "A reference to ports of a C&SC that can be used where there is significant asymmetry to be represented.
-         The C&SC need not have ports.";
-    }
-    leaf-list coordinated-fc {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:uuid";
-        require-instance false;
-      }
-      description
-        "none";
-    }
-    leaf resilience-control-status {
-      type resilience-control;
-      description
-        "The state of the control process.";
-    }
-    description
-      "Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme.";
-  }
-
   grouping control-parameters-pac {
     leaf reversion-mode {
       type reversion-mode;
@@ -1275,9 +1226,11 @@ module core-model-1-4 {
       description
         "Moved to ControlParameter_Pac. This attribute whether or not the protection scheme is revertive or non-revertive. ";
     }
-    list selected-fc-port {
-      key "local-id";
-      uses fc-port;
+    leaf-list selected-fc-port {
+      type leafref {
+        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc[uuid = current()/../../uuid]/fc-port/local-id";
+        require-instance false;
+      }
       description
         "Indicates which points are selected by the switch.
          Depending on the switch spec (via FcSpec)
@@ -1288,24 +1241,6 @@ module core-model-1-4 {
       type string;
       description
         "Provides a set of predefined values for switch control in place of the direct values available via the FcSwitch or via _configurationAndSwitchControl.";
-    }
-    leaf configuration-and-switch-control {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:switch-rule";
-        require-instance false;
-      }
-      must 'deref(.) = current()';
-      description
-        "A ConfigurationAndSwitchController that is external to the switch (it is coordinating many switches and hence cannot be encapsulated in the FcSwitch.";
-    }
-    leaf internal-configuration-and-switch-control {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:switch-rule";
-        require-instance false;
-      }
-      must 'deref(.) = current()';
-      description
-        "A ConfigurationAndSwitchController encapsulated in the FcSwitch that controls the FcSwitch alone.";
     }
     leaf switch-control {
       type switch-control;
@@ -1372,14 +1307,6 @@ module core-model-1-4 {
         "The LTP that conveys the messages related to the port and/or is subject to control action and/or provides indications of state etc.
          For direct association, there may be up to 2 LTPs (to account for directionality differences).
          In the specification representation, there may be a number rules that provide further LTP relationships that are implicit in the instantiated model.";
-    }
-    leaf encapsulating-casc-port {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:casc-port/core-model:uuid";
-        require-instance false;
-      }
-      description
-        "In a case where there is nested C&SC the ports are also nested and this references the superior port.";
     }
     leaf is-related-control-flow-disabled {
       type boolean;
@@ -1452,14 +1379,6 @@ module core-model-1-4 {
       description
         "The run-mode of the frequency system clock, such as free-run, locked, and holdover.";
     }
-    leaf-list encompassed-clock {
-      type leafref {
-        path "/core-model:control-construct/core-model:logical-termination-point/core-model:embedded-clock/core-model:local-id";
-        require-instance false;
-      }
-      description
-        "A clock may be emergent from and may effectively encompass several clocks in a resilient solution.";
-    }
     leaf-list encapsulated-fc {
       type leafref {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:uuid";
@@ -1475,24 +1394,6 @@ module core-model-1-4 {
       }
       description
         "A clock may feed one or more LTPs with timing information to propagate across the network (it may feed no LTPs).";
-    }
-    leaf-list encapsulated-casc {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:switch-rule";
-        require-instance false;
-      }
-      must 'deref(.) = current()';
-      description
-        "The clock may encapsulate a complex FC where there is a resilience mechanism active and that FC will need to be controlled.
-         The Casc to control the FC can be encapsulated in the Clock.";
-    }
-    leaf-list phase-aligned-clock {
-      type leafref {
-        path "/core-model:control-construct/core-model:logical-termination-point/core-model:embedded-clock/core-model:local-id";
-        require-instance false;
-      }
-      description
-        "One or more clocks can be actively phase aligned (this is especially relevant in a hitless resilience scheme).";
     }
     uses local-class;
     description
@@ -1562,6 +1463,7 @@ module core-model-1-4 {
   grouping forwarding-construct {
     leaf layer-protocol-name {
       type layer-protocol-name-type;
+      mandatory true;
       description
         "The layerProtocol at which the FC enables the potential for forwarding.";
     }
@@ -1577,7 +1479,7 @@ module core-model-1-4 {
          For example a low level FC could represent what would have traditionally been considered as a 'Cross-Connection' in an 'NE'. The 'Cross-Connection' in an 'NE' is not necessarily the lowest level of FC partitioning.
         ";
     }
-    leaf fc-route {
+    leaf-list fc-route {
       type string;
       description
         "An FC object can have zero or more routes, each of which is defined as a list of lower level FC objects describing the flow across the network.";
@@ -1597,13 +1499,6 @@ module core-model-1-4 {
         "If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.
          The arrangement of switches for a particular instance is described by a referenced FcSpec.";
     }
-    list configuration-and-switch-control {
-      key "switch-rule";
-      uses configuration-and-switch-control;
-      description
-        "Reference to a ConfigurationAndSwitchController that coordinates switches encapsulated in the FC.
-         The controller coordinates multiple switches in the same FC.";
-    }
     leaf forwarding-direction {
       type forwarding-direction;
       description
@@ -1616,6 +1511,7 @@ module core-model-1-4 {
       if-feature "forwardingconstructisprotectionlockout";
       type boolean;
       default "false";
+      status Preliminary;
       description
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
          This overrides all other protection control states including forced.
@@ -1688,6 +1584,7 @@ module core-model-1-4 {
       if-feature "fcportisprotectionlockout";
       type boolean;
       default "false";
+      status Preliminary;
       description
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
          This overrides all other protection control states including forced.
@@ -1729,7 +1626,6 @@ module core-model-1-4 {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port/core-model:local-id";
         require-instance false;
       }
-      must 'deref(.) = current()';
       max-elements 2;
       description
         "An FcPort may have a direct association to another FcPort where there is a transition from one domain to another but where there has been no termination.";
@@ -1739,7 +1635,6 @@ module core-model-1-4 {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port/core-model:local-id";
         require-instance false;
       }
-      must 'deref(.) = current()';
       description
         "none";
     }
@@ -1758,6 +1653,7 @@ module core-model-1-4 {
   grouping layer-protocol {
     leaf layer-protocol-name {
       type layer-protocol-name-type;
+      mandatory true;
       description
         "Indicate the specific layer-protocol described by the LayerProtocol entity.";
     }
@@ -1779,16 +1675,6 @@ module core-model-1-4 {
       type termination-state;
       description
         "Indicates whether the layer is terminated and if so how.";
-    }
-    leaf-list configuration-and-switch-control {
-      type leafref {
-        path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:configuration-and-switch-control/core-model:switch-rule";
-        require-instance false;
-      }
-      must 'deref(.) = current()';
-      description
-        "A switch controller external to the LayerProtocol.
-         The controller will coordinate one or more switches in one or more FCs related to the LayerProtocol";
     }
     leaf is-protection-lock-out {
       type boolean;
@@ -1853,15 +1739,6 @@ module core-model-1-4 {
       description
         "References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on this LTP.";
     }
-    leaf-list physical-port-reference {
-      type leafref {
-        path "/core-model:control-construct/core-model:equipment/core-model:uuid";
-        require-instance false;
-      }
-      description
-        "One or more text labels for the unmodeled physical port associated with the LTP.
-         In many cases there is no associated physical port.";
-    }
     leaf-list ltp-in-other-view {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
@@ -1894,12 +1771,6 @@ module core-model-1-4 {
       }
       description
         "An LTP can reference FD rules that the FD that aggregates it also references so that the rules can then apply to the LTP.";
-    }
-    list embedded-clock {
-      key "local-id";
-      uses clock;
-      description
-        "none";
     }
     leaf supporting-pc {
       type string;
@@ -1940,7 +1811,6 @@ module core-model-1-4 {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port/core-model:local-id";
         require-instance false;
       }
-      must 'deref(.) = current()';
       description
         "Where an FD is asymmetric and hence has FdPorts and where that FD and supports FCs, appropriate FdPorts of that FD support the corresponding FcPorts.";
     }
@@ -1949,7 +1819,6 @@ module core-model-1-4 {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fd-port/core-model:local-id";
         require-instance false;
       }
-      must 'deref(.) = current()';
       max-elements 2;
       description
         "An FdPort may have a direct association to another FdPort where there is a transition from one domain to another but where there has been no termination.";
@@ -2011,6 +1880,7 @@ module core-model-1-4 {
     }
     leaf uuid {
       type universal-id;
+      mandatory true;
       description
         "UUID: An identifier that is universally unique
 
@@ -2291,9 +2161,13 @@ module core-model-1-4 {
 
   grouping equipment-instance {
     leaf manufacture-date {
-      type yang:date-and-time;
+      type string;
       description
-        "This attribute represents the date on which this instance is manufactured.";
+        "This attribute represents the date on which this instance is manufactured.
+         The date type is a profile of the ISO 8601 standard for representation of dates using the Gregorian calendar.
+         The profile is defined by the full-date production in Section 5.6 of RFC 3339.
+         Values shall follow the pattern: ^\\d{4}-\\d{2}-\\d{2}$ .
+         Reference: RFC 3339: Date and Time on the Internet: Timestamps.";
     }
     leaf serial-number {
       type string;
@@ -2469,6 +2343,7 @@ module core-model-1-4 {
   grouping position {
     leaf relative-position {
       type string;
+      status Experimental;
       description
         "none";
     }
@@ -2501,7 +2376,12 @@ module core-model-1-4 {
       type boolean;
       default "true";
       description
-        "none";
+        "This attribute shall be set on true, if the described equipment could be inserted or removed from the running system, +
+         (without the need of powering the system down or restarting it) +
+         (without being damaged or causing damage to any other element in the system where the equipment is inserted/removed) +
+         (without causing traffic interruption or an alteration on the performance of other components or parts of the system not directly supported by this equipment.)
+         The aforementioned characteristic shall not require any manual change on other components of the system.
+         Potential traffic interruption on the interfaces supported by the component, which is being replaced, shall not matter to the value of the is-hot-swappable attribute.";
     }
     description
       "Represents the degree of field replacement that is possible for the equipment type.";
@@ -2784,11 +2664,11 @@ module core-model-1-4 {
 
   grouping holder {
     leaf occupying-fru {
-      mandatory true;
       type leafref {
         path "/core-model:control-construct/core-model:equipment/core-model:uuid";
         require-instance false;
       }
+      mandatory true;
       description
         "The FRU that is occupying the holder.
          A holder may be unoccupied.
@@ -2988,6 +2868,7 @@ module core-model-1-4 {
   grouping profile {
     leaf profile-name {
       type profile-name-type;
+      mandatory true;
       description
         "none";
     }
@@ -3028,6 +2909,7 @@ module core-model-1-4 {
     input {
       leaf input-constraint-structure {
         type string;
+        mandatory true;
         description
           "none";
       }
@@ -3035,6 +2917,7 @@ module core-model-1-4 {
     output {
       leaf output-constraint-structure {
         type string;
+        mandatory true;
         description
           "none";
       }
@@ -3047,6 +2930,7 @@ module core-model-1-4 {
     input {
       leaf input-constraint-structure {
         type string;
+        mandatory true;
         description
           "none";
       }
@@ -3054,6 +2938,7 @@ module core-model-1-4 {
     output {
       leaf output-constraint-structure {
         type string;
+        mandatory true;
         description
           "none";
       }
@@ -3172,6 +3057,7 @@ module core-model-1-4 {
     }
     leaf serial-number {
       type string;
+      status Experimental;
       description
         "As part of software licensing, a serial number may be available for the installation.";
     }
@@ -3185,7 +3071,6 @@ module core-model-1-4 {
         path "/core-model:installed-software-component/core-model:child-installed-software-component/core-model:serial-number";
         require-instance false;
       }
-      must 'boolean(/core-model:installed-software-component/core-model:child-installed-software-component[serial-number=current()])';
       description
         "References to any child installations.";
     }

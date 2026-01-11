@@ -31,6 +31,7 @@ namespace=(
   [hybrid-mw-structure]=hybrid-mw-structure-2-0
   [ip-interface]=ip-interface-1-0
   [l-3vpn-profile]=l-3vpn-profile-1-0
+  [layer-1-aggregation-profile]=layer-1-aggregation-profile-1-0
   [mac-interface]=mac-interface-1-0
   [pure-ethernet-structure]=pure-ethernet-structure-2-0
   [qos-profile]=qos-profile-1-0
@@ -67,6 +68,7 @@ fileversions=(
   [hybrid-mw-structure]=hybrid-mw-structure-2-0
   [ip-interface]=ip-interface-1-0
   [l-3vpn-profile]=l-3vpn-profile-1-0
+  [layer-1-aggregation-profile]=layer-1-aggregation-profile-1-0
   [mac-interface]=mac-interface-1-0
   [pure-ethernet-structure]=pure-ethernet-structure-2-0
   [qos-profile]=qos-profile-1-0
@@ -127,6 +129,7 @@ layer=(
 declare -A profile
 profile=(
   [l-3vpn-profile]=PROFILE_NAME_TYPE_L3VPN_PROFILE
+  [layer-1-aggregation-profile]=PROFILE_NAME_TYPE_LAYER_1_AGGREGATION_PROFILE
   [qos-profile]=PROFILE_NAME_TYPE_QOS_PROFILE
   [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
   [wred-template-profile]=PROFILE_NAME_TYPE_WRED_TEMPLATE_PROFILE
@@ -224,7 +227,11 @@ do
   replace="when \"derived-from-or-self(.\/synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses synchronization-clock-spec;";
   sed -i -e "s/$find/$replace/g" $yang;
 
-find="uses ptp-clock-spec;";
+  find="uses sync-fc-port-spec;";
+  replace="when \"derived-from-or-self(..\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-fc-port-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  find="uses ptp-clock-spec;";
   replace="when \"derived-from-or-self(.\/synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER')\";\n\t\tuses ptp-clock-spec;";
   sed -i -e "s/$find/$replace/g" $yang;
 
@@ -242,7 +249,7 @@ find="uses synch-ltp-spec;";
   sed -i -e "s/$find/$replace/g" $yang;
 
 find="uses sync-protection-spec;";
-  replace="when \"derived-from-or-self(\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-protection-spec;";
+  replace="when \"derived-from-or-self(..\/..\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')\";\n\t\tuses sync-protection-spec;";
   sed -i -e "s/$find/$replace/g" $yang;
 
 find="uses sync-lp-spec;";
@@ -251,6 +258,14 @@ find="uses sync-lp-spec;";
 
 find="uses ptp-lp-spec;";
   replace="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER')\";\n\t\tuses ptp-lp-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  find="uses one-pps-lp-spec;";
+  replace="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PPS_LAYER')\";\n\t\tuses one-pps-lp-spec;";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  find="uses tod-lp-spec;";
+  replace="when \"derived-from-or-self(.\/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_TOD_LAYER')\";\n\t\tuses tod-lp-spec;";
   sed -i -e "s/$find/$replace/g" $yang;
 
   # find/replace wred
@@ -270,7 +285,9 @@ then
 find="augment \"\/core-model:control-construct\"{";
 identity="identity  LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
 when="identity LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
-replace=" $identity \n $when \n $find";
+pps="identity LAYER_PROTOCOL_NAME_TYPE_PPS_LAYER {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+tod="identity LAYER_PROTOCOL_NAME_TYPE_TOD_LAYER {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+replace=" $identity \n $when \n $pps \n $tod $find";
 sed -i -e "s/$find/$replace/g" $yang;
 fi
 
@@ -452,6 +469,11 @@ fi
   ## find/replace lldp remote-statistics leafref path
   find="\"\/equipment-augment:control-construct-spec\/equipment-augment:protocol-collection\/equipment-augment:protocol\/equipment-augment:uuid";
   replace="\"\/core-model:control-construct\/equipment-augment:protocol-collection\/equipment-augment:protocol\/equipment-augment:uuid";
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  ## find/replace equipment-augment leafref path for connectedOdu
+  find="\"\/core-model:field-replaceable\/core-model:holder";
+  replace="\"\/core-model:control-construct\/core-model:equipment\/core-model:contained-holder";
   sed -i -e "s/$find/$replace/g" $yang;
 
   mv $filename ${fileversions[$index]}".yang"; 

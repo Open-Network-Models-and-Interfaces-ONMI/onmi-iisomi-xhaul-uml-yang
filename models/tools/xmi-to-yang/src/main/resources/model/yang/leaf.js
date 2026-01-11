@@ -56,7 +56,10 @@ leaf.prototype.writeNode = function (layer) {
     if(this["if-feature"]){
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
+    var status = "";
+    if(this.status && (this.status == "deprecated" || this.status == "obsolete")){
     var status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
+	}
     
 
     /*
@@ -75,7 +78,19 @@ config false;
    //compare defaultValue with the literalID
    if(this.store){
     var regexunderscore = /^_/;
-     
+    let prefix;
+    if(this.defaultValue && this.defaultValue.includes("#")){
+            let moduleName = this.defaultValue.split('#')[0].split('/')[2];
+            for(let m=0; m<this.store.yangModule.length;m++){            
+            let module = this.store.yangModule[m];
+            let fileNameOfModule =  module.fileName.replace(".pnr","");
+	    if(moduleName==fileNameOfModule){
+                prefix = module.prefix;
+                break;
+            }
+        }
+            this.defaultValue = this.defaultValue.split('#')[1];
+    }
     if(regexunderscore.test(this.defaultValue)){
         var matchfound = false;
 
@@ -84,8 +99,12 @@ config false;
             valLiterals = this.store.literals[j];
             
             if(this.defaultValue==valLiterals.literalId.toString()){
-                this.defaultValue = valLiterals.literalName;
-                matchfound=true;
+		if(prefix){                    
+                this.defaultValue = prefix + ":" + valLiterals.literalName;
+                }else{
+                   this.defaultValue = valLiterals.literalName; 
+                }
+		matchfound=true;
                 break;
             }
         }
@@ -109,7 +128,7 @@ config false;
 
     var mandatory = "";
     if(this.isMandatory){   
-    if(!this.defaultValue)     
+    if(!this.defaultValue && this.defaultValue==undefined)     
     mandatory = PRE + "\tmandatory true;\r\n";
     }
     

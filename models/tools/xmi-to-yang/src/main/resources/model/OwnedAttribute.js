@@ -43,7 +43,6 @@ function ownedAttribute(id, name, type, comment, assoc, isReadOnly, isOrdered, f
 
 ownedAttribute.prototype.giveValue = function(obj){
     var value;
-    
     if(obj.defaultValue){
         
         if(!obj.defaultValue.value){
@@ -57,12 +56,16 @@ ownedAttribute.prototype.giveValue = function(obj){
                 }else{
                     
                     if(obj.defaultValue.attributes()['xmi:type']=="uml:InstanceValue"){
-                        value=obj.defaultValue.attributes().instance;
+			 value=obj.defaultValue.attributes().instance;
+			if(!value){
+			 if(obj.defaultValue.instance){
+			  value = obj.defaultValue.instance.attributes().href;
+		          
+			 }
+			}   
                     }else{
                         value = obj.defaultValue.attributes().value;
                     }
-                    
-                    
                 }
             }else{
                 //value = obj.defaultValue.attributes().value ? obj.defaultValue.attributes().value : null;
@@ -79,8 +82,6 @@ ownedAttribute.prototype.giveValue = function(obj){
     else{
         value = null;
     }
-    
-    
 
     this.defaultValue = value;
     this['min-elements'] = obj.lowerValue ? (obj.lowerValue.attributes().value ? obj.lowerValue.attributes().value : 0) : null;

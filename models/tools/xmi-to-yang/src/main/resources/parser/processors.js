@@ -242,6 +242,7 @@ var processors = {
                                 }
                             }
                             vals.enumValue=global.name+"_"+vals.enumValue;
+				console.log("inside array$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", vals.enumValue);
                             vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g, '_');
                             literals.literalName = vals.enumValue;
                             store.literals.push(literals);
@@ -280,7 +281,8 @@ var processors = {
                             }
                         }
                         vals.enumValue=global.name+"_"+vals.enumValue;
-                        vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g,'_');
+                    console.log("inside non-array$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", vals.enumValue); 
+			    vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g,'_');
                         literals.literalName = vals.enumValue;
                         store.literals.push(literals);
 

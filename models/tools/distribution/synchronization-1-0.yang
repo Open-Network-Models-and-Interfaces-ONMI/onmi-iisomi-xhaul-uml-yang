@@ -1,0 +1,2056 @@
+module synchronization-1-0 {
+  yang-version 1.1;
+  namespace "urn:onf:yang:synchronization-1-0";
+  prefix synchronization;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import core-model-1-4 {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: Synchronization@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Copyright 2025 openBackhaul.com
+     This synchronization model augments the ONF Core Information Model to manage wireless transport devices according to ITU-T G.7721-2018. The following section gives guidance with respect of the usage of the ONF Core Information Model when implementing ITU-T G.8264 Hybrid SDH/synchronous Ethernet SETG Function. The ONF Core Information Model is flexible enough to cover all possible implementations described by Figure A.2.
+     Recommendation for implementing Hybrid SDH/synchronous Ethernet SETG Function:
+     - The LogicalTerminationPoints representing a synchronization related termination point are bidirectional.
+     - The Selectors A, B and C should be represented as ForwardingConstructs with FC-Switches.
+     - The Selector B and the SETG function should be represented as a single ForwardingConstruct. Note: It is implementation specific, whether the output of the SETG function is represented by 0 or 1 or 2 LogicalTerminationPoints of LayerProtocol LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER.
+     - If Selector A and Selector C are represented as individual ForwardingConstructs, then a LogicalTerminationPoint of LayerProtocol LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER must exist representing the output of Selector A and at the same time the input of Selector C.
+     - Every potential clock source must be represented by an LTP of LayerProtocol LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER.
+     - There is a 1:1 relationship between this LTP and the server layer (e.g. LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER, LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER or LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER).
+     - The candidate synchronization sources are represented by FcPorts at the ForwardingConstruct for Selector B.
+     - Configuration which are not supported by the device, shall result in ErrorMessages (e.g. Function not supported).
+     The following section gives guidance with respect of the usage of the ONF Core Information Model when implementing IEEE 1588.
+     Recommendation for implementing Precision Time Protocol (PTP):
+     - The LTPs of LayerProtocolType == LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER shall be clients to LTPs of LayerProtocolType == LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER.
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2025-12-17 {
+    description
+      "Model for the Transport SDN at Telefonica Germany.
+       Please view https://github.com/openBackhaul/synchronization/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/synchronization/tree/tsi: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsi: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+  revision 2024-01-03 {
+    description
+      "Model for the Transport SDN Introduction at Telefonica Germany.
+       Please view https://github.com/openBackhaul/synchronization/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/synchronization/tree/tsi: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsi: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+  revision 2023-06-21 {
+    description
+      "Model for the Transport SDN Introduction at Telefonica Germany.
+       Please view https://github.com/openBackhaul/synchronization/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/synchronization/tree/tsi: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsi: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER {
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
+    description
+      "none";
+  }
+
+  identity LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER {
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
+    description
+      "none";
+  }
+
+  identity LAYER_PROTOCOL_NAME_TYPE_PPS_LAYER {
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
+    description
+      "none";
+  }
+
+  identity LAYER_PROTOCOL_NAME_TYPE_TOD_LAYER {
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct" {
+    uses sync-cc-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port" {
+    when "derived-from-or-self(./synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')";
+    uses sync-fc-port-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/synchronization:clock-collection/synchronization:clock" {
+    when "derived-from-or-self(./synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')";
+    uses synchronization-clock-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/synchronization:clock-collection/synchronization:clock" {
+    uses clock-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/synchronization:clock-collection/synchronization:clock" {
+    when "derived-from-or-self(./synchronization:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER')";
+    uses ptp-clock-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point" {
+    when "derived-from-or-self(./core-model:layer-protocol/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')";
+    uses synch-ltp-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')";
+    uses sync-lp-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "./synchronization:external-clock-port = 'true'";
+    uses ssm-external-clock-pac;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "./synchronization:external-clock-port = 'false'";
+    uses ssm-in-band-pac;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PTP_LAYER')";
+    uses ptp-lp-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_PPS_LAYER')";
+    uses one-pps-lp-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_TOD_LAYER')";
+    uses tod-lp-spec;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-switch/core-model:control-parameters" {
+    when "derived-from-or-self(/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:layer-protocol-name, 'synchronization:LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER')";
+    uses sync-protection-spec;
+    description
+      "none";
+  }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
+  grouping sync-cc-spec {
+    container ne-sync-pac {
+      uses ne-sync-pac;
+      description
+        "none";
+    }
+    container clock-collection {
+      uses clock-collection;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping ne-sync-pac {
+    leaf sync-support-physical-freq {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicates whether the NE has the capability to support physical layer frequency synchronization.";
+    }
+    leaf-list sync-support-packet-freq {
+      type packet-freq-sync-profiles;
+      default "PACKET_FREQ_SYNC_PROFILES_NOT_YET_DEFINED";
+      config false;
+      description
+        "Indicate whether the NE has the capability to support packet frequency synchronization and which frequency profile to support.";
+    }
+    leaf packet-freq-sync-support-enabled-and-profile-selector {
+      type packet-freq-sync-profiles-enabler;
+      default "PACKET_FREQ_SYNC_PROFILES_ENABLER_DISABLE";
+      description
+        "Allows which packet frequency sync functions to be enabled";
+    }
+    leaf-list sync-support-time {
+      type time-sync-profiles;
+      default "TIME_SYNC_PROFILES_NOT_YET_DEFINED";
+      config false;
+      description
+        "Indicate whether the NE has the capability to support time synchronization and which time profile to support.";
+    }
+    leaf time-sync-support-enabled-and-profile-selector {
+      type time-sync-profiles-enabler;
+      default "TIME_SYNC_PROFILES_ENABLER_DISABLE";
+      description
+        "Allows which time sync profiles to be enabled";
+    }
+    leaf bits-type-configuration-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "True, if the device is supporting configuring the signal type (bitsType) for the entire device and all its relevant interfaces.";
+    }
+    leaf configured-bits-type {
+      type bits-type;
+      default "BITS_TYPE_NOT_YET_DEFINED";
+      description
+        "Value of the signal type (bitsType) configured for the entire device and all its relevant interfaces.";
+    }
+    leaf-list supported-clock-quality-level-list {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      config false;
+      description
+        "Quality levels (according to ITU-T G.781 and ETSI EN 300 417-6-1 V1.1.3) that are supported by the clocks inside this device.";
+    }
+    description
+      "Sync spec for sync capability and status of NE.";
+  }
+
+  grouping clock-collection {
+    list clock {
+      key "local-id";
+      uses core-model:clock;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping synchronization-clock-spec {
+    container phy-layer-frequency-sync-pac {
+      uses physical-layer-frequency-sync-pac;
+      description
+        "none";
+    }
+    leaf-list ssm-supported-quality-levels {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      config false;
+      description
+        "Defines the synchronization quality levels specified in ITU-T G.781 that are recognized by the device.";
+    }
+    description
+      "none";
+  }
+
+  grouping physical-layer-frequency-sync-pac {
+    leaf internal-clock-ssm {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      config false;
+      description
+        "The quality level of internal clock of the NE.";
+    }
+    description
+      "Conditional package for Frequency Sync Clock";
+  }
+
+  grouping clock-spec {
+    leaf layer-protocol-name {
+      type core-model:layer-protocol-name-type;
+      mandatory true;
+      description
+        "none";
+    }
+    leaf-list encompassed-clock {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/synchronization:";
+        require-instance false;
+      }
+      description
+        "A clock may be emergent from and may effectively encompass several clocks in a resilient solution.";
+    }
+    leaf-list phase-aligned-clock {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/synchronization:";
+        require-instance false;
+      }
+      description
+        "One or more clocks can be actively phase aligned (this is especially relevant in a hitless resilience scheme).";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-clock-spec {
+    container ptp-sync-pac {
+      uses ptp-sync-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-sync-pac {
+    leaf ptp-protocol-is-on {
+      type boolean;
+      default "true";
+      description
+        "true = Internal clock is receiving and sending PTP protocol messages.";
+    }
+    leaf ptp-domain-number {
+      type int16;
+      default "-1";
+      description
+        "The PTP domain number of the NE.";
+    }
+    leaf ptp-device-type {
+      type ptp-device-type;
+      default "PTP_DEVICE_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "Three PTP device types are included: boundary clock (BC), transparent clock (TC), and ordinary clock (OC).";
+    }
+    leaf ptp-slave-only {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicate whether the NE can only be used as PTP slave or not.";
+    }
+    container ptp-source-dataset {
+      config false;
+      uses ptp-source-dataset;
+      description
+        "The PTP status dataset of current tracing source:.";
+    }
+    container ptp-default-dataset {
+      uses ptp-default-dataset;
+      description
+        "The PTP status dataset of internal clock of the NE ";
+    }
+    leaf ptp-local-clock-identity {
+      type clock-identity;
+      default "00:00:00:00:00:00:00:00";
+      config false;
+      description
+        "Identifier of the “physical” clock";
+    }
+    leaf-list ptp-profiles-supported {
+      type ptp-profiles;
+      default "PTP_PROFILES_NOT_YET_DEFINED";
+      config false;
+      description
+        "The PTP profiles that the clock supports";
+    }
+    leaf active-profile {
+      type ptp-profiles;
+      default "PTP_PROFILES_NOT_YET_DEFINED";
+      description
+        "The profile currently in use: Must be in the list of supported profiles";
+    }
+    container ptp-transparent-clock-default-dataset {
+      uses ptp-transparent-clock-default-dataset;
+      description
+        "The PTP status dataset of internal transparent clock of the NE.";
+    }
+    leaf bmca-is-on {
+      type boolean;
+      default "true";
+      description
+        "true = the Best Master Clock Algorithm (BMCA) is activated and is automatically configuring the role of the PTP ports.";
+    }
+    leaf disabling-bmca-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "true = the device supports deactivating the Best Master Clock Algorithm (BMCA).";
+    }
+    description
+      "Conditional package for Time Sync Clock";
+  }
+
+  grouping synch-ltp-spec {
+    description
+      "none";
+  }
+
+  grouping sync-lp-spec {
+    leaf configuration-of-external-clock-port-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "If true, the externalClockPort attribute allows to configure the type of synch port.";
+    }
+    leaf managing-sent-ssm-code-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "If false, managing the SSM Information on the transmit direction (represented by the sentSsmInformation, sentSsmMode and sentSsmConfigurationValue attributes) is not supported by the device.";
+    }
+    leaf external-clock-port {
+      type boolean;
+      default "false";
+      description
+        "Defines whether the clock port is accessible from external of the device. The externalClockPort attribute is indicating the synch port to be either of type 2MHz/2Mbit (if true) or traffic port (if false).";
+    }
+    leaf ssm-information {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      config false;
+      description
+        "SSM quality level that is currently received at the port (if ssmMode==automatic) or manually configured in ssmConfigurationValue (if ssmMode==manual).";
+    }
+    leaf ssm-mode {
+      type ssm-mode-type;
+      default "SSM_MODE_TYPE_NOT_YET_DEFINED";
+      description
+        "If configured to manual, the received SSM quality level is overwritten by the locally configured ssmConfigurationValue.";
+    }
+    leaf ssm-configuration-value {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      description
+        "The SSM quality level manually set on the input, if ssmMode configured to be manual.";
+    }
+    leaf sent-ssm-information {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      config false;
+      description
+        "SSM quality level currently sent at the port.";
+    }
+    leaf sent-ssm-mode {
+      type ssm-mode-type;
+      default "SSM_MODE_TYPE_NOT_YET_DEFINED";
+      description
+        "If configured to manual, the locally configured sentSsmConfigurationValue is sent as SSM quality level.";
+    }
+    leaf sent-ssm-configuration-value {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      description
+        "Value that is sent as SSM quality level, if sentSsmMode is configured to be manual.";
+    }
+    description
+      "none";
+  }
+
+  grouping ssm-external-clock-pac {
+    leaf external-port-enable-status {
+      type boolean;
+      default "false";
+      description
+        "Indicate whether to enable this external port or not.";
+    }
+    leaf bits-type-configuration-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "True, if the device is supporting configuring the signal type (bitsType) on this individual interface.";
+    }
+    leaf bits-type {
+      type bits-type;
+      default "BITS_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "The type of this port, such as 2048kb/s or 2048kHz.";
+    }
+    leaf configured-bits-type {
+      type bits-type;
+      default "BITS_TYPE_NOT_YET_DEFINED";
+      description
+        "Value of the signal type (bitsType) configured for this interface.";
+    }
+    leaf ssm-sa-bit-configuration-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "True, if the device is supporting configuring the SsmSa-Bit on this individual interface.";
+    }
+    leaf-list ssm-sa-bit {
+      type int16;
+      default "-1";
+      description
+        "Indicate which sa-bit bits are used for carrying input and output SSM quality levels. The port should have sa-bit bits for input and output respectively. 4 bit value 0000 – 1111. Mapping table available on G.8265.1.
+           ";
+    }
+    leaf-list operational-ssm-sa-bit {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Value of the SsmSa-Bit actually effective on this interface and direction.";
+    }
+    leaf ssm-out-threshold {
+      type clock-quality-level;
+      default "CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED";
+      description
+        "The external port stops transmitting when the SSM quality level is lower than the threshold.";
+    }
+    description
+      "none";
+  }
+
+  grouping ssm-in-band-pac {
+    leaf ssm-output-enable-status {
+      type boolean;
+      default "false";
+      description
+        "Indicate whether to send SSM messages or not.";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-lp-spec {
+    container one-pps-plus-tod-pac {
+      status deprecated;
+      uses one-pps-plus-tod-pac;
+      description
+        "none";
+    }
+    container ptp-in-band-pac {
+      uses ptp-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-pac {
+    leaf ptp-port-enable-status {
+      type boolean;
+      default "false";
+      description
+        "Indicate whether to enable this PTP port or not.";
+    }
+    leaf ptp-port-state {
+      type ptp-port-state;
+      default "PTP_PORT_STATE_NOT_YET_DEFINED";
+      config false;
+      description
+        "The current PTP state of the PTP port, such as master, slave, passive, initializing, listening, premaster, uncalibrated, and faulty.";
+    }
+    leaf ptp-two-step-flag {
+      type ptp-clock-step;
+      default "PTP_CLOCK_STEP_NOT_YET_DEFINED";
+      config false;
+      description
+        "Indicate whether one-step or two-step mechanism is adopted.";
+    }
+    leaf ptp-asymmetry-correction-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "true = Asymmetry correction is supported at this interface.";
+    }
+    leaf ptp-asymmetry-correction {
+      type int32;
+      units "ns";
+      default "-2147483648";
+      description
+        "The asymmetry correction value of this PTP port.";
+    }
+    leaf ptp-asymmetry-correction-on-input-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "true = This interface supports unidirectional configuration of asymmetry correction for the input direction.";
+    }
+    leaf ptp-asymmetry-correction-on-input {
+      type int32;
+      units "ns";
+      default "-2147483648";
+      description
+        "The unidirectional asymmetry correction value on the input direction of this PTP port.";
+    }
+    leaf ptp-asymmetry-correction-on-output-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "true = This interface supports unidirectional configuration of asymmetry correction for the output direction.";
+    }
+    leaf ptp-asymmetry-correction-on-output {
+      type int32;
+      units "ns";
+      default "-2147483648";
+      description
+        "The unidirectional asymmetry correction value on the output direction of this PTP port.";
+    }
+    container ptp-udp-egress-configuration {
+      uses ptp-udp-encapsulation;
+      description
+        "The configuration of PTP UDP encapsulation, including destination IP address and IPv4/IPv6 protocol.";
+    }
+    container ptp-mac-egress-configuration {
+      uses ptp-mac-encapsulation;
+      description
+        "The configuration of PTP MAC encapsulation, including destination MAC address and VLAN configuration.";
+    }
+    leaf ptp-log-announce-interval {
+      type int8;
+      units "ms";
+      default "-99";
+      description
+        "The sending interval of PTP announce message. Uses log base 2 values. This value belongs to the exponent 0 – 4 (IEEE1588v2), 0 – 6 (IEEE 802.1AS).";
+    }
+    leaf ptp-announce-receipt-timeout {
+      type int8;
+      default "-1";
+      description
+        "It is used for fault detection of PTP announce messages. The expected value should be in the range 2 to 10.";
+    }
+    leaf ptp-log-sync-interval {
+      type int8;
+      units "s";
+      default "-99";
+      description
+        "The sending interval of PTP Sync message. Uses log base 2 values. This value belongs to the exponent -1 - +1 (IEEE1588v2), -4 - +6 (IEEE 802.1AS).";
+    }
+    leaf ptp-log-min-delay-req-interval {
+      type int8;
+      units "ms";
+      default "-99";
+      description
+        "The sending interval of PTP Delay_req message. Uses log base 2 values. This value belongs to the exponent -4 to 5.";
+    }
+    leaf ptp-master-only {
+      type boolean;
+      default "false";
+      description
+        "The per-port attribute masterOnly";
+    }
+    leaf ptp-local-priority {
+      type uint8;
+      default "0";
+      description
+        "The per-port attribute localPriority. Range of values according to ITU-T G.8275.1 and ITU-T G.8275.2 : 1 - 255.";
+    }
+    leaf is-sf {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicate whether the clock generate a state decision event by a PTSF or not.";
+    }
+    leaf ptp-static-port-role {
+      type ptp-port-config;
+      default "PTP_PORT_CONFIG_NOT_YET_DEFINED";
+      description
+        "Allows to manually configure the role of the PTP port, when the Best Master Clock Algorithm (BMCA) is deactivated.";
+    }
+    description
+      "none";
+  }
+
+  grouping one-pps-plus-tod-pac {
+    leaf external-time-port-status {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicate whether this external time port is used as an input or output port.";
+    }
+    container external-time-port-dataset {
+      uses external-time-port-dataset;
+      description
+        "The status dataset of this port";
+    }
+    leaf ptp-asymmetry-correction {
+      type int32;
+      units "ns";
+      default "-2147483648";
+      description
+        "The delay compensation value of this external port.";
+    }
+    description
+      "none";
+  }
+
+  grouping one-pps-lp-spec {
+    container one-pps-pac {
+      uses one-pps-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping one-pps-pac {
+    leaf deactivating-one-pps-interface-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "If true, the device supports deactivating the one pulse per second interface.";
+    }
+    leaf deactivating-time-offset-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "If true, the device supports deactivating the delay compensation on this one pulse per second interface.";
+    }
+    leaf operational-direction-of-one-pps-port {
+      type core-model:port-direction;
+      config false;
+      mandatory true;
+      description
+        "Indicates whether this one pulse per second interface is used as an input or output port.";
+    }
+    leaf one-pps-interface-is-on {
+      type boolean;
+      default "true";
+      description
+        "If true, the one pulse per second interface is activated.";
+    }
+    leaf time-offset-is-on {
+      type boolean;
+      default "true";
+      description
+        "If true, the delay compensation is activated on this one pulse per second interface.";
+    }
+    leaf time-offset {
+      type int32;
+      units "ns";
+      default "-2147483648";
+      description
+        "The delay compensation value of this one pulse per second interface.";
+    }
+    description
+      "none";
+  }
+
+  grouping tod-lp-spec {
+    container tod-pac {
+      uses tod-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping tod-pac {
+    leaf deactivating-tod-interface-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "If true, the device supports deactivating the time of day interface.";
+    }
+    leaf-list supported-tod-frame-format-list {
+      type tod-frame-format-type;
+      default "TOD_FRAME_FORMAT_TYPE_NOT_YET_DEFINED";
+      config false;
+      description
+        "List of ToD frame formats supported by the device.";
+    }
+    leaf operational-direction-of-tod-port {
+      type core-model:port-direction;
+      config false;
+      mandatory true;
+      description
+        "Indicates whether this time of day interface is used as an input or output port.";
+    }
+    leaf tod-interface-is-on {
+      type boolean;
+      default "true";
+      description
+        "If true, the time of day interface is activated.";
+    }
+    container external-time-port-dataset {
+      uses external-time-port-dataset;
+      description
+        "The status dataset of this port.";
+    }
+    leaf time-offset {
+      type int32;
+      units "us";
+      default "-2147483648";
+      description
+        "The delay compensation value of this time of day interface.";
+    }
+    leaf tod-frame-format {
+      type tod-frame-format-type;
+      default "TOD_FRAME_FORMAT_TYPE_NOT_YET_DEFINED";
+      description
+        "Format of the ToD frames as they are received and sent.";
+    }
+    leaf interface-speed {
+      type int32;
+      units "us";
+      default "-1";
+      description
+        "Baud rate used for transmitting the time of day information on the interface.";
+    }
+    description
+      "none";
+  }
+
+  grouping sync-protection-spec {
+    leaf current-source-port {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+        require-instance false;
+      }
+      config false;
+      description
+        "The ID of the port traced by the system clock currently.";
+    }
+    leaf-list system-clock-source-priority-list {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+        require-instance false;
+      }
+      description
+        "The list is used to select clock port. It is composed of clock port IDs in the order of priorities.";
+    }
+    leaf ssm-enable-status {
+      type boolean;
+      default "false";
+      status Experimental;
+      description
+        "In automatic reference selection process, if SSM is enabled, the selection of clock source is performed based on SSM and priority; otherwise the selection depends on priority only.";
+    }
+    leaf unk-status {
+      type boolean;
+      default "false";
+      status Experimental;
+      description
+        "Indicate whether to take UNK as one of the SSM quality levels or not. If UNK is enabled, its level lies between PRC and SSU_T; otherwise it is taken as DNU.";
+    }
+    leaf-list external-clock-source-priority-list {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+        require-instance false;
+      }
+      config false;
+      description
+        "none";
+    }
+    leaf-list system-clock-source-priority-list {
+      type string;
+      description
+        "The list defines the rank of the individual clock ports.";
+    }
+    description
+      "Sync protection schema parameters spec for ControlParameter_Pac of C&SC. The Synchronization protection model follows the concepts and models of the ONF-CoreModel. The Synchronization Protection Specification class extends the CoreModel:ControlParameters_Pac with synchronization specific parameters. The CoreModel defines for protection cases a forwarding-construct (FC) with a forwarding-construct-switch (FC-Switch) object class. The FC-Switch object class directly within the FC is main scope of the synchronization protection of Microwave devices. Therefore, the ConfiguationAndSwitchControl list (C&SC) is out of scope of this specification and does not need to be implemented. The FC defines pointers (FC-Port) to the participants of the synchronization protection – mainly to the logical termination point (LTP) representing the optional clock sources. The currently selected clock source parameter of the SyncProtectionSpec object class points also to an LTP, if the selection process is not failing. In case the selection process has failed the currently selected clock parameter must not be exposed in the management interface.";
+  }
+
+  grouping sync-fc-port-spec {
+    leaf-list sync-ltps-available-for-connecting {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+        require-instance false;
+      }
+      config false;
+      description
+        "Sub-group of synchronization LTPs that are available for being connected by this FcPort. Empty list (equals the attribute not existing on the NETCONF interface) means that all synchronization LTPs referenced by the ForwardingDomain are also available for being connected by this FcPort.";
+    }
+    leaf synchronization-source-priority {
+      type string;
+      default "-1";
+      config false;
+      description
+        "Configurable priority of a source. Values are to be interpreted in accordance with the definitions made in chapter 5.10 of ITU-T Rec. G781.";
+    }
+    leaf ssm-based-clock-direction-is-avail {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "If true, the device supports the clock direction being determined by SSM protocol, if enabled by ssmBasedClockDirectionIsOn attribute.";
+    }
+    leaf ssm-based-clock-direction-is-on {
+      type boolean;
+      default "false";
+      description
+        "If true, this parameter allows the clock direction on the 1Gbit/s electrical interface to be automatically chosen by the SSM protocol to avoid loops.";
+    }
+    description
+      "none";
+  }
+
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
+  typedef clock-quality-level {
+    type identityref {
+      base CLOCK_QUALITY_LEVEL;
+    }
+    description
+      "Use the clock quality levels listed in section 5.4.1 of G.781 (08/2017). The corresponding SSM codes and enhanced SSM codes for SyncE refer to table 11-7 and table 11-8 of G.8264 (08/2017)";
+  }
+
+  typedef ptp-device-type {
+    type identityref {
+      base PTP_DEVICE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef ptp-port-state {
+    type identityref {
+      base PTP_PORT_STATE;
+    }
+    description
+      "none";
+  }
+
+  typedef ptp-port-config {
+    type identityref {
+      base PTP_PORT_CONFIG;
+    }
+    description
+      "none";
+  }
+
+  typedef ptp-clock-step {
+    type identityref {
+      base PTP_CLOCK_STEP;
+    }
+    description
+      "none";
+  }
+
+  typedef packet-freq-sync-profiles-enabler {
+    type identityref {
+      base PACKET_FREQ_SYNC_PROFILES_ENABLER;
+    }
+    description
+      "none";
+  }
+
+  typedef ptp-profiles {
+    type identityref {
+      base PTP_PROFILES;
+    }
+    description
+      "none";
+  }
+
+  typedef bits-type {
+    type identityref {
+      base BITS_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef ptp-multicast-addresses {
+    type identityref {
+      base PTP_MULTICAST_ADDRESSES;
+    }
+    description
+      "none";
+  }
+
+  typedef time-sync-profiles-enabler {
+    type identityref {
+      base TIME_SYNC_PROFILES_ENABLER;
+    }
+    description
+      "none";
+  }
+
+  typedef ssm-mode-type {
+    type identityref {
+      base SSM_MODE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef ip-protocol-type {
+    type identityref {
+      base IP_PROTOCOL_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef tod-frame-format-type {
+    type identityref {
+      base TOD_FRAME_FORMAT_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef time-sync-profiles {
+    type identityref {
+      base TIME_SYNC_PROFILES;
+    }
+    description
+      "none";
+  }
+
+  typedef packet-freq-sync-profiles {
+    type identityref {
+      base PACKET_FREQ_SYNC_PROFILES;
+    }
+    description
+      "none";
+  }
+
+  typedef clock-identity {
+    type string;
+    description
+      "type string { pattern '[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){7}'; } . The clock identity type represents an IEEE EUI 64 address.";
+  }
+
+  typedef ieee-eui-64 {
+    type string;
+    description
+      "none";
+  }
+
+  typedef delay-mechanism-type {
+    type identityref {
+      base DELAY_MECHANISM_TYPE;
+    }
+    description
+      "none";
+  }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
+
+  identity CLOCK_QUALITY_LEVEL {
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_PRC {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_SSU_A {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_SSU_B {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_EEC1 {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_DNU {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_PRTC {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_ePRTC {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_eEEC {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_PRS {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_STU {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_ST2 {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_TNC {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_ST3E {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_ST3 {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_EEC2 {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_PROV {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_QL_DUS {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity CLOCK_QUALITY_LEVEL_NOT_YET_DEFINED {
+    base CLOCK_QUALITY_LEVEL;
+    description
+      "none";
+  }
+
+  identity PTP_DEVICE_TYPE {
+    description
+      "none";
+  }
+
+  identity PTP_DEVICE_TYPE_BOUNDARY_CLOCK {
+    base PTP_DEVICE_TYPE;
+    description
+      "none";
+  }
+
+  identity PTP_DEVICE_TYPE_TRANSPARENT_CLOCK {
+    base PTP_DEVICE_TYPE;
+    description
+      "none";
+  }
+
+  identity PTP_DEVICE_TYPE_ORDINARY_CLOCK {
+    base PTP_DEVICE_TYPE;
+    description
+      "none";
+  }
+
+  identity PTP_DEVICE_TYPE_NOT_YET_DEFINED {
+    base PTP_DEVICE_TYPE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE {
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_MASTER {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_SLAVE {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_PASSIVE {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_INITIALIZING {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_LISTENING {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_PREMASTER {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_UNCALIBRATED {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_FAULTY {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_DISABLED {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_STATE_NOT_YET_DEFINED {
+    base PTP_PORT_STATE;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_CONFIG {
+    description
+      "none";
+  }
+
+  identity PTP_PORT_CONFIG_MASTER {
+    base PTP_PORT_CONFIG;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_CONFIG_SLAVE {
+    base PTP_PORT_CONFIG;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_CONFIG_PASSIVE {
+    base PTP_PORT_CONFIG;
+    description
+      "none";
+  }
+
+  identity PTP_PORT_CONFIG_NOT_YET_DEFINED {
+    base PTP_PORT_CONFIG;
+    description
+      "none";
+  }
+
+  identity PTP_CLOCK_STEP {
+    description
+      "none";
+  }
+
+  identity PTP_CLOCK_STEP_ONE_STEP {
+    base PTP_CLOCK_STEP;
+    description
+      "none";
+  }
+
+  identity PTP_CLOCK_STEP_TWO_STEP {
+    base PTP_CLOCK_STEP;
+    description
+      "none";
+  }
+
+  identity PTP_CLOCK_STEP_NOT_YET_DEFINED {
+    base PTP_CLOCK_STEP;
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_ENABLER {
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_ENABLER_ENABLE_G.8265.1 {
+    base PACKET_FREQ_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_ENABLER_ENABLE_G.8275.2 {
+    base PACKET_FREQ_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_ENABLER_DISABLE {
+    base PACKET_FREQ_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity PTP_PROFILES {
+    description
+      "none";
+  }
+
+  identity PTP_PROFILES_G.8265.1 {
+    base PTP_PROFILES;
+    description
+      "none";
+  }
+
+  identity PTP_PROFILES_G.8275.1 {
+    base PTP_PROFILES;
+    description
+      "none";
+  }
+
+  identity PTP_PROFILES_G.8275.2 {
+    base PTP_PROFILES;
+    description
+      "none";
+  }
+
+  identity PTP_PROFILES_IEEE1588 {
+    base PTP_PROFILES;
+    description
+      "IEEE1588 default profile according to annex J.";
+  }
+
+  identity PTP_PROFILES_NOT_YET_DEFINED {
+    base PTP_PROFILES;
+    description
+      "none";
+  }
+
+  identity BITS_TYPE {
+    description
+      "none";
+  }
+
+  identity BITS_TYPE_KBPS {
+    base BITS_TYPE;
+    description
+      "none";
+  }
+
+  identity BITS_TYPE_KHZ {
+    base BITS_TYPE;
+    description
+      "none";
+  }
+
+  identity BITS_TYPE_NOT_YET_DEFINED {
+    base BITS_TYPE;
+    description
+      "none";
+  }
+
+  identity PTP_MULTICAST_ADDRESSES {
+    description
+      "none";
+  }
+
+  identity PTP_MULTICAST_ADDRESSES_01-80-C2-00-00-0E {
+    base PTP_MULTICAST_ADDRESSES;
+    description
+      "Frames get dropped at intermediate switches.";
+  }
+
+  identity PTP_MULTICAST_ADDRESSES_01-1B-19-00-00-00 {
+    base PTP_MULTICAST_ADDRESSES;
+    description
+      "Frames get forwarded at intermediate switches.";
+  }
+
+  identity PTP_MULTICAST_ADDRESSES_00-00-00-00-00-00 {
+    base PTP_MULTICAST_ADDRESSES;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_ENABLER {
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_ENABLER_ENABLE_G.8275.1 {
+    base TIME_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_ENABLER_ENABLE_G.8275.2 {
+    base TIME_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_ENABLER_ENABLE_IEEE1588 {
+    base TIME_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_ENABLER_DISABLE {
+    base TIME_SYNC_PROFILES_ENABLER;
+    description
+      "none";
+  }
+
+  identity SSM_MODE_TYPE {
+    description
+      "none";
+  }
+
+  identity SSM_MODE_TYPE_MANUAL {
+    base SSM_MODE_TYPE;
+    description
+      "none";
+  }
+
+  identity SSM_MODE_TYPE_AUTOMATIC {
+    base SSM_MODE_TYPE;
+    description
+      "none";
+  }
+
+  identity SSM_MODE_TYPE_NOT_YET_DEFINED {
+    base SSM_MODE_TYPE;
+    description
+      "none";
+  }
+
+  identity IP_PROTOCOL_TYPE {
+    description
+      "none";
+  }
+
+  identity IP_PROTOCOL_TYPE_IPV4 {
+    base IP_PROTOCOL_TYPE;
+    description
+      "none";
+  }
+
+  identity IP_PROTOCOL_TYPE_IPV6 {
+    base IP_PROTOCOL_TYPE;
+    description
+      "none";
+  }
+
+  identity IP_PROTOCOL_TYPE_NOT_YET_DEFINED {
+    base IP_PROTOCOL_TYPE;
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE {
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE_G.8271 {
+    base TOD_FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE_ISO8601 {
+    base TOD_FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE_NMEAZDA {
+    base TOD_FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE_CHINA_MOBILE {
+    base TOD_FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE_CHINA_TELECOM {
+    base TOD_FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity TOD_FRAME_FORMAT_TYPE_NOT_YET_DEFINED {
+    base TOD_FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES {
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_G.8275.1 {
+    base TIME_SYNC_PROFILES;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_G.8275.2 {
+    base TIME_SYNC_PROFILES;
+    description
+      "none";
+  }
+
+  identity TIME_SYNC_PROFILES_IEEE1588 {
+    base TIME_SYNC_PROFILES;
+    description
+      "IEEE1588 default profile according to annex J.";
+  }
+
+  identity TIME_SYNC_PROFILES_NOT_YET_DEFINED {
+    base TIME_SYNC_PROFILES;
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES {
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_G.8265.1 {
+    base PACKET_FREQ_SYNC_PROFILES;
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_G.8275.2 {
+    base PACKET_FREQ_SYNC_PROFILES;
+    description
+      "none";
+  }
+
+  identity PACKET_FREQ_SYNC_PROFILES_NOT_YET_DEFINED {
+    base PACKET_FREQ_SYNC_PROFILES;
+    description
+      "none";
+  }
+
+  identity DELAY_MECHANISM_TYPE {
+    description
+      "none";
+  }
+
+  identity DELAY_MECHANISM_TYPE_E2E {
+    base DELAY_MECHANISM_TYPE;
+    description
+      "Clock is an end-to-end transparent clock.";
+  }
+
+  identity DELAY_MECHANISM_TYPE_P2P {
+    base DELAY_MECHANISM_TYPE;
+    description
+      "Clock is a peer-to-peer transparent clock.";
+  }
+
+  identity DELAY_MECHANISM_TYPE_COMMON_P2P {
+    base DELAY_MECHANISM_TYPE;
+    description
+      "PTP port is configured to use the Common Mean Link Delay Service option.";
+  }
+
+  identity DELAY_MECHANISM_TYPE_NO_MECHANISM {
+    base DELAY_MECHANISM_TYPE;
+    description
+      "Clock is not implementing any delay mechanism.";
+  }
+
+  identity DELAY_MECHANISM_TYPE_NOT_YET_DEFINED {
+    base DELAY_MECHANISM_TYPE;
+    description
+      "none";
+  }
+
+  grouping ptp-source-dataset {
+    leaf grand-master-identity {
+      type clock-identity;
+      default "00:00:00:00:00:00:00:00";
+      config false;
+      description
+        "none";
+    }
+    leaf parent-clock-identity {
+      type clock-identity;
+      default "00:00:00:00:00:00:00:00";
+      config false;
+      description
+        "none";
+    }
+    leaf priority-1 {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "Value range according to IEEE1588 chapter 7.6.2.2 : 0 - 255.";
+    }
+    leaf priority-2 {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "Value range according to IEEE1588 chapter 7.6.2.3 : 0 - 255.";
+    }
+    leaf clock-class {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "Values to interpreted according to IEEE1588 chapter 7.6.2.4.";
+    }
+    leaf clock-accuracy {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "Two digit hex number with mapping according to table in IEEE1588 chapter 7.6.2.5 table 6.";
+    }
+    leaf offset-scaled-log-variance {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Two digit hex number with mapping according to table in IEEE1588 chapter 7.6.3.2. Values range from 0 to 65535.";
+    }
+    leaf time-source {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Values to be interpreted according to table 7 in section 7.6.2.6 of IEEE 1588-2008.";
+    }
+    leaf steps-removed {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "none";
+    }
+    leaf current-utc-offset {
+      type int32;
+      units "s";
+      default "-99999";
+      config false;
+      description
+        "Value range according to IEEE1588 section 8.2.4.2: -32768 to +32767";
+    }
+    leaf ptp-time-scale {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "none";
+    }
+    leaf time-traceable {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "none";
+    }
+    leaf frequency-traceable {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "none";
+    }
+    leaf ieee-1588-protocol-version {
+      type int8;
+      default "-1";
+      config false;
+      description
+        "Major version of the IEEE 1588 protocol. IEEE 1588-2008 and IEEE 1588-2019 would be represented by 2.";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-default-dataset {
+    leaf priority-1 {
+      type int16;
+      default "-1";
+      description
+        "Value range according to IEEE1588 chapter 7.6.2.2 : 0 - 255.";
+    }
+    leaf priority-2 {
+      type int16;
+      default "-1";
+      description
+        "Value range according to IEEE1588 chapter 7.6.2.3 : 0 - 255.";
+    }
+    leaf clock-class {
+      type int16;
+      default "-1";
+      description
+        "Values to interpreted according to IEEE1588 chapter 7.6.2.4.";
+    }
+    leaf clock-accuracy {
+      type int16;
+      default "-1";
+      description
+        "Two digit hex number with mapping according to table in IEEE1588 chapter 7.6.2.5 table 6.";
+    }
+    leaf offset-scaled-log-variance {
+      type int32;
+      default "-1";
+      description
+        "Two digit hex number with mapping according to table in IEEE1588 chapter 7.6.3.2. Values range from 0 to 65535.";
+    }
+    leaf max-steps-removed {
+      type int16;
+      default "-1";
+      description
+        "none";
+    }
+    leaf ieee-1588-protocol-version {
+      type int8;
+      default "-1";
+      config false;
+      description
+        "Major version of the IEEE 1588 protocol. IEEE 1588-2008 and IEEE 1588-2019 would be represented by 2.";
+    }
+    leaf local-priority {
+      type uint8;
+      default "0";
+      description
+        "Value range according to ITU-T G.8275.1 chapter 6.3.1.: 1 to 255";
+    }
+    leaf is-sf {
+      type boolean;
+      default "false";
+      config false;
+      description
+        "Indicate whether the clock generate a state decision event by a PTSF or not.";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-mac-encapsulation {
+    leaf destination-mac-address {
+      type ptp-multicast-addresses;
+      default "PTP_MULTICAST_ADDRESSES_00-00-00-00-00-00";
+      description
+        "The destinationMacAddress attribute defines the destination mac address, which is attached to the PTP packet, while it gets handed over to the Ethernet MAC Layer for being transmitted. According to ITU-T G8275.1 section 6.2.6 and Appendix III and IEEE 1588-2008 F.3, one out of two multicast addresses can be chosen. The two addresses differ by behavior on intermediate switches, which do not operate PTP. Frames with 01-80-C2-00-00-0E may get dropped at intermediate switches. Frames with 01-1B-19-00-00-00 get forwarded.";
+    }
+    leaf vlan-id {
+      type int16;
+      default "-1";
+      description
+        "If set on values between 1 and 4094, PTP frames get amended by a VLAN header including the chosen VLAN ID.";
+    }
+    leaf priority {
+      type int8;
+      default "-1";
+      description
+        "p-bit setting at the Ethernet frames for transporting the PTP messages.";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-udp-encapsulation {
+    leaf destination-ip-address {
+      type string;
+      default "0.0.0.0";
+      description
+        "ITU-T G8265.1 and G8275.2 are defining unicast transport via UDP over IP, which requires the destinationIpAddress attribute to define the IP address of the master clock.";
+    }
+    leaf ip-protocol-type {
+      type ip-protocol-type;
+      default "IP_PROTOCOL_TYPE_NOT_YET_DEFINED";
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping external-time-port-dataset {
+    leaf grand-master-identity {
+      type clock-identity;
+      default "00:00:00:00:00:00:00:00";
+      description
+        "none";
+    }
+    leaf priority-1 {
+      type int16;
+      default "-1";
+      description
+        "Value range according to IEEE1588 chapter 7.6.2.2 : 0 - 255.";
+    }
+    leaf priority-2 {
+      type int16;
+      default "-1";
+      description
+        "Value range according to IEEE1588 chapter 7.6.2.3 : 0 - 255.";
+    }
+    leaf clock-class {
+      type int16;
+      default "-1";
+      description
+        "Values to interpreted according to IEEE1588 chapter 7.6.2.4.";
+    }
+    leaf clock-accuracy {
+      type int16;
+      default "-1";
+      description
+        "Two digit hex number with mapping according to table in IEEE1588 chapter 7.6.2.5 table 6.";
+    }
+    leaf offset-scaled-log-variance {
+      type int32;
+      default "-1";
+      description
+        "Two digit hex number with mapping according to table in IEEE1588 chapter 7.6.3.2. Values range from 0 to 65535.";
+    }
+    leaf time-source {
+      type int16;
+      default "-1";
+      description
+        "Values to be set according to table 7 in section 7.6.2.6 of IEEE 1588-2008.";
+    }
+    leaf steps-removed {
+      type int16;
+      default "-1";
+      description
+        "none";
+    }
+    leaf current-utc-offset {
+      type int32;
+      units "s";
+      default "-99999";
+      description
+        "Value range: -32768 to +32767";
+    }
+    description
+      "none";
+  }
+
+  grouping ptp-transparent-clock-default-dataset {
+    leaf number-ports {
+      type int8;
+      default "-1";
+      description
+        "Number of PTP ports of the device.";
+    }
+    leaf delay-mechanism {
+      type delay-mechanism-type;
+      default "DELAY_MECHANISM_TYPE_NOT_YET_DEFINED";
+      description
+        "none";
+    }
+    leaf primary-domain {
+      type int16;
+      default "-1";
+      description
+        "DomainNumber of the primary syntonization domain";
+    }
+    description
+      "none";
+  }
+
+  /****************************************
+   * package interfaces
+   **************************************/ 
+
+  rpc create-synchronization-fc-port {
+    description
+      "Adds a Synchronization interface to an already existing Selector (SynchronizationFc). The references of the Selector (SynchronizationFc) and the to be connected Synchronization interface must be provided as input. The following error-messages are to be send, if the operation would fail: #[onf:Referenced object is invalid.]#, if the referenced ForwardingConstruct or LogicalTerminationPoint does not exist or does not belong to the Synchronization layer. #[onf:Synchronization interface cannot be added.]#, if the referenced Synchronization interface cannot be added to the referenced Selector (SynchronizationFc).";
+    input {
+      leaf affected-synchronization-fc {
+        type leafref {
+          path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference of the Selector (SynchronizationFc), which shall connect the additional Synchronization interface (LTP).";
+      }
+      leaf associated-synchronization-interface {
+        type leafref {
+          path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference of the Synchronization interface (LTP), which shall be connected with the Selector (SynchronizationFc).";
+      }
+      leaf fc-port-direction {
+        type string;
+        mandatory true;
+        description
+          "INPUT is identifying a source of the Synchronization signal. OUTPUT is identifying either an external connector, or this network element's clock or an internal reference point between Selectors.";
+      }
+      leaf synchronization-source-priority {
+        type string;
+        description
+          "Only relevant, if fcPortDirection==INPUT. Configurable priority of a source. Values will be transferred into synchronizationSourcePriority attribute at the FcPort object at an FordwardingConstruct with layerProtocolName == LAYER_PROTOCOL_NAME_TYPE_SYNCHRONIZATION_LAYER.";
+      }
+    }
+    output {
+      leaf created-synchronization-fc-port {
+        type string;
+        mandatory true;
+        description
+          "localId of the SynchronizationFcPort (either newly created or already existing) that is connecting the Synchronization interface (LTP) with the Selector (SynchronizationFc).";
+      }
+    }
+  }
+
+  rpc delete-synchronization-fc-port {
+    description
+      "Removes a Synchronization interface (LTP) from an existing Selector (SynchronizationFc). References to the Selector (SynchronizationFc) and the to be disconnected Synchronization interface (LTP) must be provided as input. The following error-messages are to be send, if the operation would fail: #[onf:Referenced object is invalid.]#, if the referenced ForwardingConstruct or LogicalTerminationPoint does not exist or does not belong to the Synchronization layer. #[onf:Synchronization interface cannot be disconnected.]#, if the referenced Synchronization interface (LTP) cannot be removed from the referenced Selector (SynchronizationFc).";
+    input {
+      leaf affected-synchronization-fc {
+        type leafref {
+          path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference to the Selector (SynchronizationFc), which shall no longer be connected with the Synchronization interface (LTP), which is also provided as input.";
+      }
+      leaf obsolete-synchronization-interface {
+        type leafref {
+          path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference to the Synchronization interface (LTP), which shall no longer be connected with the Selector (SynchronizationFc), which is also provided as input.";
+      }
+    }
+  }
+
+  rpc create-ptp-ltp {
+    description
+      "Adds a PTP interface to the device. The following error-messages are to be send, if the operation would fail: #[onf:Referenced object is invalid.]#, if the referenced LogicalTerminationPoint or Clock does not exist or does not belong to the EthernetContainer layer. #[onf:Resources not available.]#, if the PTP LTP cannot be created as the maximum number of PTP interfaces already exists. #[onf:PTP interface cannot be provided.]#, if the PTP LTP does not already exist and cannot be created.";
+    input {
+      leaf serving-ltp {
+        type leafref {
+          path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference to the server layer LTP.";
+      }
+      leaf ptp-clock {
+        type leafref {
+          path "/core-model:control-construct/synchronization:clock-collection/synchronization:clock/synchronization:local-id";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference to the PTP clock.";
+      }
+    }
+    output {
+      leaf created-ltp {
+        type leafref {
+          path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "UUID of the PTP LTP that has either been newly created or was already existing.";
+      }
+    }
+  }
+
+  rpc delete-ptp-ltp {
+    description
+      "Removes a PTP interface from the device. The following error-messages are to be send, if the operation would fail: #[onf:Referenced object is invalid.]#, if the referenced LogicalTerminationPoint does not belong to the PTP layer. #[onf:PTP interface cannot be disconnected.]#, if the referenced PTP interface (LTP) cannot be removed from the Clock.";
+    input {
+      leaf obsolete-ptp-ltp {
+        type leafref {
+          path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
+          require-instance false;
+        }
+        mandatory true;
+        description
+          "Reference to the PTP LTP, which shall no longer exist on the device.";
+      }
+    }
+  }
+}

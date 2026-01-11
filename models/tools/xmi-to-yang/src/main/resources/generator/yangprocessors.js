@@ -324,6 +324,10 @@ module.exports = {
                                                 console.log("**********inside embeddedClock*************");
 						console.log(yangPathStatement);
                                             }
+					  if(ele[i].attribute[j].name == "_encompassedClock"){
+                                                console.log("**********inside clock spec*************");
+                                                console.log(yangPathStatement);
+                                            }
 
 
                                             if (ele[i].attribute[j].nodeType === "list") {

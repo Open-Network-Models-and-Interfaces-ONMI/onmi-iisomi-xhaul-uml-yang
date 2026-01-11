@@ -90,6 +90,13 @@
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_3KRYoNMqEe-3wevFxQGGEQ" name="appliedDestinationUri" isUnique="false" direction="out">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_-nibcNMqEe-3wevFxQGGEQ" annotatedElement="_3KRYoNMqEe-3wevFxQGGEQ">
+              <body>URI applied for creating the backup file. Format:&lt;protocol>://&lt;host>[:port]/path/&lt;filename></body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <defaultValue xmi:type="uml:LiteralString" xmi:id="_3KRYodMqEe-3wevFxQGGEQ" value="applied URI unknown"/>
+          </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_uUTIcKCFEeyi8cb6Lz7T5A" name="restoreSystem">
           <ownedComment xmi:type="uml:Comment" xmi:id="_uUTIcaCFEeyi8cb6Lz7T5A" annotatedElement="_uUTIcKCFEeyi8cb6Lz7T5A">
@@ -183,6 +190,20 @@
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_dcIWwkybEe64nLsoFDD7kA"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jBewUNMoEe-3wevFxQGGEQ" name="filenameConfigurationIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jBewUdMoEe-3wevFxQGGEQ" annotatedElement="_jBewUNMoEe-3wevFxQGGEQ">
+            <body>If true, the device supports defining the name of the backup file during calling the backupSystem RPC.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_kx_EoNMoEe-3wevFxQGGEQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_QwhE8NMpEe-3wevFxQGGEQ" name="destinationIpConfigurationIsAvail" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_QwhE8dMpEe-3wevFxQGGEQ" annotatedElement="_QwhE8NMpEe-3wevFxQGGEQ">
+            <body>If true, the device supports defining the IP address of the server for saving the backup file during calling the backupSystem RPC.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_QwhE8tMpEe-3wevFxQGGEQ"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_ByR0AK9AEeyqeJ6qYKXeVQ" name="BackupAndRestoreConfiguration">
@@ -330,10 +351,11 @@
       <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:backup-and-restore" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines an extension to the ONF Core IM for managing backup and restore operations on the device." copyright="Copyright 2023 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:backup-and-restore" organization="openBackhaul.com proposal to Linux Foundation (LF)" description="This model defines an extension to the ONF Core IM for managing backup and restore operations on the device." copyright="Copyright 2025 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_g74fwL0cEemxAM_DWydfXQ" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="backupAndRestore@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_bi8j8OCaEeqMCqOBPciD4g" date="2023-10-05" version="1.0.0-tsp.231005.1145" description="Model for the Transport SDN Introduction at Telefonica." changeLog="https://github.com/openBackhaul/backupAndRestore/issues" reference="https://github.com/openBackhaul/backupAndRestore/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_pMfBwGLIEe60Kpxux3yqpw" date="2022-03-29" version="1.0.0-tsp.220329.1130" description="Model for the Transport SDN Introduction at Telefonica." changeLog="https://github.com/openBackhaul/backupAndRestore/issues" reference="https://github.com/openBackhaul/backupAndRestore/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_Ch5JcNMxEe-3wevFxQGGEQ" date="2025-01-15" version="1.0.1-ts.250115.1215" description="Model for the Transport SDN at Telefonica." changeLog="https://github.com/openBackhaul/backupAndRestore/issues" reference="https://github.com/openBackhaul/backupAndRestore/tree/ts: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsi: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_bi8j8OCaEeqMCqOBPciD4g" date="2023-10-05" version="1.0.0-tsi.231005.1145" description="Model for the Transport SDN Introduction at Telefonica." changeLog="https://github.com/openBackhaul/backupAndRestore/issues" reference="https://github.com/openBackhaul/backupAndRestore/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsi: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_pMfBwGLIEe60Kpxux3yqpw" date="2022-03-29" version="1.0.0-tsp.220329.1130" description="Model for the Transport SDN Introduction at Telefonica." changeLog="https://github.com/openBackhaul/backupAndRestore/issues" reference="https://github.com/openBackhaul/backupAndRestore/tree/tsi: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsi: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eTFVIFE6Eembl8KFq0LDlA" base_StructuralFeature="_eTEuFFE6Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eTF8MFE6Eembl8KFq0LDlA" base_Property="_eTEuFFE6Eembl8KFq0LDlA"/>
@@ -401,4 +423,9 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_IALbEFFHEe6fY9jSLnXHNw" base_Property="_IAKM8FFHEe6fY9jSLnXHNw" attributeValueChangeNotification="YES" bitLength="LENGTH_16_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_IAMpMFFHEe6fY9jSLnXHNw" base_StructuralFeature="_IAKM8FFHEe6fY9jSLnXHNw" unit="s"/>
   <OpenModel_Profile:Obsolete xmi:id="_jSHKgGLHEe60Kpxux3yqpw" base_Element="_g6Cf4GLHEe60Kpxux3yqpw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jBewUtMoEe-3wevFxQGGEQ" base_Property="_jBewUNMoEe-3wevFxQGGEQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jBhMkNMoEe-3wevFxQGGEQ" base_StructuralFeature="_jBewUNMoEe-3wevFxQGGEQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_QwhE89MpEe-3wevFxQGGEQ" base_Property="_QwhE8NMpEe-3wevFxQGGEQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_QwhsANMpEe-3wevFxQGGEQ" base_StructuralFeature="_QwhE8NMpEe-3wevFxQGGEQ" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelParameter xmi:id="_3KRYotMqEe-3wevFxQGGEQ" base_Parameter="_3KRYoNMqEe-3wevFxQGGEQ"/>
 </xmi:XMI>
